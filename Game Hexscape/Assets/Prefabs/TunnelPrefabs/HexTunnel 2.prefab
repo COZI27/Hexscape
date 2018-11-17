@@ -85,14 +85,41 @@ TrailRenderer:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0.002670288
-        value: 0.90621185
+        time: 0.04638672
+        value: 0.49752808
         inSlope: 0
         outSlope: 0
         tangentMode: 0
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.2863279
+        value: 0.8447684
+        inSlope: 3.1356077
+        outSlope: 3.1356077
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.14491448
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.32285228
+        value: 0.9910594
+        inSlope: -0.6432982
+        outSlope: -0.6432982
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.93879783
+        value: 0.05479452
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -236,7 +263,7 @@ MonoBehaviour:
   numberStart: 10000
   stepSize: 10
   maxIt: 10
-  useWobble: 1
+  useWobble: 0
   wobbleRange: 10
   wobbleMultiplier: 5
   useLerp: 0
