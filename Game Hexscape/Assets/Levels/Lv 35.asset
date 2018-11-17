@@ -1,0 +1,129 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c35618548d691fd46a6c9a9453445698, type: 3}
+  m_Name: Lv 35
+  m_EditorClassIdentifier: 
+  hexs:
+  - gridPos: {x: 0, y: 0}
+    hexPrefab: {fileID: 1436415072610088, guid: e04f12b346a75a74499da80fbdba3534,
+      type: 2}
+  - gridPos: {x: -1, y: 1}
+    hexPrefab: {fileID: 1344758161039898, guid: 024c3d14d1110b34cbf37f8a5c3a684a,
+      type: 2}
+  - gridPos: {x: -1, y: 2}
+    hexPrefab: {fileID: 1623918650698878, guid: 6c0e64695729c14449dab81a503d2937,
+      type: 2}
+  - gridPos: {x: -2, y: 3}
+    hexPrefab: {fileID: 1117482875744518, guid: fb9e043f6e535c94dbe71272211e15b7,
+      type: 2}
+  - gridPos: {x: 0, y: -1}
+    hexPrefab: {fileID: 1344758161039898, guid: 024c3d14d1110b34cbf37f8a5c3a684a,
+      type: 2}
+  - gridPos: {x: 1, y: -2}
+    hexPrefab: {fileID: 1623918650698878, guid: 6c0e64695729c14449dab81a503d2937,
+      type: 2}
+  - gridPos: {x: 1, y: -3}
+    hexPrefab: {fileID: 1117482875744518, guid: fb9e043f6e535c94dbe71272211e15b7,
+      type: 2}
+  - gridPos: {x: 0, y: 1}
+    hexPrefab: {fileID: 1344758161039898, guid: 024c3d14d1110b34cbf37f8a5c3a684a,
+      type: 2}
+  - gridPos: {x: 1, y: 2}
+    hexPrefab: {fileID: 1623918650698878, guid: 6c0e64695729c14449dab81a503d2937,
+      type: 2}
+  - gridPos: {x: 1, y: 3}
+    hexPrefab: {fileID: 1117482875744518, guid: fb9e043f6e535c94dbe71272211e15b7,
+      type: 2}
+  - gridPos: {x: 1, y: 0}
+    hexPrefab: {fileID: 1344758161039898, guid: 024c3d14d1110b34cbf37f8a5c3a684a,
+      type: 2}
+  - gridPos: {x: 2, y: 0}
+    hexPrefab: {fileID: 1623918650698878, guid: 6c0e64695729c14449dab81a503d2937,
+      type: 2}
+  - gridPos: {x: 3, y: 0}
+    hexPrefab: {fileID: 1117482875744518, guid: fb9e043f6e535c94dbe71272211e15b7,
+      type: 2}
+  - gridPos: {x: -1, y: 0}
+    hexPrefab: {fileID: 1344758161039898, guid: 024c3d14d1110b34cbf37f8a5c3a684a,
+      type: 2}
+  - gridPos: {x: -2, y: 0}
+    hexPrefab: {fileID: 1623918650698878, guid: 6c0e64695729c14449dab81a503d2937,
+      type: 2}
+  - gridPos: {x: -3, y: 0}
+    hexPrefab: {fileID: 1117482875744518, guid: fb9e043f6e535c94dbe71272211e15b7,
+      type: 2}
+  - gridPos: {x: -1, y: -1}
+    hexPrefab: {fileID: 1344758161039898, guid: 024c3d14d1110b34cbf37f8a5c3a684a,
+      type: 2}
+  - gridPos: {x: -1, y: -2}
+    hexPrefab: {fileID: 1623918650698878, guid: 6c0e64695729c14449dab81a503d2937,
+      type: 2}
+  - gridPos: {x: -2, y: -3}
+    hexPrefab: {fileID: 1117482875744518, guid: fb9e043f6e535c94dbe71272211e15b7,
+      type: 2}
+  - gridPos: {x: 2, y: -2}
+    hexPrefab: {fileID: 1344758161039898, guid: 024c3d14d1110b34cbf37f8a5c3a684a,
+      type: 2}
+  - gridPos: {x: 2, y: -1}
+    hexPrefab: {fileID: 1344758161039898, guid: 024c3d14d1110b34cbf37f8a5c3a684a,
+      type: 2}
+  - gridPos: {x: 2, y: 1}
+    hexPrefab: {fileID: 1344758161039898, guid: 024c3d14d1110b34cbf37f8a5c3a684a,
+      type: 2}
+  - gridPos: {x: 2, y: 2}
+    hexPrefab: {fileID: 1344758161039898, guid: 024c3d14d1110b34cbf37f8a5c3a684a,
+      type: 2}
+  - gridPos: {x: 0, y: 3}
+    hexPrefab: {fileID: 1344758161039898, guid: 024c3d14d1110b34cbf37f8a5c3a684a,
+      type: 2}
+  - gridPos: {x: -1, y: 3}
+    hexPrefab: {fileID: 1344758161039898, guid: 024c3d14d1110b34cbf37f8a5c3a684a,
+      type: 2}
+  - gridPos: {x: -2, y: 2}
+    hexPrefab: {fileID: 1344758161039898, guid: 024c3d14d1110b34cbf37f8a5c3a684a,
+      type: 2}
+  - gridPos: {x: -3, y: 1}
+    hexPrefab: {fileID: 1344758161039898, guid: 024c3d14d1110b34cbf37f8a5c3a684a,
+      type: 2}
+  - gridPos: {x: -3, y: -1}
+    hexPrefab: {fileID: 1344758161039898, guid: 024c3d14d1110b34cbf37f8a5c3a684a,
+      type: 2}
+  - gridPos: {x: -2, y: -2}
+    hexPrefab: {fileID: 1344758161039898, guid: 024c3d14d1110b34cbf37f8a5c3a684a,
+      type: 2}
+  - gridPos: {x: -1, y: -3}
+    hexPrefab: {fileID: 1344758161039898, guid: 024c3d14d1110b34cbf37f8a5c3a684a,
+      type: 2}
+  - gridPos: {x: 0, y: -3}
+    hexPrefab: {fileID: 1344758161039898, guid: 024c3d14d1110b34cbf37f8a5c3a684a,
+      type: 2}
+  - gridPos: {x: -2, y: -1}
+    hexPrefab: {fileID: 1344758161039898, guid: 024c3d14d1110b34cbf37f8a5c3a684a,
+      type: 2}
+  - gridPos: {x: -2, y: 1}
+    hexPrefab: {fileID: 1344758161039898, guid: 024c3d14d1110b34cbf37f8a5c3a684a,
+      type: 2}
+  - gridPos: {x: 0, y: 2}
+    hexPrefab: {fileID: 1344758161039898, guid: 024c3d14d1110b34cbf37f8a5c3a684a,
+      type: 2}
+  - gridPos: {x: 1, y: 1}
+    hexPrefab: {fileID: 1344758161039898, guid: 024c3d14d1110b34cbf37f8a5c3a684a,
+      type: 2}
+  - gridPos: {x: 1, y: -1}
+    hexPrefab: {fileID: 1344758161039898, guid: 024c3d14d1110b34cbf37f8a5c3a684a,
+      type: 2}
+  - gridPos: {x: 0, y: -2}
+    hexPrefab: {fileID: 1344758161039898, guid: 024c3d14d1110b34cbf37f8a5c3a684a,
+      type: 2}
+  passAmount: 0
+  bronzeAmount: 0
+  silverAmount: 0
+  goldAmount: 0
