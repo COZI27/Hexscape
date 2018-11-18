@@ -25,15 +25,22 @@ public class Hex : MonoBehaviour
 
 
 
-    public bool isSleeping = true;
+    public bool isSleeping = true; // Dictates whether the tile is clickable
     public Material disabledMaterial;
     public Material enabledMaterial;
+
+    public bool isAlive = true;
 
 
     public MeshRenderer mesh;
 
 
     private bool hasBeenTouched;
+
+    // A delegate used to signal to listening objects the death of this Hex 
+    //      (it would be possible to add other events here, such as when the player enters the tile)
+    public delegate void OnHexDeath();
+    public event OnHexDeath onHexDeath;
 
     private void Awake()
     {
@@ -46,9 +53,9 @@ public class Hex : MonoBehaviour
     private void OnEnable()
     {
         hasBeenTouched = false;
-       
+        isAlive = true;
 
-        mesh = GetComponent<MeshRenderer>();
+         mesh = GetComponent<MeshRenderer>();
       //  mesh.materials[1].color = mesh.materials[1].color + new Color(0, 0, 0, 1);
 
 
@@ -103,7 +110,10 @@ public class Hex : MonoBehaviour
     public void DestroyHex()
     {
         hasBeenTouched = false;
-       
+        isAlive = false;
+
+        // Broadcast delegate event
+        if (onHexDeath != null) onHexDeath();
 
         //Destroy(gameObject, destroyTime);
 
@@ -116,8 +126,6 @@ public class Hex : MonoBehaviour
 
     public void OnMouseClick()
     {
-
-
         if (isSleeping == false)
         {
             if (destroyType == DestroyState.destroyOnClick)
