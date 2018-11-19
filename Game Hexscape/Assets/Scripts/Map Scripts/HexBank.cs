@@ -10,10 +10,7 @@ public class HexBank : MonoBehaviour
 
     public GameObject[] hexPrefabs;
 
-    public Hex.DestroyState GetTypeAtIndex(int index)
-    {
-        return hexPrefabs[index].GetComponent<Hex>().destroyType;
-    }
+   
 
     public List<HexTypeHolder> disableHexTypes = new List<HexTypeHolder>();
 
@@ -28,6 +25,25 @@ public class HexBank : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    public Hex.DestroyState GetTypeAtIndex(int index)
+    {
+        if (index > hexPrefabs.Length)
+        {
+            return hexPrefabs[0].GetComponent<Hex>().destroyType;
+        } else
+        {
+            return hexPrefabs[index].GetComponent<Hex>().destroyType;
+        }
+     
+
+  
+    }
+
+    public Hex GetHexFromType (Hex.DestroyState destroyType)
+    {
+        return hexPrefabs.ToList().Find(x => x.GetComponent<Hex>().destroyType == destroyType).GetComponent<Hex>();
     }
 
     public void AddDisabledHex(GameObject hexObject)

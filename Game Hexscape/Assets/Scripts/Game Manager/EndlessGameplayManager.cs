@@ -118,19 +118,19 @@ public class EndlessGameplayManager : MonoBehaviour
         source.PlayOneShot(sound);
     }
 
-    public void NextLevelOld()
-    {
-        levelIndex++;
-        levelCurrentScore = 0;
+    //public void NextLevelOld()
+    //{
+    //    levelIndex++;
+    //    levelCurrentScore = 0;
 
-        Level newLevel = levels[levelIndex];
+    //    Level newLevel = levels[levelIndex];
 
-        scoreUI.SetLevel(levelIndex);
-        scoreUI.SetMedalState(MedalState.noMedal);
-        scoreUI.SetScore(totalScore, levelCurrentScore, newLevel);
+    //    scoreUI.SetLevel(levelIndex);
+    //    scoreUI.SetMedalState(MedalState.noMedal);
+    //    scoreUI.SetScore(totalScore, levelCurrentScore, newLevel);
 
-        MapSpawner.instance.SpawnHexs(levelIndex);
-    }
+    //    //MapSpawner.instance.SpawnHexs(levelIndex);
+    //}
 
 
     public void NextLevel()
@@ -161,7 +161,7 @@ public class EndlessGameplayManager : MonoBehaviour
 
         // this is where we pull the level from... i will have to create a level generator that returns a level
 
-        Level newLevel = new Level();
+        Level newLevel;
 
 
 
@@ -192,8 +192,11 @@ public class EndlessGameplayManager : MonoBehaviour
         scoreUI.SetMedalState(MedalState.noMedal);
 
 
-        if (!editMode) player.SetDestination(player.transform.position);
-        MapSpawner.instance.SpawnHexs(newLevel, player.transform.position);
+        if (!editMode) {
+            player.SetDestination(player.transform.position);
+            MapSpawner.instance.SpawnHexs(newLevel, player.transform.position);
+        } 
+       
 
         if (levelIndex > 0)
         {

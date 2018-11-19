@@ -79,10 +79,10 @@ public class LevelEditor : MonoBehaviour
                         oldHex.gameObject.SetActive(false);
                     }
 
-                    if (HexBank.instance.GetTypeAtIndex(i) != null && i != 0) // if its not null, place a hex at that location
+                    if (i != 0) // if its not null, place a hex at that location
                     {
 
-                        Hex hexInstance = HexBank.instance.GetDisabledHex(HexBank.instance.GetTypeAtIndex(i), (worldPos), grid.transform).GetComponent<Hex>();
+                        Hex hexInstance = HexBank.instance.GetDisabledHex(HexBank.instance.GetTypeAtIndex(i - 1), (worldPos), grid.transform).GetComponent<Hex>();
                         
                        
                     }

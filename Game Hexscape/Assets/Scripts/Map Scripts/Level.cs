@@ -24,24 +24,24 @@ public class Level : ScriptableObject
 public class MapElement
 {
     public Vector2Int gridPos;
-    public GameObject hexPrefab;
+    public Hex.DestroyState hexType;
     private Hex hex;
 
     public Hex GetHex ()
     {
         if (hex == null)
         {
-            hex = hexPrefab.GetComponent<Hex>();
+            hex = HexBank.instance.GetHexFromType(hexType);
         }
 
         return hex;
     }
 
-    public MapElement(GameObject hexPrefab, Vector2Int gridPos)
+    public MapElement(Hex.DestroyState hexType, Vector2Int gridPos)
     {
-        this.hexPrefab = hexPrefab;
+        this.hexType = hexType;
         this.gridPos = gridPos;
-        this.hex = hexPrefab.GetComponent<Hex>();
+        this.hex = HexBank.instance.GetHexFromType(hexType);
 
 
     }

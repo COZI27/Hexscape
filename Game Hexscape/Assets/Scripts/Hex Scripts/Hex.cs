@@ -12,7 +12,7 @@ public class Hex : MonoBehaviour
     
    
 
-    [SerializeField] public GameObject prefab;
+  //  [SerializeField] public GameObject prefab;
     [SerializeField] public int destroyPoints;
 
 
@@ -102,10 +102,10 @@ public class Hex : MonoBehaviour
 
 
 
-    public Hex(GameObject prefab)
-    {
-        this.prefab = prefab;
-    }
+    //public Hex(GameObject prefab)
+    //{
+    //    this.prefab = prefab;
+    //}
 
     public void DestroyHex()
     {
@@ -113,13 +113,16 @@ public class Hex : MonoBehaviour
         isAlive = false;
 
         // Broadcast delegate event
-        if (onHexDeath != null) onHexDeath();
+        if (onHexDeath != null)
+        {
+            onHexDeath();
+        } 
 
-        //Destroy(gameObject, destroyTime);
+        
 
 
         gameObject.SetActive(false);
-        HexBank.instance.AddDisabledHex(gameObject);
+        HexBank.instance.AddDisabledHex(gameObject); // puts the hex back into the bank (hex object pool)
 
         EndlessGameplayManager.instance.GainHexDigPoints(destroyPoints);
     }

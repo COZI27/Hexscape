@@ -84,7 +84,7 @@ public class MapSpawner : MonoBehaviour
         foreach (Hex hex in grid.GetComponentsInChildren<Hex>())
         {
 
-            mapElements.Add(new MapElement(hex.prefab, new Vector2Int(grid.WorldToCell(hex.transform.position).x, grid.WorldToCell(hex.transform.position).y)));
+            mapElements.Add(new MapElement(hex.destroyType, new Vector2Int(grid.WorldToCell(hex.transform.position).x, grid.WorldToCell(hex.transform.position).y)));
         }
 
         Level level = EndlessGameplayManager.instance.levels[EndlessGameplayManager.instance.levelIndex];
@@ -110,30 +110,30 @@ public class MapSpawner : MonoBehaviour
        
     }
 
-    public void SpawnHexs(int level)
-    {
-        float yPos = level * distanceBetweenMaps;
+    //public void SpawnHexs(int level)
+    //{
+    //    float yPos = level * distanceBetweenMaps;
 
-        GameObject holder = new GameObject(level + ": " + EndlessGameplayManager.instance.levels[level].name);
-        holder.transform.SetParent(grid.transform);
-
-
+    //    GameObject holder = new GameObject(level + ": " + EndlessGameplayManager.instance.levels[level].name);
+    //    holder.transform.SetParent(grid.transform);
 
 
-        foreach (MapElement element in EndlessGameplayManager.instance.levels[level].hexs)
-        {
-            Hex hexInstance = Instantiate(element.hexPrefab, grid.CellToWorld(new Vector3Int(element.gridPos.x, element.gridPos.y, 0)), Quaternion.Euler(-90, 0, 0), holder.transform).GetComponent<Hex>();
 
 
-            SetGameobjectWidth(hexInstance.gameObject);
-            hexInstance.prefab = element.hexPrefab;
+    //    foreach (MapElement element in EndlessGameplayManager.instance.levels[level].hexs)
+    //    {
+    //        Hex hexInstance = Instantiate(element.hexPrefab, grid.CellToWorld(new Vector3Int(element.gridPos.x, element.gridPos.y, 0)), Quaternion.Euler(-90, 0, 0), holder.transform).GetComponent<Hex>();
 
 
-        }
+    //        SetGameobjectWidth(hexInstance.gameObject);
+    //        hexInstance.prefab = element.hexPrefab;
 
-        holder.transform.position = holder.transform.position -= Vector3.up * yPos;
 
-    }
+    //    }
+
+    //    holder.transform.position = holder.transform.position -= Vector3.up * yPos;
+
+    //}
     public void SpawnHexs(Level level, Vector3 playerPos)
     {
 
@@ -190,7 +190,7 @@ public class MapSpawner : MonoBehaviour
             Hex hexInstance = HexBank.instance.GetDisabledHex(element.GetHex().destroyType, grid.CellToWorld(new Vector3Int(element.gridPos.x, element.gridPos.y, 0)), holder.transform).GetComponent<Hex>();
 
             SetGameobjectWidth(hexInstance.gameObject);
-            hexInstance.prefab = element.hexPrefab;
+         //   hexInstance.prefab = element.hexPrefab;
             
 
         }
@@ -220,7 +220,7 @@ public class MapSpawner : MonoBehaviour
 
 
             SetGameobjectWidth(hexInstance.gameObject);
-            hexInstance.prefab = element.hexPrefab;
+           // hexInstance.prefab = element.hexPrefab;
 
           //  Debug.Log(hexInstance);
         }
@@ -243,7 +243,7 @@ public class MapSpawner : MonoBehaviour
 
 
             SetGameobjectWidth(hexInstance.gameObject);
-            hexInstance.prefab = element.hexPrefab;
+           // hexInstance.prefab = element.hexPrefab;
 
             Debug.Log(hexInstance);
         }
