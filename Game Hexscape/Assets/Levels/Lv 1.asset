@@ -12,19 +12,19 @@ MonoBehaviour:
   m_Name: Lv 1
   m_EditorClassIdentifier: 
   hexs:
-  - gridPos: {x: -1, y: 0}
-    hexType: 3
   - gridPos: {x: 0, y: 0}
     hexType: 3
-  - gridPos: {x: 1, y: 0}
-    hexType: 3
-  - gridPos: {x: -1, y: 1}
-    hexType: 3
   - gridPos: {x: 0, y: 1}
+    hexType: 3
+  - gridPos: {x: 1, y: 0}
     hexType: 3
   - gridPos: {x: 0, y: -1}
     hexType: 3
   - gridPos: {x: -1, y: -1}
+    hexType: 3
+  - gridPos: {x: -1, y: 0}
+    hexType: 3
+  - gridPos: {x: -1, y: 1}
     hexType: 3
   passAmount: 0
   bronzeAmount: 0

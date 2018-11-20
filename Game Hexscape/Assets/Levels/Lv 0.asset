@@ -13,8 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hexs:
   - gridPos: {x: 0, y: 0}
-    hexPrefab: {fileID: 1117482875744518, guid: fb9e043f6e535c94dbe71272211e15b7,
-      type: 2}
+    hexType: 3
   passAmount: 0
   bronzeAmount: 0
   silverAmount: 0

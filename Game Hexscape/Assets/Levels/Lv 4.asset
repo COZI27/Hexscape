@@ -52,8 +52,6 @@ MonoBehaviour:
     hexType: 0
   - gridPos: {x: -2, y: 3}
     hexType: 0
-  - gridPos: {x: 0, y: 4}
-    hexType: 0
   - gridPos: {x: 0, y: 3}
     hexType: 0
   - gridPos: {x: -1, y: 3}

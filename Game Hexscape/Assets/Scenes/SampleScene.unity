@@ -234,7 +234,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: cd3c00695e1990340b47b7e80b78ea31, type: 2}
   - {fileID: 11400000, guid: 84ab8e687bcff7648b706c8347ce37b3, type: 2}
   - {fileID: 11400000, guid: ce375606ce1492944bba4a17bb3ef9c2, type: 2}
-  useRandomLevels: 0
+  useRandomLevels: 1
   initialPlayerSpeed: 30
   playerSpeedIncreaseLogBase: 2
   playerSpeedIncreaseLogMultiplyer: 10
@@ -768,7 +768,7 @@ MonoBehaviour:
   hexMask:
     serializedVersion: 2
     m_Bits: 8192
-  worldMousePos: {x: -39, y: 0, z: -3.4641016}
+  worldMousePos: {x: -18, y: 0, z: 5.196152}
 --- !u!114 &163908980
 MonoBehaviour:
   m_ObjectHideFlags: 0
