@@ -34,8 +34,10 @@ public class Hex : MonoBehaviour
 
     public MeshRenderer mesh;
 
+    public bool useFalling = false;
 
     private bool hasBeenTouched;
+    private float destroyTimer = 0;
 
     // A delegate used to signal to listening objects the death of this Hex 
     //      (it would be possible to add other events here, such as when the player enters the tile)
@@ -55,7 +57,8 @@ public class Hex : MonoBehaviour
         hasBeenTouched = false;
         isAlive = true;
 
-         mesh = GetComponent<MeshRenderer>();
+        mesh = GetComponent<MeshRenderer>();
+        mesh.enabled = true;
       //  mesh.materials[1].color = mesh.materials[1].color + new Color(0, 0, 0, 1);
 
 
@@ -100,6 +103,23 @@ public class Hex : MonoBehaviour
     }
 
 
+    private void FixedUpdate() 
+        {
+        if (!isAlive) 
+            {
+            destroyTimer += Time.deltaTime;
+            if (destroyTimer >= destroyTime - 0.7f) mesh.enabled = false;
+            if (destroyTimer >= destroyTime) FinishDestroy();
+
+            if (useFalling) 
+                {
+                this.transform.position += (Physics.gravity / 60);
+                this.transform.Rotate(Vector3.right * Time.deltaTime * 40);
+                this.transform.Rotate(Vector3.forward * Time.deltaTime * 60);
+            }
+        }
+    }
+
 
 
     //public Hex(GameObject prefab)
@@ -107,19 +127,21 @@ public class Hex : MonoBehaviour
     //    this.prefab = prefab;
     //}
 
-    public void DestroyHex()
-    {
+    public void DestroyHex() 
+        {
+
         hasBeenTouched = false;
         isAlive = false;
 
         // Broadcast delegate event
-        if (onHexDeath != null)
+        if (onHexDeath != null) onHexDeath();
+
+        //FinishDestroy();
+    }
+
+    private void FinishDestroy() 
         {
-            onHexDeath();
-        } 
-
-        
-
+        destroyTimer = 0;
 
         gameObject.SetActive(false);
         HexBank.instance.AddDisabledHex(gameObject); // puts the hex back into the bank (hex object pool)
@@ -211,6 +233,10 @@ public class Hex : MonoBehaviour
         destroyOnEnter,
         destroyOnClick
     }
+
+
+
+
 
 
 
