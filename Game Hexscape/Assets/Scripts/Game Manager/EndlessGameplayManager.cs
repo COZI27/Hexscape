@@ -3,6 +3,8 @@ using UnityEngine.UI;
 using System.Linq;
 using UnityEngine.SceneManagement;
 
+
+
 public class EndlessGameplayManager : MonoBehaviour
 {
 
@@ -276,8 +278,6 @@ public class EndlessGameplayManager : MonoBehaviour
         {
             scoreUI.SetMedalState(MedalState.noMedal);
         }
-
-
 
     }
 

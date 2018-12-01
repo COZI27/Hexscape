@@ -24,7 +24,7 @@ public class TileEffectBase : MonoBehaviour {
             GameObject childObject = Instantiate(particleToSpawn) as GameObject;
             childObject.transform.position = this.gameObject.transform.position;
             childObject.transform.rotation = this.gameObject.transform.rotation;
-            childObject.transform.parent = this.gameObject.transform;
+            //childObject.transform.parent = this.gameObject.transform;
         }
         //Hex hexComp = this.gameObject.GetComponent<Hex>();
         //if (hexComp) {
