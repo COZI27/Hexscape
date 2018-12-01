@@ -162,12 +162,13 @@ public class Hex : MonoBehaviour
     {
         if (isAlive)
         {
-            HandleFallingEffect();
-            HandleDestructionTimer();
+ 
+            HandleSpawningEffect();
         }
         else
         {
-            HandleSpawningEffect();
+            HandleDestructionTimer();
+            HandleFallingEffect();
         }
     }
 
