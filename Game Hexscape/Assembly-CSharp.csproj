@@ -64,11 +64,15 @@
     <Compile Include="Assets\HexColourLerp.cs" />
     <Compile Include="Assets\MenuLine.cs" />
     <Compile Include="Assets\Scripts\CameraScripts\CameraFollow.cs" />
+    <Compile Include="Assets\Scripts\Enums\SoundEffectEnum.cs" />
+    <Compile Include="Assets\Scripts\Game Manager\AudioManager.cs" />
     <Compile Include="Assets\Scripts\Game Manager\EndlessGameplayManager.cs" />
     <Compile Include="Assets\Scripts\Game Manager\GameManagement.cs" />
     <Compile Include="Assets\Scripts\Game Manager\MouseManager.cs" />
     <Compile Include="Assets\Scripts\Game Manager\RippleManager.cs" />
+    <Compile Include="Assets\Scripts\HelperClasses\GenerateEnum.cs" />
     <Compile Include="Assets\Scripts\HelperClasses\Gradient.cs" />
+    <Compile Include="Assets\Scripts\HelperClasses\Inspector_AudioLoader.cs" />
     <Compile Include="Assets\Scripts\Hex Scripts\Hex.cs" />
     <Compile Include="Assets\Scripts\Map Scripts\HexBank.cs" />
     <Compile Include="Assets\Scripts\Map Scripts\Level.cs" />
@@ -93,14 +97,14 @@
     <Reference Include="Unity.PackageManagerUI.Editor">
       <HintPath>S:/GitHub/Hexscape/Game Hexscape/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
     </Reference>
+    <Reference Include="Editor">
+      <HintPath>S:/GitHub/Hexscape/Game Hexscape/Library/ScriptAssemblies/Editor.dll</HintPath>
+    </Reference>
     <Reference Include="XiaomiSupport">
       <HintPath>S:/GitHub/Hexscape/Game Hexscape/Library/ScriptAssemblies/XiaomiSupport.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
       <HintPath>S:/GitHub/Hexscape/Game Hexscape/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
-    </Reference>
-    <Reference Include="Editor">
-      <HintPath>S:/GitHub/Hexscape/Game Hexscape/Library/ScriptAssemblies/Editor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>

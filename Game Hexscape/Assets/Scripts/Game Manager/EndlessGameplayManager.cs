@@ -114,11 +114,11 @@ public class EndlessGameplayManager : MonoBehaviour
         NextLevel();
     }
 
-    public void PlaySound(AudioClip sound, float pitch)
-    {
-        source.pitch = pitch;
-        source.PlayOneShot(sound);
-    }
+    //public void PlaySound(AudioClip sound, float pitch)
+    //{
+    //    source.pitch = pitch;
+    //    source.PlayOneShot(sound);
+    //}
 
     //public void NextLevelOld()
     //{
@@ -202,13 +202,14 @@ public class EndlessGameplayManager : MonoBehaviour
 
         if (levelIndex > 0)
         {
-            PlaySound(levelUpSound, 1);
+
+            AudioManager.instance.PlaySoundEffect(SoundEffectEnum.Level_Up_Sound);
         }
     }
 
     public void PlayGroundThud()
     {
-        PlaySound(groundThudSound, 1);
+        AudioManager.instance.PlaySoundEffect(SoundEffectEnum.Ground_Hit_Thud);
         rippleManager.CreateRippleThud(player.transform.position, 5f, 100);
 
 
@@ -240,12 +241,10 @@ public class EndlessGameplayManager : MonoBehaviour
         }
         else
         {
-            PlaySound(digSound, 1);
+           // PlaySound(digSound, 1);
         }
-
-
-
     }
+
     public void GainHexDigPointsOld(int points)
     {
         totalScore += points;
