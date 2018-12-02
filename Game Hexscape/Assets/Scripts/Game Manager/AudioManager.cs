@@ -68,6 +68,7 @@ void Start()
 
     public void PlaySoundEffect(SoundEffectEnum effectToPlay)
     {
+        audioChannels[currentChannel].pitch = 1;
         audioChannels[currentChannel].clip = soundEffects[(int)effectToPlay];
         audioChannels[currentChannel].Play();
         NextChannel();

@@ -114,7 +114,7 @@ MonoBehaviour:
   destroyPoints: 1
   isClickable: 1
   destroyType: 3
-  destroyTime: 2
+  destroyTime: 3.5
   isSleeping: 0
   disabledMaterial: {fileID: 2100000, guid: 483e42dc6544f2941ba9f310f9c9a730, type: 2}
   enabledMaterial: {fileID: 2100000, guid: 3ee5edee7e9eae342b17e39ad0eb8ec6, type: 2}

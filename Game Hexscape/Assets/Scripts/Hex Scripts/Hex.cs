@@ -214,7 +214,7 @@ public class Hex : MonoBehaviour
     {
         if (useFalling)
         {
-            this.transform.position += (Physics.gravity / 30);
+            this.transform.position += (Physics.gravity / 25);
             this.transform.Rotate(Vector3.right * Time.deltaTime * fallRotations[fallRotIndex].x);
             this.transform.Rotate(Vector3.forward * Time.deltaTime * fallRotations[fallRotIndex].y);
         }
@@ -231,51 +231,9 @@ public class Hex : MonoBehaviour
 
     public void OnMouseClick()
     {
-        switch(EndlessGameplayManager.instance.levelCurrentScore)
-        {
-            case 0:
-                AudioManager.instance.PlaySoundEffect(SoundEffectEnum.ES_01, 1);
-                break;
-            case 1:
-                AudioManager.instance.PlaySoundEffect(SoundEffectEnum.ES_02, 1);
-                break;
-            case 2:
-                AudioManager.instance.PlaySoundEffect(SoundEffectEnum.ES_03, 1);
-                break;
-            case 3:
-                AudioManager.instance.PlaySoundEffect(SoundEffectEnum.ES_04, 1);
-                break;
-            case 4:
-                AudioManager.instance.PlaySoundEffect(SoundEffectEnum.ES_05, 1);
-                break;
-            case 5:
-                AudioManager.instance.PlaySoundEffect(SoundEffectEnum.ES_06, 1);
-                break;
-            case 6:
-                AudioManager.instance.PlaySoundEffect(SoundEffectEnum.ES_02, 2);
-                break;
-            case 7:
-                AudioManager.instance.PlaySoundEffect(SoundEffectEnum.ES_03, 2);
-                break;
-            case 8:
-                AudioManager.instance.PlaySoundEffect(SoundEffectEnum.ES_04, 2);
-                break;
-            case 9:
-                AudioManager.instance.PlaySoundEffect(SoundEffectEnum.ES_05, 2);
-                break;
-            case 10:
-                AudioManager.instance.PlaySoundEffect(SoundEffectEnum.ES_06, 2);
-                break;
-            case 11:
-                AudioManager.instance.PlaySoundEffect(SoundEffectEnum.ES_02, 3);
-                break;
-            default:
-                AudioManager.instance.PlaySoundEffect(SoundEffectEnum.ES_03, 3);
-                break;
-
+        if (isAlive && !isSleeping) {
+            EndlessGameplayManager.instance.PlayHexClickSound();
         }
-
-        AudioManager.instance.PlaySoundEffect(SoundEffectEnum.ES_01 );
 
         if (isSleeping == false)
         {

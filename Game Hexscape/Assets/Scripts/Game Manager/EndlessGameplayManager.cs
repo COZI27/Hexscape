@@ -78,6 +78,8 @@ public class EndlessGameplayManager : MonoBehaviour
     private int totalScore = 0;
     public int levelIndex = 0;
 
+    private SoundEffectEnum[] hexClickScale;
+
 
     // refrence to the player, dah!
     [HideInInspector] private PlayerController player;
@@ -86,6 +88,7 @@ public class EndlessGameplayManager : MonoBehaviour
     private void Awake()
     {
         MakeSingleton();
+        InitialiseClickSoundArray();
 
         source = GetComponent<AudioSource>();
         rippleManager = GetComponent<RippleManager>();
@@ -205,6 +208,26 @@ public class EndlessGameplayManager : MonoBehaviour
 
             AudioManager.instance.PlaySoundEffect(SoundEffectEnum.Level_Up_Sound);
         }
+    }
+
+    public void PlayHexClickSound()
+    {
+        int scaleIndex = levelCurrentScore % hexClickScale.Length;
+        int pitch = (levelCurrentScore / hexClickScale.Length) + 1;
+
+        AudioManager.instance.PlaySoundEffect(hexClickScale[scaleIndex], pitch);
+    }
+
+    private void InitialiseClickSoundArray()
+    {
+        hexClickScale = new SoundEffectEnum[5]
+        {
+            SoundEffectEnum.ES_01,
+            SoundEffectEnum.ES_02,
+            SoundEffectEnum.ES_03,
+            SoundEffectEnum.ES_04,
+            SoundEffectEnum.ES_05
+        };
     }
 
     public void PlayGroundThud()

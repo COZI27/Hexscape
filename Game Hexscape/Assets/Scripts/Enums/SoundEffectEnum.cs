@@ -6,7 +6,6 @@ public enum SoundEffectEnum
 	ES_03,
 	ES_04,
 	ES_05,
-	ES_06,
 	Ground_Hit_Thud,
 	Level_Up_Sound,
 	Player_Died_Sound,
