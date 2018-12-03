@@ -85,7 +85,7 @@ MeshFilter:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1344758161039898}
-  m_Mesh: {fileID: 4300002, guid: 29d174711bf2ab246b15dc348b1c55e3, type: 3}
+  m_Mesh: {fileID: 4300000, guid: ad92d8d57f4be764c87036a8aed184f3, type: 3}
 --- !u!64 &64243274038204862
 MeshCollider:
   m_ObjectHideFlags: 1
@@ -111,12 +111,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10454be4d274f974d95cd5cfb2e018cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefab: {fileID: 1344758161039898}
   destroyPoints: 0
   isClickable: 0
   destroyType: 0
-  destroyTime: 0
+  destroyTime: 3.5
   isSleeping: 0
   disabledMaterial: {fileID: 2100000, guid: 483e42dc6544f2941ba9f310f9c9a730, type: 2}
   enabledMaterial: {fileID: 2100000, guid: 44a1d464d25d1f64da3dd31fe4bf4ad2, type: 2}
+  useSpawnEffect: 1
+  useSpawnDelay: 1
+  spawnParticleEffectToSpawn: {fileID: 1042993999659076, guid: 30150ba4464fd3043878394d66b4df91,
+    type: 2}
+  isAlive: 1
   mesh: {fileID: 0}
+  useFalling: 1

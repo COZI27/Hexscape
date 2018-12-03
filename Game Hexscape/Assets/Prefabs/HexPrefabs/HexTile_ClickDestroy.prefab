@@ -111,12 +111,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10454be4d274f974d95cd5cfb2e018cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefab: {fileID: 1117482875744518}
   destroyPoints: 1
   isClickable: 1
   destroyType: 3
-  destroyTime: 0
+  destroyTime: 3.5
   isSleeping: 0
   disabledMaterial: {fileID: 2100000, guid: 483e42dc6544f2941ba9f310f9c9a730, type: 2}
   enabledMaterial: {fileID: 2100000, guid: 3ee5edee7e9eae342b17e39ad0eb8ec6, type: 2}
+  useSpawnEffect: 1
+  useSpawnDelay: 1
+  spawnParticleEffectToSpawn: {fileID: 1042993999659076, guid: 30150ba4464fd3043878394d66b4df91,
+    type: 2}
+  isAlive: 1
   mesh: {fileID: 0}
+  useFalling: 1
