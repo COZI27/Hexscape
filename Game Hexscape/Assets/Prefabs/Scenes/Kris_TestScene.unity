@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.574817, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -714,6 +714,7 @@ GameObject:
   - component: {fileID: 163908977}
   - component: {fileID: 163908979}
   - component: {fileID: 163908980}
+  - component: {fileID: 163908981}
   m_Layer: 0
   m_Name: MapSpawner
   m_TagString: Untagged
@@ -735,7 +736,7 @@ MonoBehaviour:
   grid: {fileID: 1467916122}
   playerKillZonePrefab: {fileID: 1696771007142224, guid: 00a2351f30f91b14f814c6fad36078ab,
     type: 2}
-  shortLength: 1
+  shortLength: 1.005
   longLength: 1.1547005
   distanceBetweenMaps: 30
 --- !u!4 &163908978
@@ -768,7 +769,7 @@ MonoBehaviour:
   hexMask:
     serializedVersion: 2
     m_Bits: 8192
-  worldMousePos: {x: 7.5, y: 0, z: 11.25833}
+  worldMousePos: {x: 9.5, y: 0, z: 11.25833}
 --- !u!114 &163908980
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -785,6 +786,21 @@ MonoBehaviour:
   - {fileID: 1623918650698878, guid: 6c0e64695729c14449dab81a503d2937, type: 2}
   - {fileID: 1344758161039898, guid: 024c3d14d1110b34cbf37f8a5c3a684a, type: 2}
   disableHexTypes: []
+--- !u!114 &163908981
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 163908976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebb0866a8e47b654692c95a59e54461b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rad: 1
+  origin: {x: 0, y: 0}
+  allowSkips: 0
+  grid: {fileID: 1467916122}
 --- !u!4 &212664842 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4968556402895356, guid: 1ecb86a207b5e4a4492c6062b02ef842,
@@ -896,6 +912,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 95c649317dadf154394b60f2d5407730, type: 3}
   - {fileID: 8300000, guid: 542a9de200570064cbb64b0d852c4d62, type: 3}
   - {fileID: 8300000, guid: cda0071fc0da98948b9a4aaf699765c4, type: 3}
+  numberOfChannels: 4
 --- !u!4 &227308873
 Transform:
   m_ObjectHideFlags: 0

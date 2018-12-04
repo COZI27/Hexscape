@@ -15,7 +15,7 @@ public class MapSpawner : MonoBehaviour
 
     public static MapSpawner instance;
 
-    [SerializeField] private Grid grid;
+    [SerializeField] public Grid grid;
 
     [SerializeField] private GameObject playerKillZonePrefab;
 
@@ -136,6 +136,10 @@ public class MapSpawner : MonoBehaviour
     //}
     public void SpawnHexs(Level level, Vector3 playerPos)
     {
+        // Creates a dictionary for Hex to its position to be sent to the gridfinder
+        Dictionary<Vector2Int, Hex> mapRefrence = new Dictionary<Vector2Int, Hex>();
+
+
 
         // destroy old hexes 
         foreach (Hex hex in grid.GetComponentsInChildren<Hex>())
@@ -151,6 +155,8 @@ public class MapSpawner : MonoBehaviour
 
                 
                 // might need to add a diffrent function for a 'map destroy'
+
+        
                 
             }
 
@@ -190,8 +196,11 @@ public class MapSpawner : MonoBehaviour
             Hex hexInstance = HexBank.instance.GetDisabledHex(element.GetHex().destroyType, grid.CellToWorld(new Vector3Int(element.gridPos.x, element.gridPos.y, 0)), holder.transform).GetComponent<Hex>();
 
             SetGameobjectWidth(hexInstance.gameObject);
-         //   hexInstance.prefab = element.hexPrefab;
-            
+            //   hexInstance.prefab = element.hexPrefab;
+
+
+            // adds the hex to the dictonary for the grid finder
+            mapRefrence.Add(element.gridPos, hexInstance);
 
         }
 
@@ -202,9 +211,13 @@ public class MapSpawner : MonoBehaviour
 
         Instantiate(playerKillZonePrefab, holder.transform.position - Vector3.up * 2 * distanceBetweenMaps, Quaternion.identity, grid.transform);
 
+        // sends the maprefrence to the gridfinder
+        GridFinder.instance.SetMap(mapRefrence);
     }
     public void SpawnHexs(int level, float yPos)
     {
+        // Creates a dictionary for Hex to its position to be sent to the gridfinder
+        Dictionary<Vector2Int, Hex> mapRefrence = new Dictionary<Vector2Int, Hex>();
 
         GameObject holder = new GameObject(level + ": " + EndlessGameplayManager.instance.levels[level].name);
         holder.transform.SetParent(grid.transform);
@@ -220,16 +233,24 @@ public class MapSpawner : MonoBehaviour
 
 
             SetGameobjectWidth(hexInstance.gameObject);
-           // hexInstance.prefab = element.hexPrefab;
+            // hexInstance.prefab = element.hexPrefab;
 
-          //  Debug.Log(hexInstance);
+            //  Debug.Log(hexInstance);
+
+            // adds the hex to the dictonary for the grid finder
+            mapRefrence.Add(element.gridPos, hexInstance);
         }
 
         holder.transform.position = holder.transform.position -= Vector3.up * yPos;
 
+        // sends the maprefrence to the gridfinder
+        GridFinder.instance.SetMap(mapRefrence);
+
     }
     public void SpawnHexs(int level, float yPos, Vector3 playerPos)
     {
+        // Creates a dictionary for Hex to its position to be sent to the gridfinder
+        Dictionary<Vector2Int, Hex> mapRefrence = new Dictionary<Vector2Int, Hex>();
 
         GameObject holder = new GameObject(level + ": " + EndlessGameplayManager.instance.levels[level].name);
         holder.transform.SetParent(grid.transform);
@@ -246,12 +267,16 @@ public class MapSpawner : MonoBehaviour
            // hexInstance.prefab = element.hexPrefab;
 
             Debug.Log(hexInstance);
+
+            // adds the hex to the dictonary for the grid finder
+            mapRefrence.Add(element.gridPos, hexInstance);
         }
 
         holder.transform.position = new Vector3(playerPos.x, -yPos, playerPos.z);
         //   holder.transform.position = holder.transform.position -= Vector3.up * yPos;
 
-
+        // sends the maprefrence to the gridfinder
+        GridFinder.instance.SetMap(mapRefrence);
     }
 
 
