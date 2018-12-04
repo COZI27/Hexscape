@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DetonateEffect : TileEffectBase {
+public class DetonateEffect : TileEffectBase
+{
 
-    public float explosionRadius = 1f;
+    public int explosionRadius = 1;
+    public bool skipGaps;
 
 
     // NOTE: Here is an example of how TriggerEffect could be bound to a different event on Hex, such as when the ball enters the hex
@@ -16,24 +18,42 @@ public class DetonateEffect : TileEffectBase {
     //    }
     //}
 
-    public override void TriggerEffect() {
+    public override void TriggerEffect()
+    {
         base.TriggerEffect();
         Debug.Log("DetonateEffect Trigger Effect Called");
 
-        Collider[] hitColliders = Physics.OverlapSphere(this.gameObject.transform.position, explosionRadius);
-       
-        int i = 0;
+        Vector2Int pos = GridFinder.instance.WorldToGridPoint(transform.position);
+        Debug.Log(pos);
 
-        while (i < hitColliders.Length) {
-            if (hitColliders[i].gameObject != this.gameObject) { // Do not run for this object
-                if (hitColliders[i].gameObject.layer == LayerMask.NameToLayer("Hex")) {
-                    Debug.Log("Col sphere found hex");
-                    Hex hitHex = hitColliders[i].gameObject.GetComponent<Hex>();
-                    if (hitHex != null && hitHex.isAlive) hitHex.DestroyHex();
-                }
-            }
-            i++;
+        Hex[] HexNeighbours = GridFinder.instance.GetAllNeighbourHexs(pos, explosionRadius, skipGaps);
+
+        for (int h = 0; h < HexNeighbours.Length; h++)
+        {
+            Hex hitHex = HexNeighbours[h];
+            if (hitHex != null && hitHex.isAlive) hitHex.DestroyHex(true);
+
+            Debug.Log("HEX : " + hitHex.transform.position);
         }
+
+
+
+        // Collider[] hitColliders = Physics.OverlapSphere(this.gameObject.transform.position, explosionRadius);
+
+        //    int i = 0;
+
+        //    while (i < hitColliders.Length) {
+        //        if (hitColliders[i].gameObject != this.gameObject) { // Do not run for this object
+        //            if (hitColliders[i].gameObject.layer == LayerMask.NameToLayer("Hex")) {
+        //                Debug.Log("Col sphere found hex");
+        //                Hex hitHex = hitColliders[i].gameObject.GetComponent<Hex>();
+        //                if (hitHex != null && hitHex.isAlive) hitHex.DestroyHex();
+        //            }
+        //        }
+        //        i++;
+        //    }
     }
+
+ 
 
 }

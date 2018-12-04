@@ -70,11 +70,11 @@
     <Compile Include="Assets\Scripts\Game Manager\GameManagement.cs" />
     <Compile Include="Assets\Scripts\Game Manager\MouseManager.cs" />
     <Compile Include="Assets\Scripts\Game Manager\RippleManager.cs" />
-    <Compile Include="Assets\Scripts\GridFinder.cs" />
     <Compile Include="Assets\Scripts\HelperClasses\GenerateEnum.cs" />
     <Compile Include="Assets\Scripts\HelperClasses\Gradient.cs" />
     <Compile Include="Assets\Scripts\HelperClasses\Inspector_AudioLoader.cs" />
     <Compile Include="Assets\Scripts\Hex Scripts\Hex.cs" />
+    <Compile Include="Assets\Scripts\Map Scripts\GridFinder.cs" />
     <Compile Include="Assets\Scripts\Map Scripts\HexBank.cs" />
     <Compile Include="Assets\Scripts\Map Scripts\Level.cs" />
     <Compile Include="Assets\Scripts\Map Scripts\LevelEditor.cs" />

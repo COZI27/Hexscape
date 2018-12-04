@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
 public class AudioManager : MonoBehaviour
 {
 
@@ -18,6 +19,10 @@ public class AudioManager : MonoBehaviour
             Destroy(gameObject);
         }
 
+
+       if (musicPlayer == null) musicPlayer = gameObject.GetComponent<AudioSource>();
+       
+
         //if (audioPlayer == null) audioPlayer = this.gameObject.AddComponent<AudioSource>();
         CreateChannels(numberOfChannels);
     }
@@ -28,6 +33,10 @@ public class AudioManager : MonoBehaviour
     AudioSource[] audioChannels;
     int currentChannel;
 
+    // For song
+    [SerializeField] private AudioSource musicPlayer; 
+
+
     public void CreateChannels(int channelCount)
     {
         audioChannels = new AudioSource[channelCount];
@@ -35,6 +44,7 @@ public class AudioManager : MonoBehaviour
         for (int i = 0; i < audioChannels.Length; i++)
         {
             audioChannels[i] = this.gameObject.AddComponent<AudioSource>();
+           
         }
     }
 

@@ -30,7 +30,7 @@ public class CameraTunnel : MonoBehaviour {
 
         float initialYPos = this.transform.position.y;
         currentTopObjectYpos = initialYPos;
-
+        
         
 
         for (int i = 0; i < numberOfObjects; ++i) {

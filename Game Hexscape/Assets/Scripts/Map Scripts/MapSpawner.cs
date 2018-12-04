@@ -192,7 +192,10 @@ public class MapSpawner : MonoBehaviour
 
         foreach (MapElement element in level.hexs)
         {
-          // Hex hexInstance = Instantiate(element.hexPrefab, grid.CellToWorld(new Vector3Int(element.gridPos.x, element.gridPos.y, 0)), Quaternion.Euler(-90, 0, 0), holder.transform).GetComponent<Hex>();
+            // Hex hexInstance = Instantiate(element.hexPrefab, grid.CellToWorld(new Vector3Int(element.gridPos.x, element.gridPos.y, 0)), Quaternion.Euler(-90, 0, 0), holder.transform).GetComponent<Hex>();
+
+            Vector3 position = GridFinder.instance.GridPosToWorld(element.gridPos);
+
             Hex hexInstance = HexBank.instance.GetDisabledHex(element.GetHex().destroyType, grid.CellToWorld(new Vector3Int(element.gridPos.x, element.gridPos.y, 0)), holder.transform).GetComponent<Hex>();
 
             SetGameobjectWidth(hexInstance.gameObject);
@@ -207,7 +210,7 @@ public class MapSpawner : MonoBehaviour
         holder.transform.position = new Vector3(playerPos.x, yPos, playerPos.z);
 
         // random rotation:
-        holder.transform.rotation = Quaternion.Euler(0, 30 * Random.Range(0, 12), 0);
+        holder.transform.rotation = Quaternion.Euler(0, 30 * Random.Range(0, 0), 0);
 
         Instantiate(playerKillZonePrefab, holder.transform.position - Vector3.up * 2 * distanceBetweenMaps, Quaternion.identity, grid.transform);
 

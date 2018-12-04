@@ -43,6 +43,21 @@ public class MouseManager : MonoBehaviour
                    
                 }
             }
+        } else
+        {
+            // temp for test
+
+            RaycastHit testHit;
+            if (Physics.Raycast(ray, out testHit, rayDistance, mouseMask))
+            {
+                Hex hex = testHit.collider.GetComponent<Hex>();
+
+                if (hex != null)
+                {
+
+                    Debug.Log(GridFinder.instance.WorldToGridPoint(hex.transform.position));
+                }
+            }
         }
     }
 }

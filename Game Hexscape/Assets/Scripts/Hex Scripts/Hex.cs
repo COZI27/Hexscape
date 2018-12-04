@@ -132,7 +132,10 @@ public class Hex : MonoBehaviour
         }
     }
 
-    public void DestroyHex() 
+
+
+
+    public void DestroyHex(bool isANeighbourDeath = false) 
         {
         if (isAlive)
         {
@@ -146,9 +149,13 @@ public class Hex : MonoBehaviour
         {
             fallRotIndex = Random.Range(0, fallRotations.Length - 1);
         }
-
-        // Broadcast delegate event
-        if (onHexDeath != null) onHexDeath();
+        
+        if (!isANeighbourDeath)
+        {
+            // Broadcast delegate event
+            if (onHexDeath != null) onHexDeath();
+        }
+        
 
 
 
