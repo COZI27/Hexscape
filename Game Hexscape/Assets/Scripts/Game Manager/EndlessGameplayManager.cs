@@ -218,6 +218,7 @@ public class EndlessGameplayManager : MonoBehaviour
         AudioManager.instance.PlaySoundEffect(hexClickScale[scaleIndex], pitch);
     }
 
+    // 
     private void InitialiseClickSoundArray()
     {
         hexClickScale = new SoundEffectEnum[5]
@@ -261,10 +262,6 @@ public class EndlessGameplayManager : MonoBehaviour
         if (levelCurrentScore >= passScore)
         {
             NextLevel();
-        }
-        else
-        {
-           // PlaySound(digSound, 1);
         }
     }
 

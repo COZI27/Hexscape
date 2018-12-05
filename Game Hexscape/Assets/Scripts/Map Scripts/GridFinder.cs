@@ -103,7 +103,6 @@ public class GridFinder : MonoBehaviour
     public Vector2Int[] GetAllNeighbourPoints(Vector2Int origin, float radius, bool moveOverGaps = false)
     {
 
-
         List<Vector2Int> nFoundPoints = new List<Vector2Int>();
         List<Vector2Int> newPoints = new List<Vector2Int>();
 
@@ -253,7 +252,6 @@ public class GridFinder : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-
         if (currentSpawnedMap != null && currentSpawnedMap.Keys.Count > 0)
         {
             Gizmos.color = Color.cyan;

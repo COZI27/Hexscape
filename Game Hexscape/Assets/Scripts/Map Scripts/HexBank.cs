@@ -36,9 +36,6 @@ public class HexBank : MonoBehaviour
         {
             return hexPrefabs[index].GetComponent<Hex>().destroyType;
         }
-     
-
-  
     }
 
     public Hex GetHexFromType (Hex.DestroyState destroyType)
@@ -74,7 +71,7 @@ public class HexBank : MonoBehaviour
         {
             GameObject newPrefab = hexPrefabs.ToList().Find(x => x.GetComponent<Hex>().destroyType == hexType);
             target = Instantiate(newPrefab);
-            target.SetActive(false); // Set to false before the position is set in order to prevent OnEnable running visual effects prematurely
+            target.SetActive(false); // Set to false before the position is set in order to prevent OnEnable initiating visual effects prematurely
         }
 
         target.transform.parent = parent;

@@ -22,22 +22,29 @@ public class AudioManager : MonoBehaviour
 
        if (musicPlayer == null) musicPlayer = gameObject.GetComponent<AudioSource>();
        
-
-        //if (audioPlayer == null) audioPlayer = this.gameObject.AddComponent<AudioSource>();
-        CreateChannels(numberOfChannels);
+        CreateEffectChannels(numberOfChannels);
     }
 
-    public AudioClip[] soundEffects;
-    public int numberOfChannels = 4;
 
     AudioSource[] audioChannels;
     int currentChannel;
 
-    // For song
-    [SerializeField] private AudioSource musicPlayer; 
+    [Header("Audio Settings")]
+    [SerializeField] private float soundEffectVolume = 1.0f;
+    [SerializeField] private float musicVolume = 1.0f;
+
+    [SerializeField] private int numberOfChannels = 4;
+
+    [Header("Audio Sources")]
+    [SerializeField] private AudioSource musicPlayer;
+
+    [Header("Audio Clips")]
+    [SerializeField] AudioClip[] soundEffects;
 
 
-    public void CreateChannels(int channelCount)
+
+
+    public void CreateEffectChannels(int channelCount)
     {
         audioChannels = new AudioSource[channelCount];
 
@@ -48,32 +55,14 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public void SetSoundEffectArraySize(int size, bool inEditor = false)
+    public void PopulateSoundEffectsArray(AudioClip[] clipsToLoad, bool inEditor = false)
     {
         if (inEditor)
         {
-            soundEffects = new AudioClip[size];
+            soundEffects = clipsToLoad;
             Debug.Log("Sound Effects Array Defined");
         }
-    }
-
-// Use this for initialization
-void Start()
-    {
-        //soundEffects = new AudioClip[(int)AudioEffects.NumberOfSounds];
-
-        //soundEffects = Resources.LoadAll<AudioClip>("Sounds");
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
-    private void LoadSoundLibrary()
-    {
-
+        else Debug.LogWarning("Failed to Populate Sound Effects Array. Can only be executed in editor.");
     }
 
     public void PlaySoundEffect(SoundEffectEnum effectToPlay)

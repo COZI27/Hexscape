@@ -139,13 +139,10 @@ public class MapSpawner : MonoBehaviour
         // Creates a dictionary for Hex to its position to be sent to the gridfinder
         Dictionary<Vector2Int, Hex> mapRefrence = new Dictionary<Vector2Int, Hex>();
 
-
-
         // destroy old hexes 
         foreach (Hex hex in grid.GetComponentsInChildren<Hex>())
         {
             
-
             if (hex.gameObject.activeInHierarchy)
             {
               //  hex.gameObject.transform.parent = grid.transform;

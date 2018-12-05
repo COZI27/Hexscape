@@ -55,7 +55,7 @@ public class MouseManager : MonoBehaviour
                 if (hex != null)
                 {
 
-                    Debug.Log(GridFinder.instance.WorldToGridPoint(hex.transform.position));
+                    //Debug.Log(GridFinder.instance.WorldToGridPoint(hex.transform.position));
                 }
             }
         }

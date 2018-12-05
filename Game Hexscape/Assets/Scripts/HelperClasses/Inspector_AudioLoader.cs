@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿#if UNITY_EDITOR
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
@@ -14,7 +15,6 @@ public class Inspector_AudioLoader : Editor
 
     public override void OnInspectorGUI()
     {
-
         base.OnInspectorGUI();
 
         if (GUILayout.Button("Reload Audio"))
@@ -27,26 +27,22 @@ public class Inspector_AudioLoader : Editor
     void LoadSoundEffects()
     {
         audioManager = ((MonoBehaviour)target).gameObject.GetComponent<AudioManager>();
+        if (audioManager != null)
+        {
 
-        AudioClip[] loadedClips = Resources.LoadAll<AudioClip>("Sounds");
+            AudioClip[] loadedClips = Resources.LoadAll<AudioClip>("Sounds");
 
-        Debug.Log("Loaded clip count = " + loadedClips.Length);
-        audioManager.SetSoundEffectArraySize(loadedClips.Length - 1, true);
-        audioManager.soundEffects = loadedClips;
+            Debug.Log("Loaded Audio Clip count = " + loadedClips.Length);
+            audioManager.PopulateSoundEffectsArray(loadedClips, Application.isEditor);
 
-        //textureMap = Resources.Load("Tiles02") as Texture2D;
-        // baseMat = new Material(Shader.Find("Diffuse"));
-        //GenerateMaterials();
-
-        GenerateAudioEnum(loadedClips);
+            GenerateAudioEnum(loadedClips, "SoundEffectEnum");
+        }
+        else Debug.LogWarning("Failed to load sound effects. audioManager instance is null.");
     }
 
 
-
-    public static void GenerateAudioEnum(AudioClip[] audioArray)
+    public static void GenerateAudioEnum(AudioClip[] audioArray, string enumName)
     {
-        string enumName = "SoundEffectEnum";
-        //string[] enumEntries = { "Foo", "Goo", "Hoo" };
         string filePathAndName = "Assets/Scripts/Enums/" + enumName + ".cs"; //The folder Scripts/Enums/ is expected to exist
 
         using (StreamWriter streamWriter = new StreamWriter(filePathAndName))
@@ -64,3 +60,4 @@ public class Inspector_AudioLoader : Editor
 
 
 }
+#endif

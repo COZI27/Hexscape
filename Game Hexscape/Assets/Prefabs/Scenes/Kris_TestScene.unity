@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.574817, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -769,7 +769,7 @@ MonoBehaviour:
   hexMask:
     serializedVersion: 2
     m_Bits: 8192
-  worldMousePos: {x: 10.5, y: 0, z: 11.25833}
+  worldMousePos: {x: -5, y: 0, z: 5.196152}
 --- !u!114 &163908980
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -906,6 +906,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b50c66a2563778349a4d3b7a64b594ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  soundEffectVolume: 1
+  musicVolume: 1
+  numberOfChannels: 4
+  musicPlayer: {fileID: 227308874}
   soundEffects:
   - {fileID: 8300000, guid: 0f908a5c5e71ec545a8c8c912b586f09, type: 3}
   - {fileID: 8300000, guid: 4ded388f7aeb80e4e83acbe447d5a38f, type: 3}
@@ -918,8 +922,6 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 95c649317dadf154394b60f2d5407730, type: 3}
   - {fileID: 8300000, guid: 542a9de200570064cbb64b0d852c4d62, type: 3}
   - {fileID: 8300000, guid: cda0071fc0da98948b9a4aaf699765c4, type: 3}
-  numberOfChannels: 4
-  musicPlayer: {fileID: 227308874}
 --- !u!4 &227308873
 Transform:
   m_ObjectHideFlags: 0
@@ -944,7 +946,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 86356d9283a2b4a469adf277f225a5bf, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.063
   m_Pitch: 1
   Loop: 1
   Mute: 1
