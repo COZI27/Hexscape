@@ -88,7 +88,7 @@ public class EndlessGameplayManager : MonoBehaviour
     private void Awake()
     {
         MakeSingleton();
-        InitialiseClickSoundArray();
+        InitialiseClickSoundArray(); // TODO: Find a new home for this method and associated variables. 
 
         source = GetComponent<AudioSource>();
         rippleManager = GetComponent<RippleManager>();
