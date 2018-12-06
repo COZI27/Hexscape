@@ -769,7 +769,7 @@ MonoBehaviour:
   hexMask:
     serializedVersion: 2
     m_Bits: 8192
-  worldMousePos: {x: 10.5, y: 0, z: 11.25833}
+  worldMousePos: {x: 7.5, y: 0, z: 11.25833}
 --- !u!114 &163908980
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -797,7 +797,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebb0866a8e47b654692c95a59e54461b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rad: 0
+  rad: 1
   origin: {x: 0, y: 1}
   allowSkips: 0
   grid: {fileID: 1467916122}

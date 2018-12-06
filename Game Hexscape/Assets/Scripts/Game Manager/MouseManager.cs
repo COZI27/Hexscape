@@ -56,6 +56,7 @@ public class MouseManager : MonoBehaviour
                 {
 
                     Debug.Log(GridFinder.instance.WorldToGridPoint(hex.transform.position));
+                    GridFinder.instance.origin = GridFinder.instance.WorldToGridPoint(hex.transform.position);
                 }
             }
         }

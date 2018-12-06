@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 33206261101748770}
   - component: {fileID: 64102659326141636}
   - component: {fileID: 114753628516303888}
+  - component: {fileID: 114145171730472802}
   m_Layer: 13
   m_Name: HexTile_ClickDestroy
   m_TagString: Untagged
@@ -100,6 +101,20 @@ MeshCollider:
   m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300002, guid: 29d174711bf2ab246b15dc348b1c55e3, type: 3}
+--- !u!114 &114145171730472802
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1117482875744518}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29997be793898c6489557f2949dd9b61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particleToSpawn: {fileID: 0}
+  explosionRadius: 1
+  skipGaps: 1
 --- !u!114 &114753628516303888
 MonoBehaviour:
   m_ObjectHideFlags: 1
