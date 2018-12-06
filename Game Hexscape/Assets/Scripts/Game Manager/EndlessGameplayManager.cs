@@ -59,13 +59,6 @@ public class EndlessGameplayManager : MonoBehaviour
     public ScoreUI scoreUI;
 
 
-    [Space(5f)]
-    [Header("Audio Clips:")]
-    [SerializeField] private AudioClip digSound;
-    [SerializeField] private AudioClip levelUpSound;
-    [SerializeField] private AudioClip groundThudSound;
-
-
 
 
 
@@ -78,7 +71,7 @@ public class EndlessGameplayManager : MonoBehaviour
     private int totalScore = 0;
     public int levelIndex = 0;
 
-    private SoundEffectEnum[] hexClickScale;
+    private SoundEffectEnum[] hexClickSounds;
 
 
     // refrence to the player, dah!
@@ -88,7 +81,7 @@ public class EndlessGameplayManager : MonoBehaviour
     private void Awake()
     {
         MakeSingleton();
-        InitialiseClickSoundArray(); // TODO: Find a new home for this method and associated variables. 
+        InitialiseClickSoundArray(); 
 
         source = GetComponent<AudioSource>();
         rippleManager = GetComponent<RippleManager>();
@@ -212,16 +205,19 @@ public class EndlessGameplayManager : MonoBehaviour
 
     public void PlayHexClickSound()
     {
-        int scaleIndex = levelCurrentScore % hexClickScale.Length;
-        int pitch = (levelCurrentScore / hexClickScale.Length) + 1;
+        if (hexClickSounds.Length > 0)
+        {
+            int scaleIndex = levelCurrentScore % hexClickSounds.Length;
+            int pitch = (levelCurrentScore / hexClickSounds.Length) + 1;
 
-        AudioManager.instance.PlaySoundEffect(hexClickScale[scaleIndex], pitch);
+            AudioManager.instance.PlaySoundEffect(hexClickSounds[scaleIndex], pitch);
+        }
     }
 
     // 
     private void InitialiseClickSoundArray()
     {
-        hexClickScale = new SoundEffectEnum[5]
+        hexClickSounds = new SoundEffectEnum[5]
         {
             SoundEffectEnum.ES_01,
             SoundEffectEnum.ES_02,
@@ -241,7 +237,6 @@ public class EndlessGameplayManager : MonoBehaviour
 
     public void GainHexDigPoints(int points)
     {
-
 
         //if (levelIndex < 1)
         //{
@@ -267,6 +262,8 @@ public class EndlessGameplayManager : MonoBehaviour
 
     public void GainHexDigPointsOld(int points)
     {
+
+
         totalScore += points;
         levelCurrentScore += points;
 
