@@ -139,10 +139,13 @@ public class MapSpawner : MonoBehaviour
         // Creates a dictionary for Hex to its position to be sent to the gridfinder
         Dictionary<Vector2Int, Hex> mapRefrence = new Dictionary<Vector2Int, Hex>();
 
+
+
         // destroy old hexes 
         foreach (Hex hex in grid.GetComponentsInChildren<Hex>())
         {
             
+
             if (hex.gameObject.activeInHierarchy)
             {
               //  hex.gameObject.transform.parent = grid.transform;
@@ -207,12 +210,12 @@ public class MapSpawner : MonoBehaviour
         holder.transform.position = new Vector3(playerPos.x, yPos, playerPos.z);
 
         // random rotation:
-        holder.transform.rotation = Quaternion.Euler(0, 30 * Random.Range(0, 0), 0);
+        holder.transform.rotation = Quaternion.Euler(0, 30 * Random.Range(0, 12), 0);
 
         Instantiate(playerKillZonePrefab, holder.transform.position - Vector3.up * 2 * distanceBetweenMaps, Quaternion.identity, grid.transform);
 
         // sends the maprefrence to the gridfinder
-        GridFinder.instance.SetMap(mapRefrence);
+        GridFinder.instance.SetMap(mapRefrence, holder.transform.position, holder.transform.rotation);
     }
     public void SpawnHexs(int level, float yPos)
     {
@@ -244,7 +247,7 @@ public class MapSpawner : MonoBehaviour
         holder.transform.position = holder.transform.position -= Vector3.up * yPos;
 
         // sends the maprefrence to the gridfinder
-        GridFinder.instance.SetMap(mapRefrence);
+        GridFinder.instance.SetMap(mapRefrence, holder.transform.position, holder.transform.rotation);
 
     }
     public void SpawnHexs(int level, float yPos, Vector3 playerPos)
@@ -276,7 +279,7 @@ public class MapSpawner : MonoBehaviour
         //   holder.transform.position = holder.transform.position -= Vector3.up * yPos;
 
         // sends the maprefrence to the gridfinder
-        GridFinder.instance.SetMap(mapRefrence);
+        GridFinder.instance.SetMap(mapRefrence, holder.transform.position, holder.transform.rotation);
     }
 
 

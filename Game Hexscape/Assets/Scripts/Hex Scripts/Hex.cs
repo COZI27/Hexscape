@@ -9,10 +9,10 @@ public class Hex : MonoBehaviour
 
     // what you see is what you get, basically the script that sits on all hexes... 
     // Hexes spawn asleep (so they cannot be broken) and awaken once the player collides with one of the hexes for that particular level.
-    
-   
 
-  //  [SerializeField] public GameObject prefab;
+
+
+    //  [SerializeField] public GameObject prefab;
     [SerializeField] public int destroyPoints;
 
 
@@ -82,8 +82,10 @@ public class Hex : MonoBehaviour
         hasBeenTouched = false;
         isAlive = true;
 
-        if (useSpawnEffect && spawnParticleEffect != null) {
-            if (useSpawnDelay) {
+        if (useSpawnEffect && spawnParticleEffect != null)
+        {
+            if (useSpawnDelay)
+            {
 
                 spawnDelay = Mathf.Abs(this.transform.position.x + this.transform.position.z) / 3;
                 spawnParticleEffect.SetActive(false);
@@ -100,7 +102,7 @@ public class Hex : MonoBehaviour
         }
     }
 
-    
+
 
 
     public void EnableHex()
@@ -135,12 +137,22 @@ public class Hex : MonoBehaviour
 
 
 
-    public void DestroyHex(bool isANeighbourDeath = false) 
-        {
+    public void DestroyHex(bool isANeighbourDeath = false)
+    {
         if (isAlive)
         {
             hasBeenTouched = false;
             isAlive = false;
+
+            if (!isANeighbourDeath)
+            {
+                // Broadcast delegate event
+
+                // make sure it is alive first :P
+                if (onHexDeath != null) onHexDeath();
+
+
+            }
 
             EndlessGameplayManager.instance.GainHexDigPoints(destroyPoints);
         }
@@ -149,20 +161,16 @@ public class Hex : MonoBehaviour
         {
             fallRotIndex = Random.Range(0, fallRotations.Length - 1);
         }
-        
-        if (!isANeighbourDeath)
-        {
-            // Broadcast delegate event
-            if (onHexDeath != null) onHexDeath();
-        }
-        
+
+
+
 
 
 
     }
 
-    private void FinishDestroy() 
-        {
+    private void FinishDestroy()
+    {
         destroyTimer = 0;
 
 
@@ -177,7 +185,7 @@ public class Hex : MonoBehaviour
     {
         if (isAlive)
         {
- 
+
             HandleSpawningEffect();
         }
         else
@@ -186,7 +194,7 @@ public class Hex : MonoBehaviour
             HandleFallingEffect();
         }
 
- 
+
     }
 
     // Handles the timers controling the enabling of the spawnParticleEffect and mesh  
@@ -238,7 +246,8 @@ public class Hex : MonoBehaviour
 
     public void OnMouseClick()
     {
-        if (isAlive && !isSleeping) {
+        if (isAlive && !isSleeping)
+        {
             EndlessGameplayManager.instance.PlayHexClickSound();
         }
 
@@ -267,7 +276,7 @@ public class Hex : MonoBehaviour
     {
         if (isSleeping)
         {
-            AwakenMap(); 
+            AwakenMap();
             EndlessGameplayManager.instance.PlayGroundThud();
         }
 
@@ -292,17 +301,17 @@ public class Hex : MonoBehaviour
     {
 
         PlayerController player = PlayerController.instance;
-        
-    
+
+
         if (player != null)
         {
             hasBeenTouched = true;
             OnPlayerEnter();
-           
+
         }
     }
 
-    public void PlayerTouchedNewHex (Hex newHex)
+    public void PlayerTouchedNewHex(Hex newHex)
     {
         if (newHex == this || gameObject.activeInHierarchy == false || isSleeping) return;
 
@@ -310,7 +319,7 @@ public class Hex : MonoBehaviour
         {
             OnPlayerExit();
         }
-     
+
     }
 
     public enum DestroyState

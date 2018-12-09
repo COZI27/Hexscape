@@ -28,6 +28,8 @@ public class DetonateEffect : TileEffectBase
 
         Hex[] HexNeighbours = GridFinder.instance.GetAllNeighbourHexs(pos, explosionRadius, skipGaps);
 
+        
+
         for (int h = 0; h < HexNeighbours.Length; h++)
         {
             Hex hitHex = HexNeighbours[h];

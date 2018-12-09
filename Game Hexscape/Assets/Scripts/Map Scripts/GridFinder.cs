@@ -12,17 +12,19 @@ public class GridFinder : MonoBehaviour
     public bool allowSkips = false; // bool for if we want to be able to find the hexes on the other side of a gap or not
 
     private Dictionary<Vector2Int, Hex> currentSpawnedMap; // the dictonary that is updated by the mapSpawner that the grid finder script uses to find its neighbours
-
+    private Vector3 currentMapOffset;
+    private Quaternion currentMapRotation;
+    
 
   [SerializeField]  private Grid grid; // refrence to the grid 
 
 
     public Vector2Int WorldToGridPoint(Vector3 position)
     {
+        position -= currentMapOffset; // need to move the map with its holders offset
 
-       // position = grid.transform.rotation * transform.position;
-        position += grid.transform.position;
-
+        position =  Quaternion.Inverse( currentMapRotation) *  position; // need to allign the rotation
+      
         Debug.DrawRay(position, Vector3.up * 4, Color.red);
         return new Vector2Int(grid.WorldToCell(position).x, grid.WorldToCell(position).y);
 
@@ -66,10 +68,11 @@ public class GridFinder : MonoBehaviour
 
 
     // Sets up the current spawned map dictionary... Function is called in the Map Spawner when it spawns a new map.
-    public void SetMap(Dictionary<Vector2Int, Hex> newMap)
+    public void SetMap(Dictionary<Vector2Int, Hex> newMap, Vector3 mapOffset, Quaternion mapRotation)
     {
         currentSpawnedMap = newMap;
-        
+        this.currentMapOffset = mapOffset;
+        this.currentMapRotation = mapRotation;
     }
 
     
@@ -85,6 +88,7 @@ public class GridFinder : MonoBehaviour
 
             if (currentSpawnedMap.ContainsKey(point))
             {
+                if (currentSpawnedMap[point].isAlive == true) // make sure it is alive first
                 neighbourHexs.Add(currentSpawnedMap[point]);
             }
 
@@ -102,6 +106,7 @@ public class GridFinder : MonoBehaviour
     // Gets all of the neighbour positions
     public Vector2Int[] GetAllNeighbourPoints(Vector2Int origin, float radius, bool moveOverGaps = false)
     {
+
 
         List<Vector2Int> nFoundPoints = new List<Vector2Int>();
         List<Vector2Int> newPoints = new List<Vector2Int>();
@@ -252,6 +257,7 @@ public class GridFinder : MonoBehaviour
 
     private void OnDrawGizmos()
     {
+
         if (currentSpawnedMap != null && currentSpawnedMap.Keys.Count > 0)
         {
             Gizmos.color = Color.cyan;
