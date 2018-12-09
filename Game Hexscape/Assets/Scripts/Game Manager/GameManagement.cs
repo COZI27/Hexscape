@@ -22,8 +22,6 @@ public class GameManagement : MonoBehaviour {
     public Transform ballTransform;
     public GameObject endlessManagerObject;
 
-    //GameModeBase currentGameMode;
-
 
     public void StartScene (GameplayState gameplayState, Vector3 tilePos)
     {

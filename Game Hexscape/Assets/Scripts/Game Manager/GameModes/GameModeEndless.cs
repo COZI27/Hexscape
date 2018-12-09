@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class GameModeEndless : GameModeBase
+public sealed class GameStateEndless : GameStateBase
 {
 
 
@@ -37,11 +37,17 @@ public class GameModeEndless : GameModeBase
 
     }
 
-    public override void StartGameMode()
+    public override void StartGameState()
     {
         currentSessionData = new GameSessionData();
 
 
+    }
+
+    public override void CleanupGameState()
+    {
+        // Perform cleanup tasks here
+  
     }
 
     protected override void InitialiseClickSounds()
@@ -98,5 +104,17 @@ public class GameModeEndless : GameModeBase
     {
         throw new System.NotImplementedException();
     }
+
+    public override void Pause()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override void Resume()
+    {
+        throw new System.NotImplementedException();
+    }
 }
+
+
 
