@@ -10,14 +10,17 @@ using UnityEngine;
 public class Level : ScriptableObject
 {
    // public string levelName;
-    public MapElement[] hexs;
+    public MapElement[] mapElements;
 
     public int passAmount;
     public int bronzeAmount;
     public int silverAmount;
     public int goldAmount;
 
-
+    public Level (MapElement[] mapElements)
+    {
+        this.mapElements = mapElements;
+    }
 }
 
 [System.Serializable]

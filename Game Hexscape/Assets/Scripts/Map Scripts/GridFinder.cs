@@ -7,9 +7,9 @@ public class GridFinder : MonoBehaviour
     public static GridFinder instance;
 
     // TEMP POINTS USED BY THE GIZMOS THINGO
-    public int rad = 1; // The distance from the origin in hexes
-    public Vector2Int origin = Vector2Int.zero; // the origin position
-    public bool allowSkips = false; // bool for if we want to be able to find the hexes on the other side of a gap or not
+    //public int rad = 1; // The distance from the origin in hexes
+    //public Vector2Int origin = Vector2Int.zero; // the origin position
+    //public bool allowSkips = false; // bool for if we want to be able to find the hexes on the other side of a gap or not
 
     private Dictionary<Vector2Int, Hex> currentSpawnedMap; // the dictonary that is updated by the mapSpawner that the grid finder script uses to find its neighbours
     private Vector3 currentMapOffset;
@@ -18,6 +18,8 @@ public class GridFinder : MonoBehaviour
 
   [SerializeField]  private Grid grid; // refrence to the grid 
 
+    [SerializeField]
+    private Level testLevel;
 
     public Vector2Int WorldToGridPoint(Vector3 position)
     {
@@ -98,7 +100,7 @@ public class GridFinder : MonoBehaviour
 
         return neighbourHexs.ToArray();
 
-        GetAllNeighbourPoints(Vector2Int.zero, 1);
+        // GetAllNeighbourPoints(Vector2Int.zero, 1);
 
     }
 
@@ -262,14 +264,41 @@ public class GridFinder : MonoBehaviour
         {
             Gizmos.color = Color.cyan;
 
-            Hex[] testNeighbours = GetAllNeighbourHexs(origin, rad, allowSkips);
+           // Hex[] testNeighbours = GetAllNeighbourHexs(origin, rad, allowSkips);
 
-            foreach (Hex hex in testNeighbours)
+            //foreach (Hex hex in testNeighbours)
+            //{
+            //    Gizmos.DrawSphere(hex.transform.position, 0.3f);
+            //}
+        }
+
+    }
+
+    [ContextMenu("Add Test Level")]
+   private void SetTestLevel ()
+    {
+        testLevel = CurrentMapToLevel();
+    }
+
+    public Level CurrentMapToLevel () // Turns the current physical map into a level
+    {
+        List<MapElement> elements = new List<MapElement>();
+
+        foreach (var item in currentSpawnedMap)
+        {
+            if (item.Value.isAlive)
             {
-                Gizmos.DrawSphere(hex.transform.position, 0.3f);
+                elements.Add(new MapElement(item.Value.destroyType, item.Key));
             }
         }
 
+        Level level = ScriptableObject.CreateInstance(typeof(Level)) as Level;
+        level.name = "Test Level Save";
+        level.mapElements = elements.ToArray();
+        
+
+
+        return level;
     }
 
 }

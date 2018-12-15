@@ -184,7 +184,7 @@ public class EndlessGameplayManager : MonoBehaviour
 
         // for infite the score required to pass we need to add togheter all of the hexs point rewards VVV
         passScore = 0;
-        newLevel.hexs.ToList().ForEach(x => passScore += x.GetHex().destroyPoints);
+        newLevel.mapElements.ToList().ForEach(x => passScore += x.GetHex().destroyPoints);
         //newLevel.hexs.ToList().ForEach(x => Debug.Log( x.GetHex().destroyPoints));
 
         // Debug.Log(passScore);
