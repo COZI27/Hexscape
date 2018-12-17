@@ -11,11 +11,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c35618548d691fd46a6c9a9453445698, type: 3}
   m_Name: Lv 1
   m_EditorClassIdentifier: 
-  mapElements:
+  hexs:
   - gridPos: {x: 0, y: 0}
-    hexType: 0
+    hexType: 3
+  - gridPos: {x: 0, y: 1}
+    hexType: 3
   - gridPos: {x: 1, y: 0}
-    hexType: 0
+    hexType: 3
+  - gridPos: {x: 0, y: -1}
+    hexType: 3
+  - gridPos: {x: -1, y: -1}
+    hexType: 3
+  - gridPos: {x: -1, y: 0}
+    hexType: 3
+  - gridPos: {x: -1, y: 1}
+    hexType: 3
   passAmount: 0
   bronzeAmount: 0
   silverAmount: 0

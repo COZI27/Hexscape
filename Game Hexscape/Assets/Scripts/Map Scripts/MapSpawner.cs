@@ -88,7 +88,7 @@ public class MapSpawner : MonoBehaviour
         }
 
         Level level = EndlessGameplayManager.instance.levels[EndlessGameplayManager.instance.levelIndex];
-       level.mapElements = mapElements.ToArray();
+       level.hexs = mapElements.ToArray();
         EditorUtility.SetDirty(level);
 
 
@@ -190,7 +190,7 @@ public class MapSpawner : MonoBehaviour
 
 
 
-        foreach (MapElement element in level.mapElements)
+        foreach (MapElement element in level.hexs)
         {
             // Hex hexInstance = Instantiate(element.hexPrefab, grid.CellToWorld(new Vector3Int(element.gridPos.x, element.gridPos.y, 0)), Quaternion.Euler(-90, 0, 0), holder.transform).GetComponent<Hex>();
 
@@ -228,7 +228,7 @@ public class MapSpawner : MonoBehaviour
 
 
 
-        foreach (MapElement element in EndlessGameplayManager.instance.levels[level].mapElements)
+        foreach (MapElement element in EndlessGameplayManager.instance.levels[level].hexs)
         {
           
           //  HexBank.instance.PullHex(element.GetHex());
@@ -261,7 +261,7 @@ public class MapSpawner : MonoBehaviour
 
 
 
-        foreach (MapElement element in EndlessGameplayManager.instance.levels[level].mapElements)
+        foreach (MapElement element in EndlessGameplayManager.instance.levels[level].hexs)
         {
             Hex hexInstance = HexBank.instance.GetDisabledHex(element.GetHex().destroyType, grid.CellToWorld(new Vector3Int(element.gridPos.x, element.gridPos.y, 0)), holder.transform).GetComponent<Hex>();
 
