@@ -20,9 +20,6 @@ public class GameManager : MonoBehaviour {
 
     public GameStateBase initialGameState;
 
-    GameStateBase CurrentGameState;
-
-
     private void Awake()
     {
         MakeSingleton();
@@ -30,9 +27,9 @@ public class GameManager : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-		if (CurrentGameState == null)
+		if (currentGameState == null)
         {
-            ChangeGameState( new GameStateEndless() ) ;
+            ChangeGameState( initialGameState ) ;
         }
 	}
 	
@@ -43,18 +40,21 @@ public class GameManager : MonoBehaviour {
 
     // private Stack<GameStateBase> ActiveGameStates;
 
-
+    private GameStateBase currentGameState; //TODO: Move into State Machine class?
 
     public enum Command
     {
+        NextLevel,
+
         Begin,
         End,
+
         Pause,
         Resume,
-        Exit
+
+        QuitLevel
     }
 
-    public GameStateEndless endlessState;
 
     class StateTransition<TOne,TTwo> 
         //where TOne : System.Type
@@ -88,9 +88,11 @@ public class GameManager : MonoBehaviour {
         }
     }
 
+    Dictionary<StateTransition<System.Type, Command>, System.Type> transitions;
+
+
     private void InitialiseTransitions()
     {
-        Dictionary < StateTransition <System.Type, Command >, System.Type> transitions;
 
         //string stringTemp = endlessState.GetType().Name.ToString();
 
@@ -107,28 +109,47 @@ public class GameManager : MonoBehaviour {
 
         transitions = new Dictionary<StateTransition<System.Type, Command>, System.Type>
         {
-            { new StateTransition<System.Type, Command> (typeof(GameStateEndless), Command.Begin), typeof(GameStateEndless) }
+            { new StateTransition<System.Type, Command>(typeof(GameStateMenuMain), Command.Begin), typeof(GameStateEndless)  },
+            { new StateTransition<System.Type, Command>(typeof(GameStateEndless), Command.QuitLevel), typeof(GameStateMenuMain)  }
         };
+        // NOTE: Could change the value of an entry at runtime, if necessary
+        // TODO: prevent/remove duplicate values (could use a custom "Add" method to check for conflicts)
     }
 
 
 
 
-    public enum Events { LaunchApplication, CloseApplication, OpenMainMenu, OpenScoreMenu, StartGame, QuitGame }
+    //public enum Events { LaunchApplication, CloseApplication, OpenMainMenu, OpenScoreMenu, StartGame, QuitGame }
 
     #region External Events
 
-    public bool ProcessEvent( Events newEvent ) {
-        return false;
-    }
+    //public bool ProcessEvent( Events newEvent ) {
+    //    return false;
+    //}
 
-    public void LaunchGame()
+    public bool ProcessCommand(Command newCommand)
     {
+        StateTransition<System.Type, Command> transitionToFind = new StateTransition<System.Type, Command>(currentGameState.GetType(), newCommand);
 
-    }
+        if (transitions.ContainsKey(transitionToFind))
+        {
+            var foundValue = transitions[transitionToFind].GetType();
+            GameStateBase newState = (GameStateBase)System.Activator.CreateInstance(foundValue);
 
-    public void LoadMainMenu()
-    {
+
+            //...
+            // Call internal functions here to handle the transition...
+            ChangeGameState((GameStateBase)newState);
+
+            return true;
+        }
+        else return false;
+
+        //GameStateBase newState = transitions.ContainsKey( new StateTransition<System.Type, Command>(currentGameState.GetType() , newCommand));
+        //if (transitions.TryGetValue(new StateTransition<System.Type, Command>(currentGameState.GetType(), newCommand), out newState))
+        //{
+        //    return false;
+        //}
 
     }
 
@@ -137,8 +158,8 @@ public class GameManager : MonoBehaviour {
     #region Internal Events
     private void ChangeGameState(GameStateBase newGameState)
     {
-        CurrentGameState.CleanupGameState();
-        CurrentGameState = newGameState;
+        currentGameState.CleanupGameState();
+        currentGameState = newGameState;
         //System.GC.Collect();
     }
     #endregion Internal Events

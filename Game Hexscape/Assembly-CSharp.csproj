@@ -68,8 +68,9 @@
     <Compile Include="Assets\Scripts\Game Manager\EndlessGameplayManager.cs" />
     <Compile Include="Assets\Scripts\Game Manager\GameManagement.cs" />
     <Compile Include="Assets\Scripts\Game Manager\GameManager.cs" />
-    <Compile Include="Assets\Scripts\Game Manager\GameModes\GameStateBase.cs" />
-    <Compile Include="Assets\Scripts\Game Manager\GameModes\GameStateEndless.cs" />
+    <Compile Include="Assets\Scripts\Game Manager\GameStates\GameStateBase.cs" />
+    <Compile Include="Assets\Scripts\Game Manager\GameStates\GameStateEndless.cs" />
+    <Compile Include="Assets\Scripts\Game Manager\GameStates\GameStateMenuMain.cs" />
     <Compile Include="Assets\Scripts\Game Manager\MouseManager.cs" />
     <Compile Include="Assets\Scripts\Game Manager\RippleManager.cs" />
     <Compile Include="Assets\Scripts\HelperClasses\Gradient.cs" />
