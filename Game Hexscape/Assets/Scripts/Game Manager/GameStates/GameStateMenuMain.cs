@@ -3,9 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GameStateMenuMain : GameStateBase {
+
+    public GameStateMenuMain()
+    {
+
+    }
+
     public override void CleanupGameState()
     {
-        throw new System.NotImplementedException();
+        //throw new System.NotImplementedException();
     }
 
     public override void HexDigEvent()
@@ -40,7 +46,7 @@ public class GameStateMenuMain : GameStateBase {
 
     public override void StartGameState()
     {
-        throw new System.NotImplementedException();
+        //throw new System.NotImplementedException();
     }
 
     protected override void HandleInput()

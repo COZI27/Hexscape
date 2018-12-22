@@ -8,7 +8,8 @@ public class HexButton : MonoBehaviour {
 
     public void ClickedOn()
     {
-        GameManagement.instance.StartScene(gameplayState, transform.position);
+        //GameManagement.instance.StartScene(gameplayState, transform.position);
+        GameManager.instance.ProcessCommand(GameManager.Command.Begin);
         Destroy(this.gameObject);
     }
 

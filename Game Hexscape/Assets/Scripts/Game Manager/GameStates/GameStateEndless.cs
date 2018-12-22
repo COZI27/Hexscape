@@ -5,10 +5,6 @@ using UnityEngine;
 
 public sealed class GameStateEndless : GameStateBase
 {
-
-
-
-
     [SerializeField] public Level[] levels;
 
     [Space(5f)]
@@ -23,9 +19,12 @@ public sealed class GameStateEndless : GameStateBase
     public float playerSpeedIncreaseLogBase = 2f;
     public float playerSpeedIncreaseLogMultiplyer = 10f;
 
-
     private PlayerController player;
 
+    public GameStateEndless()
+    {
+
+    }
 
     void Start()
     {
@@ -39,14 +38,14 @@ public sealed class GameStateEndless : GameStateBase
 
     public override void StartGameState()
     {
+        Debug.Log("GameStateEndless: Start Game State ");
         currentSessionData = new GameSessionData();
-
-
+        PopulateLevelsArray();
     }
 
     public override void CleanupGameState()
     {
-        // Perform cleanup tasks here
+        // ...
   
     }
 
@@ -113,6 +112,13 @@ public sealed class GameStateEndless : GameStateBase
     public override void Resume()
     {
         throw new System.NotImplementedException();
+    }
+
+
+    private void PopulateLevelsArray()
+    {
+        levels = Resources.LoadAll<Level>("Levels/Endless");
+        Debug.Log("Loaded Level count = " + levels.Length);
     }
 }
 

@@ -20,7 +20,7 @@ public class Hex : MonoBehaviour
 
     public bool isClickable = true;
 
-    public DestroyState destroyType;
+    public HexTypeEnum typeOfHex;
     public float destroyTime = 1f;
 
 
@@ -94,7 +94,7 @@ public class Hex : MonoBehaviour
 
         DisableHex();
 
-        if (destroyType == DestroyState.destroyOnExit)
+        if (typeOfHex == HexTypeEnum.HexTile_ExitDestroy)
         {
             mesh.materials[1].SetColor("_EmissionColor", Color.green);
         }
@@ -244,7 +244,7 @@ public class Hex : MonoBehaviour
 
         if (isSleeping == false)
         {
-            if (destroyType == DestroyState.destroyOnClick)
+            if (typeOfHex == HexTypeEnum.HexTile_ClickDestroy)
             {
                 DestroyHex();
             }
@@ -256,7 +256,7 @@ public class Hex : MonoBehaviour
     {
         if (isSleeping == false)
         {
-            if (destroyType == DestroyState.destroyOnExit)
+            if (typeOfHex == HexTypeEnum.HexTile_ExitDestroy)
             {
                 DestroyHex();
             }
@@ -273,12 +273,12 @@ public class Hex : MonoBehaviour
 
         if (isSleeping == false)
         {
-            if (destroyType == DestroyState.destroyOnEnter)
-            {
-                DestroyHex();
-            }
+            //if (hexType == HexTypeEnum.destroyOnEnter)
+            //{
+            //    DestroyHex();
+            //}
 
-            if (destroyType == DestroyState.destroyOnExit)
+            if (typeOfHex == HexTypeEnum.HexTile_ExitDestroy)
             {
                 mesh.materials[1].SetColor("_EmissionColor", Color.red);
             }
@@ -311,14 +311,6 @@ public class Hex : MonoBehaviour
             OnPlayerExit();
         }
      
-    }
-
-    public enum DestroyState
-    {
-        dontDestroy,
-        destroyOnExit,
-        destroyOnEnter,
-        destroyOnClick
     }
 
 

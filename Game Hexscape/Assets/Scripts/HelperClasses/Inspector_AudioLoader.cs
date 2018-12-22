@@ -30,7 +30,7 @@ public class Inspector_AudioLoader : Editor
         if (audioManager != null)
         {
 
-            AudioClip[] loadedClips = Resources.LoadAll<AudioClip>("Sounds");
+            AudioClip[] loadedClips = Resources.LoadAll<AudioClip>(directoryToLoad.ToString());
 
             Debug.Log("Loaded Audio Clip count = " + loadedClips.Length);
             audioManager.PopulateSoundEffectsArray(loadedClips, Application.isEditor);

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class GameStateBase : MonoBehaviour {
+public class GameStateBase {
 
     public struct GameSessionData
     {
@@ -17,31 +17,58 @@ public abstract class GameStateBase : MonoBehaviour {
     protected SoundEffectEnum[] hexClickSounds;
 
     #region State Initialisation
-    public abstract void StartGameState();
+    public virtual void StartGameState()
+    {
+        throw new System.NotImplementedException();
+    }
 
     // Used to predefine click sounds for this game mode.
-    protected abstract void InitialiseClickSounds();
+    protected virtual void InitialiseClickSounds()
+    {
+        throw new System.NotImplementedException();
+    }
 
-    public abstract void CleanupGameState();
+    public virtual void CleanupGameState()
+    {
+        throw new System.NotImplementedException();
+    }
     #endregion
 
-    public abstract void Pause();
+    public virtual void Pause()
+    {
+        throw new System.NotImplementedException();
+    }
 
-    public abstract void Resume();
+    public virtual void Resume()
+    {
+        throw new System.NotImplementedException();
+    }
 
-
-    #region State Actions
     // Used to play predefined click sounds. 
-    public abstract void PlayClickSound();
+    public virtual void PlayClickSound()
+    {
+        throw new System.NotImplementedException();
+    }
 
     // Intended to be used for listing for other kinds of input, such as key presses
-    protected abstract void HandleInput();
+    protected virtual void HandleInput()
+    {
+        throw new System.NotImplementedException();
+    }
 
-    public abstract void LoadNextLevel();
+    public virtual void LoadNextLevel()
+    {
+        throw new System.NotImplementedException();
+    }
 
-    public abstract void PlayGroundThud(); // TODO: Consider whether this method is required at all - could the ripple effect be triggered elsewhere, such as the grid?
+    public virtual void PlayGroundThud()
+    {
+        throw new System.NotImplementedException();
+    } // TODO: Consider whether this method is required at all - could the ripple effect be triggered elsewhere, such as the grid?
 
-    public abstract void HexDigEvent();
-    #endregion
+    public virtual void HexDigEvent()
+    {
+        throw new System.NotImplementedException();
+    }
 }
 

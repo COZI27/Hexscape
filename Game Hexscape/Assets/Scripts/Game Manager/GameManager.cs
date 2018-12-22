@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour {
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(gameObject);
+            //DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -18,31 +18,7 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-    public GameStateBase initialGameState;
-
-    private void Awake()
-    {
-        MakeSingleton();
-    }
-
-    // Use this for initialization
-    void Start () {
-		if (currentGameState == null)
-        {
-            ChangeGameState( initialGameState ) ;
-        }
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
-    // private Stack<GameStateBase> ActiveGameStates;
-
-    private GameStateBase currentGameState; //TODO: Move into State Machine class?
-
-    public enum Command
+    public enum Command // NOTE: Values are still subject to change
     {
         NextLevel,
 
@@ -54,6 +30,33 @@ public class GameManager : MonoBehaviour {
 
         QuitLevel
     }
+
+    //public GameStateBase initialGameState = GameStateMenuMain;
+
+    // private Stack<GameStateBase> ActiveGameStates;
+    private GameStateBase currentGameState;
+
+
+    private void Awake()
+    {
+        MakeSingleton();
+        InitialiseTransitions();
+    }
+
+    // Use this for initialization
+    void Start () {
+		if (currentGameState == null)
+        {
+            ChangeGameState( new GameStateMenuMain () ) ;
+        }
+	}
+	
+	// Update is called once per frame
+	void Update () {
+		
+	}
+
+
 
 
     class StateTransition<TOne,TTwo> 
@@ -77,7 +80,7 @@ public class GameManager : MonoBehaviour {
             int returnHashCode = 17;
             returnHashCode = returnHashCode * 23 + keyOne.GetHashCode();
             returnHashCode = returnHashCode * 23 + keyTwo.GetHashCode();
-            return base.GetHashCode();
+            return returnHashCode;
         }
 
         public override bool Equals(object obj)
@@ -88,33 +91,29 @@ public class GameManager : MonoBehaviour {
         }
     }
 
+    // transitions contains the types of 
     Dictionary<StateTransition<System.Type, Command>, System.Type> transitions;
-
 
     private void InitialiseTransitions()
     {
-
-        //string stringTemp = endlessState.GetType().Name.ToString();
-
-
-        //thing = new Dictionary<string, typeof(GameStateBase)>
-        //{
-        //    {  stringTemp, typeof(GameStateEndless),
-
-
-        //    }
-        //};
-
-        //thing.Add(stringTemp, typeof(GameStateEndless));
 
         transitions = new Dictionary<StateTransition<System.Type, Command>, System.Type>
         {
             { new StateTransition<System.Type, Command>(typeof(GameStateMenuMain), Command.Begin), typeof(GameStateEndless)  },
             { new StateTransition<System.Type, Command>(typeof(GameStateEndless), Command.QuitLevel), typeof(GameStateMenuMain)  }
         };
+
         // NOTE: Could change the value of an entry at runtime, if necessary
+        // NOTE: It would also be possible to use a function/ delegate call or other type for the value
+        //      https://stackoverflow.com/questions/20983342/how-to-store-a-type-not-type-object-for-future-use
+        //      https://social.msdn.microsoft.com/Forums/en-US/0e4a2fc8-1db3-4093-8b83-83c598044917/syntax-help-calling-a-delegate-from-a-dictionary?forum=csharplanguage
         // TODO: prevent/remove duplicate values (could use a custom "Add" method to check for conflicts)
+        // Could also use this or a wrapper to ensure that the transition value type is a child of GameStateBase
+
+
+        
     }
+
 
 
 
@@ -123,34 +122,26 @@ public class GameManager : MonoBehaviour {
 
     #region External Events
 
-    //public bool ProcessEvent( Events newEvent ) {
-    //    return false;
-    //}
-
     public bool ProcessCommand(Command newCommand)
     {
         StateTransition<System.Type, Command> transitionToFind = new StateTransition<System.Type, Command>(currentGameState.GetType(), newCommand);
 
-        if (transitions.ContainsKey(transitionToFind))
+        if (transitions.ContainsKey(transitionToFind)) // Check whether a rule exists for this Gamestate
         {
-            var foundValue = transitions[transitionToFind].GetType();
-            GameStateBase newState = (GameStateBase)System.Activator.CreateInstance(foundValue);
+            //GameStateBase newState =  (GameStateBase)System.Activator.CreateInstance( typeof(GameStateEndless) );
+            GameStateBase newState = (GameStateBase)System.Activator.CreateInstance(transitions[transitionToFind]);
+            //System.DateTime dateTime = (System.DateTime)System.Activator.CreateInstance(typeof(System.DateTime));
 
 
-            //...
-            // Call internal functions here to handle the transition...
-            ChangeGameState((GameStateBase)newState);
+            ChangeGameState(newState);
 
             return true;
         }
-        else return false;
-
-        //GameStateBase newState = transitions.ContainsKey( new StateTransition<System.Type, Command>(currentGameState.GetType() , newCommand));
-        //if (transitions.TryGetValue(new StateTransition<System.Type, Command>(currentGameState.GetType(), newCommand), out newState))
-        //{
-        //    return false;
-        //}
-
+        else
+        {
+            Debug.LogWarning("GameManager: Command process failed - no possible transition found");
+            return false;
+        }
     }
 
     #endregion External Events
@@ -158,9 +149,13 @@ public class GameManager : MonoBehaviour {
     #region Internal Events
     private void ChangeGameState(GameStateBase newGameState)
     {
-        currentGameState.CleanupGameState();
+        // TODO: Share gamestate data here if needed
+
+        if (currentGameState != null) currentGameState.CleanupGameState();
         currentGameState = newGameState;
-        //System.GC.Collect();
+
+
+        currentGameState.StartGameState();
     }
     #endregion Internal Events
 }

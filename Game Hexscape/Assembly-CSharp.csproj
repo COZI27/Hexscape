@@ -63,6 +63,7 @@
     <Compile Include="Assets\HexColourLerp.cs" />
     <Compile Include="Assets\MenuLine.cs" />
     <Compile Include="Assets\Scripts\CameraScripts\CameraFollow.cs" />
+    <Compile Include="Assets\Scripts\Enums\HexTypeEnum.cs" />
     <Compile Include="Assets\Scripts\Enums\SoundEffectEnum.cs" />
     <Compile Include="Assets\Scripts\Game Manager\AudioManager.cs" />
     <Compile Include="Assets\Scripts\Game Manager\EndlessGameplayManager.cs" />
@@ -75,6 +76,7 @@
     <Compile Include="Assets\Scripts\Game Manager\RippleManager.cs" />
     <Compile Include="Assets\Scripts\HelperClasses\Gradient.cs" />
     <Compile Include="Assets\Scripts\HelperClasses\Inspector_AudioLoader.cs" />
+    <Compile Include="Assets\Scripts\HelperClasses\Inspector_HexLoader.cs" />
     <Compile Include="Assets\Scripts\Hex Scripts\Hex.cs" />
     <Compile Include="Assets\Scripts\Map Scripts\GridFinder.cs" />
     <Compile Include="Assets\Scripts\Map Scripts\HexBank.cs" />

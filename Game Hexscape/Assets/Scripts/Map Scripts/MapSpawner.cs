@@ -84,7 +84,7 @@ public class MapSpawner : MonoBehaviour
         foreach (Hex hex in grid.GetComponentsInChildren<Hex>())
         {
 
-            mapElements.Add(new MapElement(hex.destroyType, new Vector2Int(grid.WorldToCell(hex.transform.position).x, grid.WorldToCell(hex.transform.position).y)));
+            mapElements.Add(new MapElement(hex.typeOfHex, new Vector2Int(grid.WorldToCell(hex.transform.position).x, grid.WorldToCell(hex.transform.position).y)));
         }
 
         Level level = EndlessGameplayManager.instance.levels[EndlessGameplayManager.instance.levelIndex];
@@ -193,7 +193,7 @@ public class MapSpawner : MonoBehaviour
 
             Vector3 position = GridFinder.instance.GridPosToWorld(element.gridPos);
 
-            Hex hexInstance = HexBank.instance.GetDisabledHex(element.GetHex().destroyType, grid.CellToWorld(new Vector3Int(element.gridPos.x, element.gridPos.y, 0)), holder.transform).GetComponent<Hex>();
+            Hex hexInstance = HexBank.instance.GetDisabledHex(element.GetHex().typeOfHex, grid.CellToWorld(new Vector3Int(element.gridPos.x, element.gridPos.y, 0)), holder.transform).GetComponent<Hex>();
 
             SetGameobjectWidth(hexInstance.gameObject);
             //   hexInstance.prefab = element.hexPrefab;
@@ -229,7 +229,7 @@ public class MapSpawner : MonoBehaviour
         {
           
           //  HexBank.instance.PullHex(element.GetHex());
-            Hex hexInstance = HexBank.instance.GetDisabledHex(element.GetHex().destroyType, grid.CellToWorld(new Vector3Int(element.gridPos.x, element.gridPos.y, 0)), holder.transform).GetComponent<Hex>();
+            Hex hexInstance = HexBank.instance.GetDisabledHex(element.GetHex().typeOfHex, grid.CellToWorld(new Vector3Int(element.gridPos.x, element.gridPos.y, 0)), holder.transform).GetComponent<Hex>();
 
 
             SetGameobjectWidth(hexInstance.gameObject);
@@ -247,6 +247,7 @@ public class MapSpawner : MonoBehaviour
         GridFinder.instance.SetMap(mapRefrence);
 
     }
+
     public void SpawnHexs(int level, float yPos, Vector3 playerPos)
     {
         // Creates a dictionary for Hex to its position to be sent to the gridfinder
@@ -260,7 +261,7 @@ public class MapSpawner : MonoBehaviour
 
         foreach (MapElement element in EndlessGameplayManager.instance.levels[level].hexs)
         {
-            Hex hexInstance = HexBank.instance.GetDisabledHex(element.GetHex().destroyType, grid.CellToWorld(new Vector3Int(element.gridPos.x, element.gridPos.y, 0)), holder.transform).GetComponent<Hex>();
+            Hex hexInstance = HexBank.instance.GetDisabledHex(element.GetHex().typeOfHex, grid.CellToWorld(new Vector3Int(element.gridPos.x, element.gridPos.y, 0)), holder.transform).GetComponent<Hex>();
 
 
             SetGameobjectWidth(hexInstance.gameObject);
