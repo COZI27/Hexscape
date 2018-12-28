@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 23746457813637426}
   - component: {fileID: 33117563010958312}
   - component: {fileID: 64165959870570460}
+  - component: {fileID: 114706826074900978}
   m_Layer: 13
   m_Name: HexTile_Null
   m_TagString: Untagged
@@ -99,3 +100,29 @@ MeshCollider:
   m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300000, guid: ad92d8d57f4be764c87036a8aed184f3, type: 3}
+--- !u!114 &114706826074900978
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1653837792242484}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10454be4d274f974d95cd5cfb2e018cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  destroyPoints: 0
+  isClickable: 1
+  typeOfHex: 1916866513
+  destroyTime: 1
+  isSleeping: 1
+  disabledMaterial: {fileID: 0}
+  enabledMaterial: {fileID: 0}
+  useSpawnEffect: 1
+  useSpawnDelay: 1
+  spawnParticleEffectToSpawn: {fileID: 1042993999659076, guid: 30150ba4464fd3043878394d66b4df91,
+    type: 2}
+  isAlive: 0
+  mesh: {fileID: 0}
+  useFalling: 1
+  isMenuHex: 1

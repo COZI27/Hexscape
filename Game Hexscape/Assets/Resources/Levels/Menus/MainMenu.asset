@@ -13,19 +13,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hexs:
   - gridPos: {x: 1, y: 0}
-    hexType: 4
-  - gridPos: {x: 1, y: 1}
-    hexType: 4
-  - gridPos: {x: 0, y: -1}
-    hexType: 4
-  - gridPos: {x: 0, y: 0}
-    hexType: 0
+    hexType: 1916866513
   - gridPos: {x: 0, y: 1}
-    hexType: 4
-  - gridPos: {x: -1, y: 0}
-    hexType: 4
+    hexType: 1916866513
+  - gridPos: {x: 0, y: -1}
+    hexType: 1916866513
+  - gridPos: {x: 0, y: 0}
+    hexType: 1282535278
   - gridPos: {x: -1, y: 1}
-    hexType: 4
+    hexType: 1916866513
+  - gridPos: {x: -1, y: 0}
+    hexType: 1916866513
+  - gridPos: {x: -1, y: -1}
+    hexType: 1916866513
   passAmount: 0
   bronzeAmount: 0
   silverAmount: 0

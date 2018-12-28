@@ -21,6 +21,8 @@ public class Hex : MonoBehaviour
     public bool isClickable = true;
 
     public HexTypeEnum typeOfHex;
+
+
     public float destroyTime = 1f;
 
 
@@ -55,12 +57,14 @@ public class Hex : MonoBehaviour
     private int fallRotIndex = 0;
     private Vector2[] fallRotations;
 
+    public bool isMenuHex; // TODO: TEMP - Delete me
+
     private void Awake()
     {
         hasBeenTouched = false;
 
         // sub so we know when we do exit (an exit now occours when the player touches a diffrent hex tile)
-        PlayerController.instance.newHextouched += PlayerTouchedNewHex;
+        if (!isMenuHex) PlayerController.instance.newHextouched += PlayerTouchedNewHex;
 
         mesh = GetComponent<MeshRenderer>();
         if (mesh != null) mesh.enabled = false;
@@ -124,7 +128,9 @@ public class Hex : MonoBehaviour
     // Triggers the rest of the board to wake up.
     public void AwakenMap()
     {
-        EndlessGameplayManager.instance.colourLerper.NextColour();
+        //EndlessGameplayManager.instance.colourLerper.NextColour();
+
+        //GameManager.instance.colourLerper.NectColour();
 
         foreach (Hex hex in transform.parent.GetComponentsInChildren<Hex>())
         {
@@ -142,7 +148,9 @@ public class Hex : MonoBehaviour
             hasBeenTouched = false;
             isAlive = false;
 
-            EndlessGameplayManager.instance.GainHexDigPoints(destroyPoints);
+            GameManager.instance.DigEvent(destroyPoints);
+
+            //EndlessGameplayManager.instance.GainHexDigPoints(destroyPoints);
         }
 
         if (useFalling)
@@ -239,7 +247,8 @@ public class Hex : MonoBehaviour
     public void OnMouseClick()
     {
         if (isAlive && !isSleeping) {
-            EndlessGameplayManager.instance.PlayHexClickSound();
+            GameManager.instance.ClickEvent();
+            //EndlessGameplayManager.instance.PlayHexClickSound();
         }
 
         if (isSleeping == false)
@@ -268,7 +277,8 @@ public class Hex : MonoBehaviour
         if (isSleeping)
         {
             AwakenMap(); 
-            EndlessGameplayManager.instance.PlayGroundThud();
+            //EndlessGameplayManager.instance.PlayGroundThud();
+            // TODO: Reimplement play ground thud in manager class
         }
 
         if (isSleeping == false)

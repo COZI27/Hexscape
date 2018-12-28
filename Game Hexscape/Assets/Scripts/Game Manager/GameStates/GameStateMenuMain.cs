@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class GameStateMenuMain : GameStateBase {
 
+    Level mainMenuLevel;
+
     public GameStateMenuMain()
     {
 
@@ -46,6 +48,11 @@ public class GameStateMenuMain : GameStateBase {
 
     public override void StartGameState()
     {
+        Level[] levels = Resources.LoadAll<Level>("Levels/Menus");
+        mainMenuLevel = levels[0];
+
+        MapSpawner.instance.SpawnHexs(mainMenuLevel, new Vector3(0,30,0)/*player.transform.position*/);
+
         //throw new System.NotImplementedException();
     }
 

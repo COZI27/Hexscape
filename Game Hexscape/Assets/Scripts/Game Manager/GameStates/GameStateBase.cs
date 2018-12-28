@@ -61,7 +61,7 @@ public class GameStateBase {
         throw new System.NotImplementedException();
     }
 
-    public virtual void PlayGroundThud()
+    public virtual void PlayGroundThud() 
     {
         throw new System.NotImplementedException();
     } // TODO: Consider whether this method is required at all - could the ripple effect be triggered elsewhere, such as the grid?

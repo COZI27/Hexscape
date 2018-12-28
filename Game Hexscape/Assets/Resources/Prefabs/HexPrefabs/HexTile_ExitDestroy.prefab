@@ -114,7 +114,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   destroyPoints: 10
   isClickable: 0
-  destroyType: 1
+  typeOfHex: 1790021714
   destroyTime: 0
   isSleeping: 0
   disabledMaterial: {fileID: 0}
@@ -126,3 +126,4 @@ MonoBehaviour:
   isAlive: 0
   mesh: {fileID: 0}
   useFalling: 0
+  isMenuHex: 0

@@ -670,7 +670,7 @@ MonoBehaviour:
   hexMask:
     serializedVersion: 2
     m_Bits: 8192
-  worldMousePos: {x: 8.5, y: 0, z: 11.25833}
+  worldMousePos: {x: 5.5, y: 0, z: 7.7942286}
 --- !u!114 &163908980
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -686,6 +686,8 @@ MonoBehaviour:
   - {fileID: 1117482875744518, guid: fb9e043f6e535c94dbe71272211e15b7, type: 2}
   - {fileID: 1623918650698878, guid: 6c0e64695729c14449dab81a503d2937, type: 2}
   - {fileID: 1344758161039898, guid: 024c3d14d1110b34cbf37f8a5c3a684a, type: 2}
+  - {fileID: 1110307450680384, guid: 1ecb86a207b5e4a4492c6062b02ef842, type: 2}
+  - {fileID: 1653837792242484, guid: 71a3406a346c27d45be18b77ac4e51c7, type: 2}
   disableHexTypes: []
 --- !u!114 &163908981
 MonoBehaviour:
@@ -1042,7 +1044,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 239645155}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 2.746, z: 0}
   m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1545,6 +1547,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29ba5a2d341885d4faeedbc9b31233d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ballYOffset: -10
+  ballTransform: {fileID: 239645161}
+  endlessManagerObject: {fileID: 0}
 --- !u!1 &631924396
 GameObject:
   m_ObjectHideFlags: 0
@@ -1791,14 +1796,13 @@ GameObject:
   m_Component:
   - component: {fileID: 959538121}
   - component: {fileID: 959538120}
-  - component: {fileID: 959538122}
   m_Layer: 0
   m_Name: Button Grid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!156049354 &959538120
 Grid:
   m_ObjectHideFlags: 0
@@ -1830,17 +1834,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &959538122
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 959538119}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e9828b808c95ed44bab3e776f6b94574, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &966832661
 Prefab:
   m_ObjectHideFlags: 0

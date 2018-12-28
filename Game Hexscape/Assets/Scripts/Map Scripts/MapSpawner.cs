@@ -174,10 +174,10 @@ public class MapSpawner : MonoBehaviour
         // makes it so the Y pos is just bellow the player if the level is below 1
         float yPos = playerPos.y - 1f;
 
-        if ( EndlessGameplayManager.instance.levelIndex > 1)
-        {
+        //if ( EndlessGameplayManager.instance.levelIndex > 1)
+        //{
             yPos = playerPos.y - distanceBetweenMaps;
-        }
+        //}
 
 
 

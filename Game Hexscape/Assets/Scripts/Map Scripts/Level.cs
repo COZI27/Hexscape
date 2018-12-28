@@ -42,4 +42,6 @@ public class MapElement
         this.gridPos = gridPos;
         this.hex = HexBank.instance.GetHexFromType(hexType);
     }
+
+
 }

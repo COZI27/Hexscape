@@ -11,7 +11,8 @@ public sealed class GameStateEndless : GameStateBase
     [Header("Options:")]
     [Space(1f)]
     [Header("   - Map Options:")]
-    public bool useRandomLevels = true;
+    public bool useRandomLevels = false;
+    private bool editMode = false; // TEMP - TODO: Create 'EditModeState'
 
     [Space(3f)]
     [Header("   - Player Options:")]
@@ -29,6 +30,7 @@ public sealed class GameStateEndless : GameStateBase
     void Start()
     {
 
+
     }
 
     void Update()
@@ -41,6 +43,27 @@ public sealed class GameStateEndless : GameStateBase
         Debug.Log("GameStateEndless: Start Game State ");
         currentSessionData = new GameSessionData();
         PopulateLevelsArray();
+
+        InitialiseClickSounds();
+
+
+        editMode = PlayerPrefs.GetInt("Edit Mode") == 1;
+        if (editMode == true) // level edit on start... if the ball does not spawn we go into edit mode because of a helpfull bug thingo :)
+        {
+            Object.Destroy(Object.FindObjectOfType<PlayerController>().gameObject);
+            //scoreUI.totalScoreText.text = "EDIT MODE";
+            //scoreUI.totalScoreText.color = Color.red;
+
+        }
+        else
+        {
+
+            Debug.Log("Finding Player...");
+            player = Object.FindObjectOfType<PlayerController>();
+            if (player != null) player.moveSpeed = initialPlayerSpeed;
+        }
+
+        LoadNextLevel();
     }
 
     public override void CleanupGameState()
@@ -84,8 +107,10 @@ public sealed class GameStateEndless : GameStateBase
 
         Level newLevel = useRandomLevels ? levels[Random.Range(0, levels.Length)] : levels[currentSessionData.levelIndex];
 
+        currentSessionData.levelScore = 0;
         currentSessionData.passScore = 0;
         newLevel.hexs.ToList().ForEach(x => currentSessionData.passScore += x.GetHex().destroyPoints);
+
 
         //scoreUI.ModifyValues(currentSessionData);
         //scoreUI.SetMedalState(MedalState.noMedal);
@@ -96,7 +121,18 @@ public sealed class GameStateEndless : GameStateBase
 
     public override void HexDigEvent()
     {
-        throw new System.NotImplementedException();
+        currentSessionData.levelScore += 1;
+        currentSessionData.totalScore += 1;
+
+
+        //scoreUI.SetScore(totalScore, levelCurrentScore, passScore);
+
+        // Debug.Log("Current Level: " + levelCurrentScore + ", Pass Score: " + passScore);
+        if (currentSessionData.levelScore >= currentSessionData.passScore)
+        {
+            Debug.Log("HexDigEvent: LoadNextLevel");
+            LoadNextLevel();
+        }
     }
 
     public override void PlayGroundThud()

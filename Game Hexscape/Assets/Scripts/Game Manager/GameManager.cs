@@ -36,6 +36,10 @@ public class GameManager : MonoBehaviour {
     // private Stack<GameStateBase> ActiveGameStates;
     private GameStateBase currentGameState;
 
+    public float ballYOffset = -10; // TEMP
+    public Transform ballTransform; // TEMP
+    public GameObject endlessManagerObject; // TEMP
+
 
     private void Awake()
     {
@@ -144,6 +148,18 @@ public class GameManager : MonoBehaviour {
         }
     }
 
+    public void DigEvent(int points)
+    {
+        // TODO: Consider whether/ how this could be moved into process command. Do we need any parameters?
+        if (points > 0) // TEMP - Temproarily fixes issue with indestructible tiles adding score. The original approach passed '0' as a parameter from the tiles score.
+            currentGameState.HexDigEvent();
+    }
+
+    public void ClickEvent()
+    {
+        currentGameState.PlayClickSound();
+    }
+
     #endregion External Events
 
     #region Internal Events
@@ -154,6 +170,11 @@ public class GameManager : MonoBehaviour {
         if (currentGameState != null) currentGameState.CleanupGameState();
         currentGameState = newGameState;
 
+        if (newGameState.GetType() == typeof(GameStateEndless))
+        {
+            ballTransform.position = new Vector3(0, 10, 0); // ballPosition; //TEMP
+            ballTransform.gameObject.SetActive(true); //TEMP
+        }
 
         currentGameState.StartGameState();
     }
