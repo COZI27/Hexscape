@@ -34,7 +34,7 @@ public class CameraTunnel : MonoBehaviour {
         
 
         for (int i = 0; i < numberOfObjects; ++i) {
-            GameObject newObject = Instantiate(objectToSpawn, new Vector3(this.transform.position.x, initialYPos, this.transform.position.z), Quaternion.identity, GameManagement.instance.transform) as GameObject;
+            GameObject newObject = Instantiate(objectToSpawn, new Vector3(this.transform.position.x, initialYPos, this.transform.position.z), Quaternion.identity, GameManager.instance.transform) as GameObject;
             if (newObject != null) {
                 PhylloTunnelPiece script = newObject.GetComponent<PhylloTunnelPiece>();
                 if (script != null) {

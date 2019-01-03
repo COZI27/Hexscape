@@ -66,7 +66,11 @@ Material:
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
+<<<<<<< HEAD
     - _RippleDistance: 38.726295
+=======
+    - _RippleDistance: 5.970737
+>>>>>>> GameModes
     - _RippleWidth: 1
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
@@ -76,4 +80,8 @@ Material:
     m_Colors:
     - _Color: {r: 0.26091117, g: 0.25485048, b: 0.6509434, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+<<<<<<< HEAD
     - _RippleOrigin: {r: -0.63043445, g: -122.50475, b: 0.30158782, a: 0}
+=======
+    - _RippleOrigin: {r: 3.036684, g: -474.07587, b: 2.0878477, a: 0}
+>>>>>>> GameModes

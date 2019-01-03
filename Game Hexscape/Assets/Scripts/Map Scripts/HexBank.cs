@@ -27,38 +27,38 @@ public class HexBank : MonoBehaviour
         }
     }
 
-    public Hex.DestroyState GetTypeAtIndex(int index)
+    public HexTypeEnum GetTypeAtIndex(int index)
     {
         if (index > hexPrefabs.Length)
         {
-            return hexPrefabs[0].GetComponent<Hex>().destroyType;
+            return hexPrefabs[0].GetComponent<Hex>().typeOfHex;
         } else
         {
-            return hexPrefabs[index].GetComponent<Hex>().destroyType;
+            return hexPrefabs[index].GetComponent<Hex>().typeOfHex;
         }
     }
 
-    public Hex GetHexFromType (Hex.DestroyState destroyType)
+    public Hex GetHexFromType (HexTypeEnum hexType)
     {
-        return hexPrefabs.ToList().Find(x => x.GetComponent<Hex>().destroyType == destroyType).GetComponent<Hex>();
+        return hexPrefabs.ToList().Find(x => x.GetComponent<Hex>().typeOfHex == hexType).GetComponent<Hex>();
     }
 
     public void AddDisabledHex(GameObject hexObject)
     {
         Hex hex = hexObject.GetComponent<Hex>();
 
-        if (disableHexTypes.Exists(x => x.hexType == hex.destroyType))
+        if (disableHexTypes.Exists(x => x.hexType == hex.typeOfHex))
         {
-            disableHexTypes.Find(x => x.hexType == hex.destroyType).disabledHexObjects.Add(hexObject);
+            disableHexTypes.Find(x => x.hexType == hex.typeOfHex).disabledHexObjects.Add(hexObject);
         }
         else
         {
-            disableHexTypes.Add(new HexTypeHolder(hex.destroyType));
-            disableHexTypes.Find(x => x.hexType == hex.destroyType).disabledHexObjects.Add(hexObject);
+            disableHexTypes.Add(new HexTypeHolder(hex.typeOfHex));
+            disableHexTypes.Find(x => x.hexType == hex.typeOfHex).disabledHexObjects.Add(hexObject);
         }
     }
 
-    public GameObject GetDisabledHex(Hex.DestroyState hexType, Vector3 position, Transform parent)
+    public GameObject GetDisabledHex(HexTypeEnum hexType, Vector3 position, Transform parent)
     {
         Quaternion rotation = Quaternion.Euler(-0, 0 ,0);
 
@@ -69,7 +69,7 @@ public class HexBank : MonoBehaviour
             
         } else
         {
-            GameObject newPrefab = hexPrefabs.ToList().Find(x => x.GetComponent<Hex>().destroyType == hexType);
+            GameObject newPrefab = hexPrefabs.ToList().Find(x => x.GetComponent<Hex>().typeOfHex == hexType);
             target = Instantiate(newPrefab);
             target.SetActive(false); // Set to false before the position is set in order to prevent OnEnable initiating visual effects prematurely
         }
@@ -87,7 +87,7 @@ public class HexBank : MonoBehaviour
     [System.Serializable]
     public class HexTypeHolder
     {
-        public Hex.DestroyState hexType;
+        public HexTypeEnum hexType;
         public List<GameObject> disabledHexObjects = new List<GameObject>();
 
         public GameObject PullFirstHexObject()
@@ -98,7 +98,7 @@ public class HexBank : MonoBehaviour
         }
 
 
-        public HexTypeHolder(Hex.DestroyState newHexType)
+        public HexTypeHolder(HexTypeEnum newHexType)
         {
             this.hexType = newHexType;
         }

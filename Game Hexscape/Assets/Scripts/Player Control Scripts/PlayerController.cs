@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour {
         
 
 
-    public Vector3 targetDestination;
+    private Vector3 targetDestination;
     public float moveSpeed = 10;
 
     private Rigidbody rbody;

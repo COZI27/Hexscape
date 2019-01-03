@@ -17,14 +17,13 @@ public class Level : ScriptableObject
     public int silverAmount;
     public int goldAmount;
 
-
 }
 
 [System.Serializable]
 public class MapElement
 {
     public Vector2Int gridPos;
-    public Hex.DestroyState hexType;
+    public HexTypeEnum hexType;
     private Hex hex;
 
     public Hex GetHex ()
@@ -37,12 +36,12 @@ public class MapElement
         return hex;
     }
 
-    public MapElement(Hex.DestroyState hexType, Vector2Int gridPos)
+    public MapElement(HexTypeEnum hexType, Vector2Int gridPos)
     {
         this.hexType = hexType;
         this.gridPos = gridPos;
         this.hex = HexBank.instance.GetHexFromType(hexType);
-
-
     }
+
+
 }

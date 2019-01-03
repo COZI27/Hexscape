@@ -7,8 +7,6 @@ using UnityEngine;
 public class HexColourLerp : MonoBehaviour {
 
    
-
-
     [SerializeField] private Material[] materialsToColourLerp;
     [SerializeField] private bool autoLerp = false;
 

@@ -21,7 +21,7 @@ public class LevelEditor : MonoBehaviour
     public bool editLevel;
 
 
-    // public Hex.DestroyState[] hexTypes = new Hex.DestroyState[10];
+    // public Hex.HexTypeEnum[] hexTypes = new Hex.HexTypeEnum[10];
 
 
     public Grid grid;

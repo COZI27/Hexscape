@@ -20,7 +20,9 @@ public class Hex : MonoBehaviour
 
     public bool isClickable = true;
 
-    public DestroyState destroyType;
+    public HexTypeEnum typeOfHex;
+
+
     public float destroyTime = 1f;
 
 
@@ -55,12 +57,14 @@ public class Hex : MonoBehaviour
     private int fallRotIndex = 0;
     private Vector2[] fallRotations;
 
+    public bool isMenuHex; // TODO: TEMP - Delete me
+
     private void Awake()
     {
         hasBeenTouched = false;
 
         // sub so we know when we do exit (an exit now occours when the player touches a diffrent hex tile)
-        PlayerController.instance.newHextouched += PlayerTouchedNewHex;
+        if (!isMenuHex) PlayerController.instance.newHextouched += PlayerTouchedNewHex;
 
         mesh = GetComponent<MeshRenderer>();
         if (mesh != null) mesh.enabled = false;
@@ -96,7 +100,7 @@ public class Hex : MonoBehaviour
 
         DisableHex();
 
-        if (destroyType == DestroyState.destroyOnExit)
+        if (typeOfHex == HexTypeEnum.HexTile_ExitDestroy)
         {
             mesh.materials[1].SetColor("_EmissionColor", Color.green);
         }
@@ -126,7 +130,9 @@ public class Hex : MonoBehaviour
     // Triggers the rest of the board to wake up.
     public void AwakenMap()
     {
-        EndlessGameplayManager.instance.colourLerper.NextColour();
+        //EndlessGameplayManager.instance.colourLerper.NextColour();
+
+        //GameManager.instance.colourLerper.NectColour();
 
         foreach (Hex hex in transform.parent.GetComponentsInChildren<Hex>())
         {
@@ -141,9 +147,11 @@ public class Hex : MonoBehaviour
     {
         if (isAlive)
         {
+
             hasBeenTouched = false;
             isAlive = false;
 
+<<<<<<< HEAD
             if (!isANeighbourDeath)
             {
                 // Broadcast delegate event
@@ -155,6 +163,11 @@ public class Hex : MonoBehaviour
             }
 
             EndlessGameplayManager.instance.GainHexDigPoints(destroyPoints);
+=======
+            GameManager.instance.DigEvent(destroyPoints);
+
+            //EndlessGameplayManager.instance.GainHexDigPoints(destroyPoints);
+>>>>>>> GameModes
         }
 
         if (useFalling)
@@ -246,14 +259,20 @@ public class Hex : MonoBehaviour
 
     public void OnMouseClick()
     {
+<<<<<<< HEAD
         if (isAlive && !isSleeping)
         {
             EndlessGameplayManager.instance.PlayHexClickSound();
+=======
+        if (isAlive && !isSleeping) {
+            GameManager.instance.ClickEvent();
+            //EndlessGameplayManager.instance.PlayHexClickSound();
+>>>>>>> GameModes
         }
 
         if (isSleeping == false)
         {
-            if (destroyType == DestroyState.destroyOnClick)
+            if (typeOfHex == HexTypeEnum.HexTile_ClickDestroy)
             {
                 DestroyHex();
             }
@@ -265,8 +284,9 @@ public class Hex : MonoBehaviour
     {
         if (isSleeping == false)
         {
-            if (destroyType == DestroyState.destroyOnExit)
+            if (typeOfHex == HexTypeEnum.HexTile_ExitDestroy)
             {
+                Debug.Log("OnPlayerExit HexTile_ExitDestroy");
                 DestroyHex();
             }
         }
@@ -277,17 +297,21 @@ public class Hex : MonoBehaviour
         if (isSleeping)
         {
             AwakenMap();
+<<<<<<< HEAD
             EndlessGameplayManager.instance.PlayGroundThud();
+=======
+            GameManager.instance.BallLandEvent();
+>>>>>>> GameModes
         }
 
         if (isSleeping == false)
         {
-            if (destroyType == DestroyState.destroyOnEnter)
-            {
-                DestroyHex();
-            }
+            //if (hexType == HexTypeEnum.destroyOnEnter)
+            //{
+            //    DestroyHex();
+            //}
 
-            if (destroyType == DestroyState.destroyOnExit)
+            if (typeOfHex == HexTypeEnum.HexTile_ExitDestroy)
             {
                 mesh.materials[1].SetColor("_EmissionColor", Color.red);
             }
@@ -320,14 +344,6 @@ public class Hex : MonoBehaviour
             OnPlayerExit();
         }
 
-    }
-
-    public enum DestroyState
-    {
-        dontDestroy,
-        destroyOnExit,
-        destroyOnEnter,
-        destroyOnClick
     }
 
 
