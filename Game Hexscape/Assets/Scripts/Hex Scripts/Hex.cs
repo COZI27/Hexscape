@@ -151,23 +151,15 @@ public class Hex : MonoBehaviour
             hasBeenTouched = false;
             isAlive = false;
 
-<<<<<<< HEAD
-            if (!isANeighbourDeath)
-            {
-                // Broadcast delegate event
-
-                // make sure it is alive first :P
-                if (onHexDeath != null) onHexDeath();
-
-
-            }
-
-            EndlessGameplayManager.instance.GainHexDigPoints(destroyPoints);
-=======
-            GameManager.instance.DigEvent(destroyPoints);
+            //if (!isANeighbourDeath)
+            //{
+            //    // Broadcast delegate event
+            //    // make sure it is alive first :P
+            //    if (onHexDeath != null) onHexDeath();
+            //}
 
             //EndlessGameplayManager.instance.GainHexDigPoints(destroyPoints);
->>>>>>> GameModes
+            GameManager.instance.DigEvent(destroyPoints);
         }
 
         if (useFalling)
@@ -259,15 +251,8 @@ public class Hex : MonoBehaviour
 
     public void OnMouseClick()
     {
-<<<<<<< HEAD
-        if (isAlive && !isSleeping)
-        {
-            EndlessGameplayManager.instance.PlayHexClickSound();
-=======
         if (isAlive && !isSleeping) {
             GameManager.instance.ClickEvent();
-            //EndlessGameplayManager.instance.PlayHexClickSound();
->>>>>>> GameModes
         }
 
         if (isSleeping == false)
@@ -297,11 +282,6 @@ public class Hex : MonoBehaviour
         if (isSleeping)
         {
             AwakenMap();
-<<<<<<< HEAD
-            EndlessGameplayManager.instance.PlayGroundThud();
-=======
-            GameManager.instance.BallLandEvent();
->>>>>>> GameModes
         }
 
         if (isSleeping == false)

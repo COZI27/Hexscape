@@ -25,16 +25,8 @@ Material:
     m_Floats:
     - _Glossiness: 0
     - _Metallic: 0
-<<<<<<< HEAD
-    - _RippleDistance: 8.447483
+    - _RippleDistance: 0
     - _RippleWidth: 0.5
     m_Colors:
     - _Color: {r: 0, g: 0.9708925, b: 0.9811321, a: 1}
-    - _RippleOrigin: {r: -0.3348151, g: -122.80695, b: -0.33164778, a: 0}
-=======
-    - _RippleDistance: 18.29817
-    - _RippleWidth: 0.5
-    m_Colors:
-    - _Color: {r: 0, g: 0.9708925, b: 0.9811321, a: 1}
-    - _RippleOrigin: {r: 3.0126057, g: -444.67584, b: 2.1475215, a: 0}
->>>>>>> GameModes
+    - _RippleOrigin: {r: 0, g: 0, b: 0, a: 0}
