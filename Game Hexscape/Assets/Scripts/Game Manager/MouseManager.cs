@@ -38,7 +38,8 @@ public class MouseManager : MonoBehaviour
                         player.SetDestination(hex.transform.position);
                         hex.OnMouseClick();
 
-                        rippleManager.CreateRippleClick(hex.transform.position, 5f, 100);
+                        RippleManager.instance.CreateRippleClick(hex.transform.position, 5f, 100);
+                        //rippleManager.CreateRippleClick(hex.transform.position, 5f, 100);
                     }
                    
                 }

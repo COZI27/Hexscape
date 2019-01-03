@@ -670,7 +670,7 @@ MonoBehaviour:
   hexMask:
     serializedVersion: 2
     m_Bits: 8192
-  worldMousePos: {x: 5.5, y: 0, z: 7.7942286}
+  worldMousePos: {x: 8.5, y: 0, z: 11.25833}
 --- !u!114 &163908980
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1548,8 +1548,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ballYOffset: -10
-  ballTransform: {fileID: 239645161}
   endlessManagerObject: {fileID: 0}
+  playerBallObject: {fileID: 239645155}
 --- !u!1 &631924396
 GameObject:
   m_ObjectHideFlags: 0

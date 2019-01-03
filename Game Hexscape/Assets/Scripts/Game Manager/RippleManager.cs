@@ -7,6 +7,21 @@ public class RippleManager : MonoBehaviour
 
     // Ripplez for days dad... Just effects the matterials that are in the ripple mats array, it sets all of their origins and distances creating ripples where/when the mouse manager say so.
 
+    public static RippleManager instance;
+    private void MakeSingleton()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            //DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
+
     [SerializeField] private Material[] rippleMatsClick;
 
     [SerializeField] private Material[] rippleMatsBallThud;
@@ -25,8 +40,9 @@ public class RippleManager : MonoBehaviour
 
     private void Awake()
     {
-      
+        MakeSingleton();
     }
+
     void Update()
     {
 

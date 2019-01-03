@@ -19,6 +19,11 @@ public class MapSpawner : MonoBehaviour
 
     [SerializeField] private GameObject playerKillZonePrefab;
 
+    private GameObject currentMapHolder;
+    public GameObject GetCurrentMapHolder() { 
+        return currentMapHolder;
+    }
+
     // public int currentLevel = 0;
 
 
@@ -180,11 +185,10 @@ public class MapSpawner : MonoBehaviour
         //}
 
 
-
         GameObject holder = new GameObject(level + ": " + level.name);
         holder.transform.SetParent(grid.transform);
 
-
+        currentMapHolder = holder;
 
 
         foreach (MapElement element in level.hexs)
@@ -221,9 +225,6 @@ public class MapSpawner : MonoBehaviour
 
         GameObject holder = new GameObject(level + ": " + EndlessGameplayManager.instance.levels[level].name);
         holder.transform.SetParent(grid.transform);
-
-
-
 
         foreach (MapElement element in EndlessGameplayManager.instance.levels[level].hexs)
         {

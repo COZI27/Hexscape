@@ -18,7 +18,7 @@ public class GameStateMenuMain : GameStateBase {
 
     public override void HexDigEvent()
     {
-        throw new System.NotImplementedException();
+        //throw new System.NotImplementedException();
     }
 
     public override void LoadNextLevel()
@@ -51,9 +51,13 @@ public class GameStateMenuMain : GameStateBase {
         Level[] levels = Resources.LoadAll<Level>("Levels/Menus");
         mainMenuLevel = levels[0];
 
-        MapSpawner.instance.SpawnHexs(mainMenuLevel, new Vector3(0,30,0)/*player.transform.position*/);
+        MapSpawner.instance.SpawnHexs(mainMenuLevel, GameManager.instance.GetPlayerBall().transform.position - new Vector3(0, -30, 0)/* offsetValue */);
 
-        //throw new System.NotImplementedException();
+        Vector3 mapPosition = MapSpawner.instance.GetCurrentMapHolder().transform.position;
+        mapPosition += new Vector3(0, -5, 0);
+        GameManager.instance.GetPlayerBall().transform.position = mapPosition; // ballPosition;
+        GameManager.instance.GetPlayerBall().SetActive(false);
+       
     }
 
     protected override void HandleInput()

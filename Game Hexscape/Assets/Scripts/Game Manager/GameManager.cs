@@ -37,8 +37,15 @@ public class GameManager : MonoBehaviour {
     private GameStateBase currentGameState;
 
     public float ballYOffset = -10; // TEMP
-    public Transform ballTransform; // TEMP
+    //public Transform ballTransform; // TEMP
     public GameObject endlessManagerObject; // TEMP
+
+    [SerializeField]
+    private GameObject playerBallObject;
+
+    public GameObject GetPlayerBall() {
+        return playerBallObject;
+    }
 
 
     private void Awake()
@@ -49,7 +56,10 @@ public class GameManager : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-		if (currentGameState == null)
+
+
+
+        if (currentGameState == null)
         {
             ChangeGameState( new GameStateMenuMain () ) ;
         }
@@ -104,7 +114,8 @@ public class GameManager : MonoBehaviour {
         transitions = new Dictionary<StateTransition<System.Type, Command>, System.Type>
         {
             { new StateTransition<System.Type, Command>(typeof(GameStateMenuMain), Command.Begin), typeof(GameStateEndless)  },
-            { new StateTransition<System.Type, Command>(typeof(GameStateEndless), Command.QuitLevel), typeof(GameStateMenuMain)  }
+            { new StateTransition<System.Type, Command>(typeof(GameStateEndless), Command.QuitLevel), typeof(GameStateMenuMain)  },
+            { new StateTransition<System.Type, Command>(typeof(GameStateEndless), Command.End), typeof(GameStateMenuMain)  }
         };
 
         // NOTE: Could change the value of an entry at runtime, if necessary
@@ -160,6 +171,11 @@ public class GameManager : MonoBehaviour {
         currentGameState.PlayClickSound();
     }
 
+    public void BallLandEvent()
+    {
+        currentGameState.PlayGroundThud();
+    }
+
     #endregion External Events
 
     #region Internal Events
@@ -172,9 +188,11 @@ public class GameManager : MonoBehaviour {
 
         if (newGameState.GetType() == typeof(GameStateEndless))
         {
-            ballTransform.position = new Vector3(0, 10, 0); // ballPosition; //TEMP
-            ballTransform.gameObject.SetActive(true); //TEMP
+            //playerBallObject.transform.position = new Vector3(0, 10, 0); // ballPosition; //TEMP
+            //playerBallObject.transform.gameObject.SetActive(true); //TEMP
         }
+
+        if (playerBallObject == null) throw new System.Exception();
 
         currentGameState.StartGameState();
     }

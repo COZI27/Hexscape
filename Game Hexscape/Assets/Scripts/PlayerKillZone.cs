@@ -12,9 +12,10 @@ public class PlayerKillZone : MonoBehaviour {
     {
          if (other.GetComponent<PlayerController>() != null)
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 
             // Call Restart Game function here M8
+            GameManager.instance.ProcessCommand(GameManager.Command.End);
         }
     }
 }

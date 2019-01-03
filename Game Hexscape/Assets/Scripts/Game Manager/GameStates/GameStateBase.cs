@@ -12,7 +12,7 @@ public class GameStateBase {
         public int passScore;
     }
 
-    protected GameSessionData currentSessionData; // TEMP: Subject to change/relocation
+    protected GameSessionData currentSessionData; // TEMP?: Subject to change/relocation
 
     protected SoundEffectEnum[] hexClickSounds;
 

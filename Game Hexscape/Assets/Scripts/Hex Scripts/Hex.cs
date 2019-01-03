@@ -145,6 +145,7 @@ public class Hex : MonoBehaviour
         {
         if (isAlive)
         {
+
             hasBeenTouched = false;
             isAlive = false;
 
@@ -267,6 +268,7 @@ public class Hex : MonoBehaviour
         {
             if (typeOfHex == HexTypeEnum.HexTile_ExitDestroy)
             {
+                Debug.Log("OnPlayerExit HexTile_ExitDestroy");
                 DestroyHex();
             }
         }
@@ -276,9 +278,8 @@ public class Hex : MonoBehaviour
     {
         if (isSleeping)
         {
-            AwakenMap(); 
-            //EndlessGameplayManager.instance.PlayGroundThud();
-            // TODO: Reimplement play ground thud in manager class
+            AwakenMap();
+            GameManager.instance.BallLandEvent();
         }
 
         if (isSleeping == false)

@@ -20,7 +20,7 @@ public sealed class GameStateEndless : GameStateBase
     public float playerSpeedIncreaseLogBase = 2f;
     public float playerSpeedIncreaseLogMultiplyer = 10f;
 
-    private PlayerController player;
+    PlayerController playerController;
 
     public GameStateEndless()
     {
@@ -47,6 +47,12 @@ public sealed class GameStateEndless : GameStateBase
         InitialiseClickSounds();
 
 
+        Vector3 mapPosition = MapSpawner.instance.GetCurrentMapHolder().transform.position;
+        mapPosition += new Vector3(0, 10, 0);
+        GameManager.instance.GetPlayerBall().transform.position = mapPosition; // ballPosition;
+        GameManager.instance.GetPlayerBall().SetActive(true);
+
+
         editMode = PlayerPrefs.GetInt("Edit Mode") == 1;
         if (editMode == true) // level edit on start... if the ball does not spawn we go into edit mode because of a helpfull bug thingo :)
         {
@@ -59,11 +65,16 @@ public sealed class GameStateEndless : GameStateBase
         {
 
             Debug.Log("Finding Player...");
-            player = Object.FindObjectOfType<PlayerController>();
-            if (player != null) player.moveSpeed = initialPlayerSpeed;
+
+            playerController = GameManager.instance.GetPlayerBall().GetComponent<PlayerController>();
+
+ 
+            if (playerController != null) playerController.moveSpeed = initialPlayerSpeed;
         }
 
         LoadNextLevel();
+
+
     }
 
     public override void CleanupGameState()
@@ -114,9 +125,13 @@ public sealed class GameStateEndless : GameStateBase
 
         //scoreUI.ModifyValues(currentSessionData);
         //scoreUI.SetMedalState(MedalState.noMedal);
+        if (playerController != null)
+        {
+            playerController.SetDestination(playerController.transform.position);
+            playerController.moveSpeed = initialPlayerSpeed + (playerSpeedIncreaseLogMultiplyer * currentSessionData.levelIndex * Mathf.Log(playerSpeedIncreaseLogBase));
+        }
 
-        player.SetDestination(player.transform.position);
-        MapSpawner.instance.SpawnHexs(newLevel, player.transform.position);
+        MapSpawner.instance.SpawnHexs(newLevel, playerController.transform.position);
     }
 
     public override void HexDigEvent()
@@ -137,7 +152,8 @@ public sealed class GameStateEndless : GameStateBase
 
     public override void PlayGroundThud()
     {
-        throw new System.NotImplementedException();
+        AudioManager.instance.PlaySoundEffect(SoundEffectEnum.Ground_Hit_Thud);
+        RippleManager.instance.CreateRippleThud(playerController.gameObject.transform.position, 5f, 100);
     }
 
     public override void Pause()

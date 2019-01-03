@@ -112,7 +112,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10454be4d274f974d95cd5cfb2e018cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destroyPoints: 10
+  destroyPoints: 1
   isClickable: 0
   typeOfHex: 1790021714
   destroyTime: 0
