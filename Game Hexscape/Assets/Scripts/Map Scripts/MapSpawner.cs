@@ -31,7 +31,7 @@ public class MapSpawner : MonoBehaviour
 
 
     public float shortLength = 1;
-    public float longLength;
+    private float longLength;
 
 
     public float distanceBetweenMaps = 3;
@@ -55,7 +55,7 @@ public class MapSpawner : MonoBehaviour
             Destroy(gameObject);
         }
 
-
+        CalculateLongLengthFromShort();
     }
 
     [ContextMenu("Load Level")]
@@ -108,7 +108,7 @@ public class MapSpawner : MonoBehaviour
         float newHexWidth = gameobjectInstance.transform.localScale.x / hexWidth * targetColWidth;
 
         Vector3 tempScale = gameobjectInstance.transform.localScale;
-        tempScale.x = tempScale.y = newHexWidth;
+        tempScale.x = tempScale.z = newHexWidth;
 
         gameobjectInstance.transform.localScale = tempScale;
         

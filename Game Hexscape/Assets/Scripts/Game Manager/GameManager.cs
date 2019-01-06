@@ -5,6 +5,9 @@ using UnityEngine;
 public class GameManager : MonoBehaviour {
 
     public static GameManager instance;
+
+    public ScoreUI scoreUI;
+
     private void MakeSingleton()
     {
         if (instance == null)

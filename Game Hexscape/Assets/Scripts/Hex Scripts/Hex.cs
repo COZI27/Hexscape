@@ -134,10 +134,14 @@ public class Hex : MonoBehaviour
 
         //GameManager.instance.colourLerper.NectColour();
 
+        GameManager.instance.BallLandEvent();
+
         foreach (Hex hex in transform.parent.GetComponentsInChildren<Hex>())
         {
             hex.EnableHex();
         }
+
+
     }
 
 

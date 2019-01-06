@@ -29,7 +29,7 @@ public sealed class GameStateEndless : GameStateBase
 
     void Start()
     {
-
+        
 
     }
 
@@ -128,15 +128,19 @@ public sealed class GameStateEndless : GameStateBase
         if (playerController != null)
         {
             playerController.SetDestination(playerController.transform.position);
-            playerController.moveSpeed = initialPlayerSpeed + (playerSpeedIncreaseLogMultiplyer * currentSessionData.levelIndex * Mathf.Log(playerSpeedIncreaseLogBase));
+            playerController.moveSpeed = initialPlayerSpeed + (playerSpeedIncreaseLogMultiplyer * currentSessionData.levelIndex * ( 10 * Mathf.Log(playerSpeedIncreaseLogBase)));
         }
 
         MapSpawner.instance.SpawnHexs(newLevel, playerController.transform.position);
+
+        UpdateScore();
+
+        
     }
 
     public override void HexDigEvent()
     {
-        currentSessionData.levelScore += 1;
+        currentSessionData.levelScore += 1; // sound uses level score WTF?
         currentSessionData.totalScore += 1;
 
 
@@ -148,6 +152,8 @@ public sealed class GameStateEndless : GameStateBase
             Debug.Log("HexDigEvent: LoadNextLevel");
             LoadNextLevel();
         }
+
+        UpdateScore();
     }
 
     public override void PlayGroundThud()
@@ -171,6 +177,17 @@ public sealed class GameStateEndless : GameStateBase
     {
         levels = Resources.LoadAll<Level>("Levels/Endless");
         Debug.Log("Loaded Level count = " + levels.Length);
+    }
+
+
+
+    /// updating the UI
+
+    
+
+    private void UpdateScore ()
+    {
+        GameManager.instance.scoreUI.SetScore(currentSessionData.totalScore, currentSessionData.levelScore, currentSessionData.passScore);
     }
 }
 

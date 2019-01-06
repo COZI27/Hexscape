@@ -25,6 +25,11 @@ public class EndlessGameplayManager : MonoBehaviour
     }
     #endregion
 
+    [ContextMenu("Send Over Score UI")]
+    public void SendOverScoreUIValues()
+    {
+        GameManager.instance.scoreUI = this.scoreUI;
+    }
 
 
     [Space(3f)]
@@ -352,6 +357,8 @@ public class EndlessGameplayManager : MonoBehaviour
 [System.Serializable]
 public class ScoreUI
 {
+   
+
     public Text totalScoreText;
     public Text currentLevelText;
 
