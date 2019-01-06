@@ -33,7 +33,7 @@ public class MouseManager : MonoBehaviour
 
                 if (hex != null)
                 {
-                    if (hex.isClickable)
+                    if (hex.isClickable && hex.isAlive && hex.isSleeping == false) // now makes sure hex is sleepy
                     {
                         player.SetDestination(hex.transform.position);
                         hex.OnMouseClick();
@@ -56,7 +56,7 @@ public class MouseManager : MonoBehaviour
                 if (hex != null)
                 {
 
-                    Debug.Log(GridFinder.instance.WorldToGridPoint(hex.transform.position));
+                  //  Debug.Log(GridFinder.instance.WorldToGridPoint(hex.transform.position));
                     GridFinder.instance.origin = GridFinder.instance.WorldToGridPoint(hex.transform.position);
                 }
             }
