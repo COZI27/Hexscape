@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.574817, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -669,7 +669,7 @@ MonoBehaviour:
   hexMask:
     serializedVersion: 2
     m_Bits: 8192
-  worldMousePos: {x: -0.5, y: 0, z: 4.330127}
+  worldMousePos: {x: 1, y: 0, z: 8.660254}
 --- !u!114 &163908980
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1400,8 +1400,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7837bc9b530c7534399230a93f6f881e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numberOfObjects: 40
-  distanceBetweenObjects: 100
+  numberOfObjects: 10
+  distanceBetweenObjects: 90
   objectToSpawn: {fileID: 1148156127924408, guid: 3bb611e152c69084aa05ce5b94be6ce5,
     type: 2}
 --- !u!4 &610445363 stripped
