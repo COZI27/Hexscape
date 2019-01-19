@@ -83,6 +83,7 @@
     <Compile Include="Assets\Scripts\Map Scripts\Level.cs" />
     <Compile Include="Assets\Scripts\Map Scripts\LevelEditor.cs" />
     <Compile Include="Assets\Scripts\Map Scripts\MapSpawner.cs" />
+    <Compile Include="Assets\Scripts\Networking\UploadItemDemo.cs" />
     <Compile Include="Assets\Scripts\ParticleSelfDestroy.cs" />
     <Compile Include="Assets\Scripts\PhylloTunnel\CameraTunnel.cs" />
     <Compile Include="Assets\Scripts\PhylloTunnel\PhylloTunnelPiece.cs" />
