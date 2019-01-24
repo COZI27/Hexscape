@@ -266,7 +266,8 @@ public class GridFinder : MonoBehaviour
 
             foreach (Hex hex in testNeighbours)
             {
-                Gizmos.DrawSphere(hex.transform.position, 0.3f);
+                if (hex != null)
+                    Gizmos.DrawSphere(hex.transform.position, 0.3f);
             }
         }
 

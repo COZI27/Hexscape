@@ -321,6 +321,10 @@ public class MapSpawner : MonoBehaviour
 
     }
 
+    public bool SpawnHexAtLocation(int xloc, int yloc, HexTypeEnum typeToSpawn, bool replaceExisting)
+    {
+        return false;
+    }
 
     public void CalculateLongLengthFromShort()
     {
