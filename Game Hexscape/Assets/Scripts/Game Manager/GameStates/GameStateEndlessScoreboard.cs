@@ -18,7 +18,7 @@ public class GameStateEndlessScoreboard : GameStateBase
         currentLevelObject.AddComponent<ScoreboardLevelComponent>();
 
         Vector3 mapPosition = currentLevelObject.transform.position;
-        mapPosition += new Vector3(0, -5, 0);
+        mapPosition += new Vector3(0, 0, 0);
         GameManager.instance.GetPlayerBall().transform.position = mapPosition; // ballPosition;
         GameManager.instance.GetPlayerBall().SetActive(false);
     }

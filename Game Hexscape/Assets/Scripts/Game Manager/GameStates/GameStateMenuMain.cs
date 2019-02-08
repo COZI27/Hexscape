@@ -48,8 +48,8 @@ public class GameStateMenuMain : GameStateBase {
 
     public override void StartGameState()
     {
-        Level[] levels = Resources.LoadAll<Level>("Levels/Menus");
-        mainMenuLevel = levels[0];
+        Level[] levels = Resources.LoadAll<Level>("Levels/Menus"); // TEMP
+        mainMenuLevel = levels[1]; // TEMP
 
         MapSpawner.instance.SpawnHexs(mainMenuLevel, GameManager.instance.GetPlayerBall().transform.position - new Vector3(0, -30, 0), false/* offsetValue */);
 

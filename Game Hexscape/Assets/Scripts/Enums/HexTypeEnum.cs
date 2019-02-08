@@ -1,5 +1,6 @@
 public enum HexTypeEnum
 {
+	HexTile_Digit0 = -296144415,
 	HexTile_ClickDestroy = 1344549066,
 	HexTile_ExitDestroy = 1790021714,
 	HexTile_Indestructible = 840749193,

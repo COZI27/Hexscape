@@ -40,6 +40,7 @@ public class MapElement
     {
         this.hexType = hexType;
         this.gridPos = gridPos;
+        Debug.Log("Hex type  = " + hexType);
         this.hex = HexBank.instance.GetHexFromType(hexType);
     }
 

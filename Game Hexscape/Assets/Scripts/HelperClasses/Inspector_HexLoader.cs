@@ -23,7 +23,6 @@ public class Inspector_HexLoader : Editor
         }
     }
 
-
     void LoadHexTiles()
     {
         mapSpawner = ((MonoBehaviour)target).gameObject.GetComponent<MapSpawner>();

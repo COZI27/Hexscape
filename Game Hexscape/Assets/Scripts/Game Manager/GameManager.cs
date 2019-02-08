@@ -120,10 +120,11 @@ public class GameManager : MonoBehaviour {
             { new StateTransition<System.Type, Command>(typeof(GameStateMenuMain), Command.Begin), typeof(GameStateEndless)  },
             /*Endless*/
             { new StateTransition<System.Type, Command>(typeof(GameStateEndless), Command.QuitLevel), typeof(GameStateMenuMain)  },
-            //{ new StateTransition<System.Type, Command>(typeof(GameStateEndless), Command.End), typeof(GameStateEndlessScoreboard)  },
-            { new StateTransition<System.Type, Command>(typeof(GameStateEndless), Command.End), typeof(GameStateMenuMain)  },
+            { new StateTransition<System.Type, Command>(typeof(GameStateEndless), Command.End), typeof(GameStateEndlessScoreboard)  },
+           // { new StateTransition<System.Type, Command>(typeof(GameStateEndless), Command.End), typeof(GameStateMenuMain)  },
             /*Endless Scoreboard*/
-            { new StateTransition<System.Type, Command>(typeof(GameStateEndlessScoreboard), Command.End), typeof(GameStateMenuMain)  }
+            { new StateTransition<System.Type, Command>(typeof(GameStateEndlessScoreboard), Command.End), typeof(GameStateMenuMain)  },
+            { new StateTransition<System.Type, Command>(typeof(GameStateEndlessScoreboard), Command.Begin), typeof(GameStateMenuMain)  }
         };
 
         // NOTE: Could change the value of an entry at runtime, if necessary

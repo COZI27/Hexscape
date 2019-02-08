@@ -30,7 +30,7 @@ public class GameStateBase {
 
     public virtual void CleanupGameState()
     {
-        throw new System.NotImplementedException();
+        //throw new System.NotImplementedException();
     }
     #endregion
 
