@@ -9,8 +9,26 @@ public class ScoreboardLevelComponent : BaseLevelComponent {
     DownloadScore scoreDownloader;
     UploadUserScore scoreUploader;
 
+    private int scoreDisplayYPos, levelDisplayYPos;
+
+    Vector2Int[] scoreDisplayTilePos = new[] { new Vector2Int(1, 2), new Vector2Int(0, 2), new Vector2Int(-1, 2) };
+
+    Vector2Int[] levelDisplayTilePos = new[] { new Vector2Int(2, 0), new Vector2Int(1, 0), new Vector2Int(0, 0), new Vector2Int(-1, 0), new Vector2Int(-2, 0) };
+
     // Use this for initialization
     void Start () {
+
+        foreach (Vector2Int pos in scoreDisplayTilePos)
+        {
+            MapSpawner.instance.SpawnHexAtLocation(pos, HexTypeEnum.HexTile_Digit0, true);
+        }
+
+        foreach (Vector2Int pos in levelDisplayTilePos)
+        {
+            MapSpawner.instance.SpawnHexAtLocation(pos, HexTypeEnum.HexTile_Digit0, true);
+        }
+
+
         DisplayScores();
     }
 	
@@ -21,7 +39,7 @@ public class ScoreboardLevelComponent : BaseLevelComponent {
 
     void DisplayScores()
     {
-        MapSpawner.instance.SpawnHexAtLocation(0, 0, HexTypeEnum.HexTile_MenuOption, true);
+        //MapSpawner.instance.SpawnHexAtLocation(0, 0, HexTypeEnum.HexTile_MenuOption, true);
 
         scoreDownloader = this.gameObject.AddComponent<DownloadScore>();
         if (scoreDownloader != null)
