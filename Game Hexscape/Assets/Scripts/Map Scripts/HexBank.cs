@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
+[System.Serializable]
 public class HexBank : MonoBehaviour
 {
 
     public static HexBank instance;
 
+    [SerializeField]
     public GameObject[] hexPrefabs;
 
    

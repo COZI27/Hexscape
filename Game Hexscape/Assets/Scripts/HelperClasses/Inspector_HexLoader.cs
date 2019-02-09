@@ -49,10 +49,20 @@ public class Inspector_HexLoader : Editor
             //mapSpawner.PopulateSoundEffectsArray(loadedClips, Application.isEditor);
 
             HexBank hexBank = ((MonoBehaviour)target).gameObject.GetComponent<HexBank>();
-            hexBank.hexPrefabs = outHexes;
+            if (hexBank != null)
+            {
 
-            GenerateHexTypeEnum(outHexes, "HexTypeEnum");
-            
+                Undo.RecordObject(hexBank, " Changed HexBank Array");
+
+
+                hexBank.hexPrefabs = outHexes;
+
+                GenerateHexTypeEnum(outHexes, "HexTypeEnum");
+
+
+                EditorUtility.SetDirty(hexBank);
+                serializedObject.ApplyModifiedProperties();
+            }
         }
         else Debug.LogWarning("Failed to load hex prefabs. mapSpawner instance is null.");
     }

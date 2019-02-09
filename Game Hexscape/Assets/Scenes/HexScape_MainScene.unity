@@ -669,7 +669,7 @@ MonoBehaviour:
   hexMask:
     serializedVersion: 2
     m_Bits: 8192
-  worldMousePos: {x: 8, y: 0, z: 10.392304}
+  worldMousePos: {x: -6, y: 0, z: -3.4641016}
 --- !u!114 &163908980
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -682,6 +682,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hexPrefabs:
+  - {fileID: 1746022932776648, guid: b5e70a244fa49e646bb69bcb95487d95, type: 2}
   - {fileID: 1117482875744518, guid: fb9e043f6e535c94dbe71272211e15b7, type: 2}
   - {fileID: 1623918650698878, guid: 6c0e64695729c14449dab81a503d2937, type: 2}
   - {fileID: 1344758161039898, guid: 024c3d14d1110b34cbf37f8a5c3a684a, type: 2}
