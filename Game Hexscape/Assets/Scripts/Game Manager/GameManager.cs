@@ -38,6 +38,10 @@ public class GameManager : MonoBehaviour {
 
     // private Stack<GameStateBase> ActiveGameStates;
     private GameStateBase currentGameState;
+    public GameStateBase.GameSessionData GetGameSessionData()
+    {
+        return currentGameState.GetSessionData();
+    }
 
     public float ballYOffset = -10; // TEMP
     //public Transform ballTransform; // TEMP
@@ -192,16 +196,24 @@ public class GameManager : MonoBehaviour {
     {
         // TODO: Share gamestate data here if needed
 
-        if (currentGameState != null) currentGameState.CleanupGameState();
-        currentGameState = newGameState;
 
-        if (newGameState.GetType() == typeof(GameStateEndless))
+        if (currentGameState != null)
         {
-            //playerBallObject.transform.position = new Vector3(0, 10, 0); // ballPosition; //TEMP
-            //playerBallObject.transform.gameObject.SetActive(true); //TEMP
+
+            Debug.Log("Manager:Level index = " + currentGameState.GetSessionData().levelIndex);
+            Debug.Log("Manager:Total Score = " + currentGameState.GetSessionData().totalScore);
+
+            GameStateBase.GameSessionData previousSessionData = currentGameState.GetSessionData();
+            newGameState.PassSessionData(previousSessionData);
+            currentGameState.CleanupGameState();
         }
 
-        if (playerBallObject == null) throw new System.Exception();
+        currentGameState = newGameState;
+
+
+
+        if (playerBallObject == null) throw new System.Exception("playerBallObject not found by GameManager.");
+
 
         currentGameState.StartGameState();
     }

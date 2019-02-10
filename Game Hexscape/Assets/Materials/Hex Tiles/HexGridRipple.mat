@@ -25,8 +25,8 @@ Material:
     m_Floats:
     - _Glossiness: 0
     - _Metallic: 0
-    - _RippleDistance: 6.733962
+    - _RippleDistance: 84.459404
     - _RippleWidth: 0.5
     m_Colors:
     - _Color: {r: 0, g: 0.9708925, b: 0.9811321, a: 1}
-    - _RippleOrigin: {r: 3.3281913e-14, g: -143.01186, b: 5.764602e-14, a: 0}
+    - _RippleOrigin: {r: 2.5933285, g: -313.14505, b: -0.6846274, a: 0}

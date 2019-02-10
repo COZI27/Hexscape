@@ -6,6 +6,8 @@ public class GameStateEndlessScoreboard : GameStateBase
 {
     Level scoreBoardLevel;
 
+    ScoreboardLevelComponent levelComponent;
+
     //Note: Might be able to use one Scoreboard state class and have it behave differently depending on context, such as what type of game state was in use previosuly
 
     public override void StartGameState()
@@ -31,5 +33,15 @@ public class GameStateEndlessScoreboard : GameStateBase
     public override void HexDigEvent()
     {
         //throw new System.NotImplementedException();
+    }
+
+    public override void PassSessionData(GameSessionData data)
+    {
+        currentSessionData = data;
+    }
+
+    public override void CleanupGameState()
+    {
+        MonoBehaviour.Destroy(levelComponent);
     }
 }

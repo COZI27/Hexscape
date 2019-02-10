@@ -313,27 +313,29 @@ public class MapSpawner : MonoBehaviour
 
     public bool SpawnHexAtLocation(Vector2Int hexLoc, HexTypeEnum typeToSpawn, bool replaceExisting)
     {
-        if (mapRefrence.ContainsKey(hexLoc) )
+        bool positionOccupied = mapRefrence.ContainsKey(hexLoc);
+
+        // Position blocked
+        if (positionOccupied && !replaceExisting) return false;
+        else
         {
-            if (replaceExisting)
+            if (positionOccupied) // Remove occupying tile
             {
                 mapRefrence[hexLoc].DestroyHex();
                 mapRefrence.Remove(hexLoc);
-
-                Hex hexInstance = HexBank.instance.GetDisabledHex(typeToSpawn, grid.CellToWorld(new Vector3Int(hexLoc.x, hexLoc.y, 0)), currentMapHolder.transform).GetComponent<Hex>();
-
-                // Sets the local position of the Hex to match the level holder
-                hexInstance.gameObject.transform.localPosition = new Vector3(hexInstance.gameObject.transform.position.x, 0, hexInstance.gameObject.transform.position.z);
-
-                SetGameobjectWidth(hexInstance.gameObject);
-
-                // adds the hex to the dictonary for the grid finder
-                mapRefrence.Add(hexLoc, hexInstance);
-                return true;
             }
-            else return false;
+
+            Hex hexInstance = HexBank.instance.GetDisabledHex(typeToSpawn, grid.CellToWorld(new Vector3Int(hexLoc.x, hexLoc.y, 0)), currentMapHolder.transform).GetComponent<Hex>();
+
+            // Sets the local position of the Hex to match the level holder
+            hexInstance.gameObject.transform.localPosition = new Vector3(hexInstance.gameObject.transform.position.x, 0, hexInstance.gameObject.transform.position.z);
+
+            SetGameobjectWidth(hexInstance.gameObject);
+
+            // adds the hex to the dictonary for the grid finder
+            mapRefrence.Add(hexLoc, hexInstance);
+            return true;
         }
-        return false;
     }
 
     public void CalculateLongLengthFromShort()

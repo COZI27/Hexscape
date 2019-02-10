@@ -140,7 +140,7 @@ public sealed class GameStateEndless : GameStateBase
 
     public override void HexDigEvent()
     {
-        currentSessionData.levelScore += 1; // sound uses level score WTF?
+        currentSessionData.levelScore += 1;
         currentSessionData.totalScore += 1;
 
 

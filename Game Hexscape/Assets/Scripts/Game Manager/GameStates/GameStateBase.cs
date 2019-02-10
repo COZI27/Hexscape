@@ -13,6 +13,7 @@ public class GameStateBase {
     }
 
     protected GameSessionData currentSessionData; // TEMP?: Subject to change/relocation
+    public GameSessionData GetSessionData() { return currentSessionData; }
 
     protected SoundEffectEnum[] hexClickSounds;
 
@@ -20,6 +21,11 @@ public class GameStateBase {
     public virtual void StartGameState()
     {
         throw new System.NotImplementedException();
+    }
+
+    public virtual void PassSessionData(GameSessionData data)
+    {
+        //throw new System.NotImplementedException();
     }
 
     // Used to predefine click sounds for this game mode.
