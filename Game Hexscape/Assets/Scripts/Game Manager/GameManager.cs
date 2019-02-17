@@ -199,10 +199,6 @@ public class GameManager : MonoBehaviour {
 
         if (currentGameState != null)
         {
-
-            Debug.Log("Manager:Level index = " + currentGameState.GetSessionData().levelIndex);
-            Debug.Log("Manager:Total Score = " + currentGameState.GetSessionData().totalScore);
-
             GameStateBase.GameSessionData previousSessionData = currentGameState.GetSessionData();
             newGameState.PassSessionData(previousSessionData);
             currentGameState.CleanupGameState();

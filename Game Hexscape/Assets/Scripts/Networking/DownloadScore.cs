@@ -8,20 +8,14 @@ public class DownloadScore : MonoBehaviour {
     private string phpScriptsFolder = "https://Hexit.000webhostapp.com"; // The Location where all PHP scripts are stored 
     private string phpAddTheItemScriptLocation = "/DBAccessScripts/InsertUser.php"; // The Location of the PHP script for adding an item
 
-    private string scoreToDisplay;
 
-    private int scoreToReturn = 0;
-    private int levelToReturn = 0;
 
     private string url = "https://hexit.000webhostapp.com/DBAccessScripts/GetUserStats.php";
 
     //[ContextMenu("Add Item")]  // Calls The AddItemToDB Coroutine from the inspector
-    public void GetScoreForUser(int userID, out int returnScore, out int returnLevel)
+    public void GetScoreForUser(int userId, System.Action<ScoreBoardEntry> callBack)
     {
-        StartCoroutine(GetUserScore());
-
-        returnScore = scoreToReturn;
-        returnLevel = levelToReturn;
+        StartCoroutine(GetUserScore(userId, callBack ));
     }
 
     //public void GetScoreForUser()
@@ -29,7 +23,7 @@ public class DownloadScore : MonoBehaviour {
     //    StartCoroutine(GetUserScore());
     //}
 
-    private IEnumerator GetUserScore()
+    private IEnumerator GetUserScore(int userId, System.Action<ScoreBoardEntry> callBack)
     {
         int userID = 1; // TEMP
 
@@ -51,28 +45,45 @@ public class DownloadScore : MonoBehaviour {
         }
         else
         {
-            byte[] results = webRequest.downloadHandler.data;
-
-
-            //scoreToDisplay =
             Debug.Log("Score Download Complete!");
-            Debug.Log(webRequest.downloadHandler.text);
-            if (results.Length > 0)
-            {
-                string test = System.Text.Encoding.ASCII.GetString(results);
-                Debug.Log(test);
+            string entry = webRequest.downloadHandler.text;
 
-                Debug.Log(webRequest.ToString());
+            if (!entry.Contains("\t"))
+                throw new System.Exception("Improperly formatted data from database " + entry);
+            string[] temp = entry.Split('\t');
 
-                for (int i = 0; i < results.Length; i++)
-                {
-                    //Debug.Log(results[i]);
-                    //string test = System.Text.Encoding.ASCII.GetString(results);
-                    //Debug.Log(test);
-                }
-            }
-            else Debug.Log("Score Results Empty");
+            int returnID, returnLevel, returnScore;
+
+            int.TryParse(temp[0], out returnID);
+            int.TryParse(temp[1], out returnLevel);
+            int.TryParse(temp[2], out returnScore);
+
+            ScoreBoardEntry returnEntry = new ScoreBoardEntry(returnID, returnLevel, returnScore);
+          
+            callBack(returnEntry);
+        }
+    }
+
+
+    //the string passed ParseScoreString MUST be of the form:
+    // name\tscore\twhenSet\n
+    public void ParseScoreString(string scoreString)
+    {
+        string[] splitScores = scoreString.Trim().Split('\n');
+        if (scoreString == string.Empty)
+            return;
+        int count = 0;
+        foreach (string entry in splitScores)
+        {
+            //throw an error if the string is not properly formatted
+            if (!entry.Contains("\t"))
+                throw new System.Exception("Improperly formatted data from database " + entry);
+            string[] temp = entry.Split('\t');
+           // highScoreList.Add(new HighScoreElement(
+           //     name: temp[0], score: int.Parse(temp[1]), whenSet: DateTime.Parse(temp[2]), zeroBasedRank: count));
+            count++;
         }
 
     }
+
 }

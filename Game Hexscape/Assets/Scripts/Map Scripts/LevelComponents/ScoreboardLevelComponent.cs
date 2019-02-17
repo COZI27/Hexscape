@@ -3,6 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
+public class ScoreBoardEntry
+{
+    public ScoreBoardEntry(int id, int level, int score)
+    {
+        playerId = id;
+        highLevel = level;
+        highScore = score;
+    }
+
+    public int playerId;
+    public int highLevel;
+    public int highScore;
+
+}
+
 public class ScoreboardLevelComponent : BaseLevelComponent {
 
     int scoreToDisplay, levelToDisplay;
@@ -42,11 +57,14 @@ public class ScoreboardLevelComponent : BaseLevelComponent {
 
     }
 
+    int levelValue;
+    int scoreValue;
+
     void DisplayScores()
     {
-        int levelValue;
-        int scoreValue;
-        GetScoresAndCompareToPrevious(out levelValue, out scoreValue);
+
+        GetCurrentSessionScore(out levelValue, out scoreValue);
+        MakeScoreDownloadRequest();
 
         int[] scoreToDisplay = ConvertIntToArray(scoreValue);
         int[] levelToDisplay = ConvertIntToArray(levelValue);
@@ -69,50 +87,66 @@ public class ScoreboardLevelComponent : BaseLevelComponent {
         }
     }
 
-    // Compares the current score to previous scores
-    void GetScoresAndCompareToPrevious(out int returnLevel, out int returnScore)
+    void GetCurrentSessionScore(out int returnLevel, out int returnScore)
     {
-
         GameStateBase.GameSessionData sessionData = GameManager.instance.GetGameSessionData();
-
-        Debug.Log(sessionData.levelIndex);
 
         returnLevel = sessionData.levelIndex;
         returnScore = sessionData.totalScore;
+    }
 
+    bool uploadScore = false;
+    int downloadedLevelValue;
+    int downloadedScoreValue;
+
+
+
+
+    void MakeScoreDownloadRequest()
+    {
         // TODO: store scores locally in the event that the server is not accessible, or the player chooses not to host their
         //          scores on teh server. In which case, we should compare the current score to the local score and the server?
         //          Possible issue here is that players could potentially hack their own value into the local score value to be
         //          pushed to the server. 
 
-        /* Server Stuff 
         scoreDownloader = this.gameObject.AddComponent<DownloadScore>();
         if (scoreDownloader != null)
         {
-            int downloadedScore;
-            int downloadedLevel;
-
-            scoreDownloader.GetScoreForUser(1, out downloadedScore, out downloadedLevel);
-
-            if (downloadedScore < sessionData.totalScore) // TEMP
-            {
-                scoreUploader = this.gameObject.AddComponent<UploadUserScore>();
-                scoreUploader.UploadScore();
-
-                // Display "New Best Score"
-            }
-            if (downloadedLevel < sessionData.levelIndex) // TEMP
-            {
-                scoreUploader = this.gameObject.AddComponent<UploadUserScore>();
-                scoreUploader.UploadScore();
-
-                // Display "New Best Level"
-            }
+            scoreDownloader.GetScoreForUser(1, Callback);   
         }
-        */
     }
 
-    int[] ConvertIntToArray(int inValue)
+    public void Callback(ScoreBoardEntry data)
+    {
+        // Level
+        if (data.highLevel < levelValue)
+        {
+            uploadScore = true;
+
+            // Display "New Best Level"
+            Debug.Log("New Best Level.  Old = " + data.highLevel + "  | New = " + levelValue);
+
+        }
+
+        // Score
+        if (data.highScore < scoreValue)
+        {
+            uploadScore = true;
+
+            // Display "New Best Score"
+            Debug.Log("New Best Score. Old = " + data.highScore + "  | New = " + scoreValue);
+        }
+
+        if (uploadScore)
+        {
+            scoreUploader = this.gameObject.AddComponent<UploadUserScore>();
+            scoreUploader.UploadScore(new ScoreBoardEntry(1, levelValue, scoreValue));
+        }
+    }
+
+
+
+    int[] ConvertIntToArray(int inValue) // TODO: Move to helper class
     {
         if (inValue == 0) return new int[1] { 0 };
 
