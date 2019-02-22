@@ -48,7 +48,7 @@ public class GameStateMenuMain : GameStateBase {
 
     public override void StartGameState()
     {
-        Level[] levels = Resources.LoadAll<Level>("Levels/Menus");
+        Level[] levels = LevelGetter.instance.GetLevelsFrom("Levels/Menus");
         mainMenuLevel = levels[0];
 
         MapSpawner.instance.SpawnHexs(mainMenuLevel, GameManager.instance.GetPlayerBall().transform.position - new Vector3(0, -30, 0), false/* offsetValue */);

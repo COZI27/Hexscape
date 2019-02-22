@@ -5,7 +5,8 @@ Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_Name: HexGridRipple
   m_Shader: {fileID: 4800000, guid: 2bd02d93647ab9443961151c377a30fd, type: 3}
   m_ShaderKeywords: 
@@ -25,8 +26,8 @@ Material:
     m_Floats:
     - _Glossiness: 0
     - _Metallic: 0
-    - _RippleDistance: 17.427073
+    - _RippleDistance: 10.342933
     - _RippleWidth: 0.5
     m_Colors:
     - _Color: {r: 0, g: 0.9708925, b: 0.9811321, a: 1}
-    - _RippleOrigin: {r: -3.4362109, g: -1009.1309, b: -2.7164192, a: 0}
+    - _RippleOrigin: {r: 1.2250966e-10, g: -46.954002, b: 2.12193e-10, a: 0}

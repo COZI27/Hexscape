@@ -27,6 +27,7 @@ public class MapSpawner : MonoBehaviour
     // public int currentLevel = 0;
 
 
+    
 
 
 
@@ -94,7 +95,7 @@ public class MapSpawner : MonoBehaviour
 
         Level level = EndlessGameplayManager.instance.levels[EndlessGameplayManager.instance.levelIndex];
        level.hexs = mapElements.ToArray();
-        EditorUtility.SetDirty(level);
+   
 
 
     }
@@ -188,7 +189,7 @@ public class MapSpawner : MonoBehaviour
         //}
 
 
-        GameObject holder = new GameObject(level + ": " + level.name);
+        GameObject holder = new GameObject(level + ": " + level.levelName);
         holder.transform.SetParent(grid.transform);
 
         currentMapHolder = holder;
@@ -231,7 +232,7 @@ public class MapSpawner : MonoBehaviour
         // Creates a dictionary for Hex to its position to be sent to the gridfinder
         Dictionary<Vector2Int, Hex> mapRefrence = new Dictionary<Vector2Int, Hex>();
 
-        GameObject holder = new GameObject(level + ": " + EndlessGameplayManager.instance.levels[level].name);
+        GameObject holder = new GameObject(level + ": " + EndlessGameplayManager.instance.levels[level].levelName);
         holder.transform.SetParent(grid.transform);
 
         foreach (MapElement element in EndlessGameplayManager.instance.levels[level].hexs)
@@ -262,7 +263,7 @@ public class MapSpawner : MonoBehaviour
         // Creates a dictionary for Hex to its position to be sent to the gridfinder
         Dictionary<Vector2Int, Hex> mapRefrence = new Dictionary<Vector2Int, Hex>();
 
-        GameObject holder = new GameObject(level + ": " + EndlessGameplayManager.instance.levels[level].name);
+        GameObject holder = new GameObject(level + ": " + EndlessGameplayManager.instance.levels[level].levelName);
         holder.transform.SetParent(grid.transform);
 
 
