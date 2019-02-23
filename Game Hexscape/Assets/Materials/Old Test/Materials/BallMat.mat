@@ -74,4 +74,8 @@ Material:
     - _ZWrite: 0
     m_Colors:
     - _Color: {r: 0.031505868, g: 0.041718554, b: 0.11320752, a: 1}
+<<<<<<< HEAD
     - _EmissionColor: {r: 0.99801683, g: 0.001983317, b: 0.99801683, a: 1}
+=======
+    - _EmissionColor: {r: 0.95591617, g: 0.20299934, b: 0.99999934, a: 1}
+>>>>>>> refs/remotes/origin/master
