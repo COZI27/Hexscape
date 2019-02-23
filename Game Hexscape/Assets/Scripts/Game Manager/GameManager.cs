@@ -31,7 +31,10 @@ public class GameManager : MonoBehaviour {
         Pause,
         Resume,
 
-        QuitLevel
+        QuitLevel,
+
+        Edit
+
     }
 
     //public GameStateBase initialGameState = GameStateMenuMain;
@@ -70,7 +73,10 @@ public class GameManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+		if (currentGameState != null)
+        {
+            currentGameState.StateUpdate();
+        }
 	}
 
 
@@ -117,8 +123,15 @@ public class GameManager : MonoBehaviour {
         transitions = new Dictionary<StateTransition<System.Type, Command>, System.Type>
         {
             { new StateTransition<System.Type, Command>(typeof(GameStateMenuMain), Command.Begin), typeof(GameStateEndless)  },
+             { new StateTransition<System.Type, Command>(typeof(GameStateMenuMain), Command.Edit), typeof(GameStateEdit)  },
+
+
             { new StateTransition<System.Type, Command>(typeof(GameStateEndless), Command.QuitLevel), typeof(GameStateMenuMain)  },
-            { new StateTransition<System.Type, Command>(typeof(GameStateEndless), Command.End), typeof(GameStateMenuMain)  }
+            { new StateTransition<System.Type, Command>(typeof(GameStateEndless), Command.End), typeof(GameStateMenuMain)  },
+
+           
+           
+
         };
 
         // NOTE: Could change the value of an entry at runtime, if necessary
@@ -200,4 +213,6 @@ public class GameManager : MonoBehaviour {
         currentGameState.StartGameState();
     }
     #endregion Internal Events
+
+    
 }

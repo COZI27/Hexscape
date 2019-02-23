@@ -70,5 +70,11 @@ public class GameStateBase {
     {
         throw new System.NotImplementedException();
     }
+
+    public virtual void StateUpdate ()
+    {
+        
+    }
+    
 }
 

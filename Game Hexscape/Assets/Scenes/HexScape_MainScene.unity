@@ -168,7 +168,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &27663265
 MonoBehaviour:
@@ -493,7 +493,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1 &98337463
 GameObject:
@@ -559,7 +559,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &155238127
 GameObject:
@@ -676,6 +676,7 @@ GameObject:
   - component: {fileID: 163908979}
   - component: {fileID: 163908980}
   - component: {fileID: 163908981}
+  - component: {fileID: 163908982}
   m_Layer: 0
   m_Name: MapSpawner
   m_TagString: Untagged
@@ -713,7 +714,7 @@ Transform:
   m_Children:
   - {fileID: 1467916123}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &163908979
 MonoBehaviour:
@@ -747,9 +748,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hexPrefabs:
   - {fileID: 1117482875744518, guid: fb9e043f6e535c94dbe71272211e15b7, type: 3}
+  - {fileID: 1344758161039898, guid: 99edcb963109b834c91310cfdc459af7, type: 3}
   - {fileID: 1623918650698878, guid: 6c0e64695729c14449dab81a503d2937, type: 3}
   - {fileID: 1344758161039898, guid: 024c3d14d1110b34cbf37f8a5c3a684a, type: 3}
   - {fileID: 1110307450680384, guid: 1ecb86a207b5e4a4492c6062b02ef842, type: 3}
+  - {fileID: 1110307450680384, guid: 448a5cdb4b7c06a4ab82f90c9e63b1ff, type: 3}
   - {fileID: 1653837792242484, guid: 71a3406a346c27d45be18b77ac4e51c7, type: 3}
   disableHexTypes: []
 --- !u!114 &163908981
@@ -768,6 +771,25 @@ MonoBehaviour:
   origin: {x: 0, y: 1}
   allowSkips: 0
   grid: {fileID: 1467916122}
+--- !u!114 &163908982
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 163908976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba1a09fa7c4b4de47825fe2c756d5b10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  testLevel:
+    levelName: Test Level
+    hexs:
+    - gridPos: {x: 0, y: 0}
+      hexType: 1344549066
+  resourceLocation: Levels/Endless/
+  jsonFileName: Test Level 1
 --- !u!4 &212664842 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4968556402895356, guid: 1ecb86a207b5e4a4492c6062b02ef842,
@@ -909,7 +931,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &227308874
 AudioSource:
@@ -1129,7 +1151,7 @@ Transform:
   m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &239645162
 MonoBehaviour:
@@ -1472,7 +1494,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!114 &534669906
 MonoBehaviour:
@@ -1573,7 +1595,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &626534503
 MonoBehaviour:
@@ -1589,6 +1611,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   materialsToColourLerp:
   - {fileID: 2100000, guid: 1feaa3799e1b1444fa952041728cc328, type: 2}
+  - {fileID: 2100000, guid: 6f55712372707674da6f6ecf02aab83a, type: 2}
+  - {fileID: 2100000, guid: 6f55712372707674da6f6ecf02aab83a, type: 2}
   autoLerp: 1
   lerpSpeed: 10
   colourBank:
@@ -1747,7 +1771,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4049329261232158, guid: 5e96735d8c4636641a695a9456b05c84, type: 3}
       propertyPath: m_RootOrder
-      value: 11
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 198125698663021056, guid: 5e96735d8c4636641a695a9456b05c84,
         type: 3}
@@ -1967,7 +1991,7 @@ Transform:
   - {fileID: 315086764}
   - {fileID: 776730734}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &966832661
 PrefabInstance:
@@ -2770,67 +2794,13 @@ RectTransform:
   - {fileID: 1488288992}
   - {fileID: 367220922}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!1 &1633844385
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1633844386}
-  - component: {fileID: 1633844387}
-  m_Layer: 0
-  m_Name: Level Finder
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1633844386
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1633844385}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 774.39374, y: 96.8385, z: 319.05463}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1633844387
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1633844385}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba1a09fa7c4b4de47825fe2c756d5b10, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  testLevel:
-    levelName: Level 2
-    hexs:
-    - gridPos: {x: 0, y: 0}
-      hexType: 1344549066
-    - gridPos: {x: 1, y: 0}
-      hexType: 1344549066
-    - gridPos: {x: 0, y: 1}
-      hexType: 1344549066
-  resourceLocation: Levels/Endless/
-  jsonFileName: Level 2
 --- !u!1 &1645990223
 GameObject:
   m_ObjectHideFlags: 0
@@ -3303,7 +3273,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4283085857266592, guid: 30150ba4464fd3043878394d66b4df91, type: 3}
       propertyPath: m_RootOrder
-      value: 12
+      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 30150ba4464fd3043878394d66b4df91, type: 3}

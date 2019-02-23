@@ -64,7 +64,7 @@ public class Hex : MonoBehaviour
         hasBeenTouched = false;
 
         // sub so we know when we do exit (an exit now occours when the player touches a diffrent hex tile)
-        if (!isMenuHex) PlayerController.instance.newHextouched += PlayerTouchedNewHex;
+        if (!isMenuHex && PlayerController.instance != null) PlayerController.instance.newHextouched += PlayerTouchedNewHex;
 
         mesh = GetComponent<MeshRenderer>();
         if (mesh != null) mesh.enabled = false;

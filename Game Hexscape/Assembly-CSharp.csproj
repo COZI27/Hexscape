@@ -63,7 +63,6 @@
     <Compile Include="Assets\GetALevelArrayTest.cs" />
     <Compile Include="Assets\HexColourLerp.cs" />
     <Compile Include="Assets\MenuLine.cs" />
-    <Compile Include="Assets\Resources\LevelGetter.cs" />
     <Compile Include="Assets\Scripts\CameraScripts\CameraFollow.cs" />
     <Compile Include="Assets\Scripts\Enums\HexTypeEnum.cs" />
     <Compile Include="Assets\Scripts\Enums\SoundEffectEnum.cs" />
@@ -72,6 +71,7 @@
     <Compile Include="Assets\Scripts\Game Manager\GameManagement.cs" />
     <Compile Include="Assets\Scripts\Game Manager\GameManager.cs" />
     <Compile Include="Assets\Scripts\Game Manager\GameStates\GameStateBase.cs" />
+    <Compile Include="Assets\Scripts\Game Manager\GameStates\GameStateEdit.cs" />
     <Compile Include="Assets\Scripts\Game Manager\GameStates\GameStateEndless.cs" />
     <Compile Include="Assets\Scripts\Game Manager\GameStates\GameStateMenuMain.cs" />
     <Compile Include="Assets\Scripts\Game Manager\MouseManager.cs" />
@@ -80,6 +80,7 @@
     <Compile Include="Assets\Scripts\HelperClasses\Inspector_AudioLoader.cs" />
     <Compile Include="Assets\Scripts\HelperClasses\Inspector_HexLoader.cs" />
     <Compile Include="Assets\Scripts\Hex Scripts\Hex.cs" />
+    <Compile Include="Assets\Scripts\LevelGetter.cs" />
     <Compile Include="Assets\Scripts\Map Scripts\GridFinder.cs" />
     <Compile Include="Assets\Scripts\Map Scripts\HexBank.cs" />
     <Compile Include="Assets\Scripts\Map Scripts\Level.cs" />

@@ -120,7 +120,7 @@ public sealed class GameStateEndless : GameStateBase
 
 
 
-        int normalLevelIndex = (currentSessionData.levelIndex %= levels.Length - 1); // make sure we wrap if we hit max levels
+        int normalLevelIndex = (currentSessionData.levelIndex %= levels.Length); // make sure we wrap if we hit max levels
         ++currentSessionData.levelIndex;
 
 
