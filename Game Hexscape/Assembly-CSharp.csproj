@@ -72,6 +72,7 @@
     <Compile Include="Assets\Scripts\Game Manager\GameStates\GameStateBase.cs" />
     <Compile Include="Assets\Scripts\Game Manager\GameStates\GameStateEndless.cs" />
     <Compile Include="Assets\Scripts\Game Manager\GameStates\GameStateEndlessScoreboard.cs" />
+    <Compile Include="Assets\Scripts\Game Manager\GameStates\GameStateInit.cs" />
     <Compile Include="Assets\Scripts\Game Manager\GameStates\GameStateMenuMain.cs" />
     <Compile Include="Assets\Scripts\Game Manager\MouseManager.cs" />
     <Compile Include="Assets\Scripts\Game Manager\RippleManager.cs" />
@@ -93,7 +94,8 @@
     <Compile Include="Assets\Scripts\ParticleSelfDestroy.cs" />
     <Compile Include="Assets\Scripts\PhylloTunnel\CameraTunnel.cs" />
     <Compile Include="Assets\Scripts\PhylloTunnel\PhylloTunnelPiece.cs" />
-    <Compile Include="Assets\Scripts\Player Control Scripts\PlayerController.cs" />
+    <Compile Include="Assets\Scripts\Player Scripts\PlayerController.cs" />
+    <Compile Include="Assets\Scripts\Player Scripts\PlayerProfile.cs" />
     <Compile Include="Assets\Scripts\PlayerKillZone.cs" />
     <Compile Include="Assets\Scripts\TileEffects\DetonateEffect.cs" />
     <Compile Include="Assets\Scripts\TileEffects\TileEffectBase.cs" />

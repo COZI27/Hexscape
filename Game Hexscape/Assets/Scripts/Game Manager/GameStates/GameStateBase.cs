@@ -76,5 +76,17 @@ public class GameStateBase {
     {
         throw new System.NotImplementedException();
     }
+
+    protected Level LoadLevelFromPath(string pathToLoad)
+    {
+        Level levelToReturn = Resources.Load<Level>(pathToLoad);
+
+        if (levelToReturn != null)
+            return levelToReturn;
+        else
+        {
+            throw new System.Exception("Failed to load Level Asset from path at '" + pathToLoad + "' for " + GetType() + ".");
+        }
+    }
 }
 
