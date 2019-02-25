@@ -192,6 +192,12 @@ public class GameManager : MonoBehaviour {
         currentGameState.PlayGroundThud();
     }
 
+    public void SetMousePos(Vector3Int gridMousePos)
+    {
+        currentGameState.mouseGridPos = (gridMousePos);
+        
+    }
+
     #endregion External Events
 
     #region Internal Events

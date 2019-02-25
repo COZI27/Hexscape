@@ -6,31 +6,69 @@ public class GridFinder : MonoBehaviour
 {
     public static GridFinder instance;
 
+
+
     // TEMP POINTS USED BY THE GIZMOS THINGO
     public int rad = 1; // The distance from the origin in hexes
     public Vector2Int origin = Vector2Int.zero; // the origin position
     public bool allowSkips = false; // bool for if we want to be able to find the hexes on the other side of a gap or not
 
     private Dictionary<Vector2Int, Hex> currentSpawnedMap; // the dictonary that is updated by the mapSpawner that the grid finder script uses to find its neighbours
-    private Vector3 currentMapOffset;
+    public Vector3 currentMapOffset;
     private Quaternion currentMapRotation;
-    
-
-  [SerializeField]  private Grid grid; // refrence to the grid 
 
 
-    public Vector2Int WorldToGridPoint(Vector3 position)
+
+    [SerializeField] private Grid grid; // refrence to the grid 
+    [SerializeField] private Grid calcGrid;
+
+    public Vector2Int WorldToGridPoint(Vector3 position, bool rotate = true)
     {
         position -= currentMapOffset; // need to move the map with its holders offset
 
-        position =  Quaternion.Inverse( currentMapRotation) *  position; // need to allign the rotation
-      
-        Debug.DrawRay(position, Vector3.up * 4, Color.red);
+
+        if (rotate) position = Quaternion.Inverse(currentMapRotation) * position; // need to allign the rotation
+
+       // Debug.DrawRay(position, Vector3.up * 4, Color.green);
         return new Vector2Int(grid.WorldToCell(position).x, grid.WorldToCell(position).y);
 
-       
-
     }
+
+    public Vector2Int MouseToGridPoint(Vector3 position)
+    {
+        Plane plane = new Plane(Vector3.up, currentMapOffset);
+        Ray mouseRay = Camera.main.ScreenPointToRay(position);
+
+        float distance;
+
+        if (plane.Raycast(mouseRay, out distance))   // outs the required distance
+        {
+
+            
+
+            Vector3 mousePlanePoint = mouseRay.GetPoint(distance);
+
+            if (currentMapRotation.y % 30 == 0)
+            {
+                
+            }
+
+            
+            
+
+
+           return WorldToGridPoint(mousePlanePoint, false);
+
+            
+
+        }
+
+
+        return Vector2Int.zero;
+    }
+
+
+
     public Vector2Int WorldToGridPoint(Hex hex)
     {
         return WorldToGridPoint(hex.transform.position);
@@ -62,8 +100,9 @@ public class GridFinder : MonoBehaviour
 
         if (grid == null) grid = MapSpawner.instance.grid;
 
-        
+
     }
+
 
 
 
@@ -75,7 +114,7 @@ public class GridFinder : MonoBehaviour
         this.currentMapRotation = mapRotation;
     }
 
-    
+
     // Gets all of the neighbour positions then turns them into hexes using the dictonary.  
     public Hex[] GetAllNeighbourHexs(Vector2Int origin, float radius, bool moveOverGaps = false)
     {
@@ -89,7 +128,7 @@ public class GridFinder : MonoBehaviour
             if (currentSpawnedMap.ContainsKey(point))
             {
                 if (currentSpawnedMap[point].isAlive == true) // make sure it is alive first
-                neighbourHexs.Add(currentSpawnedMap[point]);
+                    neighbourHexs.Add(currentSpawnedMap[point]);
             }
 
         }
@@ -130,7 +169,7 @@ public class GridFinder : MonoBehaviour
                 {
                     newNewPoints.Add(point);
 
-                    Debug.DrawLine(GridPosToWorld(point.x, point.y), (GridPosToWorld(newPoint.x + point.x, newPoint.y)));
+                  //  Debug.DrawLine(GridPosToWorld(point.x, point.y), (GridPosToWorld(newPoint.x + point.x, newPoint.y)));
 
                 }
 
@@ -178,14 +217,14 @@ public class GridFinder : MonoBehaviour
                 if (origin.y % 2 == 0)
                 {
 
-                  if (
-                  (x == 0 && y == 1) ||
-                  (x == 1 && y == 0) ||
-                  (x == 0 && y == -1) ||
-                  (x == -1 && y == -1) ||
-                  (x == -1 && y == 0) ||
-                  (x == -1 && y == 1)
-                  )
+                    if (
+                    (x == 0 && y == 1) ||
+                    (x == 1 && y == 0) ||
+                    (x == 0 && y == -1) ||
+                    (x == -1 && y == -1) ||
+                    (x == -1 && y == 0) ||
+                    (x == -1 && y == 1)
+                    )
                     {
                         allow = true;
                     }
@@ -193,14 +232,14 @@ public class GridFinder : MonoBehaviour
                 else
                 {
 
-                 if ( 
-                (x == 0 && y == -1) ||
-                (x == 0 && y == 1) ||
-                 (x == 1 && y == -1) ||
-                 (x == 1 && y == 1) ||
-                  (x == 1 && y == 0) ||
-                 (x == -1 && y == 0)
-                  )
+                    if (
+                   (x == 0 && y == -1) ||
+                   (x == 0 && y == 1) ||
+                    (x == 1 && y == -1) ||
+                    (x == 1 && y == 1) ||
+                     (x == 1 && y == 0) ||
+                    (x == -1 && y == 0)
+                     )
                     {
                         allow = true;
                     }
@@ -271,5 +310,6 @@ public class GridFinder : MonoBehaviour
         }
 
     }
+
 
 }

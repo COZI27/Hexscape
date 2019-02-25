@@ -10,7 +10,11 @@ public class GameStateBase {
         public int levelScore; // The achieved on the current level
         public int levelIndex;
         public int passScore;
+
+        
     }
+
+    public Vector3Int mouseGridPos;
 
     protected GameSessionData currentSessionData; // TEMP?: Subject to change/relocation
 
@@ -75,6 +79,8 @@ public class GameStateBase {
     {
         
     }
-    
+
+   
+
 }
 

@@ -8,6 +8,8 @@ public class GameStateEdit : GameStateBase {
 
     private int currentLevelIndex = 0;
 
+    private HexTypeEnum currentHexType = HexTypeEnum.HexTile_ClickDestroy;
+
     public GameStateEdit()
     {
 
@@ -109,10 +111,16 @@ public class GameStateEdit : GameStateBase {
             }
         }
 
+        if (Input.GetMouseButtonDown(0))
+        {
+            Debug.Log(mouseGridPos);
+        }
 
      
 
     }
+
+  
 
 
 
