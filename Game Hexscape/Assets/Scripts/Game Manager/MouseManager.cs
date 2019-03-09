@@ -27,11 +27,11 @@ public class MouseManager : MonoBehaviour
     private void Update()
     {
         Vector2Int gridPos = (GridFinder.instance.MouseToGridPoint(Input.mousePosition));
-        Debug.Log(gridPos);
+      //  Debug.Log(gridPos);
 
         Vector3 worldPos = GridFinder.instance.GridPosToWorld(gridPos);
 
-        Debug.Log(worldPos);
+    //    Debug.Log(worldPos);
         worldPos.y = GridFinder.instance.currentMapOffset.y;
 
         Debug.DrawRay(worldPos, Vector3.up * 10, Color.green);

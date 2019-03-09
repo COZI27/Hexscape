@@ -70,13 +70,5 @@ public class GameStateMenuMain : GameStateBase {
         throw new System.NotImplementedException();
     }
 
-    // Use this for initialization
-    private void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+   
 }

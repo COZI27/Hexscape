@@ -62,6 +62,17 @@ public class LevelGetter : MonoBehaviour
         File.WriteAllText(GetLevelPath() + jsonFileName + ".json" , json);
     }
 
+    public void CreateLevel(Level level)
+    {
+        
+
+        string json = JsonUtility.ToJson(level);
+
+        // level.levelName = json;
+
+        File.WriteAllText(GetLevelPath() + jsonFileName + ".json", json);
+    }
+
 
     [ContextMenu("GetLevel")]
     public void GetLevel()

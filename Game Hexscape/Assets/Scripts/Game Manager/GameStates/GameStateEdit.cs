@@ -116,8 +116,6 @@ public class GameStateEdit : GameStateBase {
             Debug.Log(mouseGridPos);
         }
 
-     
-
     }
 
   

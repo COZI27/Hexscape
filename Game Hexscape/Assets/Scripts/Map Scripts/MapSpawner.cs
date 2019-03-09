@@ -14,9 +14,11 @@ public class MapSpawner : MonoBehaviour
     public static MapSpawner instance;
 
     [SerializeField] public Grid grid;
-    private Transform gridHolder; // parent of the grid
+    private Transform hexGrid; // parent of the grid
 
     [SerializeField] private GameObject playerKillZonePrefab;
+
+
 
     private GameObject killZone;
 
@@ -60,17 +62,15 @@ public class MapSpawner : MonoBehaviour
 
         CalculateLongLengthFromShort();
 
-        gridHolder = grid.transform.parent;
+        hexGrid = grid.transform.parent;
     }
-
+    
 
 
     [ContextMenu("Save Level")]
     public void SaveLevel()
     {
         List<MapElement> mapElements = new List<MapElement>();
-
-
 
         foreach (Hex hex in grid.GetComponentsInChildren<Hex>())
         {
@@ -81,6 +81,7 @@ public class MapSpawner : MonoBehaviour
         Level level = EndlessGameplayManager.instance.levels[EndlessGameplayManager.instance.levelIndex];
         level.hexs = mapElements.ToArray();
 
+        LevelGetter.instance.CreateLevel(level);
 
 
     } // come back to 
@@ -117,7 +118,7 @@ public class MapSpawner : MonoBehaviour
         yPos = playerPos.y - distanceBetweenMaps;
 
         float rotation = 0;
-        if (randomRotate)
+        if (randomRotate && false)
         {
             rotation = Random.Range(0, 12) * 30;
         }
@@ -127,32 +128,34 @@ public class MapSpawner : MonoBehaviour
        
             Vector3 position = GridFinder.instance.GridPosToWorld(element.gridPos);
             Hex hexInstance = HexBank.instance.GetDisabledHex(element.GetHex().typeOfHex, grid.CellToWorld(new Vector3Int(element.gridPos.x, element.gridPos.y, 0)), grid.transform).GetComponent<Hex>();
-            hexInstance.transform.rotation = Quaternion.Euler(0, 0, 0);
+           
 
 
             SetGameobjectWidth(hexInstance.gameObject);
-            
+            hexInstance.transform.rotation = Quaternion.Euler(0, 0, 0);
+            Debug.Log(hexInstance.transform.rotation.eulerAngles);
+
             mapRefrence.Add(element.gridPos, hexInstance);
            
 
         }
 
-        gridHolder.position = new Vector3(playerPos.x, yPos, playerPos.z);
+        hexGrid.position = new Vector3(playerPos.x, yPos, playerPos.z);
        
         if (killZone == null)
         {
-            killZone = Instantiate(playerKillZonePrefab, gridHolder.position - Vector3.up * 2 * distanceBetweenMaps, Quaternion.identity, grid.transform);
+            killZone = Instantiate(playerKillZonePrefab, hexGrid.position - Vector3.up * 2 * distanceBetweenMaps, Quaternion.identity, grid.transform);
 
         } else
         {
-            killZone.transform.position = gridHolder.position - Vector3.up * 2 * distanceBetweenMaps;
+            killZone.transform.position = hexGrid.position - Vector3.up * 2 * distanceBetweenMaps;
         }
 
         // sends the maprefrence to the gridfinder
 
-        GridFinder.instance.SetMap(mapRefrence, gridHolder.position, gridHolder.rotation);
+        GridFinder.instance.SetMap(mapRefrence, hexGrid.position, hexGrid.rotation);
 
-        gridHolder.rotation = Quaternion.Euler(0, rotation, 0);
+        hexGrid.rotation = Quaternion.Euler(0, rotation, 0);
     }
 
 

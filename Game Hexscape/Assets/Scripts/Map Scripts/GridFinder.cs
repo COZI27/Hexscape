@@ -18,7 +18,6 @@ public class GridFinder : MonoBehaviour
     private Quaternion currentMapRotation;
 
 
-
     [SerializeField] private Grid grid; // refrence to the grid 
     [SerializeField] private Grid calcGrid;
 
@@ -67,8 +66,6 @@ public class GridFinder : MonoBehaviour
         return Vector2Int.zero;
     }
 
-
-
     public Vector2Int WorldToGridPoint(Hex hex)
     {
         return WorldToGridPoint(hex.transform.position);
@@ -87,9 +84,6 @@ public class GridFinder : MonoBehaviour
         return GridPosToWorld(position.x, position.y);
     }
 
-
-
-
     private void Awake()
     {
         if (instance == null)
@@ -102,9 +96,7 @@ public class GridFinder : MonoBehaviour
 
 
     }
-
-
-
+    
 
     // Sets up the current spawned map dictionary... Function is called in the Map Spawner when it spawns a new map.
     public void SetMap(Dictionary<Vector2Int, Hex> newMap, Vector3 mapOffset, Quaternion mapRotation)
