@@ -33,7 +33,7 @@ public class MouseManager : MonoBehaviour
 
                 if (hex != null)
                 {
-                    if (hex.isClickable && hex.isAlive && hex.isSleeping == false) // now makes sure hex is sleepy
+                    if (hex.isClickable && hex.isAlive /*&& !hex.isSleeping*/) // now makes sure hex is sleepy - Why? Can't Hex handle that?
                     {
                         player.SetDestination(hex.transform.position);
                         hex.OnMouseClick();

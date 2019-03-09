@@ -4,7 +4,17 @@ using UnityEngine;
 
 public class GameStateMenuMain : GameStateBase {
 
-    Level mainMenuLevel;
+    string pathMainMenu = "Levels/Menus/MainMenu";
+
+
+    // Could assemble array of menus here and then load them by index value in the LoadNextLevel method?
+    //string[] menuLevelPaths =
+    //{
+    //    "",
+    //    "",
+    //};
+
+    //int nextLevelIndex = 0;
 
     public GameStateMenuMain()
     {
@@ -48,16 +58,28 @@ public class GameStateMenuMain : GameStateBase {
 
     public override void StartGameState()
     {
-        Level[] levels = Resources.LoadAll<Level>("Levels/Menus"); // TEMP
-        mainMenuLevel = levels[1]; // TEMP
 
-        MapSpawner.instance.SpawnHexs(mainMenuLevel, GameManager.instance.GetPlayerBall().transform.position - new Vector3(0, -30, 0), false/* offsetValue */);
+        CreateLevel(
+        LoadLevelFromPath(pathMainMenu),
+        -30,
+        false,
+        false
+        );
 
-        Vector3 mapPosition = MapSpawner.instance.GetCurrentMapHolder().transform.position;
-        mapPosition += new Vector3(0, -5, 0);
-        GameManager.instance.GetPlayerBall().transform.position = mapPosition; // ballPosition;
-        GameManager.instance.GetPlayerBall().SetActive(false);
-       
+        Hex registerUserHexButton = MapSpawner.instance.SpawnHexAtLocation(new Vector2Int(0, 0), HexTypeEnum.HexTile_MenuOption, true);
+        registerUserHexButton.clickedEvent.AddListener(() =>
+        {
+            GameManager.instance.ProcessCommand(GameManager.Command.Begin);
+            //HandleRegisterClick();
+            registerUserHexButton.DestroyHex();
+        });
+
+        //MapSpawner.instance.SpawnHexs(mainMenuLevel, GameManager.instance.GetPlayerBall().transform.position - new Vector3(0, -30, 0), false/* offsetValue */);
+        //Vector3 mapPosition = MapSpawner.instance.GetCurrentMapHolder().transform.position;
+        //mapPosition += new Vector3(0, -5, 0);
+        //GameManager.instance.GetPlayerBall().transform.position = mapPosition; // ballPosition;
+        //GameManager.instance.GetPlayerBall().SetActive(false);
+
     }
 
     protected override void HandleInput()

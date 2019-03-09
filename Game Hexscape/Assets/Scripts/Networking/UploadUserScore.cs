@@ -38,6 +38,7 @@ public class UploadUserScore : MonoBehaviour {
             Debug.Log("Score Upload Complete!");
             Debug.Log(webRequest.url);
             Debug.Log(url);
+            Debug.Log(webRequest.downloadHandler.text);
         }
 
     }

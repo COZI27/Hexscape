@@ -84,6 +84,7 @@
     <Compile Include="Assets\Scripts\Map Scripts\HexBank.cs" />
     <Compile Include="Assets\Scripts\Map Scripts\Level.cs" />
     <Compile Include="Assets\Scripts\Map Scripts\LevelComponents\BaseLevelComponent.cs" />
+    <Compile Include="Assets\Scripts\Map Scripts\LevelComponents\LoadProfileLevelComponent.cs" />
     <Compile Include="Assets\Scripts\Map Scripts\LevelComponents\ScoreboardLevelComponent.cs" />
     <Compile Include="Assets\Scripts\Map Scripts\LevelEditor.cs" />
     <Compile Include="Assets\Scripts\Map Scripts\MapSpawner.cs" />

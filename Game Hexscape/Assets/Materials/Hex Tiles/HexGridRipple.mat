@@ -25,16 +25,8 @@ Material:
     m_Floats:
     - _Glossiness: 0
     - _Metallic: 0
-<<<<<<< HEAD
-    - _RippleDistance: 55.25383
+    - _RippleDistance: 100.026665
     - _RippleWidth: 0.5
     m_Colors:
     - _Color: {r: 0, g: 0.9708925, b: 0.9811321, a: 1}
-    - _RippleOrigin: {r: -0.41771376, g: -48.659126, b: -1.1534727, a: 0}
-=======
-    - _RippleDistance: 100.034874
-    - _RippleWidth: 0.5
-    m_Colors:
-    - _Color: {r: 0, g: 0.9708925, b: 0.9811321, a: 1}
-    - _RippleOrigin: {r: 0, g: -17.254002, b: 0, a: 0}
->>>>>>> refs/remotes/origin/master
+    - _RippleOrigin: {r: -0.9987657, g: -143.19897, b: 0.03433741, a: 0}

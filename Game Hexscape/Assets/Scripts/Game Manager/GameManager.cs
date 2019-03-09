@@ -8,6 +8,9 @@ public class GameManager : MonoBehaviour {
 
     public ScoreUI scoreUI;
 
+    public PlayerProfile loadedProfile { get; set; }
+
+
     private void MakeSingleton()
     {
         if (instance == null)
@@ -63,12 +66,10 @@ public class GameManager : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-
-
-
         if (currentGameState == null)
         {
-            ChangeGameState( new GameStateMenuMain () ) ;
+            ChangeGameState( new GameStateInit () ) ;
+            //ChangeGameState(new GameStateMenuMain());
         }
 	}
 	
@@ -120,6 +121,8 @@ public class GameManager : MonoBehaviour {
 
         transitions = new Dictionary<StateTransition<System.Type, Command>, System.Type>
         {
+            /* Initial Game State */
+            { new StateTransition<System.Type, Command>(typeof(GameStateInit), Command.End), typeof(GameStateMenuMain)  },
             /*Main Menu*/
             { new StateTransition<System.Type, Command>(typeof(GameStateMenuMain), Command.Begin), typeof(GameStateEndless)  },
             /*Endless*/

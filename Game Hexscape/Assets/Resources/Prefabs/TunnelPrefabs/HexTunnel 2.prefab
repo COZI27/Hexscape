@@ -258,7 +258,7 @@ MonoBehaviour:
     m_Mode: 0
     m_NumColorKeys: 3
     m_NumAlphaKeys: 3
-  degree: 30.005
+  degree: 30.001
   scale: 0.1
   numberStart: 10000
   stepSize: 10

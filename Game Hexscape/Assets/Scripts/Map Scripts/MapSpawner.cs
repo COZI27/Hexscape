@@ -29,10 +29,6 @@ public class MapSpawner : MonoBehaviour
 
     // public int currentLevel = 0;
 
-
-
-
-
     public float shortLength = 1;
     private float longLength;
 
@@ -217,6 +213,7 @@ public class MapSpawner : MonoBehaviour
         // sends the maprefrence to the gridfinder
         GridFinder.instance.SetMap(mapRefrence, holder.transform.position, holder.transform.rotation);
     }
+
     public void SpawnHexs(int level, float yPos)
     {
         // Creates a dictionary for Hex to its position to be sent to the gridfinder
@@ -279,12 +276,8 @@ public class MapSpawner : MonoBehaviour
         GridFinder.instance.SetMap(mapRefrence, holder.transform.position, holder.transform.rotation);
     }
 
-
-
-
     private void Update()
     {
-
         if (Input.GetKeyDown(KeyCode.S))
         {
             SaveLevel();
@@ -306,17 +299,14 @@ public class MapSpawner : MonoBehaviour
                 // temp
             }
         }
-
-
-
     }
 
-    public bool SpawnHexAtLocation(Vector2Int hexLoc, HexTypeEnum typeToSpawn, bool replaceExisting)
+    public Hex SpawnHexAtLocation(Vector2Int hexLoc, HexTypeEnum typeToSpawn, bool replaceExisting)
     {
         bool positionOccupied = mapRefrence.ContainsKey(hexLoc);
 
         // Position blocked
-        if (positionOccupied && !replaceExisting) return false;
+        if (positionOccupied && !replaceExisting) return null;
         else
         {
             if (positionOccupied) // Remove occupying tile
@@ -334,7 +324,7 @@ public class MapSpawner : MonoBehaviour
 
             // adds the hex to the dictonary for the grid finder
             mapRefrence.Add(hexLoc, hexInstance);
-            return true;
+            return hexInstance;
         }
     }
 

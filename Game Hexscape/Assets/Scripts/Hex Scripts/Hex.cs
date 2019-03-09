@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 
 
@@ -15,7 +16,7 @@ public class Hex : MonoBehaviour
     //  [SerializeField] public GameObject prefab;
     [SerializeField] public int destroyPoints;
 
-
+    public UnityEvent clickedEvent = new UnityEvent();
 
 
     public bool isClickable = true;
@@ -57,14 +58,12 @@ public class Hex : MonoBehaviour
     private int fallRotIndex = 0;
     private Vector2[] fallRotations;
 
-    public bool isMenuHex; // TODO: TEMP - Delete me
-
     private void Awake()
     {
         hasBeenTouched = false;
 
         // sub so we know when we do exit (an exit now occours when the player touches a diffrent hex tile)
-        if (!isMenuHex) PlayerController.instance.newHextouched += PlayerTouchedNewHex;
+        if (PlayerController.instance != null) PlayerController.instance.newHextouched += PlayerTouchedNewHex;
 
         mesh = GetComponent<MeshRenderer>();
         if (mesh != null) mesh.enabled = false;
@@ -154,6 +153,9 @@ public class Hex : MonoBehaviour
 
             hasBeenTouched = false;
             isAlive = false;
+
+            clickedEvent.RemoveAllListeners(); // TDOD: COnsider whether this would be better suited to being called when returned to the object pool
+
 
             //if (!isANeighbourDeath)
             //{
@@ -259,6 +261,9 @@ public class Hex : MonoBehaviour
             GameManager.instance.ClickEvent();
         }
 
+        //if (clickedEvent.GetPersistentEventCount() > 0) // For whatever reason this method does not work. https://forum.unity.com/threads/get-number-of-runtime-listeners.292537/
+        clickedEvent.Invoke(); // Added to allow level components to register their own methods with hexes.
+
         if (isSleeping == false)
         {
             if (typeOfHex == HexTypeEnum.HexTile_ClickDestroy)
@@ -321,20 +326,16 @@ public class Hex : MonoBehaviour
 
     public void PlayerTouchedNewHex(Hex newHex)
     {
-        if (newHex == this || gameObject.activeInHierarchy == false || isSleeping) return;
-
-        if (hasBeenTouched)
+        if (newHex != null)
         {
-            OnPlayerExit();
+            if (newHex == this || gameObject.activeInHierarchy == false || isSleeping) return;
+
+            if (hasBeenTouched)
+            {
+                OnPlayerExit();
+            }
         }
-
     }
-
-
-
-
-
-
 
 
 }

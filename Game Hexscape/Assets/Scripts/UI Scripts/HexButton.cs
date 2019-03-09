@@ -16,6 +16,6 @@ public class HexButton : MonoBehaviour {
 
     private void OnMouseUpAsButton()
     {
-        ClickedOn();
+       // ClickedOn();
     }
 }

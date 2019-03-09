@@ -122,9 +122,6 @@ public sealed class GameStateEndless : GameStateBase
         currentSessionData.passScore = 0;
         newLevel.hexs.ToList().ForEach(x => currentSessionData.passScore += x.GetHex().destroyPoints);
 
-
-        //scoreUI.ModifyValues(currentSessionData);
-        //scoreUI.SetMedalState(MedalState.noMedal);
         if (playerController != null)
         {
             playerController.SetDestination(playerController.transform.position);
@@ -134,8 +131,7 @@ public sealed class GameStateEndless : GameStateBase
         MapSpawner.instance.SpawnHexs(newLevel, playerController.transform.position);
 
         UpdateScore();
-
-        
+   
     }
 
     public override void HexDigEvent()
@@ -143,16 +139,10 @@ public sealed class GameStateEndless : GameStateBase
         currentSessionData.levelScore += 1;
         currentSessionData.totalScore += 1;
 
-
-        //scoreUI.SetScore(totalScore, levelCurrentScore, passScore);
-
-        // Debug.Log("Current Level: " + levelCurrentScore + ", Pass Score: " + passScore);
         if (currentSessionData.levelScore >= currentSessionData.passScore)
         {
-            Debug.Log("HexDigEvent: LoadNextLevel");
             LoadNextLevel();
         }
-
         UpdateScore();
     }
 
@@ -181,9 +171,6 @@ public sealed class GameStateEndless : GameStateBase
 
 
 
-    /// updating the UI
-
-    
 
     private void UpdateScore ()
     {

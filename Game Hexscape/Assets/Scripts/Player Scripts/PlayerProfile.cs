@@ -3,8 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class PlayerProfile : MonoBehaviour {
-    public string playerID;
+public class PlayerProfile {
+
+    public PlayerProfile(string id, string name)
+    {
+        playerID = id;
+        playerName = name;
+    }
+    [SerializeField]
+    private string playerName;
+    public string GetPlayerName() { return playerName; }
+    [SerializeField]
+    private string playerID;
+    public string GetPlayerID() { return playerID; }
+    public int GetPlayerIDasInt() {
+        Debug.Log(playerID);
+        int returnID;
+        int.TryParse(playerID, out returnID);
+        return returnID;
+    }
+
 
     //Endless Stats
     public string playerHighscore;

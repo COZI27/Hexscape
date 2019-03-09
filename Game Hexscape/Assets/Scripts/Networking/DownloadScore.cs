@@ -5,17 +5,18 @@ using UnityEngine;
 
 public class DownloadScore : MonoBehaviour {
 
-    private string phpScriptsFolder = "https://Hexit.000webhostapp.com"; // The Location where all PHP scripts are stored 
-    private string phpAddTheItemScriptLocation = "/DBAccessScripts/InsertUser.php"; // The Location of the PHP script for adding an item
+    //private string phpScriptsFolder = "https://Hexit.000webhostapp.com"; // The Location where all PHP scripts are stored 
+    //private string phpAddTheItemScriptLocation = "/DBAccessScripts/InsertUser.php"; // The Location of the PHP script for adding an item
 
 
 
-    private string url = "https://hexit.000webhostapp.com/DBAccessScripts/GetUserStats.php";
+    private string url = "https://hexit.000webhostapp.com/DBAccessScripts/GetStatsForUserID.php";
 
     //[ContextMenu("Add Item")]  // Calls The AddItemToDB Coroutine from the inspector
     public void GetScoreForUser(int userId, System.Action<ScoreBoardEntry> callBack)
     {
         StartCoroutine(GetUserScore(userId, callBack ));
+        Debug.Log("starting cooroutine, user id = " + userId);
     }
 
     //public void GetScoreForUser()
@@ -25,10 +26,9 @@ public class DownloadScore : MonoBehaviour {
 
     private IEnumerator GetUserScore(int userId, System.Action<ScoreBoardEntry> callBack)
     {
-        int userID = 1; // TEMP
-
+        Debug.Log("GetUserScore user id = " + userId);
         WWWForm form = new WWWForm();
-        form.AddField("IDPost", userID);
+        form.AddField("userIDPost", userId);
         //form.AddField("usernamePost", name);
         //form.AddField("passwordPost", password);
         UnityWebRequest webRequest = UnityWebRequest.Post(/*phpScriptsFolder + phpAddTheItemScriptLocation*/ url, form);
@@ -57,6 +57,8 @@ public class DownloadScore : MonoBehaviour {
             int.TryParse(temp[0], out returnID);
             int.TryParse(temp[1], out returnLevel);
             int.TryParse(temp[2], out returnScore);
+
+            Debug.Log(returnID +" | "+ returnLevel + " | " + returnScore);
 
             ScoreBoardEntry returnEntry = new ScoreBoardEntry(returnID, returnLevel, returnScore);
           

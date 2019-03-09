@@ -28,8 +28,6 @@ public class PhylloTunnelPiece : MonoBehaviour {
     private int currentIt;
     private int currentNumber;
 
-    //public AnimationCurve movementSpeedCurve;  // Intended to be used as a multiplier to increase the speed of the rings, but it may not be needed
-
 
     [Header("Wobble Settings")]
     public bool useWobble;
@@ -48,8 +46,6 @@ public class PhylloTunnelPiece : MonoBehaviour {
     private float lerpPosTimer, lerpPosSpeed;
     private bool forward;
     public bool repeat, invert;
-
-    private int posLerpMultiplier = 30;
 
 
     // TODO: Lerp colour gradient and apply
@@ -183,9 +179,7 @@ public class PhylloTunnelPiece : MonoBehaviour {
         if (!useLerp) {
    
             phyllotaxisPos = CalculatePhyllotaxis(degree, scale, currentNumber);
-
-            float multiplier = posLerpMultiplier * Mathf.Abs(targetYPos - this.transform.position.y);
-            transform.localPosition = new Vector3(phyllotaxisPos.x, Mathf.Lerp(this.transform.position.y, Mathf.Lerp(transform.position.y, targetYPos + targetWobblePos, Time.deltaTime), Time.deltaTime * multiplier), phyllotaxisPos.y);
+            transform.localPosition = new Vector3(phyllotaxisPos.x, Mathf.Lerp(this.transform.position.y, Mathf.Lerp(transform.position.y, targetYPos + targetWobblePos, Time.deltaTime), Time.deltaTime * 5), phyllotaxisPos.y);
             currentNumber += stepSize;
             currentIt++;
         }

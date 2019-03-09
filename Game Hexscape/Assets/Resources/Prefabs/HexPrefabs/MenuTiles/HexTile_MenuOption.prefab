@@ -113,6 +113,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   destroyPoints: 0
+  clickedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   isClickable: 1
   typeOfHex: 1282535278
   destroyTime: 1

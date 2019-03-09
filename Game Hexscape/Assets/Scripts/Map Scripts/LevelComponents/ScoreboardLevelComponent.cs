@@ -85,6 +85,14 @@ public class ScoreboardLevelComponent : BaseLevelComponent {
             MapSpawner.instance.SpawnHexAtLocation(pos, hexDigits[hexDigitIndex], true);
             position--;
         }
+
+        Hex registerUserHexButton = MapSpawner.instance.SpawnHexAtLocation(new Vector2Int(1, -2), HexTypeEnum.HexTile_MenuOption, true);
+        registerUserHexButton.clickedEvent.AddListener(() =>
+        {
+            //HandleRegisterClick();
+            GameManager.instance.ProcessCommand(GameManager.Command.End);
+            registerUserHexButton.DestroyHex();
+        });
     }
 
     void GetCurrentSessionScore(out int returnLevel, out int returnScore)
@@ -95,7 +103,7 @@ public class ScoreboardLevelComponent : BaseLevelComponent {
         returnScore = sessionData.totalScore;
     }
 
-    bool uploadScore = false;
+    bool doUploadScore = false;
     int downloadedLevelValue;
     int downloadedScoreValue;
 
@@ -112,7 +120,7 @@ public class ScoreboardLevelComponent : BaseLevelComponent {
         scoreDownloader = this.gameObject.AddComponent<DownloadScore>();
         if (scoreDownloader != null)
         {
-            scoreDownloader.GetScoreForUser(1, Callback);   
+            scoreDownloader.GetScoreForUser(GameManager.instance.loadedProfile.GetPlayerIDasInt(), Callback);   
         }
     }
 
@@ -121,7 +129,7 @@ public class ScoreboardLevelComponent : BaseLevelComponent {
         // Level
         if (data.highLevel < levelValue)
         {
-            uploadScore = true;
+            doUploadScore = true;
 
             // Display "New Best Level"
             Debug.Log("New Best Level.  Old = " + data.highLevel + "  | New = " + levelValue);
@@ -131,20 +139,21 @@ public class ScoreboardLevelComponent : BaseLevelComponent {
         // Score
         if (data.highScore < scoreValue)
         {
-            uploadScore = true;
+            doUploadScore = true;
 
             // Display "New Best Score"
             Debug.Log("New Best Score. Old = " + data.highScore + "  | New = " + scoreValue);
         }
 
-        if (uploadScore)
+        if (doUploadScore)
         {
             scoreUploader = this.gameObject.AddComponent<UploadUserScore>();
-            scoreUploader.UploadScore(new ScoreBoardEntry(1, levelValue, scoreValue));
+
+            int playerID;
+            int.TryParse(GameManager.instance.loadedProfile.GetPlayerID(), out playerID);
+            scoreUploader.UploadScore(new ScoreBoardEntry(playerID, levelValue, scoreValue));
         }
     }
-
-
 
     int[] ConvertIntToArray(int inValue) // TODO: Move to helper class
     {
