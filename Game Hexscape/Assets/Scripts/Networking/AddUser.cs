@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine.Networking;
 using UnityEngine;
 
-public class AddUser : MonoBehaviour
+public class AddUser
 {
 
     public class AddUserResponse
@@ -31,12 +31,12 @@ public class AddUser : MonoBehaviour
     [ContextMenu("Add Item")]  // Calls The AddItemToDB Coroutine from the inspector
     public void AttemptAddNewUser(string username, System.Action<AddUserResponse> callBack)
     {
-        StartCoroutine(AddUserToDB(username, callBack));
+        GameManager.instance.StartCoroutine(AddUserToDB(username, callBack));
     }
 
     public void BeginAddNewUser(string username, System.Action<AddUserResponse> callBack)
     {
-        StartCoroutine(AddUserToDB(name, callBack));
+        GameManager.instance.StartCoroutine(AddUserToDB(username, callBack));
     }
 
     private IEnumerator AddUserToDB(string username, System.Action<AddUserResponse> callBack)

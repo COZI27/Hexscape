@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine.Networking;
 using UnityEngine;
 
-public class DownloadScore : MonoBehaviour {
+public class DownloadScore {
 
     //private string phpScriptsFolder = "https://Hexit.000webhostapp.com"; // The Location where all PHP scripts are stored 
     //private string phpAddTheItemScriptLocation = "/DBAccessScripts/InsertUser.php"; // The Location of the PHP script for adding an item
@@ -15,7 +15,7 @@ public class DownloadScore : MonoBehaviour {
     //[ContextMenu("Add Item")]  // Calls The AddItemToDB Coroutine from the inspector
     public void GetScoreForUser(int userId, System.Action<ScoreBoardEntry> callBack)
     {
-        StartCoroutine(GetUserScore(userId, callBack ));
+        GameManager.instance.StartCoroutine(GetUserScore(userId, callBack ));
         Debug.Log("starting cooroutine, user id = " + userId);
     }
 

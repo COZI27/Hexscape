@@ -107,16 +107,15 @@ public class GameStateBase {
         return true;
     }
 
-    protected bool CreateLevel<T>(Level levelToCreate, float verticalOffset, bool setBallEnabled, bool allowRandomMapRotation, T componentToAdd) where T : Component
-    {
-        CreateLevel(levelToCreate, verticalOffset, setBallEnabled, allowRandomMapRotation);
-        GameObject currentLevelObject = MapSpawner.instance.GetCurrentMapHolder();
-        if (currentLevelObject != null)
-        {
-            var newComponent = currentLevelObject.AddComponent<T>() as BaseLevelComponent;
-            if (newComponent == null) Debug.LogWarning(" Failed to add " + componentToAdd.GetType() + " to " + currentLevelObject.name + ".");
-        }
-        return true;
-    }
+    //protected bool CreateLevel<T>(Level levelToCreate, float verticalOffset, bool setBallEnabled, bool allowRandomMapRotation, T componentToAdd) where T : Component
+    //{
+    //    CreateLevel(levelToCreate, verticalOffset, setBallEnabled, allowRandomMapRotation);
+    //    GameObject currentLevelObject = MapSpawner.instance.GetCurrentMapHolder();
+    //    if (currentLevelObject != null)
+    //    {
+    //        if (newComponent == null) Debug.LogWarning(" Failed to add " + componentToAdd.GetType() + " to " + currentLevelObject.name + ".");
+    //    }
+    //    return true;
+    //}
 }
 
