@@ -26,7 +26,7 @@ public class MouseManager : MonoBehaviour
 
     private void Update()
     {
-        Vector2Int gridPos = (GridFinder.instance.MouseToGridPoint(Input.mousePosition));
+        Vector2Int gridPos = (GridFinder.instance.MouseToGridPoint());
       //  Debug.Log(gridPos);
 
         Vector3 worldPos = GridFinder.instance.GridPosToWorld(gridPos);

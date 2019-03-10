@@ -27,16 +27,7 @@ public sealed class GameStateEndless : GameStateBase
 
     }
 
-    void Start()
-    {
-
-
-    }
-
-    void Update()
-    {
-
-    }
+   
 
     public override void StartGameState()
     {
@@ -76,6 +67,8 @@ public sealed class GameStateEndless : GameStateBase
 
 
     }
+
+
 
     public override void CleanupGameState()
     {
@@ -197,6 +190,12 @@ public sealed class GameStateEndless : GameStateBase
     {
         GameManager.instance.scoreUI.SetScore(currentSessionData.totalScore, currentSessionData.levelScore, currentSessionData.passScore);
     }
+
+
+    public string resourceLocation = "Levels/Json/";
+    public string jsonFileName = "TestLevel";
+
+   
 }
 
 

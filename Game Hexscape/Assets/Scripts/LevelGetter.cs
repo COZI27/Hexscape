@@ -62,7 +62,7 @@ public class LevelGetter : MonoBehaviour
         File.WriteAllText(GetLevelPath() + jsonFileName + ".json" , json);
     }
 
-    public void CreateLevel(Level level)
+    public void CreateLevel(Level level, bool autoName = false)
     {
         
 
@@ -70,8 +70,15 @@ public class LevelGetter : MonoBehaviour
 
         // level.levelName = json;
 
-        File.WriteAllText(GetLevelPath() + jsonFileName + ".json", json);
+        string lName = jsonFileName;
+        if (autoName) lName = level.levelName;
+
+        File.WriteAllText(GetLevelPath() + lName + ".json", json);
+
+        Debug.Log(json);
     }
+
+    
 
 
     [ContextMenu("GetLevel")]

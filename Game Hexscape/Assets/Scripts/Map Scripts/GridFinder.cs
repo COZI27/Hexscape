@@ -33,10 +33,13 @@ public class GridFinder : MonoBehaviour
 
     }
 
-    public Vector2Int MouseToGridPoint(Vector3 position)
+    public Vector2Int MouseToGridPoint()
     {
+        Vector3 position = Input.mousePosition;
+
         Plane plane = new Plane(Vector3.up, currentMapOffset);
         Ray mouseRay = Camera.main.ScreenPointToRay(position);
+       
 
         float distance;
 
@@ -52,8 +55,8 @@ public class GridFinder : MonoBehaviour
                 
             }
 
-            
-            
+
+           // Debug.Log("YEET" + WorldToGridPoint(mousePlanePoint, false));
 
 
            return WorldToGridPoint(mousePlanePoint, false);
@@ -263,7 +266,7 @@ public class GridFinder : MonoBehaviour
     }
 
     // Turns a vector 2 int into a hex... retuns null if a hex cannot be found at a given point
-    private Hex GetHexAtPoint(Vector2Int hexPos)
+    public Hex GetHexAtPoint(Vector2Int hexPos)
     {
         if (currentSpawnedMap == null || !currentSpawnedMap.ContainsKey(hexPos))
         {

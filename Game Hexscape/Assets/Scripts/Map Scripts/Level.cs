@@ -56,7 +56,7 @@ public class MapElement
 {
     public Vector2Int gridPos;
     public HexTypeEnum hexType;
-    private Hex hex;
+    protected Hex hex;
 
     public Hex GetHex()
     {
@@ -70,8 +70,26 @@ public class MapElement
 
     public MapElement(HexTypeEnum hexType, Vector2Int gridPos)
     {
+       
         this.hexType = hexType;
         this.gridPos = gridPos;
+        this.hex = HexBank.instance.GetHexFromType(hexType);
+    }
+
+
+}
+
+[System.Serializable]
+public class HexButtonElement : MapElement
+{
+
+    GameManager.Command commandToCall;
+
+    public HexButtonElement(HexTypeEnum hexType, Vector2Int gridPos, GameManager.Command commandToCall) : base(hexType, gridPos)
+    {
+        this.hexType = hexType;
+        this.gridPos = gridPos;
+        Debug.Log("Hex type  = " + hexType);
         this.hex = HexBank.instance.GetHexFromType(hexType);
     }
 
