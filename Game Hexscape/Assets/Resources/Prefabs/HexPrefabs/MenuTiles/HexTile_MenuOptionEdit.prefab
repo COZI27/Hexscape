@@ -121,6 +121,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   destroyPoints: 0
+  clickedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   isClickable: 1
   typeOfHex: -1947130190
   destroyTime: 1
@@ -134,4 +139,3 @@ MonoBehaviour:
   isAlive: 0
   mesh: {fileID: 0}
   useFalling: 0
-  isMenuHex: 1

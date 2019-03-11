@@ -114,9 +114,13 @@ public sealed class GameStateEndless : GameStateBase
 
     public override void LoadNextLevel()
     {
-        ++currentSessionData.levelIndex;
+        
 
-        Level newLevel = useRandomLevels ? levels[Random.Range(0, levels.Length)] : levels[currentSessionData.levelIndex];
+        
+
+        Level newLevel = useRandomLevels ? levels[Random.Range(0, levels.Length)] : levels[currentSessionData.levelIndex %= levels.Length];
+
+        ++currentSessionData.levelIndex;
 
         currentSessionData.levelScore = 0;
         currentSessionData.passScore = 0;
@@ -168,7 +172,7 @@ public sealed class GameStateEndless : GameStateBase
         //levels = Resources.LoadAll<Level>("Levels/Endless") as Level;
         //Debug.Log("Loaded Level count = " + levels.Length);
 
-        levels = LevelGetter.instance.GetAllLevels("Levels/Endless");
+        levels = LevelGetter.instance.GetLevelsFrom("Levels/Endless");
     }
 
 

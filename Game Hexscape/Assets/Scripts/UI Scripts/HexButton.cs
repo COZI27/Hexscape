@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class HexButton : MonoBehaviour {
 
-    public GameManagement.GameplayState gameplayState = GameManagement.GameplayState.endless;
+    public GameManager.Command command;
 
     public void ClickedOn()
     {
         //GameManagement.instance.StartScene(gameplayState, transform.position);
-        GameManager.instance.ProcessCommand(GameManager.Command.Begin);
-        Destroy(this.gameObject);
+        GameManager.instance.ProcessCommand(command);
+       // Destroy(this.gameObject);
     }
 
 

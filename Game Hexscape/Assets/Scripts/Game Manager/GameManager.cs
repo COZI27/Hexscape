@@ -34,7 +34,11 @@ public class GameManager : MonoBehaviour {
         Pause,
         Resume,
 
-        QuitLevel
+        QuitLevel,
+
+        Edit
+
+        
     }
 
     //public GameStateBase initialGameState = GameStateMenuMain;
@@ -68,8 +72,9 @@ public class GameManager : MonoBehaviour {
     void Start () {
         if (currentGameState == null)
         {
-            ChangeGameState( new GameStateInit () ) ;
-            //ChangeGameState(new GameStateMenuMain());
+           // ChangeGameState( new GameStateInit () ) ;
+           ChangeGameState(new GameStateMenuMain());
+            //ChangeGameState(new GameStateEndless());
         }
 	}
 	
@@ -131,7 +136,9 @@ public class GameManager : MonoBehaviour {
            // { new StateTransition<System.Type, Command>(typeof(GameStateEndless), Command.End), typeof(GameStateMenuMain)  },
             /*Endless Scoreboard*/
             { new StateTransition<System.Type, Command>(typeof(GameStateEndlessScoreboard), Command.End), typeof(GameStateMenuMain)  },
-            { new StateTransition<System.Type, Command>(typeof(GameStateEndlessScoreboard), Command.Begin), typeof(GameStateMenuMain)  }
+            { new StateTransition<System.Type, Command>(typeof(GameStateEndlessScoreboard), Command.Begin), typeof(GameStateMenuMain)  },
+
+            { new StateTransition<System.Type, Command>(typeof(GameStateMenuMain), Command.Edit), typeof(GameStateEdit)  }
         };
 
         // NOTE: Could change the value of an entry at runtime, if necessary

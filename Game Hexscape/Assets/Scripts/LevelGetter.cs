@@ -33,7 +33,7 @@ public class LevelGetter : MonoBehaviour
 
     public Level[] GetLevelsFrom (string path)
     {
-
+        Debug.Log("Looking Found");
         Object[] loadedJsonFiles = Resources.LoadAll(path, typeof(TextAsset));
         Debug.Log("Files Found: " + loadedJsonFiles.Length);
 

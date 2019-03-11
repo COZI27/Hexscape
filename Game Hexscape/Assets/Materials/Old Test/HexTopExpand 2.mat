@@ -5,7 +5,8 @@ Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_Name: HexTopExpand 2
   m_Shader: {fileID: 4800000, guid: 672b75079eeb75c40a6fbead3c44961c, type: 3}
   m_ShaderKeywords: 
@@ -66,7 +67,7 @@ Material:
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _RippleDistance: 46.75458
+    - _RippleDistance: 11.730463
     - _RippleWidth: 1
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
@@ -76,4 +77,4 @@ Material:
     m_Colors:
     - _Color: {r: 0.26091117, g: 0.25485048, b: 0.6509434, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _RippleOrigin: {r: 0.059935346, g: -214.28552, b: -0.14187695, a: 0}
+    - _RippleOrigin: {r: -0.24857567, g: -113.51544, b: 0.9046562, a: 0}

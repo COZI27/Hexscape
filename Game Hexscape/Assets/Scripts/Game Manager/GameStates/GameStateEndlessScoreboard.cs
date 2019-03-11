@@ -28,7 +28,7 @@ public class GameStateEndlessScoreboard : GameStateBase
     public override void StartGameState()
     {
         CreateLevel(
-            LoadLevelFromPath(pathScoreBoardLevel),
+            LoadLevelsFromPath(pathScoreBoardLevel)[0],
             -30.0f,
             false,
             false
@@ -109,7 +109,7 @@ public class GameStateEndlessScoreboard : GameStateBase
             position--;
         }
 
-        Hex registerUserHexButton = MapSpawner.instance.SpawnHexAtLocation(new Vector2Int(1, -2), HexTypeEnum.HexTile_MenuOption, true);
+        Hex registerUserHexButton = MapSpawner.instance.SpawnHexAtLocation(new Vector2Int(1, -2), HexTypeEnum.HexTile_MenuOptionPlay, true);
         registerUserHexButton.clickedEvent.AddListener(() =>
         {
             //HandleRegisterClick();

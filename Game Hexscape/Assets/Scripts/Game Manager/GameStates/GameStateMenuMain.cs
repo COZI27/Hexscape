@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameStateMenuMain : GameStateBase {
 
-    string pathMainMenu = "Levels/Menus/MainMenu";
+    string pathMainMenu = "Levels/Menus";
 
 
     // Could assemble array of menus here and then load them by index value in the LoadNextLevel method?
@@ -60,13 +60,13 @@ public class GameStateMenuMain : GameStateBase {
     {
 
         CreateLevel(
-        LoadLevelFromPath(pathMainMenu),
+        LoadLevelsFromPath(pathMainMenu)[0],
         -30,
         false,
         false
         );
 
-        Hex registerUserHexButton = MapSpawner.instance.SpawnHexAtLocation(new Vector2Int(0, 0), HexTypeEnum.HexTile_MenuOption, true);
+        Hex registerUserHexButton = MapSpawner.instance.SpawnHexAtLocation(new Vector2Int(0, 0), HexTypeEnum.HexTile_MenuOptionPlay, true);
         registerUserHexButton.clickedEvent.AddListener(() =>
         {
             GameManager.instance.ProcessCommand(GameManager.Command.Begin);

@@ -82,14 +82,14 @@ public class GameStateBase {
         throw new System.NotImplementedException();
     }
 
-    protected Level LoadLevelFromPath(string pathToLoad)
+    protected Level[] LoadLevelsFromPath(string pathToLoad)
     {
         //Level levelToReturn = Resources.Load<Level>(pathToLoad);
 
-        Level[] levelToReturn = LevelGetter.instance.GetAllLevels(pathToLoad);
+        Level[] levels = LevelGetter.instance.GetLevelsFrom(pathToLoad);
 
-        if (levelToReturn != null)
-            return levelToReturn[0];
+        if (levels != null)
+            return levels;
         else
         {
             throw new System.Exception("Failed to load Level Asset from path at '" + pathToLoad + "' for " + GetType() + ".");

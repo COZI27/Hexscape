@@ -24,7 +24,7 @@ public class MapSpawner : MonoBehaviour
 
     private GameObject currentMapHolder;
     public GameObject GetCurrentMapHolder() { 
-        return currentMapHolder;
+        return grid.gameObject;
     }
 
     // public int currentLevel = 0;

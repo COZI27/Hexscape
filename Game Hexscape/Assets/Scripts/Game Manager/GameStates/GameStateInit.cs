@@ -18,7 +18,7 @@ public class GameStateInit : GameStateBase
     private void CreateNewProfileMenu()
     {
         CreateLevel(
-            LoadLevelFromPath(pathNewProfileLevel),
+            LoadLevelsFromPath(pathNewProfileLevel)[0],
             -30.0f,
             false,
             false
@@ -105,7 +105,7 @@ public class GameStateInit : GameStateBase
 
         if (registerUserCanvas == null) throw new System.Exception("Failed to instantiate the RegisterIserCanvas from path " + pathRegisterUserCanvas);
 
-        Hex registerUserHexButton = MapSpawner.instance.SpawnHexAtLocation(new Vector2Int(0, -2), HexTypeEnum.HexTile_MenuOption, true);
+        Hex registerUserHexButton = MapSpawner.instance.SpawnHexAtLocation(new Vector2Int(0, -2), HexTypeEnum.HexTile_MenuOptionPlay, true);
         registerUserHexButton.clickedEvent.AddListener(() =>
         {
             HandleRegisterClick();
