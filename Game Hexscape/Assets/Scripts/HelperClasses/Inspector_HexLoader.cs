@@ -71,7 +71,7 @@ public class Inspector_HexLoader : Editor
     // Replaces the enum values of the Levels MapElements hex types
     private static void ForceHexValueChange() // Use in case of emergency & Handle with care.
     {
-        Level[] levels = Resources.LoadAll<Level>("Levels/Endless");
+        Level[] levels = LevelGetter.instance.GetAllLevels();
 
         foreach (Level l in levels)
         {
@@ -89,8 +89,7 @@ public class Inspector_HexLoader : Editor
 
 
             }
-            EditorUtility.SetDirty(l);
-        }
+                    }
     }
 
 

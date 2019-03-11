@@ -10,37 +10,49 @@ public class MapSpawner : MonoBehaviour
     // Giver her a level and she will spawn a map... Its a bit messy at the moment but she will do for now :)
 
 
-   //public GameObject mapHolder;
-
 
     public static MapSpawner instance;
 
     [SerializeField] public Grid grid;
+    private Transform hexGrid; // parent of the grid
 
     // Creates a dictionary for Hex to its position to be sent to the gridfinder
     Dictionary<Vector2Int, Hex> mapRefrence = new Dictionary<Vector2Int, Hex>();
 
     [SerializeField] private GameObject playerKillZonePrefab;
 
-    private GameObject currentMapHolder;
-    public GameObject GetCurrentMapHolder() { 
-        return currentMapHolder;
+
+<<<<<<< HEAD
+=======
+
+    private GameObject killZone;
+
+    public GameObject GetCurrentMapHolder()
+    {
+        return grid.gameObject;
     }
 
-    // public int currentLevel = 0;
 
+>>>>>>> NewLevelSystem
     public float shortLength = 1;
     private float longLength;
 
+    public void SetGameobjectWidth(GameObject gameobjectInstance)
+    {
+        float targetColWidth = shortLength;
+        float hexWidth = gameobjectInstance.GetComponent<Collider>().bounds.size.x;
+
+        float newHexWidth = gameobjectInstance.transform.localScale.x / hexWidth * targetColWidth;
+
+        Vector3 tempScale = gameobjectInstance.transform.localScale;
+        tempScale.x = tempScale.z = newHexWidth;
+
+        gameobjectInstance.transform.localScale = tempScale;
+
+
+    }
 
     public float distanceBetweenMaps = 3;
-
-    //[ContextMenu("Next Level")]
-    //public void NextLevel()
-    //{
-    //    currentLevel++;
-    //    SpawnHexs(currentLevel, currentLevel * distanceBetweenMaps);
-    //}
 
 
     private void Awake()
@@ -55,89 +67,37 @@ public class MapSpawner : MonoBehaviour
         }
 
         CalculateLongLengthFromShort();
-    }
 
-    [ContextMenu("Load Level")]
-    public void LoadLevel()
-    {
-        foreach (Hex hex in grid.GetComponentsInChildren<Hex>())
-        {
-            if (hex != null)
-            {
-                Destroy(hex);
-            }
-
-        }
-
-        CalculateLongLengthFromShort();
-        grid.cellSize = new Vector3(shortLength, longLength, 0);
-
-
-
-        SpawnHexs(EndlessGameplayManager.instance.levelIndex, 0);
-    }
-
-    [ContextMenu("Save Level")]
-
-    public void SaveLevel()
-    {
-        List<MapElement> mapElements = new List<MapElement>();
-
-
-
-        foreach (Hex hex in grid.GetComponentsInChildren<Hex>())
-        {
-
-            mapElements.Add(new MapElement(hex.typeOfHex, new Vector2Int(grid.WorldToCell(hex.transform.position).x, grid.WorldToCell(hex.transform.position).y)));
-        }
-
-        Level level = EndlessGameplayManager.instance.levels[EndlessGameplayManager.instance.levelIndex];
-       level.hexs = mapElements.ToArray();
-        EditorUtility.SetDirty(level);
-
-
+        hexGrid = grid.transform.parent;
     }
 
 
-    public void SetGameobjectWidth(GameObject gameobjectInstance)
-    {
-        float targetColWidth = shortLength;
-        float hexWidth = gameobjectInstance.GetComponent<Collider>().bounds.size.x;
 
-        float newHexWidth = gameobjectInstance.transform.localScale.x / hexWidth * targetColWidth;
-
-        Vector3 tempScale = gameobjectInstance.transform.localScale;
-        tempScale.x = tempScale.z = newHexWidth;
-
-        gameobjectInstance.transform.localScale = tempScale;
-        
-       
-    }
-
-    //public void SpawnHexs(int level)
+    //[ContextMenu("Save Level")]
+    //public void SaveLevel()
     //{
-    //    float yPos = level * distanceBetweenMaps;
+    //    List<MapElement> mapElements = new List<MapElement>();
 
-    //    GameObject holder = new GameObject(level + ": " + EndlessGameplayManager.instance.levels[level].name);
-    //    holder.transform.SetParent(grid.transform);
-
-
-
-
-    //    foreach (MapElement element in EndlessGameplayManager.instance.levels[level].hexs)
+    //    foreach (Hex hex in grid.GetComponentsInChildren<Hex>())
     //    {
-    //        Hex hexInstance = Instantiate(element.hexPrefab, grid.CellToWorld(new Vector3Int(element.gridPos.x, element.gridPos.y, 0)), Quaternion.Euler(-90, 0, 0), holder.transform).GetComponent<Hex>();
 
-
-    //        SetGameobjectWidth(hexInstance.gameObject);
-    //        hexInstance.prefab = element.hexPrefab;
-
-
+    //        mapElements.Add(new MapElement(hex.typeOfHex, new Vector2Int(grid.WorldToCell(hex.transform.position).x, grid.WorldToCell(hex.transform.position).y)));
     //    }
 
-    //    holder.transform.position = holder.transform.position -= Vector3.up * yPos;
+    //    Level level = GameStateBase.GameSessionData ;
+    //    level.hexs = mapElements.ToArray();
 
-    //}
+    //    LevelGetter.instance.CreateLevel(level, true);
+
+
+    //} // come back to 
+
+
+
+  
+
+
+
     public void SpawnHexs(Level level, Vector3 playerPos, bool randomRotate = true)
     {
         // Creates a dictionary for Hex to its position to be sent to the gridfinder
@@ -145,8 +105,10 @@ public class MapSpawner : MonoBehaviour
         mapRefrence.Clear();
 
 
+
         // destroy old hexes 
         foreach (Hex hex in grid.GetComponentsInChildren<Hex>())
+<<<<<<< HEAD
         {          
             if (hex.gameObject.activeInHierarchy)
             {
@@ -157,55 +119,56 @@ public class MapSpawner : MonoBehaviour
                 // might need to add a diffrent function for a 'map destroy'               
             }   
         }
-
-        foreach (Transform mapParent in grid.transform)
+=======
         {
-            if (mapParent.childCount == 0)
+
+
+            if (hex.gameObject.activeInHierarchy)
             {
-                mapParent.DetachChildren();
-                Destroy(mapParent.gameObject);
+                hex.DestroyHex();
+                hex.transform.parent = null;
+
+                // might need to add a diffrent function for a 'map destroy'
             }
+
+
+>>>>>>> NewLevelSystem
+
         }
 
-
-        // makes it so the Y pos is just bellow the player if the level is below 1
         float yPos = playerPos.y - 1f;
+        yPos = playerPos.y - distanceBetweenMaps;
 
-        //if ( EndlessGameplayManager.instance.levelIndex > 1)
-        //{
-            yPos = playerPos.y - distanceBetweenMaps;
-        //}
+        float rotation = 0;
+        if (randomRotate && false)
+        {
+            rotation = Random.Range(0, 12) * 30;
+        }
 
-
-        GameObject holder = new GameObject(level + ": " + level.name);
-        holder.transform.SetParent(grid.transform);
-
-        currentMapHolder = holder;
-
+        List<Hex> hexTiles = new List<Hex>();
 
         foreach (MapElement element in level.hexs)
         {
-            // Hex hexInstance = Instantiate(element.hexPrefab, grid.CellToWorld(new Vector3Int(element.gridPos.x, element.gridPos.y, 0)), Quaternion.Euler(-90, 0, 0), holder.transform).GetComponent<Hex>();
 
+<<<<<<< HEAD
             Hex hexInstance = HexBank.instance.GetDisabledHex(element.GetHex().typeOfHex, grid.CellToWorld(new Vector3Int(element.gridPos.x, element.gridPos.y, 0)), holder.transform).GetComponent<Hex>();
+=======
+            Vector3 position = GridFinder.instance.GridPosToWorld(element.gridPos);
+            Hex hexInstance = HexBank.instance.GetDisabledHex(element.GetHex().typeOfHex, grid.CellToWorld(new Vector3Int(element.gridPos.x, element.gridPos.y, 0)), grid.transform).GetComponent<Hex>();
+
+>>>>>>> NewLevelSystem
+
 
             SetGameobjectWidth(hexInstance.gameObject);
-            //   hexInstance.prefab = element.hexPrefab;
+            hexInstance.transform.rotation = Quaternion.Euler(0, 0, 0);
+          //  Debug.Log(hexInstance.transform.rotation.eulerAngles);
 
-
-            // adds the hex to the dictonary for the grid finder
             mapRefrence.Add(element.gridPos, hexInstance);
 
-        }
+            hexTiles.Add(hexInstance);
 
-        holder.transform.position = new Vector3(playerPos.x, yPos, playerPos.z);
-
-        // random rotation:
-       
-        if (randomRotate)
-        {
-            holder.transform.rotation = Quaternion.Euler(0, 30 * Random.Range(0, 12), 0);
         }
+<<<<<<< HEAD
         
 
         Instantiate(playerKillZonePrefab, holder.transform.position - Vector3.up * 2 * distanceBetweenMaps, Quaternion.identity, grid.transform);
@@ -219,12 +182,14 @@ public class MapSpawner : MonoBehaviour
         // Creates a dictionary for Hex to its position to be sent to the gridfinder
         /*Dictionary<Vector2Int, Hex>*/ //mapRefrence = new Dictionary<Vector2Int, Hex>();
         mapRefrence.Clear();
+=======
+>>>>>>> NewLevelSystem
 
-        GameObject holder = new GameObject(level + ": " + EndlessGameplayManager.instance.levels[level].name);
-        holder.transform.SetParent(grid.transform);
+        hexGrid.position = new Vector3(playerPos.x, yPos, playerPos.z);
 
-        foreach (MapElement element in EndlessGameplayManager.instance.levels[level].hexs)
+        if (killZone == null)
         {
+<<<<<<< HEAD
           
           //  HexBank.instance.PullHex(element.GetHex());
             Hex hexInstance = HexBank.instance.GetDisabledHex(element.GetHex().typeOfHex, grid.CellToWorld(new Vector3Int(element.gridPos.x, element.gridPos.y, 0)), holder.transform).GetComponent<Hex>();
@@ -256,19 +221,17 @@ public class MapSpawner : MonoBehaviour
 
 
         foreach (MapElement element in EndlessGameplayManager.instance.levels[level].hexs)
+=======
+            killZone = Instantiate(playerKillZonePrefab, hexGrid.position - Vector3.up * 2 * distanceBetweenMaps, Quaternion.identity, grid.transform);
+
+        }
+        else
+>>>>>>> NewLevelSystem
         {
-            Hex hexInstance = HexBank.instance.GetDisabledHex(element.GetHex().typeOfHex, grid.CellToWorld(new Vector3Int(element.gridPos.x, element.gridPos.y, 0)), holder.transform).GetComponent<Hex>();
-
-
-            SetGameobjectWidth(hexInstance.gameObject);
-           // hexInstance.prefab = element.hexPrefab;
-
-            Debug.Log(hexInstance);
-
-            // adds the hex to the dictonary for the grid finder
-            mapRefrence.Add(element.gridPos, hexInstance);
+            killZone.transform.position = hexGrid.position - Vector3.up * 2 * distanceBetweenMaps;
         }
 
+<<<<<<< HEAD
         holder.transform.position = new Vector3(playerPos.x, -yPos, playerPos.z);
         //   holder.transform.position = holder.transform.position -= Vector3.up * yPos;
 
@@ -283,24 +246,21 @@ public class MapSpawner : MonoBehaviour
             SaveLevel();
         }
         else if (Input.GetKeyDown(KeyCode.L))
+=======
+
+
+        GridFinder.instance.SetMap(mapRefrence, hexGrid.position, hexGrid.rotation);
+
+
+        // just makes sure all hexes have 0 rotation 
+        foreach (Hex h in hexTiles)
+>>>>>>> NewLevelSystem
         {
-            foreach (Transform child in grid.transform)
-            {
-                Destroy(child.gameObject);
-                // temp
-            }
-            LoadLevel();
-        }
-        else if (Input.GetKeyDown(KeyCode.Delete))
-        {
-            foreach (Transform child in grid.transform)
-            {
-                Destroy(child.gameObject);
-                // temp
-            }
+            h.transform.rotation = Quaternion.Euler(0, 0, 0);
         }
     }
 
+<<<<<<< HEAD
     public Hex SpawnHexAtLocation(Vector2Int hexLoc, HexTypeEnum typeToSpawn, bool replaceExisting)
     {
         bool positionOccupied = mapRefrence.ContainsKey(hexLoc);
@@ -321,6 +281,10 @@ public class MapSpawner : MonoBehaviour
             hexInstance.gameObject.transform.localPosition = new Vector3(hexInstance.gameObject.transform.position.x, 0, hexInstance.gameObject.transform.position.z);
 
             SetGameobjectWidth(hexInstance.gameObject);
+=======
+        hexGrid.rotation = Quaternion.Euler(0, rotation, 0);
+    }
+>>>>>>> NewLevelSystem
 
             // adds the hex to the dictonary for the grid finder
             mapRefrence.Add(hexLoc, hexInstance);

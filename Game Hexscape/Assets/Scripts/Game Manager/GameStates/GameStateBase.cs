@@ -10,7 +10,11 @@ public class GameStateBase {
         public int levelScore; // The achieved on the current level
         public int levelIndex;
         public int passScore;
+
+        
     }
+
+    public Vector3Int mouseGridPos;
 
     protected GameSessionData currentSessionData; // TEMP?: Subject to change/relocation
     public GameSessionData GetSessionData() { return currentSessionData; }
@@ -77,6 +81,7 @@ public class GameStateBase {
         throw new System.NotImplementedException();
     }
 
+<<<<<<< HEAD
     protected Level LoadLevelFromPath(string pathToLoad)
     {
         Level levelToReturn = Resources.Load<Level>(pathToLoad);
@@ -117,5 +122,14 @@ public class GameStateBase {
     //    }
     //    return true;
     //}
+=======
+    public virtual void StateUpdate ()
+    {
+        
+    }
+
+   
+
+>>>>>>> NewLevelSystem
 }
 

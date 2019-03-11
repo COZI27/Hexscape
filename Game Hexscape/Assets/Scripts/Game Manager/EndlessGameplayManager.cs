@@ -139,6 +139,8 @@ public class EndlessGameplayManager : MonoBehaviour
     public void NextLevel()
     {
 
+        
+
         colourLerper.DisabledColour();
 
 
@@ -275,27 +277,27 @@ public class EndlessGameplayManager : MonoBehaviour
         Level currentLevel = levels[levelIndex];
 
 
-        scoreUI.SetScore(totalScore, levelCurrentScore, currentLevel);
+       // scoreUI.SetScore(totalScore, levelCurrentScore, currentLevel);
 
-        /// we need to save the medal state for each level but for the time being lest just use the UI
+      // we need to save the medal state for each level but for the time being lest just use the UI
 
-        if (levelCurrentScore >= currentLevel.goldAmount)
-        {
-            scoreUI.SetMedalState(MedalState.gold);
-        }
-        else if (levelCurrentScore >= currentLevel.silverAmount)
-        {
-            scoreUI.SetMedalState(MedalState.silver);
-        }
-        else if (levelCurrentScore >= currentLevel.bronzeAmount)
-        {
-            scoreUI.SetMedalState(MedalState.bronze);
-        }
-        else if (levelCurrentScore >= currentLevel.passAmount)
-        {
-            scoreUI.SetMedalState(MedalState.passMedal);
-        }
-        else
+        //if (levelCurrentScore >= currentLevel.goldAmount)
+        //{
+        //    scoreUI.SetMedalState(MedalState.gold);
+        //}
+        //else if (levelCurrentScore >= currentLevel.silverAmount)
+        //{
+        //    scoreUI.SetMedalState(MedalState.silver);
+        //}
+        //else if (levelCurrentScore >= currentLevel.bronzeAmount)
+        //{
+        //    scoreUI.SetMedalState(MedalState.bronze);
+        //}
+        //else if (levelCurrentScore >= currentLevel.passAmount)
+        //{
+        //    scoreUI.SetMedalState(MedalState.passMedal);
+        //}
+        
         {
             scoreUI.SetMedalState(MedalState.noMedal);
         }
@@ -303,53 +305,53 @@ public class EndlessGameplayManager : MonoBehaviour
     }
 
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.UpArrow))
-        {
-            levelIndex += 1;
-            levelIndex = Mathf.Clamp(levelIndex, 0, levels.Length - 1);
-            scoreUI.SetLevel(levelIndex);
+    //private void Update()
+    //{
+    //    if (Input.GetKeyDown(KeyCode.UpArrow))
+    //    {
+    //        levelIndex += 1;
+    //        levelIndex = Mathf.Clamp(levelIndex, 0, levels.Length - 1);
+    //        scoreUI.SetLevel(levelIndex);
 
-            //if (editMode)
-            //{
-            //    MapSpawner.instance.LoadLevel();
-            //}
+    //        //if (editMode)
+    //        //{
+    //        //    MapSpawner.instance.LoadLevel();
+    //        //}
 
-        }
-        else if (Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            levelIndex -= 1;
-            levelIndex = Mathf.Clamp(levelIndex, 0, levels.Length - 1);
+    //    }
+    //    else if (Input.GetKeyDown(KeyCode.DownArrow))
+    //    {
+    //        levelIndex -= 1;
+    //        levelIndex = Mathf.Clamp(levelIndex, 0, levels.Length - 1);
 
-            scoreUI.SetLevel(levelIndex);
-
-
-            //if (editMode)
-            //{
-            //    MapSpawner.instance.LoadLevel();
-            //}
-        }
+    //        scoreUI.SetLevel(levelIndex);
 
 
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-            editMode = !editMode;
-
-            if (editMode)
-            {
-                PlayerPrefs.SetInt("Edit Mode", 1);
-            }
-            else
-            {
-                PlayerPrefs.SetInt("Edit Mode", 0);
-            }
+    //        //if (editMode)
+    //        //{
+    //        //    MapSpawner.instance.LoadLevel();
+    //        //}
+    //    }
 
 
-        }
+    //    if (Input.GetKeyDown(KeyCode.E))
+    //    {
+    //        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    //        editMode = !editMode;
 
-    }
+    //        if (editMode)
+    //        {
+    //            PlayerPrefs.SetInt("Edit Mode", 1);
+    //        }
+    //        else
+    //        {
+    //            PlayerPrefs.SetInt("Edit Mode", 0);
+    //        }
+
+
+    //    }
+
+    //}
 }
 
 
@@ -384,26 +386,26 @@ public class ScoreUI
 
 
 
-    public void SetScore(int totalScore, int currentLevelScore, Level level)
-    {
-        this.totalScoreText.text = totalScore.ToString();
-        this.levelScoreText.text = currentLevelScore + "/" + level.passAmount;
+    //public void SetScore(int totalScore, int currentLevelScore, Level level)
+    //{
+    //    this.totalScoreText.text = totalScore.ToString();
+    //    this.levelScoreText.text = currentLevelScore + "/" + level.passAmount;
 
 
-        // pass/current
-        // bronze + pass / current 
-        // silver bronze + pass / current
-        this.passFill.fillAmount = (float)currentLevelScore / level.passAmount;
+    //    // pass/current
+    //    // bronze + pass / current 
+    //    // silver bronze + pass / current
+    //    this.passFill.fillAmount = (float)currentLevelScore / level.passAmount;
 
 
 
 
-        this.bronzeFill.fillAmount = ((float)currentLevelScore - (float)level.passAmount) / ((float)level.bronzeAmount - (float)level.passAmount);
-        this.silverFill.fillAmount = ((float)currentLevelScore - (float)level.bronzeAmount) / ((float)level.silverAmount - (float)level.bronzeAmount);
-        this.goldFill.fillAmount = ((float)currentLevelScore - (float)level.silverAmount) / ((float)level.goldAmount - (float)level.silverAmount);
+    //    this.bronzeFill.fillAmount = ((float)currentLevelScore - (float)level.passAmount) / ((float)level.bronzeAmount - (float)level.passAmount);
+    //    this.silverFill.fillAmount = ((float)currentLevelScore - (float)level.bronzeAmount) / ((float)level.silverAmount - (float)level.bronzeAmount);
+    //    this.goldFill.fillAmount = ((float)currentLevelScore - (float)level.silverAmount) / ((float)level.goldAmount - (float)level.silverAmount);
 
 
-    }
+    //}
 
 
 
