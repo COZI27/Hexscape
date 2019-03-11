@@ -58,11 +58,6 @@ public class GameStateMenuMain : GameStateBase {
 
     public override void StartGameState()
     {
-<<<<<<< HEAD
-=======
-        Level[] levels = LevelGetter.instance.GetLevelsFrom("Levels/Menus");
-        mainMenuLevel = levels[0];
->>>>>>> NewLevelSystem
 
         CreateLevel(
         LoadLevelFromPath(pathMainMenu),
@@ -97,5 +92,13 @@ public class GameStateMenuMain : GameStateBase {
         throw new System.NotImplementedException();
     }
 
-   
+    // Use this for initialization
+    private void Start () {
+		
+	}
+	
+	// Update is called once per frame
+	void Update () {
+		
+	}
 }

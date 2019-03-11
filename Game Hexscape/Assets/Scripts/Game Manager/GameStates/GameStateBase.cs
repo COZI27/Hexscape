@@ -10,11 +10,7 @@ public class GameStateBase {
         public int levelScore; // The achieved on the current level
         public int levelIndex;
         public int passScore;
-
-        
     }
-
-    public Vector3Int mouseGridPos;
 
     protected GameSessionData currentSessionData; // TEMP?: Subject to change/relocation
     public GameSessionData GetSessionData() { return currentSessionData; }
@@ -25,6 +21,11 @@ public class GameStateBase {
     public virtual void StartGameState()
     {
         throw new System.NotImplementedException();
+    }
+
+    public virtual void StateUpdate()
+    {
+        //throw new System.NotImplementedException();
     }
 
     public virtual void PassSessionData(GameSessionData data)
@@ -81,13 +82,14 @@ public class GameStateBase {
         throw new System.NotImplementedException();
     }
 
-<<<<<<< HEAD
     protected Level LoadLevelFromPath(string pathToLoad)
     {
-        Level levelToReturn = Resources.Load<Level>(pathToLoad);
+        //Level levelToReturn = Resources.Load<Level>(pathToLoad);
+
+        Level[] levelToReturn = LevelGetter.instance.GetAllLevels(pathToLoad);
 
         if (levelToReturn != null)
-            return levelToReturn;
+            return levelToReturn[0];
         else
         {
             throw new System.Exception("Failed to load Level Asset from path at '" + pathToLoad + "' for " + GetType() + ".");
@@ -122,14 +124,5 @@ public class GameStateBase {
     //    }
     //    return true;
     //}
-=======
-    public virtual void StateUpdate ()
-    {
-        
-    }
-
-   
-
->>>>>>> NewLevelSystem
 }
 

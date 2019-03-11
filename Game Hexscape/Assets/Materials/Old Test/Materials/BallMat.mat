@@ -5,8 +5,7 @@ Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
   m_Name: BallMat
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: _ALPHABLEND_ON _DETAIL_MULX2 _EMISSION
@@ -75,8 +74,4 @@ Material:
     - _ZWrite: 0
     m_Colors:
     - _Color: {r: 0.031505868, g: 0.041718554, b: 0.11320752, a: 1}
-<<<<<<< HEAD
     - _EmissionColor: {r: 0.90260273, g: 0.24744953, b: 0.9999983, a: 1}
-=======
-    - _EmissionColor: {r: 3.7119014e-25, g: 0.79802585, b: 0.891642, a: 1}
->>>>>>> NewLevelSystem

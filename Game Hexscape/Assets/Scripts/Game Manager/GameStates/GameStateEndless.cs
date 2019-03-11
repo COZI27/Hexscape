@@ -27,7 +27,16 @@ public sealed class GameStateEndless : GameStateBase
 
     }
 
-   
+    void Start()
+    {
+        
+
+    }
+
+    void Update()
+    {
+
+    }
 
     public override void StartGameState()
     {
@@ -59,7 +68,7 @@ public sealed class GameStateEndless : GameStateBase
 
             playerController = GameManager.instance.GetPlayerBall().GetComponent<PlayerController>();
 
-
+ 
             if (playerController != null) playerController.moveSpeed = initialPlayerSpeed;
         }
 
@@ -68,12 +77,10 @@ public sealed class GameStateEndless : GameStateBase
 
     }
 
-
-
     public override void CleanupGameState()
     {
         // ...
-
+  
     }
 
     protected override void InitialiseClickSounds()
@@ -107,17 +114,9 @@ public sealed class GameStateEndless : GameStateBase
 
     public override void LoadNextLevel()
     {
-
-
-
-
-
-
-        int normalLevelIndex = (currentSessionData.levelIndex %= levels.Length); // make sure we wrap if we hit max levels
         ++currentSessionData.levelIndex;
 
-
-        Level newLevel = useRandomLevels ? levels[Random.Range(0, levels.Length)] : levels[normalLevelIndex];
+        Level newLevel = useRandomLevels ? levels[Random.Range(0, levels.Length)] : levels[currentSessionData.levelIndex];
 
         currentSessionData.levelScore = 0;
         currentSessionData.passScore = 0;
@@ -126,18 +125,13 @@ public sealed class GameStateEndless : GameStateBase
         if (playerController != null)
         {
             playerController.SetDestination(playerController.transform.position);
-            playerController.moveSpeed = initialPlayerSpeed + (playerSpeedIncreaseLogMultiplyer * currentSessionData.levelIndex * (10 * Mathf.Log(playerSpeedIncreaseLogBase)));
+            playerController.moveSpeed = initialPlayerSpeed + (playerSpeedIncreaseLogMultiplyer * currentSessionData.levelIndex * ( 10 * Mathf.Log(playerSpeedIncreaseLogBase)));
         }
 
         MapSpawner.instance.SpawnHexs(newLevel, playerController.transform.position);
 
         UpdateScore();
-<<<<<<< HEAD
    
-=======
-
-
->>>>>>> NewLevelSystem
     }
 
     public override void HexDigEvent()
@@ -171,29 +165,19 @@ public sealed class GameStateEndless : GameStateBase
 
     private void PopulateLevelsArray()
     {
-        levels = LevelGetter.instance.GetAllLevels();
-        Debug.Log("Loaded Level count = " + levels.Length);
+        //levels = Resources.LoadAll<Level>("Levels/Endless") as Level;
+        //Debug.Log("Loaded Level count = " + levels.Length);
+
+        levels = LevelGetter.instance.GetAllLevels("Levels/Endless");
     }
 
 
 
-<<<<<<< HEAD
-=======
-    /// updating the UI
 
->>>>>>> NewLevelSystem
-
-
-    private void UpdateScore()
+    private void UpdateScore ()
     {
         GameManager.instance.scoreUI.SetScore(currentSessionData.totalScore, currentSessionData.levelScore, currentSessionData.passScore);
     }
-
-
-    public string resourceLocation = "Levels/Json/";
-    public string jsonFileName = "TestLevel";
-
-   
 }
 
 

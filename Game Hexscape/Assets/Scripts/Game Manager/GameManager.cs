@@ -34,10 +34,7 @@ public class GameManager : MonoBehaviour {
         Pause,
         Resume,
 
-        QuitLevel,
-
-        Edit
-
+        QuitLevel
     }
 
     //public GameStateBase initialGameState = GameStateMenuMain;
@@ -78,10 +75,7 @@ public class GameManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (currentGameState != null)
-        {
-            currentGameState.StateUpdate();
-        }
+		
 	}
 
 
@@ -131,7 +125,6 @@ public class GameManager : MonoBehaviour {
             { new StateTransition<System.Type, Command>(typeof(GameStateInit), Command.End), typeof(GameStateMenuMain)  },
             /*Main Menu*/
             { new StateTransition<System.Type, Command>(typeof(GameStateMenuMain), Command.Begin), typeof(GameStateEndless)  },
-<<<<<<< HEAD
             /*Endless*/
             { new StateTransition<System.Type, Command>(typeof(GameStateEndless), Command.QuitLevel), typeof(GameStateMenuMain)  },
             { new StateTransition<System.Type, Command>(typeof(GameStateEndless), Command.End), typeof(GameStateEndlessScoreboard)  },
@@ -139,17 +132,6 @@ public class GameManager : MonoBehaviour {
             /*Endless Scoreboard*/
             { new StateTransition<System.Type, Command>(typeof(GameStateEndlessScoreboard), Command.End), typeof(GameStateMenuMain)  },
             { new StateTransition<System.Type, Command>(typeof(GameStateEndlessScoreboard), Command.Begin), typeof(GameStateMenuMain)  }
-=======
-             { new StateTransition<System.Type, Command>(typeof(GameStateMenuMain), Command.Edit), typeof(GameStateEdit)  },
-
-
-            { new StateTransition<System.Type, Command>(typeof(GameStateEndless), Command.QuitLevel), typeof(GameStateMenuMain)  },
-            { new StateTransition<System.Type, Command>(typeof(GameStateEndless), Command.End), typeof(GameStateMenuMain)  },
-
-           
-           
-
->>>>>>> NewLevelSystem
         };
 
         // NOTE: Could change the value of an entry at runtime, if necessary
@@ -210,12 +192,6 @@ public class GameManager : MonoBehaviour {
         currentGameState.PlayGroundThud();
     }
 
-    public void SetMousePos(Vector3Int gridMousePos)
-    {
-        currentGameState.mouseGridPos = (gridMousePos);
-        
-    }
-
     #endregion External Events
 
     #region Internal Events
@@ -241,6 +217,4 @@ public class GameManager : MonoBehaviour {
         currentGameState.StartGameState();
     }
     #endregion Internal Events
-
-    
 }

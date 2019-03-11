@@ -5,8 +5,7 @@ Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
   m_Name: HexTile_ClickDest_Mat
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: _EMISSION _NORMALMAP
@@ -74,8 +73,4 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _Color: {r: 0.03174532, g: 0.014017446, b: 0.084905684, a: 1}
-<<<<<<< HEAD
     - _EmissionColor: {r: 0.6585812, g: 0.41043758, b: 0.99999994, a: 1}
-=======
-    - _EmissionColor: {r: 0.8402673, g: 0.15975843, b: 0.9125564, a: 1}
->>>>>>> NewLevelSystem

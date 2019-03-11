@@ -118,11 +118,6 @@ public class GameStateEdit : GameStateBase
             SaveLevel();
         }
 
-        else if (Input.GetMouseButtonDown(0))
-        {
-            AddHexToGrid(currentHexType, mouseGridPos);
-        }
-
         if (Input.GetMouseButtonDown(0))
         {
             Vector2Int mouseGridPos =  GridFinder.instance.MouseToGridPoint();

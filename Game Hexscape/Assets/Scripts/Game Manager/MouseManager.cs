@@ -14,35 +14,20 @@ public class MouseManager : MonoBehaviour
     [SerializeField] private PlayerController player;
     [SerializeField] private RippleManager rippleManager;
 
-    Grid grid;
    
 
     private float rayDistance = 100f;
 
-    private void Start()
-    {
-         grid = MapSpawner.instance.grid;
-    }
-
     private void Update()
     {
-        Vector2Int gridPos = (GridFinder.instance.MouseToGridPoint());
-      //  Debug.Log(gridPos);
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Debug.DrawRay(ray.origin, ray.direction * rayDistance, Color.green);
 
-        Vector3 worldPos = GridFinder.instance.GridPosToWorld(gridPos);
-
-    //    Debug.Log(worldPos);
-        worldPos.y = GridFinder.instance.currentMapOffset.y;
-
-        Debug.DrawRay(worldPos, Vector3.up * 10, Color.green);
-       
-       
-        Ray mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
 
         if (Input.GetMouseButtonDown(0))
         {
             RaycastHit hit;
-            if (Physics.Raycast(mouseRay, out hit, rayDistance, mouseMask))
+            if (Physics.Raycast(ray, out hit, rayDistance, mouseMask))
             {
                 Hex hex = hit.collider.GetComponent<Hex>();
 
@@ -64,7 +49,7 @@ public class MouseManager : MonoBehaviour
             // temp for test
 
             RaycastHit testHit;
-            if (Physics.Raycast(mouseRay, out testHit, rayDistance, mouseMask))
+            if (Physics.Raycast(ray, out testHit, rayDistance, mouseMask))
             {
                 Hex hex = testHit.collider.GetComponent<Hex>();
 
@@ -73,8 +58,6 @@ public class MouseManager : MonoBehaviour
 
                   //  Debug.Log(GridFinder.instance.WorldToGridPoint(hex.transform.position));
                     GridFinder.instance.origin = GridFinder.instance.WorldToGridPoint(hex.transform.position);
-
-                    
                 }
             }
         }

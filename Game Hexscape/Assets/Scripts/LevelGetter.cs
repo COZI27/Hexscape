@@ -26,6 +26,11 @@ public class LevelGetter : MonoBehaviour
         return GetLevelsFrom(resourceLocation);
     }
 
+    public Level[] GetAllLevels(string resourceLocation)
+    {
+        return GetLevelsFrom(resourceLocation);
+    } 
+
     public Level[] GetLevelsFrom (string path)
     {
 
