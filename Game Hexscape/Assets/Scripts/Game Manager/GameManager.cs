@@ -26,8 +26,6 @@ public class GameManager : MonoBehaviour {
 
     public enum Command // NOTE: Values are still subject to change
     {
-        NextLevel,
-
         Begin,
         End,
 
@@ -36,8 +34,10 @@ public class GameManager : MonoBehaviour {
 
         QuitLevel,
 
-        Edit
+        Edit,
 
+        NextMenu,
+        BackMenu
         
     }
 
@@ -72,9 +72,9 @@ public class GameManager : MonoBehaviour {
     void Start () {
         if (currentGameState == null)
         {
-           // ChangeGameState( new GameStateInit () ) ;
-           ChangeGameState(new GameStateMenuMain());
-            //ChangeGameState(new GameStateEndless());
+           ChangeGameState( new GameStateInit () ) ;
+           //ChangeGameState(new GameStateMenuMain());
+           //ChangeGameState(new GameStateEndless());
         }
 	}
 	

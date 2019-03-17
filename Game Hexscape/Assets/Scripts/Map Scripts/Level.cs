@@ -57,11 +57,8 @@ public class MapElement
     public Vector2Int gridPos;
     public HexTypeEnum hexType;
 
-    [SerializeField]
-    public int class1Field = 1;
-
-    [SerializeField]
-    public ElementAttrubute hexAttribute = null;
+    [JsonProperty(PropertyName = "HexAttribute")]
+    public ElementAttrubute hexAttribute;
 
     public Hex GetHex ()
     {
@@ -113,7 +110,7 @@ public class MenuButtonElementAttribute : ElementAttrubute
         {
             //HandleRegisterClick();
             GameManager.instance.ProcessCommand(commandToCall);
-            hexInstance.DestroyHex();
+            hexInstance.DestroyHex(); // Temp
         });
     }
 }

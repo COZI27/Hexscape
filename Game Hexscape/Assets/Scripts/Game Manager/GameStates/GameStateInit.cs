@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class GameStateInit : GameStateBase
 {
 
-    string pathNewProfileLevel = "Levels/Menus/RegisterProfile";
+    string pathNewProfileLevel = "Assets/Resources/Levels/Json/scoreboardLevel.json";
 
     public override void StartGameState()
     {
@@ -17,14 +17,19 @@ public class GameStateInit : GameStateBase
 
     private void CreateNewProfileMenu()
     {
-        CreateLevel(
-            LoadLevelsFromPath(pathNewProfileLevel)[0],
-            -30.0f,
-            false,
-            false
-            //new LoadProfileLevelComponent()
-            );
+        Level loadedLevel = LevelLoader.instance.LoadLevelAtPath(pathNewProfileLevel);
+        if (loadedLevel != null)
+        {
+            CreateLevel(
+                loadedLevel, //LoadLevelsFromPath(pathNewProfileLevel)[0],
+                - 30.0f,
+                false,
+                false
+                //new LoadProfileLevelComponent()
+                );
 
+        }
+        else throw new System.Exception("GameStateInit error - Level not loaded");
         DisplayNewProfileMenu();
     }
 
@@ -105,12 +110,12 @@ public class GameStateInit : GameStateBase
 
         if (registerUserCanvas == null) throw new System.Exception("Failed to instantiate the RegisterIserCanvas from path " + pathRegisterUserCanvas);
 
-        Hex registerUserHexButton = MapSpawner.instance.SpawnHexAtLocation(new Vector2Int(0, -2), HexTypeEnum.HexTile_MenuOptionPlay, true);
-        registerUserHexButton.clickedEvent.AddListener(() =>
-        {
-            HandleRegisterClick();
-            registerUserHexButton.DestroyHex();
-        });
+        //Hex registerUserHexButton = MapSpawner.instance.SpawnHexAtLocation(new Vector2Int(0, -2), HexTypeEnum.HexTile_MenuOptionPlay, true);
+        //registerUserHexButton.clickedEvent.AddListener(() =>
+        //{
+        //    HandleRegisterClick();
+        //    registerUserHexButton.DestroyHex();
+        //});
     }
 
     void DisplayRegisterResponse()

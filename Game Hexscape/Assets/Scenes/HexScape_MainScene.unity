@@ -733,7 +733,7 @@ MonoBehaviour:
   hexMask:
     serializedVersion: 2
     m_Bits: 8192
-  worldMousePos: {x: 8, y: 0, z: 10.392304}
+  worldMousePos: {x: 8.5, y: 0, z: 11.25833}
 --- !u!114 &163908980
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -793,12 +793,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   testLevel:
-    levelName: LevelStoring
+    levelName: scoreboardLevel
     hexs:
+    - gridPos: {x: 0, y: 2}
+      hexType: -296144415
     - gridPos: {x: 0, y: 0}
       hexType: -296144415
+    - gridPos: {x: 1, y: -2}
+      hexType: 1282535278
   resourceLocation: Levels/Json/
-  jsonFileName: TestLevel
 --- !u!4 &212664842 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4968556402895356, guid: 1ecb86a207b5e4a4492c6062b02ef842,
@@ -1543,24 +1546,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1166590699}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &616170389 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1729695612472954, guid: 716b8de0239811b41b4e40cc1e246c9e,
-    type: 3}
-  m_PrefabInstance: {fileID: 847823888}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &616170394
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 616170389}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 81aee9f752f753a4cb17542c00bdcf78, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &626534500
 GameObject:
   m_ObjectHideFlags: 0

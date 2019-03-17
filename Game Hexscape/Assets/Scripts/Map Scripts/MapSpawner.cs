@@ -186,7 +186,8 @@ public class MapSpawner : MonoBehaviour
             // Hex hexInstance = Instantiate(element.hexPrefab, grid.CellToWorld(new Vector3Int(element.gridPos.x, element.gridPos.y, 0)), Quaternion.Euler(-90, 0, 0), holder.transform).GetComponent<Hex>();
 
             Hex hexInstance = HexBank.instance.GetDisabledHex(element.GetHex().typeOfHex, grid.CellToWorld(new Vector3Int(element.gridPos.x, element.gridPos.y, 0)), holder.transform).GetComponent<Hex>();
-
+            if (element.hexAttribute != null) element.hexAttribute.AddAttributeToHex(hexInstance);
+            else Debug.Log("Hex Attribute = null");
             SetGameobjectWidth(hexInstance.gameObject);
             //   hexInstance.prefab = element.hexPrefab;
 

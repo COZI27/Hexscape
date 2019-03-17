@@ -86,7 +86,7 @@ public class GameStateBase {
     {
         //Level levelToReturn = Resources.Load<Level>(pathToLoad);
 
-        Level[] levels = LevelGetter.instance.GetLevelsFrom(pathToLoad);
+        Level[] levels = LevelLoader.instance.GetLevelsFrom(pathToLoad);
 
         if (levels != null)
             return levels;
@@ -95,6 +95,20 @@ public class GameStateBase {
             throw new System.Exception("Failed to load Level Asset from path at '" + pathToLoad + "' for " + GetType() + ".");
         }
     }
+
+    //protected Leve LoadLevelFromPath(string pathToLoad)
+    //{
+    //    //Level levelToReturn = Resources.Load<Level>(pathToLoad);
+
+    //    Level levels = LevelLoader.instance.GetLevelFrom(pathToLoad);
+
+    //    if (levels != null)
+    //        return levels;
+    //    else
+    //    {
+    //        throw new System.Exception("Failed to load Level Asset from path at '" + pathToLoad + "' for " + GetType() + ".");
+    //    }
+    //}
 
 
     protected bool CreateLevel(Level levelToCreate, float verticalOffset, bool setBallEnabled, bool allowRandomMapRotation)

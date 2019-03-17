@@ -82,7 +82,7 @@
     <Compile Include="Assets\Scripts\HelperClasses\Inspector_AudioLoader.cs" />
     <Compile Include="Assets\Scripts\HelperClasses\Inspector_HexLoader.cs" />
     <Compile Include="Assets\Scripts\Hex Scripts\Hex.cs" />
-    <Compile Include="Assets\Scripts\LevelGetter.cs" />
+    <Compile Include="Assets\Scripts\LevelLoader.cs" />
     <Compile Include="Assets\Scripts\Map Scripts\GridFinder.cs" />
     <Compile Include="Assets\Scripts\Map Scripts\HexBank.cs" />
     <Compile Include="Assets\Scripts\Map Scripts\Level.cs" />

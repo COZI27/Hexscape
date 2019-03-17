@@ -60,7 +60,7 @@ public class GameStateEdit : GameStateBase
 
     public override void StartGameState()
     {
-        levels = LevelGetter.instance.GetLevelsFrom("Levels/Endless");
+        levels = LevelLoader.instance.GetLevelsFrom("Levels/Endless");
         Level currentLevel = levels[currentLevelIndex];
 
         MapSpawner.instance.SpawnHexs(currentLevel, GameManager.instance.GetPlayerBall().transform.position - new Vector3(0, -30, 0), false/* offsetValue */);
@@ -167,7 +167,7 @@ public class GameStateEdit : GameStateBase
 
         Debug.Log(level.hexs.Length);
 
-        LevelGetter.instance.CreateLevel(level, true);
+        LevelLoader.instance.CreateLevel(level, true);
 
 
     } // come back to 
