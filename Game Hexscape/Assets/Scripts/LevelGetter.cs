@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using Newtonsoft.Json;
 
 public class LevelGetter : MonoBehaviour
 {
@@ -15,6 +16,12 @@ public class LevelGetter : MonoBehaviour
         instance = this;
     }
 
+
+    [ContextMenu("Force Add Child")]
+    public void ForceAddChild()
+    {
+        testLevel.hexs[0] = new MapElement(HexTypeEnum.HexTile_Digit0, new Vector2Int(0, 0), new DigitElementAttribute(3) );
+    }
 
 
     public string resourceLocation = "Levels/Json/";
@@ -39,7 +46,7 @@ public class LevelGetter : MonoBehaviour
 
         Level[] levels = new Level[loadedJsonFiles.Length];
 
-        
+   
 
         for (int i = 0; i < levels.Length; i++)
         {
@@ -65,6 +72,21 @@ public class LevelGetter : MonoBehaviour
        // level.levelName = json;
 
         File.WriteAllText(GetLevelPath() + jsonFileName + ".json" , json);
+    }
+    
+
+    [ContextMenu("Create Newtonsoft Json")]
+    public void CreateLevel_Newtonsoft()
+    {
+        Level level = testLevel;
+
+        string json = JsonConvert.SerializeObject(level);
+
+
+
+        // level.levelName = json;
+
+        File.WriteAllText(GetLevelPath() + jsonFileName + ".json", json);
     }
 
     public void CreateLevel(Level level, bool autoName = false)

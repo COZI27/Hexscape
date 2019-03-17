@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.574817, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -733,7 +733,7 @@ MonoBehaviour:
   hexMask:
     serializedVersion: 2
     m_Bits: 8192
-  worldMousePos: {x: 2.5, y: 0, z: 4.330127}
+  worldMousePos: {x: 8, y: 0, z: 10.392304}
 --- !u!114 &163908980
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -793,8 +793,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   testLevel:
-    levelName: 
-    hexs: []
+    levelName: LevelStoring
+    hexs:
+    - gridPos: {x: 0, y: 0}
+      hexType: -296144415
   resourceLocation: Levels/Json/
   jsonFileName: TestLevel
 --- !u!4 &212664842 stripped
@@ -3545,7 +3547,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1834371617}
-  - component: {fileID: 1834371616}
   - component: {fileID: 1834371619}
   - component: {fileID: 1834371618}
   m_Layer: 0
@@ -3555,18 +3556,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1834371616
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1834371615}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9910021d0126f64d93f3452d199f161, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1834371617
 Transform:
   m_ObjectHideFlags: 0

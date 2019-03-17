@@ -87,7 +87,6 @@ public class Inspector_HexLoader : Editor
                     l.hexs[i].hexType = (HexTypeEnum)840749193;
                 }
 
-
             }
             //EditorUtility.SetDirty(l);
         }
