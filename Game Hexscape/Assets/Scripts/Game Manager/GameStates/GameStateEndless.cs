@@ -49,7 +49,7 @@ public sealed class GameStateEndless : GameStateBase
 
         Vector3 mapPosition = MapSpawner.instance.GetCurrentMapHolder().transform.position;
         mapPosition += new Vector3(0, 10, 0);
-        GameManager.instance.GetPlayerBall().transform.position = mapPosition; // ballPosition;
+        //GameManager.instance.GetPlayerBall().transform.position = mapPosition; // ballPosition;
         GameManager.instance.GetPlayerBall().SetActive(true);
 
 

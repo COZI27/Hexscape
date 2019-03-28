@@ -8,11 +8,14 @@ using UnityEngine.UI;
 public class GameStateInit : GameStateBase
 {
 
-    string pathNewProfileLevel = "Assets/Resources/Levels/Json/scoreboardLevel.json";
+    string pathNewProfileLevel = "Assets/Resources/Levels/Menus/LoadProfileMenuLevel.json";
 
     public override void StartGameState()
     {
-        CreateNewProfileMenu();
+
+
+        if (!FindUserProfile())
+            CreateNewProfileMenu();
     }
 
     private void CreateNewProfileMenu()
@@ -41,12 +44,6 @@ public class GameStateInit : GameStateBase
     private GameObject registerUserCanvas;
     private string pathRegisterUserCanvas = "Prefabs/GUI/RegisterUserCanvas";
 
-    // Use this for initialization
-    void Start()
-    {
-        FindUserProfile();
-    }
-
     private void OnDestroy()
     {
         //if (registerUserCanvas != null) Destroy(registerUserCanvas);
@@ -64,8 +61,10 @@ public class GameStateInit : GameStateBase
     }
 
 
-    void FindUserProfile()
+    bool FindUserProfile()
     {
+
+        Debug.Log("FindUserProfile called");
         string filePath = Path.Combine(Application.persistentDataPath, gameDataFileName);
 
         if (File.Exists(filePath))
@@ -79,7 +78,8 @@ public class GameStateInit : GameStateBase
 
             Debug.Log("loaded profile id = " + loadedData.GetPlayerID() + ", name = " + loadedData.GetPlayerName());
 
-            GameManager.instance.ProcessCommand(GameManager.Command.End);
+            GameManager.instance.ProcessCommand(Command.End);
+            return true;
         }
 
         else
@@ -87,7 +87,7 @@ public class GameStateInit : GameStateBase
             Debug.Log("No User Profile data found. Creating a new user...");
 
             DisplayNewProfileMenu();
-
+            return false;
         }
     }
 
@@ -98,6 +98,8 @@ public class GameStateInit : GameStateBase
         string dataAsJson = JsonUtility.ToJson(newProfile);
 
         string filePath = Path.Combine(Application.persistentDataPath, gameDataFileName);
+
+        Debug.Log(Application.persistentDataPath);
 
         File.WriteAllText(filePath, dataAsJson);
         //Application.persistentDataPath;
@@ -126,6 +128,11 @@ public class GameStateInit : GameStateBase
     void DisplayPlayOfflineMenu()
     {
         // Present the user with the choice to play offline
+    }
+
+    public override void NextMenu() 
+    {
+        HandleRegisterClick();
     }
 
 
@@ -163,7 +170,8 @@ public class GameStateInit : GameStateBase
                 break;
             case "NameTaken":
                 Debug.Log("Name Taken");
-                DisplayNewProfileMenu();
+                CreateNewProfileMenu();
+                //DisplayNewProfileMenu(); // DEPRECATED
                 break;
             case "Failed ":
                 Debug.Log("Server Error");

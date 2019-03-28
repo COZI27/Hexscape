@@ -2,6 +2,98 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
+public enum Command // NOTE: Values are still subject to change
+{
+    Begin,      // Transition
+    End,        // Transition
+
+    Pause,
+    Resume,
+
+    QuitLevel,  // Transition
+
+    Edit,
+
+    NextMenu,
+    BackMenu
+
+}
+
+public static class Commands
+{
+    public static bool IsTransitionCommand(this Command command)
+    {
+        switch (command)
+        {
+            case Command.Begin:
+            case Command.End:
+            case Command.QuitLevel:
+                return true;
+            default:
+                return false;
+        }
+    }
+}
+
+#region CommandEnum
+
+//public class CommandEnum
+//{
+//    protected readonly string name;
+//    protected readonly Command value;
+//    protected readonly bool transitional;
+
+//    public static readonly CommandEnum Begin = new CommandEnum(Command.Begin, "Begin", true);
+//    public static readonly CommandEnum End = new CommandEnum(Command.End, "End", true);
+//    public static readonly CommandEnum QuitLevel = new CommandEnum(Command.QuitLevel, "QuitLevel", true);
+
+//    protected CommandEnum(Command value, string name, bool transitional)
+//    {
+//        this.name = name;
+//        this.value = value;
+//        this.transitional = transitional;
+
+//    }
+
+//    public override string ToString()
+//    {
+//        return name;
+//    }
+
+//    public static implicit operator Command(CommandEnum @enum)
+//    {
+//        return @enum.value;
+//    }
+
+//    public static implicit operator string(CommandEnum @enum)
+//    {
+//        return @enum.name;
+//    }
+
+//    public static implicit operator bool(CommandEnum @enum)
+//    {
+//        return @enum.transitional;
+//    }
+//}
+
+//public class AnotherColorEnum : ColorEnum
+//{
+//    public static readonly ColorEnum Grey = new AnotherColorEnum(Color.Gray, "Grey");
+//    public static readonly ColorEnum Black = new AnotherColorEnum(Color.Black, "Black");
+//    public static readonly ColorEnum White = new AnotherColorEnum(Color.White, "White");
+
+//    protected AnotherColorEnum(Color value, string name) : base(value, name)
+//    {
+//    }
+//}
+
+
+#endregion
+
+
+
 public class GameManager : MonoBehaviour {
 
     public static GameManager instance;
@@ -24,22 +116,6 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-    public enum Command // NOTE: Values are still subject to change
-    {
-        Begin,
-        End,
-
-        Pause,
-        Resume,
-
-        QuitLevel,
-
-        Edit,
-
-        NextMenu,
-        BackMenu
-        
-    }
 
     //public GameStateBase initialGameState = GameStateMenuMain;
 
@@ -162,24 +238,44 @@ public class GameManager : MonoBehaviour {
 
     public bool ProcessCommand(Command newCommand)
     {
-        StateTransition<System.Type, Command> transitionToFind = new StateTransition<System.Type, Command>(currentGameState.GetType(), newCommand);
+        if (newCommand.IsTransitionCommand()) {
+            StateTransition<System.Type, Command> transitionToFind = new StateTransition<System.Type, Command>(currentGameState.GetType(), newCommand);
 
-        if (transitions.ContainsKey(transitionToFind)) // Check whether a rule exists for this Gamestate
-        {
-            //GameStateBase newState =  (GameStateBase)System.Activator.CreateInstance( typeof(GameStateEndless) );
-            GameStateBase newState = (GameStateBase)System.Activator.CreateInstance(transitions[transitionToFind]);
-            //System.DateTime dateTime = (System.DateTime)System.Activator.CreateInstance(typeof(System.DateTime));
+            if (transitions.ContainsKey(transitionToFind)) // Check whether a rule exists for this Gamestate
+            {
+                //GameStateBase newState =  (GameStateBase)System.Activator.CreateInstance( typeof(GameStateEndless) );
+                GameStateBase newState = (GameStateBase)System.Activator.CreateInstance(transitions[transitionToFind]);
+                //System.DateTime dateTime = (System.DateTime)System.Activator.CreateInstance(typeof(System.DateTime));
 
 
-            ChangeGameState(newState);
+                ChangeGameState(newState);
 
-            return true;
-        }
+                return true;
+            }
+            else
+            {
+                Debug.LogWarning("GameManager: Command process failed - no possible transition found");
+                return false;
+            }
+        } // Using an extension method to test whether the manager should look for a transition
         else
         {
-            Debug.LogWarning("GameManager: Command process failed - no possible transition found");
-            return false;
+            switch(newCommand)
+            {
+                case (Command.BackMenu):
+                    break;
+                case (Command.Pause):
+                    break;
+                case (Command.Resume):
+                    break;
+                case (Command.NextMenu):
+                    Debug.Log("Next Menu Switch Called");
+                    currentGameState.NextMenu();
+                    break;
+            }
         }
+
+        return false;
     }
 
     public void DigEvent(int points)

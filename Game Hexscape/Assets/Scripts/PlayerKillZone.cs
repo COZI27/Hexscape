@@ -14,8 +14,10 @@ public class PlayerKillZone : MonoBehaviour {
         {
             //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 
-            // Call Restart Game function here M8
-            GameManager.instance.ProcessCommand(GameManager.Command.End);
+
+            
+            
+            GameManager.instance.ProcessCommand(Command.End);
         }
     }
 }

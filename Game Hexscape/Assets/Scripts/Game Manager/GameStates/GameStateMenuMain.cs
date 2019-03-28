@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class GameStateMenuMain : GameStateBase {
 
-    string pathMainMenu = "Levels/Menus";
+    //string pathMainMenu = "Levels/Menus";
 
+    string pathMainMenu = "Assets/Resources/Levels/Menus/MainMenu.json";
 
     // Could assemble array of menus here and then load them by index value in the LoadNextLevel method?
     //string[] menuLevelPaths =
@@ -58,21 +59,24 @@ public class GameStateMenuMain : GameStateBase {
 
     public override void StartGameState()
     {
-
-        CreateLevel(
-        LoadLevelsFromPath(pathMainMenu)[0],
-        -30,
-        false,
-        false
-        );
-
-        Hex registerUserHexButton = MapSpawner.instance.SpawnHexAtLocation(new Vector2Int(0, 0), HexTypeEnum.HexTile_MenuOptionPlay, true);
-        registerUserHexButton.clickedEvent.AddListener(() =>
+        Level loadedLevel = LevelLoader.instance.LoadLevelAtPath(pathMainMenu);
+        if (loadedLevel != null)
         {
-            GameManager.instance.ProcessCommand(GameManager.Command.Begin);
-            //HandleRegisterClick();
-            registerUserHexButton.DestroyHex();
-        });
+            CreateLevel(
+                loadedLevel,
+                -30,
+                false,
+                false
+            );
+
+            //Hex registerUserHexButton = MapSpawner.instance.SpawnHexAtLocation(new Vector2Int(0, 0), HexTypeEnum.HexTile_MenuOptionPlay, true);
+            //registerUserHexButton.clickedEvent.AddListener(() =>
+            //{
+            //    GameManager.instance.ProcessCommand(Command.Begin);
+            ////HandleRegisterClick();
+            //registerUserHexButton.DestroyHex();
+            //});
+        }
 
         //MapSpawner.instance.SpawnHexs(mainMenuLevel, GameManager.instance.GetPlayerBall().transform.position - new Vector3(0, -30, 0), false/* offsetValue */);
         //Vector3 mapPosition = MapSpawner.instance.GetCurrentMapHolder().transform.position;

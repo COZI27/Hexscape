@@ -82,6 +82,12 @@ public class GameStateBase {
         throw new System.NotImplementedException();
     }
 
+    public virtual void NextMenu()
+    {
+        throw new System.NotImplementedException();
+    }
+
+
     protected Level[] LoadLevelsFromPath(string pathToLoad)
     {
         //Level levelToReturn = Resources.Load<Level>(pathToLoad);
@@ -122,7 +128,7 @@ public class GameStateBase {
             );
 
         Vector3 mapPosition = MapSpawner.instance.GetCurrentMapHolder().transform.position;
-        GameManager.instance.GetPlayerBall().transform.position = mapPosition;
+        //GameManager.instance.GetPlayerBall().transform.position = mapPosition;
         GameManager.instance.GetPlayerBall().SetActive(setBallEnabled);
 
         return true;

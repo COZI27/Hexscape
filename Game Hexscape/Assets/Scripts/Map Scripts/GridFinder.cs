@@ -102,7 +102,7 @@ public class GridFinder : MonoBehaviour
 
         return neighbourHexs.ToArray();
 
-        GetAllNeighbourPoints(Vector2Int.zero, 1); // This will never be called. WHy is it here?
+        //GetAllNeighbourPoints(Vector2Int.zero, 1); // This will never be called. WHy is it here?
 
     }
 

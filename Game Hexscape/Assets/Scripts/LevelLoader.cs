@@ -22,13 +22,10 @@ public class LevelLoader : MonoBehaviour
     [ContextMenu("Force Add Child")]
     public void ForceAddChild()
     {
-        testLevel.levelName = "scoreboardLevel";
+        testLevel.levelName = "LoadProfileMenuLevel";
 
-        testLevel.hexs = new MapElement[3];
-
-        testLevel.hexs[0] = new MapElement(HexTypeEnum.HexTile_Digit0, new Vector2Int(0, 2), new DigitElementAttribute(3) );
-        testLevel.hexs[1] = new MapElement(HexTypeEnum.HexTile_Digit0, new Vector2Int(0, 0), new DigitElementAttribute(5));
-        testLevel.hexs[2] = new MapElement(HexTypeEnum.HexTile_MenuOptionPlay, new Vector2Int(1, -2), new MenuButtonElementAttribute(GameManager.Command.NextMenu));
+       // testLevel.hexs = new MapElement[1];
+        testLevel.hexs[0] = new MapElement(HexTypeEnum.HexTile_MenuOptionPlay, new Vector2Int(2, -2), new MenuButtonElementAttribute(Command.Begin));
     }
 
 
@@ -89,6 +86,8 @@ public class LevelLoader : MonoBehaviour
     private string GetLevelPath()
     {
         return  Application.dataPath + "/Resources/" + resourceLocation;
+
+
     }
 
     [ContextMenu("Create")]

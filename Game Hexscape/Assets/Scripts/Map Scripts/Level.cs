@@ -96,13 +96,13 @@ public class DigitElementAttribute : ElementAttrubute
 [System.Serializable]
 public class MenuButtonElementAttribute : ElementAttrubute
 {
-    public MenuButtonElementAttribute(GameManager.Command commandToCall)
+    public MenuButtonElementAttribute(Command commandToCall)
     {
         this.commandToCall = commandToCall;
     }
 
     [SerializeField]
-    public GameManager.Command commandToCall;
+    public Command commandToCall;
 
     public override void AddAttributeToHex(Hex hexInstance)
     {

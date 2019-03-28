@@ -17,7 +17,7 @@ public class MenuLine : MonoBehaviour {
         // Set the width of the Line Renderer
         // line.SetWidth(0.05F, 0.05F);
         // Set the number of vertex fo the Line Renderer
-        lineRenderer.SetVertexCount(2);
+        //lineRenderer.SetVertexCount(2);
     }
 
     // Update is called once per frame

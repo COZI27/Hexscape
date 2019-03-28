@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class HexButton : MonoBehaviour {
 
-    public GameManager.Command command;
+    public Command command;
 
     public void ClickedOn()
     {

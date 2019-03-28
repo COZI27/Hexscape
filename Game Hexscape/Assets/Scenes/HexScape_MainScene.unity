@@ -793,15 +793,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   testLevel:
-    levelName: scoreboardLevel
+    levelName: MainMenu
     hexs:
-    - gridPos: {x: 0, y: 2}
-      hexType: -296144415
-    - gridPos: {x: 0, y: 0}
-      hexType: -296144415
-    - gridPos: {x: 1, y: -2}
+    - gridPos: {x: 2, y: -2}
       hexType: 1282535278
-  resourceLocation: Levels/Json/
+    - gridPos: {x: -1, y: 1}
+      hexType: 1916866513
+    - gridPos: {x: 0, y: 1}
+      hexType: 1916866513
+    - gridPos: {x: -1, y: 0}
+      hexType: 1916866513
+    - gridPos: {x: 1, y: 0}
+      hexType: 1916866513
+    - gridPos: {x: 1, y: -1}
+      hexType: 1916866513
+    - gridPos: {x: 2, y: -1}
+      hexType: 1916866513
+  resourceLocation: Levels/Menus/
 --- !u!4 &212664842 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4968556402895356, guid: 1ecb86a207b5e4a4492c6062b02ef842,

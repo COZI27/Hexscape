@@ -19,7 +19,7 @@ public class ScoreBoardEntry
 
 public class GameStateEndlessScoreboard : GameStateBase
 {
-    string pathScoreBoardLevel = "Levels/Menus/EndlessScoreboard";
+    string pathScoreBoardLevel = "Assets/Resources/Levels/Menus/ScoreboardLevel.json";
 
     //ScoreboardLevelComponent levelComponent;
 
@@ -27,15 +27,18 @@ public class GameStateEndlessScoreboard : GameStateBase
 
     public override void StartGameState()
     {
+        Level loadedLevel = LevelLoader.instance.LoadLevelAtPath(pathScoreBoardLevel);
+        if (loadedLevel != null ) { 
         CreateLevel(
-            LoadLevelsFromPath(pathScoreBoardLevel)[0],
-            -30.0f,
+            loadedLevel,
+            - 30.0f,
             false,
             false
             //new ScoreboardLevelComponent()
             );
 
         DisplayScores();
+        }
     }
 
     public override void PlayClickSound()
@@ -56,6 +59,11 @@ public class GameStateEndlessScoreboard : GameStateBase
     public override void CleanupGameState()
     {
        
+    }
+
+    public override void NextMenu()
+    {
+        GameManager.instance.ProcessCommand(Command.End);
     }
 
 
@@ -109,13 +117,13 @@ public class GameStateEndlessScoreboard : GameStateBase
             position--;
         }
 
-        Hex registerUserHexButton = MapSpawner.instance.SpawnHexAtLocation(new Vector2Int(1, -2), HexTypeEnum.HexTile_MenuOptionPlay, true);
-        registerUserHexButton.clickedEvent.AddListener(() =>
-        {
-            //HandleRegisterClick();
-            GameManager.instance.ProcessCommand(GameManager.Command.End);
-            registerUserHexButton.DestroyHex();
-        });
+        //Hex registerUserHexButton = MapSpawner.instance.SpawnHexAtLocation(new Vector2Int(1, -2), HexTypeEnum.HexTile_MenuOptionPlay, true);
+        //registerUserHexButton.clickedEvent.AddListener(() =>
+        //{
+        //    //HandleRegisterClick();
+        //    GameManager.instance.ProcessCommand(Command.End);
+        //    registerUserHexButton.DestroyHex();
+        //});
     }
 
     void GetCurrentSessionScore(out int returnLevel, out int returnScore)
