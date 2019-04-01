@@ -74,7 +74,7 @@ public class MapSpawner : MonoBehaviour
 
 
 
-        SpawnHexs(EndlessGameplayManager.instance.levelIndex, 0);
+        //SpawnHexs(EndlessGameplayManager.instance.levelIndex, 0);
     }
 
     [ContextMenu("Save Level")]
@@ -89,8 +89,8 @@ public class MapSpawner : MonoBehaviour
             mapElements.Add(new MapElement(hex.typeOfHex, new Vector2Int(grid.WorldToCell(hex.transform.position).x, grid.WorldToCell(hex.transform.position).y)));
         }
 
-        Level level = EndlessGameplayManager.instance.levels[EndlessGameplayManager.instance.levelIndex];
-       level.hexs = mapElements.ToArray();
+        //Level level = EndlessGameplayManager.instance.levels[EndlessGameplayManager.instance.levelIndex];
+       //level.hexs = mapElements.ToArray();
        //EditorUtility.SetDirty(level);
 
 
@@ -218,26 +218,26 @@ public class MapSpawner : MonoBehaviour
         /*Dictionary<Vector2Int, Hex>*/ //mapRefrence = new Dictionary<Vector2Int, Hex>();
         mapRefrence.Clear();
 
-        GameObject holder = new GameObject(level + ": " + EndlessGameplayManager.instance.levels[level].levelName);
-        holder.transform.SetParent(grid.transform);
+        //GameObject holder = new GameObject(level + ": " + EndlessGameplayManager.instance.levels[level].levelName);
+        //holder.transform.SetParent(grid.transform);
 
-        foreach (MapElement element in EndlessGameplayManager.instance.levels[level].hexs)
-        {
+        //foreach (MapElement element in EndlessGameplayManager.instance.levels[level].hexs)
+        //{
           
-          //  HexBank.instance.PullHex(element.GetHex());
-            Hex hexInstance = HexBank.instance.GetDisabledHex(element.GetHex().typeOfHex, grid.CellToWorld(new Vector3Int(element.gridPos.x, element.gridPos.y, 0)), holder.transform).GetComponent<Hex>();
+        //  //  HexBank.instance.PullHex(element.GetHex());
+        //    Hex hexInstance = HexBank.instance.GetDisabledHex(element.GetHex().typeOfHex, grid.CellToWorld(new Vector3Int(element.gridPos.x, element.gridPos.y, 0)), holder.transform).GetComponent<Hex>();
 
 
-            SetGameobjectWidth(hexInstance.gameObject);
+        //    SetGameobjectWidth(hexInstance.gameObject);
 
-            // adds the hex to the dictonary for the grid finder
-            mapRefrence.Add(element.gridPos, hexInstance);
-        }
+        //    // adds the hex to the dictonary for the grid finder
+        //    mapRefrence.Add(element.gridPos, hexInstance);
+        //}
 
-        holder.transform.position = holder.transform.position -= Vector3.up * yPos;
+        //holder.transform.position = holder.transform.position -= Vector3.up * yPos;
 
         // sends the maprefrence to the gridfinder
-        GridFinder.instance.SetMap(mapRefrence, holder.transform.position, holder.transform.rotation);
+        //GridFinder.instance.SetMap(mapRefrence, holder.transform.position, holder.transform.rotation);
 
     }
 
@@ -247,31 +247,31 @@ public class MapSpawner : MonoBehaviour
         /*Dictionary<Vector2Int, Hex>*/ //mapRefrence = new Dictionary<Vector2Int, Hex>();
         mapRefrence.Clear();
 
-        GameObject holder = new GameObject(level + ": " + EndlessGameplayManager.instance.levels[level].levelName);
-        holder.transform.SetParent(grid.transform);
+        //GameObject holder = new GameObject(level + ": " + EndlessGameplayManager.instance.levels[level].levelName);
+        //holder.transform.SetParent(grid.transform);
 
 
 
 
-        foreach (MapElement element in EndlessGameplayManager.instance.levels[level].hexs)
-        {
-            Hex hexInstance = HexBank.instance.GetDisabledHex(element.GetHex().typeOfHex, grid.CellToWorld(new Vector3Int(element.gridPos.x, element.gridPos.y, 0)), holder.transform).GetComponent<Hex>();
+        //foreach (MapElement element in EndlessGameplayManager.instance.levels[level].hexs)
+        //{
+        //    Hex hexInstance = HexBank.instance.GetDisabledHex(element.GetHex().typeOfHex, grid.CellToWorld(new Vector3Int(element.gridPos.x, element.gridPos.y, 0)), holder.transform).GetComponent<Hex>();
 
 
-            SetGameobjectWidth(hexInstance.gameObject);
-           // hexInstance.prefab = element.hexPrefab;
+        //    SetGameobjectWidth(hexInstance.gameObject);
+        //   // hexInstance.prefab = element.hexPrefab;
 
-            Debug.Log(hexInstance);
+        //    Debug.Log(hexInstance);
 
-            // adds the hex to the dictonary for the grid finder
-            mapRefrence.Add(element.gridPos, hexInstance);
-        }
+        //    // adds the hex to the dictonary for the grid finder
+        //    mapRefrence.Add(element.gridPos, hexInstance);
+        //}
 
-        holder.transform.position = new Vector3(playerPos.x, -yPos, playerPos.z);
-        //   holder.transform.position = holder.transform.position -= Vector3.up * yPos;
+        //holder.transform.position = new Vector3(playerPos.x, -yPos, playerPos.z);
+        ////   holder.transform.position = holder.transform.position -= Vector3.up * yPos;
 
-        // sends the maprefrence to the gridfinder
-        GridFinder.instance.SetMap(mapRefrence, holder.transform.position, holder.transform.rotation);
+        //// sends the maprefrence to the gridfinder
+        //GridFinder.instance.SetMap(mapRefrence, holder.transform.position, holder.transform.rotation);
     }
 
     private void Update()
