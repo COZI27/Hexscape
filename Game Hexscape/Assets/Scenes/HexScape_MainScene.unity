@@ -701,20 +701,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelBeingEdited:
-    levelName: Level 3
+    levelName: MainMenu
     hexs:
-    - displayName: "\u2665ClickDestroy: (0, 0)"
-      gridPos: {x: 0, y: 0}
-      hexType: 1344549066
-    - displayName: "\u2665ClickDestroy: (1, 0)"
-      gridPos: {x: 1, y: 0}
-      hexType: 1344549066
-    - displayName: "\u2665ClickDestroy: (1, 1)"
-      gridPos: {x: 1, y: 1}
-      hexType: 1344549066
-    - displayName: "\u2665ClickDestroy: (-1, 0)"
+    - displayName: "\u2665 MenuOptionPlay: (-1, 0)"
       gridPos: {x: -1, y: 0}
-      hexType: 1344549066
+      hexType: 1282535278
+      hexAttributeInfo: 
+    - displayName: "\u2665 MenuOptionEdit: (1, 0)"
+      gridPos: {x: 1, y: 0}
+      hexType: -1947130190
+      hexAttributeInfo: 
+    - displayName: "\u2665 Null: (0, 0)"
+      gridPos: {x: 0, y: 0}
+      hexType: 1916866513
+      hexAttributeInfo: 
 --- !u!4 &212664842 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4968556402895356, guid: 1ecb86a207b5e4a4492c6062b02ef842,

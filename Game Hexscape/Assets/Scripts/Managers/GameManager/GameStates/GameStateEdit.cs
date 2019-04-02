@@ -11,9 +11,11 @@ public class GameStateEdit : GameStateBase
 
     private HexTypeEnum currentHexType = HexTypeEnum.HexTile_ClickDestroy;
 
+    
+
     public GameStateEdit()
     {
-
+        InitialiseStateTransitions();
     }
 
     public override void CleanupGameState()
@@ -38,6 +40,16 @@ public class GameStateEdit : GameStateBase
         GameManager.instance.GetPlayerBall().SetActive(false);
     }
 
+    protected override void InitialiseStateTransitions()
+    {
+        stateTransitions = new Dictionary<Command, TransitionData<GameStateBase>>
+        {
+            { Command.Begin, new TransitionData<GameStateBase>(typeof(GameStateEndless))  },
+            { Command.End, new TransitionData<GameStateBase>(typeof(GameStateEndless))  }
+            
+        };
+    }
+
     public override void Pause()
     {
         throw new System.NotImplementedException();
@@ -60,6 +72,8 @@ public class GameStateEdit : GameStateBase
 
     public override void StartGameState()
     {
+        Debug.Log("GAME STATE EDIT STARTED !!!");
+
         levels = LevelLoader.instance.GetLevelsFrom("Levels/Endless");
         Level currentLevel = levels[currentLevelIndex];
 

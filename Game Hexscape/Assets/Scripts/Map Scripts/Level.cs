@@ -56,15 +56,43 @@ public class Level
 public class MapElement
 {
     [ReadOnly] [HideInInspector] public string displayName = null;
+   
+
     public void UpdateDisplayName ()
     {
         string dName = hexType.ToString() + ": " + gridPos.ToString();
-
-        displayName = dName.Replace("HexTile_", "♥");
         
+       
 
+        if (hexAttribute != null)
+        {
 
+            dName = dName.Replace("HexTile_", "☰ ");
+            if (hexAttribute.GetType() == typeof( MenuButtonElementAttribute))
+            {
+                MenuButtonElementAttribute yeet = hexAttribute as MenuButtonElementAttribute ;
+                hexAttributeInfo = yeet.GetType() + ": " + yeet.commandToCall;
+            } else
+            {
+
+                hexAttributeInfo = hexAttribute.GetType().ToString();
+            }
+
+            
+
+            // Debug.Log(hexAttribute);
+        } else
+        {
+            dName = dName.Replace("HexTile_", "♥ ");
+            hexAttributeInfo = null;
+        }
+
+        displayName = dName;
+       
     }
+
+
+    
 
     public Vector2Int gridPos;
     public HexTypeEnum hexType;
@@ -85,8 +113,8 @@ public class MapElement
     }
 
 
+    [ReadOnly] public string hexAttributeInfo = null;
 
-    
 }
 
 
@@ -127,6 +155,7 @@ public class MenuButtonElementAttribute : ElementAttrubute
             //HandleRegisterClick();
             GameManager.instance.ProcessCommand(commandToCall);
             hexInstance.DestroyHex(); // Temp
+            
         });
     }
 }

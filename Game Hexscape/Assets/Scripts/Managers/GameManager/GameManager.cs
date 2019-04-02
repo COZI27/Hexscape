@@ -25,6 +25,7 @@ public static class Commands
 {
     public static bool IsTransitionCommand(this Command command)
     {
+        Debug.Log(command);
         switch (command)
         {
             case Command.Begin:
@@ -32,6 +33,8 @@ public static class Commands
             case Command.QuitLevel:
             case Command.Pause:
             case Command.Resume:
+            case Command.Edit:
+
                 return true;
             default:
                 return false;

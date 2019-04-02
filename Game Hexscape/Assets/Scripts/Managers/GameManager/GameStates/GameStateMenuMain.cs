@@ -29,6 +29,7 @@ public class GameStateMenuMain : GameStateBase {
         {
             { Command.Begin, new TransitionData<GameStateBase>(typeof(GameStateEndless))  },
             { Command.End, new TransitionData<GameStateBase>(typeof(GameStateEndless))  },
+            { Command.Edit, new TransitionData<GameStateBase>(typeof(GameStateEdit))  },
         };
     }
 
