@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.574817, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -199,98 +199,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d56db29baf790a4fa5d751021683e1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colourLerper: {fileID: 0}
-  levels:
-  - levelName: 
-    hexs: []
-  - levelName: 
-    hexs: []
-  - levelName: 
-    hexs: []
-  - levelName: 
-    hexs: []
-  - levelName: 
-    hexs: []
-  - levelName: 
-    hexs: []
-  - levelName: 
-    hexs: []
-  - levelName: 
-    hexs: []
-  - levelName: 
-    hexs: []
-  - levelName: 
-    hexs: []
-  - levelName: 
-    hexs: []
-  - levelName: 
-    hexs: []
-  - levelName: 
-    hexs: []
-  - levelName: 
-    hexs: []
-  - levelName: 
-    hexs: []
-  - levelName: 
-    hexs: []
-  - levelName: 
-    hexs: []
-  - levelName: 
-    hexs: []
-  - levelName: 
-    hexs: []
-  - levelName: 
-    hexs: []
-  - levelName: 
-    hexs: []
-  - levelName: 
-    hexs: []
-  - levelName: 
-    hexs: []
-  - levelName: 
-    hexs: []
-  - levelName: 
-    hexs: []
-  - levelName: 
-    hexs: []
-  - levelName: 
-    hexs: []
-  - levelName: 
-    hexs: []
-  - levelName: 
-    hexs: []
-  - levelName: 
-    hexs: []
-  - levelName: 
-    hexs: []
-  - levelName: 
-    hexs: []
-  - levelName: 
-    hexs: []
-  - levelName: 
-    hexs: []
-  - levelName: 
-    hexs: []
-  - levelName: 
-    hexs: []
-  useRandomLevels: 0
-  initialPlayerSpeed: 30
-  playerSpeedIncreaseLogBase: 2
-  playerSpeedIncreaseLogMultiplyer: 10
-  scoreUI:
-    totalScoreText: {fileID: 367220923}
-    currentLevelText: {fileID: 1488288993}
-    levelScoreText: {fileID: 39277168}
-    passMedal: {fileID: 2047745886}
-    bronzeMedal: {fileID: 1274591724}
-    silverMedal: {fileID: 1832020775}
-    goldMedal: {fileID: 958239814}
-    passFill: {fileID: 216964137}
-    bronzeFill: {fileID: 1835093309}
-    silverFill: {fileID: 1738492525}
-    goldFill: {fileID: 926346572}
-  levelCurrentScore: 0
-  levelIndex: 0
 --- !u!114 &27663267
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -678,7 +586,7 @@ GameObject:
   - component: {fileID: 163908981}
   - component: {fileID: 163908982}
   m_Layer: 0
-  m_Name: MapSpawner
+  m_Name: "MapSpawner\u2B21 "
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -733,7 +641,7 @@ MonoBehaviour:
   hexMask:
     serializedVersion: 2
     m_Bits: 8192
-  worldMousePos: {x: 8.5, y: 0, z: 11.25833}
+  worldMousePos: {x: -17, y: 0, z: 5.196152}
 --- !u!114 &163908980
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -792,24 +700,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba1a09fa7c4b4de47825fe2c756d5b10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  testLevel:
-    levelName: MainMenu
+  levelBeingEdited:
+    levelName: Level 3
     hexs:
-    - gridPos: {x: 2, y: -2}
-      hexType: 1282535278
-    - gridPos: {x: -1, y: 1}
-      hexType: 1916866513
-    - gridPos: {x: 0, y: 1}
-      hexType: 1916866513
-    - gridPos: {x: -1, y: 0}
-      hexType: 1916866513
-    - gridPos: {x: 1, y: 0}
-      hexType: 1916866513
-    - gridPos: {x: 1, y: -1}
-      hexType: 1916866513
-    - gridPos: {x: 2, y: -1}
-      hexType: 1916866513
-  resourceLocation: Levels/Menus/
+    - displayName: "\u2665ClickDestroy: (0, 0)"
+      gridPos: {x: 0, y: 0}
+      hexType: 1344549066
+    - displayName: "\u2665ClickDestroy: (1, 0)"
+      gridPos: {x: 1, y: 0}
+      hexType: 1344549066
+    - displayName: "\u2665ClickDestroy: (1, 1)"
+      gridPos: {x: 1, y: 1}
+      hexType: 1344549066
+    - displayName: "\u2665ClickDestroy: (-1, 0)"
+      gridPos: {x: -1, y: 0}
+      hexType: 1344549066
 --- !u!4 &212664842 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4968556402895356, guid: 1ecb86a207b5e4a4492c6062b02ef842,

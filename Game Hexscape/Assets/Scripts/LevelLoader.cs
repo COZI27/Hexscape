@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using Newtonsoft.Json;
-
-
+using UnityEditor;
 
 public class LevelLoader : MonoBehaviour
 {
 
     public static LevelLoader instance;
 
-   [SerializeField]  public Level testLevel;
+    [SerializeField] public Level levelBeingEdited;
+    private string lastResourceLocation = "/Resources/Levels/";
 
     private void Awake()
     {
@@ -22,45 +22,150 @@ public class LevelLoader : MonoBehaviour
     [ContextMenu("Force Add Child")]
     public void ForceAddChild()
     {
-        testLevel.levelName = "LoadProfileMenuLevel";
+        levelBeingEdited.levelName = "LoadProfileMenuLevel"; // what is the renaming for? 
 
-       // testLevel.hexs = new MapElement[1];
-        testLevel.hexs[0] = new MapElement(HexTypeEnum.HexTile_MenuOptionPlay, new Vector2Int(2, -2), new MenuButtonElementAttribute(Command.Begin));
+        // testLevel.hexs = new MapElement[1];
+        levelBeingEdited.hexs[0] = new MapElement(HexTypeEnum.HexTile_MenuOptionPlay, new Vector2Int(2, -2), new MenuButtonElementAttribute(Command.Begin));
     }
 
 
-    public string resourceLocation = "Levels/Json/";
+    
 
-    public  Level[] GetAllLevels()
+    public Level[] GetAllLevels()
     {
-        return GetLevelsFrom(resourceLocation);
+        return GetLevelsFrom("/Resources/Levels/");
     }
 
     public Level[] GetAllLevels(string resourceLocation)
     {
         return GetLevelsFrom(resourceLocation);
-    } 
+    }
 
-    public Level[] GetLevelsFrom (string path)
+    public Level[] GetLevelsFrom(string path)
     {
-        Debug.Log("Looking Found");
+        Debug.Log("Looking for level files...");
         Object[] loadedJsonFiles = Resources.LoadAll(path, typeof(TextAsset));
         Debug.Log("Files Found: " + loadedJsonFiles.Length);
 
         Level[] levels = new Level[loadedJsonFiles.Length];
 
-   
-
+        
         for (int i = 0; i < levels.Length; i++)
         {
-            levels[i] = JsonUtility.FromJson<Level>(loadedJsonFiles[i].ToString());
+           
+           levels[i] = DeserialisLevelFromJsonFile(loadedJsonFiles[i]);
         }
 
         return levels;
     }
 
-    public Level LoadLevelAtPath(string path)
+    public Level DeserialisLevelFromJsonFile(Object jsonFile)
     {
+        return DeserialisLevelFromJsonFile(jsonFile.ToString());
+    } // Deserialises a json file to retrun a level
+    public Level DeserialisLevelFromJsonFile(string jsonText) 
+    {
+        return JsonConvert.DeserializeObject<Level>(jsonText, new JsonSerializerSettings() { TypeNameHandling = TypeNameHandling.All });
+    }
+
+    public string SerializeLevelToJson (Level level)
+    {
+       return JsonConvert.SerializeObject(level, Formatting.Indented, new JsonSerializerSettings() { TypeNameHandling = TypeNameHandling.All });
+    }
+
+
+
+   
+
+
+    private string GetLevelPath()
+    {
+        return Application.dataPath + "/Resources/" + lastResourceLocation;
+
+
+    }
+
+   // [ContextMenu("Create")]
+    //public void CreateLevel()
+    //{
+    //    Level level = levelBeingEdited;
+
+    //    string json = JsonUtility.ToJson(level);
+
+    //    // level.levelName = json;
+
+    //    File.WriteAllText(GetLevelPath() + level.levelName + ".json", json);
+    //}
+
+    
+
+    // [ContextMenu("Create Newtonsoft Json")]
+    //public void CreateLevel_Newtonsoft()
+    //{
+    //    Level level = levelBeingEdited;
+    //    string json = SerializeLevelToJson(level);
+
+
+    //    File.WriteAllText(GetLevelPath() + level.levelName + ".json", json);
+    //}
+
+
+
+    
+    public void SaveLevelFile (Level level)  // Prompts you to save the level as Serialised json
+    {
+        string saveName = "My New Level"; 
+
+        if (level == null || level.levelName == "")
+        {
+            saveName = "My New Level";
+        }  else
+        {
+            saveName = level.levelName.Replace(".json", "");
+        }
+
+        string fileLocation = EditorUtility.SaveFilePanel("Select Level Location", lastResourceLocation, saveName,  "json");
+
+        string levelFileName;
+        string[] splitPath = fileLocation.Split('/');
+        levelFileName = splitPath[splitPath.Length - 1];
+        levelFileName = levelFileName.Replace(".json", "");
+
+        level.levelName = levelFileName;
+
+        string json = SerializeLevelToJson(level);
+       
+        lastResourceLocation = fileLocation;
+
+        File.WriteAllText(fileLocation, json); 
+    } 
+    [ContextMenu("Save Level File")] public void SaveLevelFile() //Inspecter overload
+    {
+        SaveLevelFile(levelBeingEdited);
+    } 
+
+
+    [ContextMenu("Load Level File")] //  loads a level from a Serialised json file (prompt overload for file location)
+    public Level LoadLevelFile()
+    {
+        string filePath = EditorUtility.OpenFilePanel("Select Level Location", lastResourceLocation, "json");
+
+        levelBeingEdited = LoadLevelFile(filePath);
+
+        lastResourceLocation = filePath;
+
+        return levelBeingEdited;
+
+    }
+
+    
+    public Level LoadLevelFile(string path, bool fromResources = false) 
+    {
+        if (fromResources) // goes from the Resources folder if true... might make an enum with an automatic mode too
+        {
+            path = Application.dataPath + "/Resources/" + path;
+        }
+
         if (File.Exists(path))
         {
 
@@ -70,7 +175,7 @@ public class LevelLoader : MonoBehaviour
             if (dataAsJson != null)
             {
 
-                Level returnLevel = JsonConvert.DeserializeObject<Level>(dataAsJson, new JsonSerializerSettings() { TypeNameHandling = TypeNameHandling.All } );
+                Level returnLevel = DeserialisLevelFromJsonFile(dataAsJson);
                 if (returnLevel != null)
                     return returnLevel;
 
@@ -83,70 +188,68 @@ public class LevelLoader : MonoBehaviour
     }
 
 
-    private string GetLevelPath()
+
+
+
+    // [ContextMenu("Select File Location")]
+    public void GetFileLocationPanel()
     {
-        return  Application.dataPath + "/Resources/" + resourceLocation;
+        string path = GetLevelPath();
+        path = EditorUtility.OpenFolderPanel("Select Level Location", lastResourceLocation, "");
+   
+        lastResourceLocation = path;
 
-
+        Debug.Log("resouce location set to " + path);
     }
 
-    [ContextMenu("Create")]
-    public void CreateLevel()
+
+    private void OnValidate()
     {
-        Level level = testLevel;
-
-        string json = JsonUtility.ToJson(level);
-
-       // level.levelName = json;
-
-        File.WriteAllText(GetLevelPath() + level.levelName + ".json" , json);
-    }
-    
-
-    [ContextMenu("Create Newtonsoft Json")]
-    public void CreateLevel_Newtonsoft()
-    {
-        Level level = testLevel;
-
-        string json = JsonConvert.SerializeObject(level, Formatting.Indented, new JsonSerializerSettings()  { TypeNameHandling = TypeNameHandling.All } );
-
-
-
-        // level.levelName = json;
-
-        File.WriteAllText(GetLevelPath() + level.levelName + ".json", json);
-    }
-
-    public void CreateLevel(Level level, bool autoName = false)
-    {
+        foreach (MapElement mapElements in levelBeingEdited.hexs )
+        {
+            mapElements.UpdateDisplayName();
+        }
         
-
-        string json = JsonUtility.ToJson(level);
-
-        // level.levelName = json;
-
-        string lName = level.levelName;
-        if (autoName) lName = level.levelName;
-
-        File.WriteAllText(GetLevelPath() + lName + ".json", json);
-
-        Debug.Log(json);
-    }
-
-    
-
-
-    [ContextMenu("GetLevel")]
-    public void GetLevel()
-    {
-        string json = File.ReadAllText(GetLevelPath() + "levelName" + ".json");
-
-        testLevel = JsonUtility.FromJson<Level>(json);
-
     }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+    //  private string SimplifyFilePath(string complexPath) // Application.dataPath/Resources/Levels/Test/  = /Levels/Test/
+    //{
+    //    string[] splitPath = complexPath.Split(new string[] { Application.dataPath + "/Resources/" }, System.StringSplitOptions.None);
+    //    if (splitPath.Length < 1)
+    //    {
+    //        Debug.LogError("Location is not a child of the resource folder!!!");
+    //        return null;
+    //    }
+    //    else
+    //    {
+    //        return splitPath[1];
+    //    }
+
+
+    //}   
 
 
 }
+
+
+
+
+
+
+
+
+
+

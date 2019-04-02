@@ -34,7 +34,7 @@ public class GameStateInit : GameStateBase
 
     private void CreateNewProfileMenu()
     {
-        Level loadedLevel = LevelLoader.instance.LoadLevelAtPath(pathNewProfileLevel);
+        Level loadedLevel = LevelLoader.instance.LoadLevelFile(pathNewProfileLevel);
         if (loadedLevel != null)
         {
             CreateLevel(

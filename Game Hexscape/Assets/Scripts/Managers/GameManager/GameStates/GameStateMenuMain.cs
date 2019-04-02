@@ -69,7 +69,7 @@ public class GameStateMenuMain : GameStateBase {
 
     public override void StartGameState()
     {
-        Level loadedLevel = LevelLoader.instance.LoadLevelAtPath(pathMainMenu);
+        Level loadedLevel = LevelLoader.instance.LoadLevelFile(pathMainMenu);
         if (loadedLevel != null)
         {
             CreateLevel(

@@ -167,7 +167,7 @@ public class GameStateEdit : GameStateBase
 
         Debug.Log(level.hexs.Length);
 
-        LevelLoader.instance.CreateLevel(level, true);
+        LevelLoader.instance.SaveLevelFile(level); // will make it so folders to where you can save it are limited for player input
 
 
     } // come back to 
