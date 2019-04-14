@@ -10,6 +10,15 @@ public class GameStateInit : GameStateBase
 
     string pathNewProfileLevel = "Assets/Resources/Levels/Menus/LoadProfileMenuLevel.json";
 
+    private GameObject titleParticleObject;
+    private string pathTitleParticlePrefab = "Prefabs/Particles/TitleParticle";
+
+    private GameObject registerUserCanvas;
+    private string pathRegisterUserCanvas = "Prefabs/GUI/RegisterUserCanvas";
+
+
+    private float titleSequenceTime = 0.0f;
+
     public GameStateInit()
     {
         InitialiseStateTransitions();
@@ -26,11 +35,43 @@ public class GameStateInit : GameStateBase
 
     public override void StartGameState()
     {
+        ShowTitleCard();
+        //IntroSequence();
+        GameManager.instance.StartCoroutine(IntroSequence());
 
+        //if (!FindUserProfile())
+        //    CreateNewProfileMenu();
+    }
 
+    public override void StateUpdate()
+    {
+
+    }
+
+    IEnumerator IntroSequence()
+    {
+        yield return new WaitForSeconds(2.0f);
+        yield return GameManager.instance.StartCoroutine(MoveObject(titleParticleObject, new Vector3(0, 1, 0), new Vector3(0, -6, 0), 1.0f));
+        yield return new WaitForSeconds(4.0f);
+        yield return GameManager.instance.StartCoroutine(MoveObject(titleParticleObject, new Vector3(0, -6, 0), new Vector3(0, 25, 0), 1.0f));
+        yield return new WaitForSeconds(1.0f);
         if (!FindUserProfile())
             CreateNewProfileMenu();
     }
+
+
+
+    IEnumerator MoveObject(GameObject objectToMove, Vector3 source, Vector3 target, float overTime)
+    {
+        float startTime = Time.time;
+        while (Time.time < startTime + overTime)
+        {
+            objectToMove.transform.position = Vector3.Lerp(source, target, overTime);
+            yield return null;
+        }
+        objectToMove.transform.position = target;
+    }
+
 
     private void CreateNewProfileMenu()
     {
@@ -51,12 +92,25 @@ public class GameStateInit : GameStateBase
     }
 
 
+    private void ShowTitleCard()
+    {
+        titleParticleObject = GameObject.Instantiate(Resources.Load(pathTitleParticlePrefab) as GameObject);
+
+        Vector3 targetPosition = Camera.main.gameObject.transform.position + new Vector3(0, 1, 0);
+        titleParticleObject.transform.position = targetPosition;
+    }
+
+    //private void UpdateTitleCardPosition(Vector3 targetPosition, float rate)
+    //{
+    //    titleParticleObject.transform.position = Vector3.Lerp(titleParticleObject.transform.position, targetPosition, rate);
+    //}
+
+
     #region Custom State Methods 
 
     private string gameDataFileName = "PlayerProfile.json"; // TODO: move to a more global location
 
-    private GameObject registerUserCanvas;
-    private string pathRegisterUserCanvas = "Prefabs/GUI/RegisterUserCanvas";
+
 
     private void OnDestroy()
     {

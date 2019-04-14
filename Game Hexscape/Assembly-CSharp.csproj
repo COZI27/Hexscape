@@ -72,6 +72,7 @@
     <Compile Include="Assets\Scripts\Hex Scripts\Hex.cs" />
     <Compile Include="Assets\Scripts\LevelLoader.cs" />
     <Compile Include="Assets\Scripts\Managers\AudioManager.cs" />
+    <Compile Include="Assets\Scripts\Managers\ColourManager.cs" />
     <Compile Include="Assets\Scripts\Managers\GameManager\GameManager.cs" />
     <Compile Include="Assets\Scripts\Managers\GameManager\GameStates\GameStateBase.cs" />
     <Compile Include="Assets\Scripts\Managers\GameManager\GameStates\GameStateEdit.cs" />
@@ -91,6 +92,7 @@
     <Compile Include="Assets\Scripts\Networking\UploadItemDemo.cs" />
     <Compile Include="Assets\Scripts\Networking\UploadUserScore.cs" />
     <Compile Include="Assets\Scripts\NewBehaviourScript.cs" />
+    <Compile Include="Assets\Scripts\Observer.cs" />
     <Compile Include="Assets\Scripts\ParticleSelfDestroy.cs" />
     <Compile Include="Assets\Scripts\PhylloTunnel\CameraTunnel.cs" />
     <Compile Include="Assets\Scripts\PhylloTunnel\PhylloTunnelPiece.cs" />

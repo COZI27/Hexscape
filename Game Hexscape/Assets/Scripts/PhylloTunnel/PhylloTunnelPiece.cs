@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PhylloTunnelPiece : MonoBehaviour {
+public class PhylloTunnelPiece : ObserverPattern.Observer {
 
     [Header("Gradient Palette")]
     public Gradient trailGradient1;
@@ -48,6 +48,14 @@ public class PhylloTunnelPiece : MonoBehaviour {
     public bool repeat, invert;
 
 
+    public override void OnNotify()
+    {
+        if (true /*test whether colour change is appropriate*/)
+        {
+            InitiateLerpToGradient(ColourManager.instance.GetGradientFromPalette() );
+        }
+    }
+
     // TODO: Lerp colour gradient and apply
 
     private Vector2 CalculatePhyllotaxis(float degree, float scale, int num) {
@@ -71,6 +79,7 @@ public class PhylloTunnelPiece : MonoBehaviour {
     private Vector2 phyllotaxisPos;
 
     void Awake() {
+
         forward = true;
         trailRenderer = GetComponent<TrailRenderer>();
         trailMat = new Material(trailRenderer.material);
@@ -90,7 +99,23 @@ public class PhylloTunnelPiece : MonoBehaviour {
 
     }
 
+    private void Start()
+    {
+        ColourManager.instance.AddObserver(this);
+    }
+
     private Gradient targetGradient; // TODO: Replace with array
+
+    private void InitiateLerpToGradient(Gradient newGradient)
+    {
+        Debug.Log("newGradient = " + newGradient.colorKeys[0].color + ", " + newGradient.colorKeys[0].color  +", "+ newGradient.colorKeys[2].color );
+
+
+        targetGradient = newGradient;
+        gradientLerpDivider = 3;
+        gradientLerpTimer = 0;
+        bIsGradientLerping = true;
+    }
 
     // Triggers a gradient Lerp
     void LerpToColourIndex (int index, float divider) {

@@ -106,13 +106,10 @@ public sealed class GameStateEndless : GameStateBase
     }
 
 
-    protected override void HandleInput()
-    {
-        throw new System.NotImplementedException();
-    }
-
     public override void LoadNextLevel()
     {
+
+        ColourManager.instance.ChangePalette();
         
         Level newLevel = useRandomLevels ? levels[Random.Range(0, levels.Length)] : levels[currentSessionData.levelIndex %= levels.Length];
 

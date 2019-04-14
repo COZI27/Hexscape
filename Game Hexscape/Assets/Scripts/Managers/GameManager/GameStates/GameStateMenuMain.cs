@@ -70,6 +70,8 @@ public class GameStateMenuMain : GameStateBase {
 
     public override void StartGameState()
     {
+        Camera.main.gameObject.GetComponent<CameraTunnel>().enabled = true;
+
         Level loadedLevel = LevelLoader.instance.LoadLevelFile(pathMainMenu);
         if (loadedLevel != null)
         {
