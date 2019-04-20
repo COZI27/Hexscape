@@ -55,6 +55,7 @@ public class MapSpawner : MonoBehaviour
         }
 
         CalculateLongLengthFromShort();
+
     }
 
     [ContextMenu("Load Level")]

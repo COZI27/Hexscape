@@ -56,7 +56,6 @@ public class CameraTunnel : MonoBehaviour {
     // Automatically handles the movement of tunnel pieces in the Y axis. Intended to be called in the Update method.
     void HandleMoveTunnelDown() {
 
-        // Note: isReversing is currently NOT in use, but the intention is to automatically handle tunnel movement upwards too
         if (!isReversing) {
             targetX += Time.deltaTime;
             targetz += Time.deltaTime;
@@ -69,10 +68,10 @@ public class CameraTunnel : MonoBehaviour {
 
 
         if (currentTopObjectYpos > this.transform.position.y) {
-            // if (!isGoingDown) ReverseQueue();
 
             PhylloTunnelPiece pieceToMove = tunnelPieces.Dequeue();
             pieceToMove.targetYPos = currentTopObjectYpos - (distanceBetweenObjects * (numberOfObjects - 1));
+            pieceToMove.horizontalOffset = new Vector2(this.transform.position.x, this.transform.position.z);
             currentBottomObjectYpos = pieceToMove.targetYPos;
             currentTopObjectYpos -= distanceBetweenObjects;
             tunnelPieces.Enqueue(pieceToMove);

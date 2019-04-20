@@ -14,6 +14,8 @@ public class PhylloTunnelPiece : ObserverPattern.Observer {
 
     public float targetYPos { get; set; }
 
+    public Vector2 horizontalOffset { get; set; }
+
     private bool bIsGradientLerping = false;
     private float gradientLerpTimer = 0;
     private float gradientLerpDivider;
@@ -48,6 +50,9 @@ public class PhylloTunnelPiece : ObserverPattern.Observer {
     public bool repeat, invert;
 
 
+
+
+
     public override void OnNotify()
     {
         if (true /*test whether colour change is appropriate*/)
@@ -63,8 +68,8 @@ public class PhylloTunnelPiece : ObserverPattern.Observer {
 
         float r = scale * Mathf.Sqrt(num);
 
-        float x = r * (float)System.Math.Cos(angle);
-        float y = r * (float)System.Math.Sin(angle);
+        float x = r * (float)System.Math.Cos(angle) + horizontalOffset.x;
+        float y = r * (float)System.Math.Sin(angle) + horizontalOffset.y;
 
         Vector2 returnVec = new Vector2(x, y);
         return returnVec;
@@ -85,10 +90,7 @@ public class PhylloTunnelPiece : ObserverPattern.Observer {
         trailMat = new Material(trailRenderer.material);
         trailRenderer.material = trailMat;
 
-        //trailMat.SetColor("_TintColor", trailColour);
         trailRenderer.colorGradient = trailGradient1;
-
-
 
         currentNumber = numberStart;
         transform.localPosition = CalculatePhyllotaxis(degree, scale, currentNumber);
@@ -108,9 +110,7 @@ public class PhylloTunnelPiece : ObserverPattern.Observer {
 
     private void InitiateLerpToGradient(Gradient newGradient)
     {
-        Debug.Log("newGradient = " + newGradient.colorKeys[0].color + ", " + newGradient.colorKeys[0].color  +", "+ newGradient.colorKeys[2].color );
-
-
+        //Debug.Log("newGradient = " + newGradient.colorKeys[0].color + ", " + newGradient.colorKeys[0].color  +", "+ newGradient.colorKeys[2].color );
         targetGradient = newGradient;
         gradientLerpDivider = 3;
         gradientLerpTimer = 0;
@@ -141,17 +141,11 @@ public class PhylloTunnelPiece : ObserverPattern.Observer {
 
     void Update() {
 
-        if (Input.GetKeyDown(KeyCode.Keypad1)) LerpToColourIndex(1, 3);
-        if (Input.GetKeyDown(KeyCode.Keypad2)) LerpToColourIndex(2, 3);
-        if (Input.GetKeyDown(KeyCode.Keypad3)) LerpToColourIndex(3, 3);
-
         if (bIsGradientLerping) {
-            trailRenderer.colorGradient = Util.Gradient.Lerp(trailRenderer.colorGradient, targetGradient/*TODO: Use array index*/, Time.deltaTime / gradientLerpDivider);        
+            trailRenderer.colorGradient = Util.Gradient.Lerp(trailRenderer.colorGradient, targetGradient, Time.deltaTime / gradientLerpDivider);        
             gradientLerpTimer += (Time.deltaTime / gradientLerpDivider);
-          //  Debug.Log("bIsGradientLerping...");
             if (Gradient.Equals(trailRenderer.colorGradient, targetGradient)) {
                 bIsGradientLerping = false;
-                    Debug.Log("Timer Up!");
             }
             //if (gradientLerpTimer >= 1) { bIsGradientLerping = false;
             //    Debug.Log("Timer Up!");
@@ -204,7 +198,11 @@ public class PhylloTunnelPiece : ObserverPattern.Observer {
         if (!useLerp) {
    
             phyllotaxisPos = CalculatePhyllotaxis(degree, scale, currentNumber);
-            transform.localPosition = new Vector3(phyllotaxisPos.x, Mathf.Lerp(this.transform.position.y, Mathf.Lerp(transform.position.y, targetYPos + targetWobblePos, Time.deltaTime), Time.deltaTime * 5), phyllotaxisPos.y);
+            transform.localPosition = new Vector3(
+                                                    phyllotaxisPos.x, 
+                                                    Mathf.Lerp(this.transform.position.y, Mathf.Lerp(transform.position.y, targetYPos + targetWobblePos, Time.deltaTime), Time.deltaTime * 5), 
+                                                    phyllotaxisPos.y
+                                                    );
             currentNumber += stepSize;
             currentIt++;
         }
