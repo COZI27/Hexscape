@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.574817, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -641,7 +641,7 @@ MonoBehaviour:
   hexMask:
     serializedVersion: 2
     m_Bits: 8192
-  worldMousePos: {x: -6, y: 0, z: -3.4641016}
+  worldMousePos: {x: -2, y: 0, z: 0}
 --- !u!114 &163908980
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -701,19 +701,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelBeingEdited:
-    levelName: MainMenu
+    levelName: Level 4
     hexs:
-    - displayName: "\u2665 MenuOptionPlay: (-1, 0)"
-      gridPos: {x: -1, y: 0}
-      hexType: 1282535278
-      hexAttributeInfo: 
-    - displayName: "\u2665 MenuOptionEdit: (1, 0)"
-      gridPos: {x: 1, y: 0}
-      hexType: -1947130190
-      hexAttributeInfo: 
-    - displayName: "\u2665 Null: (0, 0)"
+    - displayName: "\u2665 Indestructible: (0, 0)"
       gridPos: {x: 0, y: 0}
-      hexType: 1916866513
+      hexType: 840749193
+      hexAttributeInfo: 
+    - displayName: "\u2665 ClickDestroy: (-1, 0)"
+      gridPos: {x: -1, y: 0}
+      hexType: 1344549066
+      hexAttributeInfo: 
+    - displayName: "\u2665 ClickDestroy: (1, 0)"
+      gridPos: {x: 1, y: 0}
+      hexType: 1344549066
+      hexAttributeInfo: 
+    - displayName: "\u2665 ClickDestroy: (-2, 0)"
+      gridPos: {x: -2, y: 0}
+      hexType: 1344549066
+      hexAttributeInfo: 
+    - displayName: "\u2665 ClickDestroy: (2, 0)"
+      gridPos: {x: 2, y: 0}
+      hexType: 1344549066
+      hexAttributeInfo: 
+    - displayName: "\u2665 ClickDestroy: (-3, 0)"
+      gridPos: {x: -3, y: 0}
+      hexType: 1344549066
+      hexAttributeInfo: 
+    - displayName: "\u2665 ClickDestroy: (3, 0)"
+      gridPos: {x: 3, y: 0}
+      hexType: 1344549066
       hexAttributeInfo: 
 --- !u!4 &212664842 stripped
 Transform:
@@ -1350,6 +1366,7 @@ GameObject:
   - component: {fileID: 534669903}
   - component: {fileID: 534669906}
   - component: {fileID: 534669907}
+  - component: {fileID: 534669908}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1436,7 +1453,7 @@ MonoBehaviour:
   smoothY: 1
   target: {fileID: 239645161}
   offset: {x: 0, y: 9, z: 0}
-  smoothSpeed: 1
+  smoothSpeed: 3
 --- !u!114 &534669907
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1453,6 +1470,18 @@ MonoBehaviour:
   distanceBetweenObjects: 100
   objectToSpawn: {fileID: 1148156127924408, guid: 3bb611e152c69084aa05ce5b94be6ce5,
     type: 3}
+--- !u!114 &534669908
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 534669902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 469574c253b55844795ec22e856a7f0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &610445363 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4306949608437738, guid: 71a3406a346c27d45be18b77ac4e51c7,
@@ -1630,6 +1659,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5d54cf0676826c4791cf92f0fcccf02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentPaletteIndex: 0
+  GeneratedGradient:
+    serializedVersion: 2
+    key0: {r: 1, g: 1, b: 1, a: 1}
+    key1: {r: 1, g: 1, b: 1, a: 1}
+    key2: {r: 0, g: 0, b: 0, a: 0}
+    key3: {r: 0, g: 0, b: 0, a: 0}
+    key4: {r: 0, g: 0, b: 0, a: 0}
+    key5: {r: 0, g: 0, b: 0, a: 0}
+    key6: {r: 0, g: 0, b: 0, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 0
+    ctime1: 65535
+    ctime2: 0
+    ctime3: 0
+    ctime4: 0
+    ctime5: 0
+    ctime6: 0
+    ctime7: 0
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_NumColorKeys: 2
+    m_NumAlphaKeys: 2
 --- !u!1 &631924396
 GameObject:
   m_ObjectHideFlags: 0
