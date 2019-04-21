@@ -74,5 +74,10 @@ Material:
     - _UVSec: 0
     - _ZWrite: 0
     m_Colors:
+<<<<<<< HEAD
     - _Color: {r: 0.99215686, g: 0.5254902, b: 0.0627451, a: 1}
     - _EmissionColor: {r: 0.007843138, g: 0.21568628, b: 1, a: 1}
+=======
+    - _Color: {r: 0.031505868, g: 0.041718554, b: 0.11320752, a: 1}
+    - _EmissionColor: {r: 0.009524429, g: 0.99047554, b: 0.99999917, a: 1}
+>>>>>>> origin/levelEditor

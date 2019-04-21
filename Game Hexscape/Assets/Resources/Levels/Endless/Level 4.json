@@ -1,0 +1,107 @@
+{
+  "$type": "Level, Assembly-CSharp",
+  "levelName": "Level 4",
+  "hexs": {
+    "$type": "MapElement[], Assembly-CSharp",
+    "$values": [
+      {
+        "$type": "MapElement, Assembly-CSharp",
+        "displayName": "♥ Indestructible: (0, 0)",
+        "gridPos": {
+          "$type": "UnityEngine.Vector2Int, UnityEngine.CoreModule",
+          "x": 0,
+          "y": 0,
+          "magnitude": 0.0,
+          "sqrMagnitude": 0
+        },
+        "hexType": 840749193,
+        "HexAttribute": null,
+        "hexAttributeInfo": null
+      },
+      {
+        "$type": "MapElement, Assembly-CSharp",
+        "displayName": "♥ ClickDestroy: (-1, 0)",
+        "gridPos": {
+          "$type": "UnityEngine.Vector2Int, UnityEngine.CoreModule",
+          "x": -1,
+          "y": 0,
+          "magnitude": 1.0,
+          "sqrMagnitude": 1
+        },
+        "hexType": 1344549066,
+        "HexAttribute": null,
+        "hexAttributeInfo": null
+      },
+      {
+        "$type": "MapElement, Assembly-CSharp",
+        "displayName": "♥ ClickDestroy: (1, 0)",
+        "gridPos": {
+          "$type": "UnityEngine.Vector2Int, UnityEngine.CoreModule",
+          "x": 1,
+          "y": 0,
+          "magnitude": 1.0,
+          "sqrMagnitude": 1
+        },
+        "hexType": 1344549066,
+        "HexAttribute": null,
+        "hexAttributeInfo": null
+      },
+      {
+        "$type": "MapElement, Assembly-CSharp",
+        "displayName": "♥ ClickDestroy: (-2, 0)",
+        "gridPos": {
+          "$type": "UnityEngine.Vector2Int, UnityEngine.CoreModule",
+          "x": -2,
+          "y": 0,
+          "magnitude": 2.0,
+          "sqrMagnitude": 4
+        },
+        "hexType": 1344549066,
+        "HexAttribute": null,
+        "hexAttributeInfo": null
+      },
+      {
+        "$type": "MapElement, Assembly-CSharp",
+        "displayName": "♥ ClickDestroy: (2, 0)",
+        "gridPos": {
+          "$type": "UnityEngine.Vector2Int, UnityEngine.CoreModule",
+          "x": 2,
+          "y": 0,
+          "magnitude": 2.0,
+          "sqrMagnitude": 4
+        },
+        "hexType": 1344549066,
+        "HexAttribute": null,
+        "hexAttributeInfo": null
+      },
+      {
+        "$type": "MapElement, Assembly-CSharp",
+        "displayName": "♥ ClickDestroy: (-3, 0)",
+        "gridPos": {
+          "$type": "UnityEngine.Vector2Int, UnityEngine.CoreModule",
+          "x": -3,
+          "y": 0,
+          "magnitude": 3.0,
+          "sqrMagnitude": 9
+        },
+        "hexType": 1344549066,
+        "HexAttribute": null,
+        "hexAttributeInfo": null
+      },
+      {
+        "$type": "MapElement, Assembly-CSharp",
+        "displayName": "♥ ClickDestroy: (3, 0)",
+        "gridPos": {
+          "$type": "UnityEngine.Vector2Int, UnityEngine.CoreModule",
+          "x": 3,
+          "y": 0,
+          "magnitude": 3.0,
+          "sqrMagnitude": 9
+        },
+        "hexType": 1344549066,
+        "HexAttribute": null,
+        "hexAttributeInfo": null
+      }
+    ]
+  }
+}

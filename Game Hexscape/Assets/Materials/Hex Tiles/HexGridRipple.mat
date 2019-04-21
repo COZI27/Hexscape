@@ -26,8 +26,16 @@ Material:
     m_Floats:
     - _Glossiness: 0
     - _Metallic: 0
+<<<<<<< HEAD
     - _RippleDistance: 24.168304
     - _RippleWidth: 0.5
     m_Colors:
     - _Color: {r: 0, g: 0.9708925, b: 0.9811321, a: 1}
     - _RippleOrigin: {r: 0.15042591, g: -86.69324, b: -0.49050194, a: 0}
+=======
+    - _RippleDistance: 4.566905
+    - _RippleWidth: 0.5
+    m_Colors:
+    - _Color: {r: 0, g: 0.9708925, b: 0.9811321, a: 1}
+    - _RippleOrigin: {r: -2.3860593, g: -429.44952, b: 0.6111816, a: 0}
+>>>>>>> origin/levelEditor
