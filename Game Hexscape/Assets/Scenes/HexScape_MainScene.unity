@@ -641,7 +641,7 @@ MonoBehaviour:
   hexMask:
     serializedVersion: 2
     m_Bits: 8192
-  worldMousePos: {x: 7.5, y: 0, z: 11.25833}
+  worldMousePos: {x: 8, y: 0, z: 12.124355}
 --- !u!114 &163908980
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1388,7 +1388,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 1000
+  far clip plane: 4000
   field of view: 40
   orthographic: 0
   orthographic size: 5
