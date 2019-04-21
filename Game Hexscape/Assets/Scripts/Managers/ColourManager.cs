@@ -64,7 +64,8 @@ public class ColourManager : ObserverPattern.Subject
     List<Palette> colourPalettes = new List<Palette>
     {
         { new Palette(new Color32(255,108,17, 255),new Color32(255,56,100, 255),new Color32(45,226,230, 255) )}, // Orange, Pink, Teal
-        { new Palette(new Color32(2,55,255, 255),new Color32(101,13,137, 255),new Color32(146,0,117, 255) )}, // Blue, Puple, Magenta
+        { new Palette(new Color32(2,55,255, 255),new Color32(101,13,137, 255),new Color32(146,0,117, 255) )}, // Blue, Purple, Magenta
+        { new Palette(new Color32(249,200,14, 255),new Color32(255,67,101, 255),new Color32(84,13,110, 255) )}, // Yellow, Pink, Purple
     };
 
     [SerializeField]
@@ -78,6 +79,11 @@ public class ColourManager : ObserverPattern.Subject
     private void Awake()
     {
         MakeSingleton();
+    }
+
+    public Color32 GetColour()
+    {
+        return colourPalettes[currentPaletteIndex].GetColour(Palette.PaletteColour.ForegroundA);
     }
 
     // Start is called before the first frame update
