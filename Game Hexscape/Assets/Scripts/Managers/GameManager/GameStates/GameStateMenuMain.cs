@@ -72,7 +72,7 @@ public class GameStateMenuMain : GameStateBase {
     {
         Camera.main.gameObject.GetComponent<CameraTunnel>().enabled = true;
 
-        Level loadedLevel = LevelLoader.instance.LoadLevelFile(pathMainMenu);
+        Level loadedLevel = LevelLoader.Instance.LoadLevelFile(pathMainMenu);
         if (loadedLevel != null)
         {
             CreateLevel(

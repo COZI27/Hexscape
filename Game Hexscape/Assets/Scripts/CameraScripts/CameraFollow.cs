@@ -12,6 +12,8 @@ public class CameraFollow : MonoBehaviour {
     public Transform target;
     public Vector3 offset;
 
+    Bounds mapBounds;
+
     public float smoothSpeed;
 
     float mapFitOffset;
@@ -22,12 +24,21 @@ public class CameraFollow : MonoBehaviour {
         offset = transform.position - target.position;
     }
 
+    private void Start()
+    {
+        mapBounds = new Bounds();
+    }
 
-   
+
+
 
     void Update()
     {
-        Bounds mapBounds = new Bounds();
+        UpdateCameraBounds();
+    }
+
+    private void UpdateCameraBounds()
+    {
         mapBounds.size = Vector3.zero; // reset
         Hex[] HexObjects = MapSpawner.instance.grid.GetComponentsInChildren<Hex>();
         // Debug.Log(HexObjects.Length);
@@ -36,13 +47,12 @@ public class CameraFollow : MonoBehaviour {
             mapBounds.Encapsulate(hex.GetComponent<Collider>().transform.position);
         }
 
-        float aspectRatio = (float) Screen.width / (float) Screen.height;
-        Debug.Log(aspectRatio);
+        float aspectRatio = (float)Screen.width / (float)Screen.height;
+        //Debug.Log(aspectRatio);
         float tanFov = Mathf.Tan(Mathf.Deg2Rad * Camera.main.fieldOfView / 2.0f);
 
-         mapFitOffset = (mapBounds.extents.x / 2.0f / aspectRatio / tanFov);
-        Debug.Log(mapFitOffset);
-        
+        mapFitOffset = (mapBounds.extents.x / 2.0f / aspectRatio / tanFov);
+        //Debug.Log(mapFitOffset);
     }
 
     private void LateUpdate()
@@ -52,30 +62,11 @@ public class CameraFollow : MonoBehaviour {
             return;
         }
 
-        Bounds mapBounds = new Bounds();
-
-
-
-        mapBounds.size = Vector3.zero; // reset
-        Hex[] HexObjects = MapSpawner.instance.grid.GetComponentsInChildren<Hex>();
-        // Debug.Log(HexObjects.Length);
-        foreach (Hex hex in HexObjects)
-        {
-
-            mapBounds.Encapsulate(hex.GetComponent<Collider>().transform.position);
-        }
-
-
-
-
-
         if (smoothY)
         {
             Vector3 endPos = target.position + offset + Vector3.up* 2 * mapFitOffset;
 
             Vector3 currentPos = Vector3.Lerp(transform.position, endPos, smoothSpeed * Time.deltaTime);
-
-
 
             transform.position = currentPos;
         }
@@ -90,5 +81,6 @@ public class CameraFollow : MonoBehaviour {
 
 
     }
+
 
 }

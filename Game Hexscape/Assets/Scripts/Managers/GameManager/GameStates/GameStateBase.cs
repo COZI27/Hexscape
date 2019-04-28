@@ -183,7 +183,7 @@ public class GameStateBase
     {
         //Level levelToReturn = Resources.Load<Level>(pathToLoad);
 
-        Level[] levels = LevelLoader.instance.GetLevelsFrom(pathToLoad);
+        Level[] levels = LevelLoader.Instance.GetLevelsFrom(pathToLoad);
 
         if (levels != null)
             return levels;
@@ -197,7 +197,7 @@ public class GameStateBase
     //{
     //    //Level levelToReturn = Resources.Load<Level>(pathToLoad);
 
-    //    Level levels = LevelLoader.instance.GetLevelFrom(pathToLoad);
+    //    Level levels = LevelLoader.Instance.GetLevelFrom(pathToLoad);
 
     //    if (levels != null)
     //        return levels;

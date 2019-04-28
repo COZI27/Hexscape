@@ -5,10 +5,26 @@ using UnityEngine;
 using Newtonsoft.Json;
 using UnityEditor;
 
+
+
+
+[ExecuteInEditMode]
 public class LevelLoader : MonoBehaviour
 {
 
-    public static LevelLoader instance;
+    private static LevelLoader instance;
+    public static LevelLoader Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = GameObject.FindObjectOfType<LevelLoader>();
+                if (instance == null) Debug.LogError("No instance of LevelLoader was found.");
+            }
+            return instance;
+        }
+    }
 
     [SerializeField] public Level levelBeingEdited;
     private string lastResourceLocation = "/Resources/Levels/";
@@ -19,17 +35,10 @@ public class LevelLoader : MonoBehaviour
     }
 
 
-    [ContextMenu("Force Add Child")]
-    public void ForceAddChild()
+    [ContextMenu("Add Hex with attribute")]
+    public void AddAttributeHexToLevel()
     {
-       // levelBeingEdited.levelName = "LoadProfileMenuLevel"; // what is the renaming for? 
-
-        // testLevel.hexs = new MapElement[1];
-        levelBeingEdited.hexs[0] = new MapElement(HexTypeEnum.HexTile_MenuOptionPlay, new Vector2Int(-1, 0), new MenuButtonElementAttribute(Command.Begin));
-        levelBeingEdited.hexs[1] = new MapElement(HexTypeEnum.HexTile_MenuOptionEdit, new Vector2Int(1, 0), new MenuButtonElementAttribute(Command.Edit));
-
-
-        UpdateInspectorUI();
+        NewHexAttributeEditorWindow.ShowhexAttributeWindow();
     }
 
 
@@ -185,8 +194,6 @@ public class LevelLoader : MonoBehaviour
 
                 Level returnLevel = DeserialisLevelFromJsonFile(dataAsJson);
                 if (returnLevel != null)
-
-
                     return returnLevel;
 
                 else Debug.LogWarning("Failed to convert Json to Level at path: " + path);
@@ -197,8 +204,6 @@ public class LevelLoader : MonoBehaviour
 
        
         return null;
-
-
         
     }
 
@@ -223,9 +228,6 @@ public class LevelLoader : MonoBehaviour
         UpdateInspectorUI();
 
     }
-
-
-
 
     private void UpdateInspectorUI ()
     {

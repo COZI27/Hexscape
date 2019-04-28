@@ -70,6 +70,9 @@
     <Compile Include="Assets\Scripts\HelperClasses\Gradient.cs" />
     <Compile Include="Assets\Scripts\HelperClasses\Inspector_AudioLoader.cs" />
     <Compile Include="Assets\Scripts\HelperClasses\Inspector_HexLoader.cs" />
+    <Compile Include="Assets\Scripts\HelperClasses\NewHexAttributeEditorWindow.cs" />
+    <Compile Include="Assets\Scripts\HelperClasses\Observer.cs" />
+    <Compile Include="Assets\Scripts\HelperClasses\ReadOnlyHelper.cs" />
     <Compile Include="Assets\Scripts\Hex Scripts\Hex.cs" />
     <Compile Include="Assets\Scripts\LevelLoader.cs" />
     <Compile Include="Assets\Scripts\Managers\AudioManager.cs" />
@@ -92,15 +95,12 @@
     <Compile Include="Assets\Scripts\Networking\DownloadScore.cs" />
     <Compile Include="Assets\Scripts\Networking\UploadItemDemo.cs" />
     <Compile Include="Assets\Scripts\Networking\UploadUserScore.cs" />
-    <Compile Include="Assets\Scripts\NewBehaviourScript.cs" />
-    <Compile Include="Assets\Scripts\Observer.cs" />
     <Compile Include="Assets\Scripts\ParticleSelfDestroy.cs" />
     <Compile Include="Assets\Scripts\PhylloTunnel\CameraTunnel.cs" />
     <Compile Include="Assets\Scripts\PhylloTunnel\PhylloTunnelPiece.cs" />
     <Compile Include="Assets\Scripts\Player Scripts\PlayerController.cs" />
     <Compile Include="Assets\Scripts\Player Scripts\PlayerProfile.cs" />
     <Compile Include="Assets\Scripts\PlayerKillZone.cs" />
-    <Compile Include="Assets\Scripts\ReadOnlyHelper.cs" />
     <Compile Include="Assets\Scripts\TileEffects\DetonateEffect.cs" />
     <Compile Include="Assets\Scripts\TileEffects\TileEffectBase.cs" />
     <Compile Include="Assets\Scripts\UI Scripts\HexButton.cs" />

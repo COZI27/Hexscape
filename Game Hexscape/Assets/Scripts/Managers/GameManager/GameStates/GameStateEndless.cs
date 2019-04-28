@@ -165,7 +165,7 @@ public sealed class GameStateEndless : GameStateBase
         //levels = Resources.LoadAll<Level>("Levels/Endless") as Level;
         //Debug.Log("Loaded Level count = " + levels.Length);
 
-        levels = LevelLoader.instance.GetLevelsFrom("Levels/Endless");
+        levels = LevelLoader.Instance.GetLevelsFrom("Levels/Endless");
     }
 
 

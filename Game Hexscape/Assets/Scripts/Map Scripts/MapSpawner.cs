@@ -142,7 +142,7 @@ public class MapSpawner : MonoBehaviour
         //Dictionary<Vector2Int, Hex> mapRefrence = new Dictionary<Vector2Int, Hex>();
         mapRefrence.Clear();
 
-
+        // hexAttribute
         // destroy old hexes 
         foreach (Hex hex in grid.GetComponentsInChildren<Hex>())
         {          

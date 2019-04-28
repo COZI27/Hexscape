@@ -32,7 +32,7 @@ public class GameStateEndlessScoreboard : GameStateBase
 
     public override void StartGameState()
     {
-        Level loadedLevel = LevelLoader.instance.LoadLevelFile(pathScoreBoardLevel);
+        Level loadedLevel = LevelLoader.Instance.LoadLevelFile(pathScoreBoardLevel);
         if (loadedLevel != null ) { 
         CreateLevel(
             loadedLevel,

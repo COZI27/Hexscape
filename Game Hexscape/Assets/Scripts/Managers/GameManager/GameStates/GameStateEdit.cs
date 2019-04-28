@@ -74,7 +74,7 @@ public class GameStateEdit : GameStateBase
     {
         Debug.Log("GAME STATE EDIT STARTED !!!");
 
-        levels = LevelLoader.instance.GetLevelsFrom("Levels/Endless");
+        levels = LevelLoader.Instance.GetLevelsFrom("Levels/Endless");
         Level currentLevel = levels[currentLevelIndex];
 
         MapSpawner.instance.SpawnHexs(currentLevel, GameManager.instance.GetPlayerBall().transform.position - new Vector3(0, -30, 0), false/* offsetValue */);
@@ -181,7 +181,7 @@ public class GameStateEdit : GameStateBase
 
         Debug.Log(level.hexs.Length);
 
-        LevelLoader.instance.SaveLevelFile(level); // will make it so folders to where you can save it are limited for player input
+        LevelLoader.Instance.SaveLevelFile(level); // will make it so folders to where you can save it are limited for player input
 
 
     } // come back to 

@@ -8,7 +8,7 @@ public class GetALevelArrayTest : MonoBehaviour
 
     private void Start()
     {
-        levels = LevelLoader.instance.GetAllLevels();
+        levels = LevelLoader.Instance.GetAllLevels();
 
 
     }

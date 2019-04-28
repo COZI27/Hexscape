@@ -13,8 +13,6 @@ public class CameraTunnel : MonoBehaviour {
     private float currentTopObjectYpos;
     private float currentBottomObjectYpos;
 
-    bool isGoingDown = true;
-
     float targetX = 0;
     float targetz = 0;
     int minmaxX = 4;
