@@ -131,9 +131,6 @@ public class MapElement
        
     }
 
-
-    
-
     public Vector2Int gridPos;
     public HexTypeEnum hexType;
 

@@ -41,8 +41,19 @@ public class LevelLoader : MonoBehaviour
         NewHexAttributeEditorWindow.ShowhexAttributeWindow();
     }
 
+    public void AddHexToLevel(HexTypeEnum hexType, Vector2 location)
+    {
+        throw new System.NotImplementedException();
+    }
 
-    
+
+    public void AddHexToLevel(HexTypeEnum hexType, Vector2 location, ElementAttribute attribute)
+    {
+        throw new System.NotImplementedException("TODO: use hex location to modify the hex tile at that location(?)");
+
+
+        //levelBeingEdited.hexs[1] = new MapElement(HexTypeEnum.HexTile_MenuOptionEdit, new Vector2Int(1, 0), new MenuButtonElementAttribute(Command.Edit));
+    }
 
     public Level[] GetAllLevels()
     {

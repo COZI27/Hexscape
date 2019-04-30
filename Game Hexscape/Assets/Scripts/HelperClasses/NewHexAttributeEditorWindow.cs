@@ -10,6 +10,7 @@ public class NewHexAttributeEditorWindow : EditorWindow // PopupWindow
 
     string[] attributeChoices = { "optionA", "optionB" };
     int choiceIndex = 0;
+    Vector2 location;
 
     public static void ShowhexAttributeWindow()
     {
@@ -43,6 +44,8 @@ public class NewHexAttributeEditorWindow : EditorWindow // PopupWindow
 
         hexType = (HexTypeEnum)EditorGUILayout.EnumPopup("Type of Hex", hexType);
 
+        location = EditorGUILayout.Vector2Field("Hex Location", location);
+
         #region attribute
         GUILayout.BeginHorizontal();
         GUILayout.Label("Attribute");
@@ -63,7 +66,11 @@ public class NewHexAttributeEditorWindow : EditorWindow // PopupWindow
                 ShowLayout_DigitAttribute();
                 break;
             case "MenuButtonElementAttribute":
-                GUILayout.Label("MenuButtonElementAttribute");
+                if (attribute == null || attribute.GetType() != typeof(MenuButtonElementAttribute))
+                {
+                    attribute = new MenuButtonElementAttribute(Command.NextMenu);
+                }
+                ShowLayout_MenuButtonAttribute();
                 break;
             default:
                 break;
@@ -109,15 +116,27 @@ public class NewHexAttributeEditorWindow : EditorWindow // PopupWindow
         GUILayout.EndHorizontal();
     }
 
+    private void ShowLayout_MenuButtonAttribute()
+    {
+        if (attribute == null) return;
+        MenuButtonElementAttribute digitAttribute = (MenuButtonElementAttribute)attribute;
+        digitAttribute.commandToCall = (Command)EditorGUILayout.EnumPopup("Button Command", digitAttribute.commandToCall);
+    }
+
     private void AddHexToLevel()
     {
-
+        //if (LevelLoader.Instance.GetHexAtPoint(Vector2(0,0))) // Check whetehr a hex exists already at location
+        //{
+        //    // Display 'are you sure?'
+        //}
 
         if (EditorUtility.DisplayDialog("Add Hex to Level?",
             "Are you sure you want to add " + hexType.ToString()
             + " to " + LevelLoader.Instance.levelBeingEdited.levelName +"?", "Add", "Do Not Add"))
         {
             Debug.Log("HEX ADDED!");
+            LevelLoader.Instance.AddHexToLevel(hexType, location, attribute);
+            // levelBeingEdited.hexs[1] = new MapElement(HexTypeEnum.HexTile_MenuOptionEdit, new Vector2Int(1, 0), new MenuButtonElementAttribute(Command.Edit));
         }
     }
 
