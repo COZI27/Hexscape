@@ -294,6 +294,7 @@ public class GameManager : MonoBehaviour {
         }
     }
 
+   
     public void DigEvent(int points)
     {
         // TODO: Consider whether/ how this could be moved into process command. Do we need any parameters?
@@ -308,7 +309,9 @@ public class GameManager : MonoBehaviour {
 
     public void BallLandEvent()
     {
+        PlayerController.instance.ResetAngularVelocity(); // so the ball stops spining when it lands
         currentGameState.PlayGroundThud();
+                
     }
 
     #endregion External Events

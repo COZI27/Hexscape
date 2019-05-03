@@ -58,9 +58,12 @@ public class Hex : MonoBehaviour
     private int fallRotIndex = 0;
     private Vector2[] fallRotations;
 
+    private Collider col; // so we can disable col when the hex falls so it wont bump player
+
     private void Awake()
     {
         hasBeenTouched = false;
+        col = GetComponent<Collider>();
 
         // sub so we know when we do exit (an exit now occours when the player touches a diffrent hex tile)
         if (PlayerController.instance != null) PlayerController.instance.newHextouched += PlayerTouchedNewHex;
@@ -82,8 +85,10 @@ public class Hex : MonoBehaviour
 
     private void OnEnable()
     {
+
         hasBeenTouched = false;
         isAlive = true;
+        col.enabled = true;
 
         if (useSpawnEffect && spawnParticleEffect != null)
         {
@@ -107,7 +112,6 @@ public class Hex : MonoBehaviour
 
 
 
-
     public void EnableHex()
     {
         isSleeping = false;
@@ -119,6 +123,7 @@ public class Hex : MonoBehaviour
 
     public void DisableHex()
     {
+        
         hasBeenTouched = false;
         isSleeping = true;
         //  mesh.materials[2] = disabledMaterial;
@@ -151,6 +156,7 @@ public class Hex : MonoBehaviour
         if (isAlive)
         {
 
+            col.enabled = false;
             hasBeenTouched = false;
             isAlive = false;
 
@@ -288,6 +294,8 @@ public class Hex : MonoBehaviour
 
     public void OnPlayerEnter()
     {
+        
+
         if (isSleeping)
         {
             AwakenMap();

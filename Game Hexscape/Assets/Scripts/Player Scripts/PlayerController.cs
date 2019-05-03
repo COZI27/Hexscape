@@ -76,6 +76,7 @@ public class PlayerController : MonoBehaviour {
     
     }
 
+   
     private void OnCollisionExit(Collision collision)
     {
         
@@ -85,5 +86,10 @@ public class PlayerController : MonoBehaviour {
         }
             
        
+    }
+
+    public void ResetAngularVelocity() // so the ball stops rotating when it lands 
+    {
+        rbody.angularVelocity = Vector3.zero;
     }
 }
