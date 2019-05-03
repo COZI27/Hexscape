@@ -59,6 +59,7 @@ public class LevelEditor : MonoBehaviour
            // Debug.Log(worldPos);
 
             worldMousePos = worldPos;
+            worldMousePos.y = MapSpawner.instance.grid.transform.position.y;
 
             for (int i = 0; i <= 9; i++)
             {

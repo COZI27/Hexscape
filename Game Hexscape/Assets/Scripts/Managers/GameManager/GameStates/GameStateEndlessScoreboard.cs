@@ -32,6 +32,8 @@ public class GameStateEndlessScoreboard : GameStateBase
 
     public override void StartGameState()
     {
+        MapSpawner.instance.ClearMapGrid();
+        
         Level loadedLevel = LevelLoader.instance.LoadLevelFile(pathScoreBoardLevel);
         if (loadedLevel != null ) { 
         CreateLevel(
@@ -44,6 +46,8 @@ public class GameStateEndlessScoreboard : GameStateBase
 
         DisplayScores();
         }
+        MapSpawner.instance.PositionMapGrid(PlayerController.instance.transform.position + Vector3.up * MapSpawner.instance.distanceBetweenMaps, false);
+        MapSpawner.instance.UpdateMapRefence();
     }
 
     protected override void InitialiseStateTransitions()
@@ -107,6 +111,7 @@ public class GameStateEndlessScoreboard : GameStateBase
 
     void DisplayScores()
     {
+        
 
         GetCurrentSessionScore(out levelValue, out scoreValue);
         MakeScoreDownloadRequest();
@@ -115,6 +120,7 @@ public class GameStateEndlessScoreboard : GameStateBase
         int[] levelToDisplay = ConvertIntToArray(levelValue);
 
         int position = scoreToDisplay.Length - 1;
+      
         foreach (Vector2Int pos in scoreDisplayTilePos)
         {
             int hexDigitIndex = (position >= 0 ? scoreToDisplay[position] : 0);
@@ -130,6 +136,8 @@ public class GameStateEndlessScoreboard : GameStateBase
             MapSpawner.instance.SpawnHexAtLocation(pos, hexDigits[hexDigitIndex], true);
             position--;
         }
+
+        
 
         //Hex registerUserHexButton = MapSpawner.instance.SpawnHexAtLocation(new Vector2Int(1, -2), HexTypeEnum.HexTile_MenuOptionPlay, true);
         //registerUserHexButton.clickedEvent.AddListener(() =>
