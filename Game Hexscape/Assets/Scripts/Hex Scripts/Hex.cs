@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-
-
 public class Hex : MonoBehaviour
 {
 
@@ -150,9 +148,10 @@ public class Hex : MonoBehaviour
 
 
 
-
-    public void DestroyHex(bool isANeighbourDeath = false)
+    
+    public void DigHex(bool isANeighbourDeath = false) // make a dig hex function that gives points before calling this one
     {
+        
         if (isAlive)
         {
 
@@ -161,16 +160,6 @@ public class Hex : MonoBehaviour
             isAlive = false;
 
             clickedEvent.RemoveAllListeners(); // TDOD: COnsider whether this would be better suited to being called when returned to the object pool
-
-
-            //if (!isANeighbourDeath)
-            //{
-            //    // Broadcast delegate event
-            //    // make sure it is alive first :P
-            //    if (onHexDeath != null) onHexDeath();
-            //}
-
-            //EndlessGameplayManager.instance.GainHexDigPoints(destroyPoints);
             GameManager.instance.DigEvent(destroyPoints);
         }
 
@@ -179,14 +168,9 @@ public class Hex : MonoBehaviour
             fallRotIndex = Random.Range(0, fallRotations.Length - 1);
         }
 
-
-
-
-
-
     }
 
-    private void FinishDestroy()
+    public void FinishDestroy()
     {
         destroyTimer = 0;
 
@@ -274,7 +258,7 @@ public class Hex : MonoBehaviour
         {
             if (typeOfHex == HexTypeEnum.HexTile_ClickDestroy)
             {
-                DestroyHex();
+                DigHex();
             }
         }
 
@@ -287,7 +271,7 @@ public class Hex : MonoBehaviour
             if (typeOfHex == HexTypeEnum.HexTile_ExitDestroy)
             {
                 Debug.Log("OnPlayerExit HexTile_ExitDestroy");
-                DestroyHex();
+                DigHex();
             }
         }
     }

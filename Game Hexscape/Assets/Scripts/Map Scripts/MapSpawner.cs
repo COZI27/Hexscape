@@ -157,7 +157,7 @@ public class MapSpawner : MonoBehaviour
             if (hex.gameObject.activeInHierarchy)
             {
                 hex.transform.parent = this.transform;
-                hex.DestroyHex();                 
+                hex.DigHex();                 
             }
         }
 
@@ -165,6 +165,8 @@ public class MapSpawner : MonoBehaviour
         grid.transform.position = Vector3.zero;
 
     }
+
+    
 
     public void PositionMapGrid(Vector3 playerPos, bool randomRotate = true)
     {
@@ -183,18 +185,36 @@ public class MapSpawner : MonoBehaviour
         grid.transform.rotation = Quaternion.Euler(0,yRot,0);
     }
 
-    public void SpawnAHex(MapElement hexInfo)
+    public Hex SpawnAHex(MapElement hexInfo)
     {
         Hex hexInstance = HexBank.instance.GetDisabledHex(hexInfo.GetHex().typeOfHex, grid.CellToWorld(new Vector3Int(hexInfo.gridPos.x, hexInfo.gridPos.y, 0)), grid.transform).GetComponent<Hex>();
+        hexInstance.transform.rotation = grid.transform.rotation;
         if (hexInfo.hexAttribute != null) hexInfo.hexAttribute.AddAttributeToHex(hexInstance);
         SetGameobjectWidth(hexInstance.gameObject);
-        
-        // adds the hex to the dictonary for the grid finder
-        mapRefrence.Add(hexInfo.gridPos, hexInstance);
+
+       if ( mapRefrence.ContainsKey(hexInfo.gridPos) ) // need to replace
+        {
+            Hex oldHex = mapRefrence[hexInfo.gridPos];
+            oldHex.FinishDestroy();
+            mapRefrence[hexInfo.gridPos] = hexInstance;
+
+            GameManager.instance.ReplaceTilePassScores(oldHex.destroyPoints, hexInstance.destroyPoints);
+
+        } else
+        {
+            mapRefrence.Add(hexInfo.gridPos, hexInstance);
+
+            GameManager.instance.ReplaceTilePassScores(0, hexInstance.destroyPoints);
+        }
+
+
+        return hexInstance;
     }
 
     public void UpdateMapRefence ()
     {
+        
+        
         GridFinder.instance.SetMap(mapRefrence, grid.transform.position, grid.transform.rotation);
     }
 
@@ -379,6 +399,15 @@ public class MapSpawner : MonoBehaviour
                 // temp
             }
         }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            int x = Random.Range(-3, 3);
+            int y = Random.Range(-3, 3);
+
+            SpawnAHex(new MapElement(HexTypeEnum.HexTile_ClickDestroy, new Vector2Int(x, y))).isSleeping = false;
+           // UpdateMapRefence();
+        }
     }
 
     public Hex SpawnHexAtLocation(Vector2Int hexLoc, HexTypeEnum typeToSpawn, bool replaceExisting)
@@ -391,7 +420,7 @@ public class MapSpawner : MonoBehaviour
         {
             if (positionOccupied) // Remove occupying tile
             {
-                mapRefrence[hexLoc].DestroyHex();
+                mapRefrence[hexLoc].DigHex();
                 mapRefrence.Remove(hexLoc);
             }
 

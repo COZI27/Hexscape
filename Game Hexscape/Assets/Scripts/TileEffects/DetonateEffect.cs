@@ -33,7 +33,7 @@ public class DetonateEffect : TileEffectBase
         for (int h = 0; h < HexNeighbours.Length; h++)
         {
             Hex hitHex = HexNeighbours[h];
-            if (hitHex != null && hitHex.isAlive) hitHex.DestroyHex(true);
+            if (hitHex != null && hitHex.isAlive) hitHex.DigHex(true);
 
             Debug.Log("HEX : " + hitHex.transform.position);
         }

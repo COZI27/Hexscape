@@ -117,7 +117,7 @@ public sealed class GameStateEndless : GameStateBase
 
         currentSessionData.levelScore = 0;
         currentSessionData.passScore = 0;
-        newLevel.hexs.ToList().ForEach(x => currentSessionData.passScore += x.GetHex().destroyPoints);
+        //newLevel.hexs.ToList().ForEach(x => currentSessionData.passScore += x.GetHex().destroyPoints);
 
         if (playerController != null)
         {

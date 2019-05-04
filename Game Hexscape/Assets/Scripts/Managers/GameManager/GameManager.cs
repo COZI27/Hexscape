@@ -121,6 +121,12 @@ public class GameManager : MonoBehaviour {
         }
     }
 
+    public void ReplaceTilePassScores(int oldScore, int newScore)
+    {
+        currentGameState.ReplaceTilePassScores(oldScore, newScore);
+    }
+
+
 
     //public GameStateBase initialGameState = GameStateMenuMain;
 

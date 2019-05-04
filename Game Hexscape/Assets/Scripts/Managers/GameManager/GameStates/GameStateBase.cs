@@ -83,7 +83,11 @@ public class GameStateBase
     }
 
 
-
+    public void ReplaceTilePassScores (int oldScore, int newScore)
+    {
+        currentSessionData.passScore -= oldScore;
+        currentSessionData.passScore += newScore;
+    }
 
 
     public struct GameSessionData

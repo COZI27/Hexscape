@@ -154,7 +154,7 @@ public class MenuButtonElementAttribute : ElementAttrubute
         {
             //HandleRegisterClick();
             GameManager.instance.ProcessCommand(commandToCall);
-            hexInstance.DestroyHex(); // Temp
+            hexInstance.DigHex(); // Temp
             
         });
     }
