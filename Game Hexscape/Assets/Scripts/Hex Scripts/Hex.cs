@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-
-
 public class Hex : MonoBehaviour
 {
 
@@ -58,9 +56,12 @@ public class Hex : MonoBehaviour
     private int fallRotIndex = 0;
     private Vector2[] fallRotations;
 
+    private Collider col; // so we can disable col when the hex falls so it wont bump player
+
     private void Awake()
     {
         hasBeenTouched = false;
+        col = GetComponent<Collider>();
 
         // sub so we know when we do exit (an exit now occours when the player touches a diffrent hex tile)
         if (PlayerController.instance != null) PlayerController.instance.newHextouched += PlayerTouchedNewHex;
@@ -82,8 +83,10 @@ public class Hex : MonoBehaviour
 
     private void OnEnable()
     {
+
         hasBeenTouched = false;
         isAlive = true;
+        col.enabled = true;
 
         if (useSpawnEffect && spawnParticleEffect != null)
         {
@@ -107,7 +110,6 @@ public class Hex : MonoBehaviour
 
 
 
-
     public void EnableHex()
     {
         isSleeping = false;
@@ -119,6 +121,7 @@ public class Hex : MonoBehaviour
 
     public void DisableHex()
     {
+        
         hasBeenTouched = false;
         isSleeping = true;
         //  mesh.materials[2] = disabledMaterial;
@@ -145,26 +148,18 @@ public class Hex : MonoBehaviour
 
 
 
-
-    public void DestroyHex(bool isANeighbourDeath = false)
+    
+    public void DigHex(bool isANeighbourDeath = false) // make a dig hex function that gives points before calling this one
     {
+        
         if (isAlive)
         {
 
+            col.enabled = false;
             hasBeenTouched = false;
             isAlive = false;
 
             clickedEvent.RemoveAllListeners(); // TDOD: COnsider whether this would be better suited to being called when returned to the object pool
-
-
-            //if (!isANeighbourDeath)
-            //{
-            //    // Broadcast delegate event
-            //    // make sure it is alive first :P
-            //    if (onHexDeath != null) onHexDeath();
-            //}
-
-            //EndlessGameplayManager.instance.GainHexDigPoints(destroyPoints);
             GameManager.instance.DigEvent(destroyPoints);
         }
 
@@ -173,14 +168,9 @@ public class Hex : MonoBehaviour
             fallRotIndex = Random.Range(0, fallRotations.Length - 1);
         }
 
-
-
-
-
-
     }
 
-    private void FinishDestroy()
+    public void FinishDestroy()
     {
         destroyTimer = 0;
 
@@ -268,7 +258,7 @@ public class Hex : MonoBehaviour
         {
             if (typeOfHex == HexTypeEnum.HexTile_ClickDestroy)
             {
-                DestroyHex();
+                DigHex();
             }
         }
 
@@ -281,13 +271,15 @@ public class Hex : MonoBehaviour
             if (typeOfHex == HexTypeEnum.HexTile_ExitDestroy)
             {
                 Debug.Log("OnPlayerExit HexTile_ExitDestroy");
-                DestroyHex();
+                DigHex();
             }
         }
     }
 
     public void OnPlayerEnter()
     {
+        
+
         if (isSleeping)
         {
             AwakenMap();
