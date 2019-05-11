@@ -82,7 +82,7 @@ public class GameStateMenuMain : GameStateBase {
                 false
             );
 
-            //Hex registerUserHexButton = MapSpawner.instance.SpawnHexAtLocation(new Vector2Int(0, 0), HexTypeEnum.HexTile_MenuOptionPlay, true);
+            //Hex registerUserHexButton = MapSpawner.Instance.SpawnHexAtLocation(new Vector2Int(0, 0), HexTypeEnum.HexTile_MenuOptionPlay, true);
             //registerUserHexButton.clickedEvent.AddListener(() =>
             //{
             //    GameManager.instance.ProcessCommand(Command.Begin);
@@ -91,8 +91,8 @@ public class GameStateMenuMain : GameStateBase {
             //});
         }
 
-        //MapSpawner.instance.SpawnHexs(mainMenuLevel, GameManager.instance.GetPlayerBall().transform.position - new Vector3(0, -30, 0), false/* offsetValue */);
-        //Vector3 mapPosition = MapSpawner.instance.GetCurrentMapHolder().transform.position;
+        //MapSpawner.Instance.SpawnHexs(mainMenuLevel, GameManager.instance.GetPlayerBall().transform.position - new Vector3(0, -30, 0), false/* offsetValue */);
+        //Vector3 mapPosition = MapSpawner.Instance.GetCurrentMapHolder().transform.position;
         //mapPosition += new Vector3(0, -5, 0);
         //GameManager.instance.GetPlayerBall().transform.position = mapPosition; // ballPosition;
         //GameManager.instance.GetPlayerBall().SetActive(false);

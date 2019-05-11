@@ -32,9 +32,9 @@ public class GameStateEndlessScoreboard : GameStateBase
 
     public override void StartGameState()
     {
-        MapSpawner.instance.ClearMapGrid();
+        MapSpawner.Instance.ClearMapGrid();
         
-        Level loadedLevel = LevelLoader.instance.LoadLevelFile(pathScoreBoardLevel);
+        Level loadedLevel = LevelLoader.Instance.LoadLevelFile(pathScoreBoardLevel);
         if (loadedLevel != null ) { 
         CreateLevel(
             loadedLevel,
@@ -46,8 +46,8 @@ public class GameStateEndlessScoreboard : GameStateBase
 
         DisplayScores();
         }
-        MapSpawner.instance.PositionMapGrid(PlayerController.instance.transform.position + Vector3.up * MapSpawner.instance.distanceBetweenMaps, false);
-        MapSpawner.instance.UpdateMapRefence();
+        MapSpawner.Instance.PositionMapGrid(PlayerController.instance.transform.position + Vector3.up * MapSpawner.Instance.distanceBetweenMaps, false);
+        MapSpawner.Instance.UpdateMapRefence();
     }
 
     protected override void InitialiseStateTransitions()
@@ -125,7 +125,7 @@ public class GameStateEndlessScoreboard : GameStateBase
         {
             int hexDigitIndex = (position >= 0 ? scoreToDisplay[position] : 0);
 
-            MapSpawner.instance.SpawnHexAtLocation(pos, hexDigits[hexDigitIndex], true);
+            MapSpawner.Instance.SpawnHexAtLocation(pos, hexDigits[hexDigitIndex], true);
             position--;
         }
 
@@ -133,13 +133,13 @@ public class GameStateEndlessScoreboard : GameStateBase
         foreach (Vector2Int pos in levelDisplayTilePos)
         {
             int hexDigitIndex = (position >= 0 ? levelToDisplay[position] : 0);
-            MapSpawner.instance.SpawnHexAtLocation(pos, hexDigits[hexDigitIndex], true);
+            MapSpawner.Instance.SpawnHexAtLocation(pos, hexDigits[hexDigitIndex], true);
             position--;
         }
 
         
 
-        //Hex registerUserHexButton = MapSpawner.instance.SpawnHexAtLocation(new Vector2Int(1, -2), HexTypeEnum.HexTile_MenuOptionPlay, true);
+        //Hex registerUserHexButton = MapSpawner.Instance.SpawnHexAtLocation(new Vector2Int(1, -2), HexTypeEnum.HexTile_MenuOptionPlay, true);
         //registerUserHexButton.clickedEvent.AddListener(() =>
         //{
         //    //HandleRegisterClick();

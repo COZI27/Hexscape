@@ -64,7 +64,7 @@ public class GridFinder : MonoBehaviour
         }
 
 
-        if (grid == null) grid = MapSpawner.instance.grid;
+        if (grid == null) grid = MapSpawner.Instance.grid;
 
         
     }

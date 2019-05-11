@@ -9,6 +9,44 @@ using Newtonsoft.Json;
 //Not sure if we will use a level database for endless but at the moment we are... 
 // we might also want to seperate endless and challenge levels into diffrent children of the Level class
 
+public static class HexTypes
+{
+    // In order to access the attribute in the Unity Editor Hex Attribute Window - attributes must be added here 
+    static string[] allhexAttributes = {
+        typeof(DigitElementAttribute).ToString(),
+        typeof(MenuButtonElementAttribute).ToString()
+    };
+
+    public static string[] GetCompatibleAttrributes(this HexTypeEnum hexType)
+    {
+
+        switch (hexType)
+        {
+            case HexTypeEnum.HexTile_Digit0:
+            case HexTypeEnum.HexTile_Digit1:
+            case HexTypeEnum.HexTile_Digit2:
+            case HexTypeEnum.HexTile_Digit3:
+            case HexTypeEnum.HexTile_Digit4:
+            case HexTypeEnum.HexTile_Digit5:
+            case HexTypeEnum.HexTile_Digit6:
+            case HexTypeEnum.HexTile_Digit7:
+            case HexTypeEnum.HexTile_Digit8:
+                return new string[]  {
+                       typeof(DigitElementAttribute).ToString(),
+                };
+
+            case HexTypeEnum.HexTile_MenuOptionEdit:
+                return new string[]  {
+                       typeof(MenuButtonElementAttribute).ToString()
+                };
+            default:
+                return allhexAttributes;
+        }
+    }
+
+    //ElementAttribute tempAt = System.Type.GetType("type");
+}
+
 [System.Serializable]
 public class Level
 {
@@ -98,14 +136,14 @@ public class MapElement
     public HexTypeEnum hexType;
 
     [JsonProperty(PropertyName = "HexAttribute")]
-    public ElementAttrubute hexAttribute;
+    public ElementAttribute hexAttribute;
 
     public Hex GetHex ()
     {
         return HexBank.instance.GetHexFromType(hexType); ;
     }
 
-    public MapElement(HexTypeEnum hexType, Vector2Int gridPos, ElementAttrubute hexAttributes = null)
+    public MapElement(HexTypeEnum hexType, Vector2Int gridPos, ElementAttribute hexAttributes = null)
     {
         this.hexType = hexType;
         this.gridPos = gridPos;
@@ -120,7 +158,7 @@ public class MapElement
 
 
 [System.Serializable]
-public class DigitElementAttribute : ElementAttrubute
+public class DigitElementAttribute : ElementAttribute
 {
     public DigitElementAttribute(int leadingZeroCount)
     {
@@ -138,7 +176,7 @@ public class DigitElementAttribute : ElementAttrubute
 
 
 [System.Serializable]
-public class MenuButtonElementAttribute : ElementAttrubute
+public class MenuButtonElementAttribute : ElementAttribute
 {
     public MenuButtonElementAttribute(Command commandToCall)
     {
@@ -161,7 +199,7 @@ public class MenuButtonElementAttribute : ElementAttrubute
 }
 
 [System.Serializable]
-public abstract class ElementAttrubute {
+public abstract class ElementAttribute {
     public abstract void AddAttributeToHex(Hex hexInstance);
 }
 

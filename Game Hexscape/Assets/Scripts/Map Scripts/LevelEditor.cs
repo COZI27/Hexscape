@@ -56,18 +56,13 @@ public class LevelEditor : MonoBehaviour
             Debug.DrawRay(worldPos - Vector3.forward / 2, Vector3.forward, Color.magenta);
             Debug.DrawRay(worldPos - Vector3.right / 2, Vector3.right, Color.magenta);
 
-           // Debug.Log(worldPos);
-
             worldMousePos = worldPos;
-            worldMousePos.y = MapSpawner.instance.grid.transform.position.y;
+            worldMousePos.y = MapSpawner.Instance.grid.transform.position.y;
 
             for (int i = 0; i <= 9; i++)
             {
                 if (Input.GetKeyDown(i + ""))
                 {
-
-
-
 
                     // remove old hex at position
                     if (Physics.OverlapSphere(worldPos, 0.2f, hexMask).Length > 0)

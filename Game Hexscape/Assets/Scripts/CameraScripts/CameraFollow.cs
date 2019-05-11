@@ -40,7 +40,7 @@ public class CameraFollow : MonoBehaviour {
     private void UpdateCameraBounds()
     {
         mapBounds.size = Vector3.zero; // reset
-        Hex[] HexObjects = MapSpawner.instance.grid.GetComponentsInChildren<Hex>();
+        Hex[] HexObjects = MapSpawner.Instance.grid.GetComponentsInChildren<Hex>();
         // Debug.Log(HexObjects.Length);
         foreach (Hex hex in HexObjects)
         {

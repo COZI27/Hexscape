@@ -46,7 +46,7 @@ public sealed class GameStateEndless : GameStateBase
         InitialiseClickSounds();
 
 
-        Vector3 mapPosition = MapSpawner.instance.GetCurrentMapHolder().transform.position;
+        Vector3 mapPosition = MapSpawner.Instance.GetCurrentMapHolder().transform.position;
         mapPosition += new Vector3(0, 10, 0);
         //GameManager.instance.GetPlayerBall().transform.position = mapPosition; // ballPosition;
         GameManager.instance.GetPlayerBall().SetActive(true);
@@ -125,7 +125,7 @@ public sealed class GameStateEndless : GameStateBase
             playerController.moveSpeed = initialPlayerSpeed + (playerSpeedIncreaseLogMultiplyer * currentSessionData.levelIndex * ( 10 * Mathf.Log(playerSpeedIncreaseLogBase)));
         }
 
-        MapSpawner.instance.SpawnHexs(newLevel, playerController.transform.position);
+        MapSpawner.Instance.SpawnHexs(newLevel, playerController.transform.position);
 
         UpdateScore();
    

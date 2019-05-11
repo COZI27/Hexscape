@@ -180,7 +180,7 @@ public class GameStateInit : GameStateBase
 
         if (registerUserCanvas == null) throw new System.Exception("Failed to instantiate the RegisterIserCanvas from path " + pathRegisterUserCanvas);
 
-        //Hex registerUserHexButton = MapSpawner.instance.SpawnHexAtLocation(new Vector2Int(0, -2), HexTypeEnum.HexTile_MenuOptionPlay, true);
+        //Hex registerUserHexButton = MapSpawner.Instance.SpawnHexAtLocation(new Vector2Int(0, -2), HexTypeEnum.HexTile_MenuOptionPlay, true);
         //registerUserHexButton.clickedEvent.AddListener(() =>
         //{
         //    HandleRegisterClick();

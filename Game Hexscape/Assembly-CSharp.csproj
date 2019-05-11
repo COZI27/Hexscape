@@ -70,6 +70,7 @@
     <Compile Include="Assets\Scripts\HelperClasses\Gradient.cs" />
     <Compile Include="Assets\Scripts\HelperClasses\Inspector_AudioLoader.cs" />
     <Compile Include="Assets\Scripts\HelperClasses\Inspector_HexLoader.cs" />
+    <Compile Include="Assets\Scripts\HelperClasses\LevelEditorWindow.cs" />
     <Compile Include="Assets\Scripts\HelperClasses\NewHexAttributeEditorWindow.cs" />
     <Compile Include="Assets\Scripts\HelperClasses\Observer.cs" />
     <Compile Include="Assets\Scripts\HelperClasses\ReadOnlyHelper.cs" />
@@ -87,7 +88,10 @@
     <Compile Include="Assets\Scripts\Managers\MouseManager.cs" />
     <Compile Include="Assets\Scripts\Managers\RippleManager.cs" />
     <Compile Include="Assets\Scripts\Map Scripts\GridFinder.cs" />
+    <Compile Include="Assets\Scripts\Map Scripts\HexagonalGrid.cs" />
+    <Compile Include="Assets\Scripts\Map Scripts\HexagonGrid.cs" />
     <Compile Include="Assets\Scripts\Map Scripts\HexBank.cs" />
+    <Compile Include="Assets\Scripts\Map Scripts\HexGrid.cs" />
     <Compile Include="Assets\Scripts\Map Scripts\Level.cs" />
     <Compile Include="Assets\Scripts\Map Scripts\LevelEditor.cs" />
     <Compile Include="Assets\Scripts\Map Scripts\MapSpawner.cs" />
@@ -109,25 +113,25 @@
     <None Include="Assets\Shaders\WorldSpaceExpandShader.shader" />
     <None Include="Assets\JsonDotNet\link.xml" />
     <Reference Include="Unity.TextMeshPro.Editor">
-      <HintPath>H:/Documents/GitHub/Hexscape/Game Hexscape/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+      <HintPath>S:/GitHub/Hexscape/Game Hexscape/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.PackageManagerUI.Editor">
-      <HintPath>H:/Documents/GitHub/Hexscape/Game Hexscape/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
+      <HintPath>S:/GitHub/Hexscape/Game Hexscape/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.CollabProxy.Editor">
-      <HintPath>H:/Documents/GitHub/Hexscape/Game Hexscape/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
+      <HintPath>S:/GitHub/Hexscape/Game Hexscape/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Editor">
-      <HintPath>H:/Documents/GitHub/Hexscape/Game Hexscape/Library/ScriptAssemblies/Editor.dll</HintPath>
+      <HintPath>S:/GitHub/Hexscape/Game Hexscape/Library/ScriptAssemblies/Editor.dll</HintPath>
     </Reference>
     <Reference Include="XiaomiSupport">
-      <HintPath>H:/Documents/GitHub/Hexscape/Game Hexscape/Library/ScriptAssemblies/XiaomiSupport.dll</HintPath>
+      <HintPath>S:/GitHub/Hexscape/Game Hexscape/Library/ScriptAssemblies/XiaomiSupport.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
-      <HintPath>H:/Documents/GitHub/Hexscape/Game Hexscape/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+      <HintPath>S:/GitHub/Hexscape/Game Hexscape/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.DataPrivacy">
-      <HintPath>H:/Documents/GitHub/Hexscape/Game Hexscape/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>
+      <HintPath>S:/GitHub/Hexscape/Game Hexscape/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2018.3.13f1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
@@ -331,22 +335,22 @@
       <HintPath>C:/Program Files/Unity/Hub/Editor/2018.3.13f1/Editor/Data/UnityExtensions/Unity/UnitySpatialTracking/RuntimeEditor/UnityEngine.SpatialTracking.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>H:/Documents/GitHub/Hexscape/Game Hexscape/Assets/JsonDotNet/Assemblies/Standalone/Newtonsoft.Json.dll</HintPath>
+      <HintPath>S:/GitHub/Hexscape/Game Hexscape/Assets/JsonDotNet/Assemblies/Standalone/Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.Editor">
-      <HintPath>H:/Documents/GitHub/Hexscape/Game Hexscape/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Editor.dll</HintPath>
+      <HintPath>S:/GitHub/Hexscape/Game Hexscape/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.StandardEvents">
-      <HintPath>H:/Documents/GitHub/Hexscape/Game Hexscape/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.StandardEvents.dll</HintPath>
+      <HintPath>S:/GitHub/Hexscape/Game Hexscape/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.StandardEvents.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.Tracker">
-      <HintPath>H:/Documents/GitHub/Hexscape/Game Hexscape/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Tracker.dll</HintPath>
+      <HintPath>S:/GitHub/Hexscape/Game Hexscape/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Tracker.dll</HintPath>
     </Reference>
     <Reference Include="ChannelPurchase">
-      <HintPath>H:/Documents/GitHub/Hexscape/Game Hexscape/Library/PackageCache/com.unity.xiaomi@1.0.3/ChannelPurchase.dll</HintPath>
+      <HintPath>S:/GitHub/Hexscape/Game Hexscape/Library/PackageCache/com.unity.xiaomi@1.0.3/ChannelPurchase.dll</HintPath>
     </Reference>
     <Reference Include="UnityStore">
-      <HintPath>H:/Documents/GitHub/Hexscape/Game Hexscape/Library/PackageCache/com.unity.xiaomi@1.0.3/UnityStore.dll</HintPath>
+      <HintPath>S:/GitHub/Hexscape/Game Hexscape/Library/PackageCache/com.unity.xiaomi@1.0.3/UnityStore.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2018.3.13f1/Editor/Data/NetStandard/ref/2.0.0/netstandard.dll</HintPath>

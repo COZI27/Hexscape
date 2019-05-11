@@ -216,13 +216,13 @@ public class GameStateBase
     {
         //Level newProfileLevel = LoadLevelFromPath(pathNewProfileLevel);
 
-        MapSpawner.instance.SpawnHexs(
+        MapSpawner.Instance.SpawnHexs(
             levelToCreate,
             GameManager.instance.GetPlayerBall().transform.position - new Vector3(0, -30, 0),
             allowRandomMapRotation
             );
 
-        Vector3 mapPosition = MapSpawner.instance.GetCurrentMapHolder().transform.position;
+        Vector3 mapPosition = MapSpawner.Instance.GetCurrentMapHolder().transform.position;
         //GameManager.instance.GetPlayerBall().transform.position = mapPosition;
         GameManager.instance.GetPlayerBall().SetActive(setBallEnabled);
 
@@ -232,7 +232,7 @@ public class GameStateBase
     //protected bool CreateLevel<T>(Level levelToCreate, float verticalOffset, bool setBallEnabled, bool allowRandomMapRotation, T componentToAdd) where T : Component
     //{
     //    CreateLevel(levelToCreate, verticalOffset, setBallEnabled, allowRandomMapRotation);
-    //    GameObject currentLevelObject = MapSpawner.instance.GetCurrentMapHolder();
+    //    GameObject currentLevelObject = MapSpawner.Instance.GetCurrentMapHolder();
     //    if (currentLevelObject != null)
     //    {
     //        if (newComponent == null) Debug.LogWarning(" Failed to add " + componentToAdd.GetType() + " to " + currentLevelObject.name + ".");

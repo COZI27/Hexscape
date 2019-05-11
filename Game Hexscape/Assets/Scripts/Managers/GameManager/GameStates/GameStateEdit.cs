@@ -32,9 +32,9 @@ public class GameStateEdit : GameStateBase
     {
         Level currentLevel = levels[currentLevelIndex];
 
-        MapSpawner.instance.SpawnHexs(currentLevel, GameManager.instance.GetPlayerBall().transform.position - new Vector3(0, -30, 0), false/* offsetValue */);
+        MapSpawner.Instance.SpawnHexs(currentLevel, GameManager.instance.GetPlayerBall().transform.position - new Vector3(0, -30, 0), false/* offsetValue */);
 
-        Vector3 mapPosition = MapSpawner.instance.GetCurrentMapHolder().transform.position;
+        Vector3 mapPosition = MapSpawner.Instance.GetCurrentMapHolder().transform.position;
         mapPosition += new Vector3(0, -5, 0);
         GameManager.instance.GetPlayerBall().transform.position = mapPosition; // ballPosition;
         GameManager.instance.GetPlayerBall().SetActive(false);
@@ -77,9 +77,9 @@ public class GameStateEdit : GameStateBase
         levels = LevelLoader.Instance.GetLevelsFrom("Levels/Endless");
         Level currentLevel = levels[currentLevelIndex];
 
-        MapSpawner.instance.SpawnHexs(currentLevel, GameManager.instance.GetPlayerBall().transform.position - new Vector3(0, -30, 0), false/* offsetValue */);
+        MapSpawner.Instance.SpawnHexs(currentLevel, GameManager.instance.GetPlayerBall().transform.position - new Vector3(0, -30, 0), false/* offsetValue */);
 
-        Vector3 mapPosition = MapSpawner.instance.GetCurrentMapHolder().transform.position;
+        Vector3 mapPosition = MapSpawner.Instance.GetCurrentMapHolder().transform.position;
         mapPosition += new Vector3(0, -5, 0);
         GameManager.instance.GetPlayerBall().transform.position = mapPosition; // ballPosition;
         GameManager.instance.GetPlayerBall().SetActive(false);
@@ -155,7 +155,7 @@ public class GameStateEdit : GameStateBase
 
     public void AddHexToGrid(HexTypeEnum type, Vector3 position)
     {
-        GameObject hexInstance = HexBank.instance.GetDisabledHex(currentHexType, position, MapSpawner.instance.grid.transform);
+        GameObject hexInstance = HexBank.instance.GetDisabledHex(currentHexType, position, MapSpawner.Instance.grid.transform);
     
 
 
@@ -167,7 +167,7 @@ public class GameStateEdit : GameStateBase
     {
         List<MapElement> mapElements = new List<MapElement>();
 
-        Grid grid = MapSpawner.instance.grid;
+        Grid grid = MapSpawner.Instance.grid;
 
         foreach (Hex hex in grid.GetComponentsInChildren<Hex>())
         {

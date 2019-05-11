@@ -8,12 +8,19 @@ public class MapSpawner : MonoBehaviour
 {
 
     // Giver her a level and she will spawn a map... Its a bit messy at the moment but she will do for now :)
-
-
-    //public GameObject mapHolder;
-
-
-    public static MapSpawner instance;
+    private static MapSpawner instance;
+    public static MapSpawner Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = GameObject.FindObjectOfType<MapSpawner>();
+                if (instance == null) Debug.LogError("No instance of MapSpawner was found.");
+            }
+            return instance;
+        }
+    }
 
     [SerializeField] public Grid grid;
 
@@ -138,17 +145,13 @@ public class MapSpawner : MonoBehaviour
 
     //}
 
-<<<<<<< HEAD
         // hexAttribute
         // destroy old hexes 
-        foreach (Hex hex in grid.GetComponentsInChildren<Hex>())
-        {          
-            if (hex.gameObject.activeInHierarchy)
-            {
+        //foreach (Hex hex in grid.GetComponentsInChildren<Hex>())
+        //{          
+        //    if (hex.gameObject.activeInHierarchy)
+        //    {
               //  hex.gameObject.transform.parent = grid.transform;
-=======
-
->>>>>>> levelEditor
 
     GameObject killZone;
 
