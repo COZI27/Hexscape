@@ -642,7 +642,7 @@ MonoBehaviour:
   hexMask:
     serializedVersion: 2
     m_Bits: 8192
-  worldMousePos: {x: -7, y: 0, z: -3.4641016}
+  worldMousePos: {x: 8.5, y: 0, z: 12.990381}
 --- !u!114 &163908980
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -744,13 +744,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89f8f0ed01181bb4fa879cfd60afa4ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridRadius: 20
+  gridRadius: 12
   hexSize: 0.5774
   gridWidth: 10
   gridHeight: 10
   hexWidth: 1.0000862
   hexHeight: 1.1548
-  pointToFind: {x: 2.95, y: -10.94}
+  pointToFind: {x: 4.01, y: 2.14}
   testTrackerObj: {fileID: 640254122}
 --- !u!4 &212664842 stripped
 Transform:
@@ -1795,7 +1795,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 640254122}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.95, y: 0, z: -10.94}
+  m_LocalPosition: {x: 4.01, y: 0, z: 2.14}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
