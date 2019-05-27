@@ -617,14 +617,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 163908976}
-  m_LocalRotation: {x: -0, y: -0.72084576, z: -0, w: 0.6930957}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1467916123}
+  - {fileID: 1871324741}
   m_Father: {fileID: 0}
   m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: -92.24901, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &163908979
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -642,7 +643,7 @@ MonoBehaviour:
   hexMask:
     serializedVersion: 2
     m_Bits: 8192
-  worldMousePos: {x: -7.6508975, y: 0, z: -3.8031297}
+  worldMousePos: {x: -10, y: 0, z: -3.4641016}
 --- !u!114 &163908980
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -739,7 +740,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 163908976}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 89f8f0ed01181bb4fa879cfd60afa4ce, type: 3}
   m_Name: 
@@ -750,7 +751,7 @@ MonoBehaviour:
   gridHeight: 10
   hexWidth: 1.0000862
   hexHeight: 1.1548
-  pointToFind: {x: -3.84, y: 1.57}
+  pointToFind: {x: 1.74, y: 4.56}
   testTrackerObj: {fileID: 640254122}
 --- !u!4 &212664842 stripped
 Transform:
@@ -1795,7 +1796,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 640254122}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.84, y: 0.61, z: 1.57}
+  m_LocalPosition: {x: -3.1, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -8469,6 +8470,57 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1835093307}
   m_CullTransparentMesh: 0
+--- !u!1 &1871324740
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1871324741}
+  - component: {fileID: 1871324742}
+  m_Layer: 0
+  m_Name: NewHexGrid
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1871324741
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1871324740}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 163908978}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1871324742
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1871324740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89f8f0ed01181bb4fa879cfd60afa4ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gridRadius: 8
+  hexSize: 0.5774
+  gridWidth: 10
+  gridHeight: 10
+  hexWidth: 1.0000862
+  hexHeight: 1.1548
+  pointToFind: {x: -3.1, y: 0}
+  testTrackerObj: {fileID: 640254122}
 --- !u!1001 &1964845351
 PrefabInstance:
   m_ObjectHideFlags: 0
