@@ -107,6 +107,7 @@ public class GameManager : MonoBehaviour {
 
     public PlayerProfile loadedProfile { get; set; }
 
+    
 
     private void MakeSingleton()
     {
@@ -153,6 +154,9 @@ public class GameManager : MonoBehaviour {
     {
         MakeSingleton();
         InitialiseTransitions();
+
+       // editHexPicked(currentGameState.currentEditHexType);
+
     }
 
     // Use this for initialization
@@ -319,6 +323,15 @@ public class GameManager : MonoBehaviour {
         currentGameState.PlayGroundThud();
                 
     }
+
+    public void EditUIHexClick (HexTypeEnum hexType)
+    {
+
+         currentGameState.currentEditHexType = hexType;
+         editHexPicked(hexType);
+    }
+
+    public HexTypeUIElement.NewUIEditHexPicked editHexPicked;
 
     #endregion External Events
 

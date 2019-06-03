@@ -198,8 +198,23 @@ public class MapSpawner : MonoBehaviour
         grid.transform.rotation = Quaternion.Euler(0,yRot,0);
     }
 
+    public void RemoveHexAtPoint(Vector2Int gridPos)
+    {
+        if (mapRefrence.ContainsKey(gridPos)) // need to replace
+        {
+            Hex oldHex = mapRefrence[gridPos];
+            oldHex.FinishDestroy();
+            mapRefrence.Remove(gridPos);
+
+            GameManager.instance.ReplaceTilePassScores(oldHex.destroyPoints, 0);
+
+        }
+    }
+
     public Hex SpawnAHex(MapElement hexInfo)
     {
+       
+
         Hex hexInstance = HexBank.instance.GetDisabledHex(hexInfo.GetHex().typeOfHex, grid.CellToWorld(new Vector3Int(hexInfo.gridPos.x, hexInfo.gridPos.y, 0)), grid.transform).GetComponent<Hex>();
         hexInstance.transform.rotation = grid.transform.rotation;
         if (hexInfo.hexAttribute != null) hexInfo.hexAttribute.AddAttributeToHex(hexInstance);
@@ -223,6 +238,7 @@ public class MapSpawner : MonoBehaviour
 
         return hexInstance;
     }
+    
 
     public void UpdateMapRefence ()
     {

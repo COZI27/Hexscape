@@ -9,7 +9,7 @@ public class GameStateEdit : GameStateBase
 
     private int currentLevelIndex = 0;
 
-    private HexTypeEnum currentHexType = HexTypeEnum.HexTile_ClickDestroy;
+    
 
     
 
@@ -48,6 +48,10 @@ public class GameStateEdit : GameStateBase
             { Command.End, new TransitionData<GameStateBase>(typeof(GameStateEndless))  }
             
         };
+
+        GameManager.instance.editHexPicked(currentEditHexType);
+
+        EditUIManager.Instance.ShowPanel(true);
     }
 
     public override void Pause()
@@ -97,10 +101,10 @@ public class GameStateEdit : GameStateBase
     }
 
     // Use this for initialization
-    private void Start()
-    {
 
-    }
+
+
+
 
     // Update is called once per frame
     public override void StateUpdate()
@@ -132,22 +136,25 @@ public class GameStateEdit : GameStateBase
             SaveLevel();
         }
 
-        if (Input.GetMouseButtonDown(0))
+        
+
+        if (Input.GetMouseButtonDown(0)) // MouseOverUI() == false
         {
+             
             Vector2Int mouseGridPos =  GridFinder.instance.MouseToGridPoint();
 
-            Hex currnetHex = GridFinder.instance.GetHexAtPoint(mouseGridPos);
+            MapElement element = new MapElement(currentEditHexType, mouseGridPos);
+            MapSpawner.Instance.SpawnAHex(element);
 
-            if (currnetHex == null)
-            {
-                AddHexToGrid(currentHexType, GridFinder.instance.GridPosToWorld(mouseGridPos));
-            } else
-            {
-                HexBank.instance.AddDisabledHex(currnetHex.gameObject);
-            }
-            
-            
+        } else if (Input.GetMouseButtonDown(1))
+        {
+            Vector2Int mouseGridPos = GridFinder.instance.MouseToGridPoint();
+
+           
+            MapSpawner.Instance.RemoveHexAtPoint(mouseGridPos);
+
         }
+        
 
 
 
@@ -155,7 +162,7 @@ public class GameStateEdit : GameStateBase
 
     public void AddHexToGrid(HexTypeEnum type, Vector3 position)
     {
-        GameObject hexInstance = HexBank.instance.GetDisabledHex(currentHexType, position, MapSpawner.Instance.grid.transform);
+        GameObject hexInstance = HexBank.instance.GetDisabledHex(currentEditHexType, position, MapSpawner.Instance.grid.transform);
     
 
 
