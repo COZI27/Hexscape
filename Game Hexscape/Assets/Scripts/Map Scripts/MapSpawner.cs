@@ -22,7 +22,7 @@ public class MapSpawner : MonoBehaviour
         }
     }
 
-    [SerializeField] public Grid grid;
+    [SerializeField] public HexagonGrid grid;
 
     // Creates a dictionary for Hex to its position to be sent to the gridfinder
     Dictionary<Vector2Int, Hex> mapRefrence = new Dictionary<Vector2Int, Hex>();
@@ -78,7 +78,7 @@ public class MapSpawner : MonoBehaviour
         }
 
         CalculateLongLengthFromShort();
-        grid.cellSize = new Vector3(shortLength, longLength, 0);
+        //grid.cellSize = new Vector3(shortLength, longLength, 0); //TODO: re-enable this line
 
 
 
@@ -200,28 +200,37 @@ public class MapSpawner : MonoBehaviour
 
     public Hex SpawnAHex(MapElement hexInfo)
     {
-        Hex hexInstance = HexBank.instance.GetDisabledHex(hexInfo.GetHex().typeOfHex, grid.CellToWorld(new Vector3Int(hexInfo.gridPos.x, hexInfo.gridPos.y, 0)), grid.transform).GetComponent<Hex>();
-        hexInstance.transform.rotation = grid.transform.rotation;
-        if (hexInfo.hexAttribute != null) hexInfo.hexAttribute.AddAttributeToHex(hexInstance);
-        SetGameobjectWidth(hexInstance.gameObject);
 
-       if ( mapRefrence.ContainsKey(hexInfo.gridPos) ) // need to replace
-        {
-            Hex oldHex = mapRefrence[hexInfo.gridPos];
-            oldHex.FinishDestroy();
-            mapRefrence[hexInfo.gridPos] = hexInstance;
+        Vector3? cellWorldPosition = grid.CellToWorld(new Vector2Int(hexInfo.gridPos.x, hexInfo.gridPos.y));
 
-            GameManager.instance.ReplaceTilePassScores(oldHex.destroyPoints, hexInstance.destroyPoints);
-
-        } else
-        {
-            mapRefrence.Add(hexInfo.gridPos, hexInstance);
-
-            GameManager.instance.ReplaceTilePassScores(0, hexInstance.destroyPoints);
-        }
+        if (cellWorldPosition == null) return null; // position outside of grid space
 
 
-        return hexInstance;
+
+            Hex hexInstance = HexBank.Instance.GetDisabledHex(hexInfo.GetHex().typeOfHex, cellWorldPosition.Value, grid.transform).GetComponent<Hex>();
+            hexInstance.transform.rotation = grid.transform.rotation;
+            if (hexInfo.hexAttribute != null) hexInfo.hexAttribute.AddAttributeToHex(hexInstance);
+            SetGameobjectWidth(hexInstance.gameObject);
+
+            if (mapRefrence.ContainsKey(hexInfo.gridPos)) // need to replace
+            {
+                Hex oldHex = mapRefrence[hexInfo.gridPos];
+                oldHex.FinishDestroy();
+                mapRefrence[hexInfo.gridPos] = hexInstance;
+
+                GameManager.instance.ReplaceTilePassScores(oldHex.destroyPoints, hexInstance.destroyPoints);
+
+            }
+            else
+            {
+                mapRefrence.Add(hexInfo.gridPos, hexInstance);
+
+                GameManager.instance.ReplaceTilePassScores(0, hexInstance.destroyPoints);
+            }
+
+
+            return hexInstance;
+
     }
 
     public void UpdateMapRefence ()
@@ -300,7 +309,7 @@ public class MapSpawner : MonoBehaviour
     //    {
     //        // Hex hexInstance = Instantiate(element.hexPrefab, grid.CellToWorld(new Vector3Int(element.gridPos.x, element.gridPos.y, 0)), Quaternion.Euler(-90, 0, 0), holder.transform).GetComponent<Hex>();
 
-    //        Hex hexInstance = HexBank.instance.GetDisabledHex(element.GetHex().typeOfHex, grid.CellToWorld(new Vector3Int(element.gridPos.x, element.gridPos.y, 0)), holder.transform).GetComponent<Hex>();
+    //        Hex hexInstance = HexBank.Instance.GetDisabledHex(element.GetHex().typeOfHex, grid.CellToWorld(new Vector3Int(element.gridPos.x, element.gridPos.y, 0)), holder.transform).GetComponent<Hex>();
     //        if (element.hexAttribute != null) element.hexAttribute.AddAttributeToHex(hexInstance);
     //        SetGameobjectWidth(hexInstance.gameObject);
     //        //   hexInstance.prefab = element.hexPrefab;
@@ -339,8 +348,8 @@ public class MapSpawner : MonoBehaviour
     //    foreach (MapElement element in EndlessGameplayManager.instance.levels[level].hexs)
     //    {
 
-    //        //  HexBank.instance.PullHex(element.GetHex());
-    //        Hex hexInstance = HexBank.instance.GetDisabledHex(element.GetHex().typeOfHex, grid.CellToWorld(new Vector3Int(element.gridPos.x, element.gridPos.y, 0)), holder.transform).GetComponent<Hex>();
+    //        //  HexBank.Instance.PullHex(element.GetHex());
+    //        Hex hexInstance = HexBank.Instance.GetDisabledHex(element.GetHex().typeOfHex, grid.CellToWorld(new Vector3Int(element.gridPos.x, element.gridPos.y, 0)), holder.transform).GetComponent<Hex>();
 
 
     //        SetGameobjectWidth(hexInstance.gameObject);
@@ -370,7 +379,7 @@ public class MapSpawner : MonoBehaviour
 
     //    foreach (mapelement element in endlessgameplaymanager.instance.levels[level].hexs)
     //    {
-    //        hex hexinstance = hexbank.instance.getdisabledhex(element.gethex().typeofhex, grid.celltoworld(new vector3int(element.gridpos.x, element.gridpos.y, 0)), holder.transform).getcomponent<hex>();
+    //        hex hexinstance = HexBank.Instance.getdisabledhex(element.gethex().typeofhex, grid.celltoworld(new vector3int(element.gridpos.x, element.gridpos.y, 0)), holder.transform).getcomponent<hex>();
 
 
     //        setgameobjectwidth(hexinstance.gameobject);
@@ -438,7 +447,11 @@ public class MapSpawner : MonoBehaviour
             }
 
             grid.transform.rotation = Quaternion.Euler(Vector3.zero);
-            Hex hexInstance = HexBank.instance.GetDisabledHex(typeToSpawn, grid.CellToWorld(new Vector3Int(hexLoc.x, hexLoc.y, 0)), grid.transform).GetComponent<Hex>();
+
+            Vector3? cellWorldPosition = grid.CellToWorld(new Vector2Int(hexLoc.x, hexLoc.y));
+            if (cellWorldPosition == null) return null; // Cell index outside of grid area 
+
+            Hex hexInstance = HexBank.Instance.GetDisabledHex(typeToSpawn, cellWorldPosition.Value , grid.transform).GetComponent<Hex>();
 
             // Sets the local position of the Hex to match the level holder
             hexInstance.gameObject.transform.localPosition = new Vector3(hexInstance.gameObject.transform.position.x, 0, hexInstance.gameObject.transform.position.z);

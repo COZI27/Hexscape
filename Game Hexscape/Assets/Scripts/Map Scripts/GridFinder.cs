@@ -16,7 +16,7 @@ public class GridFinder : MonoBehaviour
     private Quaternion currentMapRotation;
     
 
-  [SerializeField]  private Grid grid; // refrence to the grid 
+  [SerializeField]  private HexagonGrid grid; // refrence to the grid 
 
 
     public Vector2Int WorldToGridPoint(Vector3 position)
@@ -26,6 +26,9 @@ public class GridFinder : MonoBehaviour
         position =  Quaternion.Inverse( currentMapRotation) *  position; // need to allign the rotation
       
         Debug.DrawRay(position, Vector3.up * 4, Color.red);
+
+
+
         return new Vector2Int(grid.WorldToCell(position).x, grid.WorldToCell(position).y);
 
        
@@ -45,7 +48,7 @@ public class GridFinder : MonoBehaviour
 
     public Vector3 GridPosToWorld(int x, int y)
     {
-        return grid.CellToWorld(new Vector3Int(x, y, 0));
+        return grid.CellToWorld(new Vector2Int(x, y)).Value;
     }
 
     public Vector3 GridPosToWorld(Vector2Int position)
@@ -64,7 +67,7 @@ public class GridFinder : MonoBehaviour
         }
 
 
-        if (grid == null) grid = MapSpawner.Instance.grid;
+        //if (grid == null) grid = MapSpawner.Instance.grid;
 
         
     }

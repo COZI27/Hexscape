@@ -143,7 +143,7 @@ public class GameStateEdit : GameStateBase
                 AddHexToGrid(currentHexType, GridFinder.instance.GridPosToWorld(mouseGridPos));
             } else
             {
-                HexBank.instance.AddDisabledHex(currnetHex.gameObject);
+                HexBank.Instance.AddDisabledHex(currnetHex.gameObject);
             }
             
             
@@ -155,7 +155,7 @@ public class GameStateEdit : GameStateBase
 
     public void AddHexToGrid(HexTypeEnum type, Vector3 position)
     {
-        GameObject hexInstance = HexBank.instance.GetDisabledHex(currentHexType, position, MapSpawner.Instance.grid.transform);
+        GameObject hexInstance = HexBank.Instance.GetDisabledHex(currentHexType, position, MapSpawner.Instance.grid.transform);
     
 
 
@@ -167,7 +167,7 @@ public class GameStateEdit : GameStateBase
     {
         List<MapElement> mapElements = new List<MapElement>();
 
-        Grid grid = MapSpawner.Instance.grid;
+        HexagonGrid grid = MapSpawner.Instance.grid;
 
         foreach (Hex hex in grid.GetComponentsInChildren<Hex>())
         {

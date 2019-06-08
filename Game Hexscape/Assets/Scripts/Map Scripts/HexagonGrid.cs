@@ -28,15 +28,14 @@ public class HexagonGrid : MonoBehaviour
     [SerializeField]
     private float hexHeight; // used to calculate positions on the vertical axis of the grid
 
-    [SerializeField]
-    public Vector2 pointToFind = new Vector2(0, 0);
+    private Vector2 pointToFind = new Vector2(0, 0);
 
     private Vector2 foundHexPoint;
 
     [SerializeField]
     private Dictionary<Vector2Int, HexCell> hexCells;
 
-    public GameObject testTrackerObj; // TEMP - used as a way to interact with the grid
+    //public GameObject testTrackerObj; // TEMP - used as a way to interact with the grid
 
 
     [System.Serializable]
@@ -52,9 +51,7 @@ public class HexagonGrid : MonoBehaviour
         {
             Vector3 returnPos = new Vector3(worldPosition.x, 0, worldPosition.y);
 
-            
-
-            return  worldPosition;
+            return worldPosition;
         }
 
         public Vector2 worldPosition; // the world position of the centre of the cell. Should be relative to the grid, and also use the grid's y position
@@ -75,42 +72,30 @@ public class HexagonGrid : MonoBehaviour
                       centre.y + size * Mathf.Sin(angle_rad) // + this.transform.position.z
                       );
 
-        return RotatePointAroundPivot(cornerPoint, 
-                                        new Vector3(centre.x, this.transform.position.y, centre.y), 
+        return RotatePointAroundPivot(cornerPoint,
+                                        new Vector3(centre.x, this.transform.position.y, centre.y),
                                         new Vector3(this.transform.rotation.eulerAngles.x, this.transform.rotation.eulerAngles.y, this.transform.rotation.eulerAngles.z)
                                         );
     }
 
-    //public Vector3 GetHexPosFromWorldCoordinates(Vector3 worldCoord)
-    //{
-    //    Vector2 hexPos = hexCells[PointToHex(worldCoord)].worldPosition; // note
-    //    Vector3 returnPos = new Vector3(hexPos.x, this.gameObject.transform.position.y, hexPos.y);
-
-    //    return returnPos;
-    //}
-
-    public Vector3 GetWorldPosFromHex(Vector2Int hexIndex)
+    public Vector3? GetWorldPosFromHex(Vector2Int hexIndex)
     {
         if (hexCells.ContainsKey(hexIndex))
         {
             HexCell cell = hexCells[hexIndex];
 
-            //NOTE: The below additions are intented to match the grid up with the world transform of the owning object,
-            // but this breaks the foundPoint to hex code.
-            // So that this functions - the additions have been diabled for the time being, which results in unusual grid movement.
-
             Vector3 cellPos = new Vector3(cell.worldPosition.x, 0, cell.worldPosition.y);
 
             return cellPos + this.transform.position;
 
-            return new Vector3(cell.worldPosition.x, // + this.transform.position.x, 
-                this.transform.position.y,
-                cell.worldPosition.y //    + this.transform.position.z
-                );
         }
-        else return new Vector3();
-}
+        else return null;
+    }
 
+    public Quaternion GetGridRotation()
+    {
+        return this.transform.rotation;
+    }
 
 
     [ExecuteInEditMode]
@@ -128,14 +113,11 @@ public class HexagonGrid : MonoBehaviour
 
     private void Update()
     {
-        if (testTrackerObj != null)
-        {
-            pointToFind = new Vector2(testTrackerObj.transform.position.x, testTrackerObj.transform.position.z);
-
-            foundHexPoint = PointToHex(pointToFind);
-
-            //Debug.Log("Actual ptf =" + pointToFind + "hex found = " + foundHexPoint);
-        }
+        //if (testTrackerObj != null)
+        //{
+        //    pointToFind = new Vector2(testTrackerObj.transform.position.x, testTrackerObj.transform.position.z);
+        //    foundHexPoint = PointToHex(pointToFind);
+        //}
     }
 
 
@@ -216,7 +198,18 @@ public class HexagonGrid : MonoBehaviour
     }
 
 
-    Vector2Int PointToHex(Vector2 point)
+    public Vector2Int WorldToCell(Vector3 worldPosition)
+    {
+        return PointToHex(new Vector2(worldPosition.x, worldPosition.z));
+    }
+
+    public Vector3? CellToWorld(Vector2Int cellIndex)
+    {
+        return GetWorldPosFromHex(cellIndex);
+    }
+
+
+    private Vector2Int PointToHex(Vector2 point)
     {
         // Account for the grid's offset relative to the point
         point.x -= this.transform.position.x;
@@ -237,13 +230,13 @@ public class HexagonGrid : MonoBehaviour
 
             c = ((Mathf.Sqrt(3) / 3 * rotatedPoint.x - 1.0f / 3 * rotatedPoint.z) / hexSize);
 
-             r = ((2.0f / 3 * rotatedPoint.z) / hexSize);
+            r = ((2.0f / 3 * rotatedPoint.z) / hexSize);
         }
         else
         {
-             c = ((Mathf.Sqrt(3) / 3 * point.x - 1.0f / 3 * point.y) / hexSize);
+            c = ((Mathf.Sqrt(3) / 3 * point.x - 1.0f / 3 * point.y) / hexSize);
 
-             r = ((2.0f / 3 * point.y) / hexSize);
+            r = ((2.0f / 3 * point.y) / hexSize);
         }
 
 
@@ -264,37 +257,18 @@ public class HexagonGrid : MonoBehaviour
 
         //return new Vector2Int((int)roundedCoords.x - (int)offset.x, (int)roundedCoords.y - (int)offset.y);
 
-
         return new Vector2Int((int)roundedCoords.x, (int)roundedCoords.y);
-
     }
 
 
-    int debugBuffer = 0;
-    int debugBufferMax = 1000;
-    bool CanrPintDebug()
-    {
-        if (debugBuffer >= debugBufferMax)
-        {
-            debugBuffer = 0;
-            return true;
-        }
-        else
-        {
-            debugBuffer++;
-            return false;
-        }
-    }
-
-
-    Vector2 RoundHexCoords(Vector2 coord)
+    private Vector2 RoundHexCoords(Vector2 coord)
     {
         Vector2 returnCoord = ConvertCubeToAxial(RoundCubeCoords(ConvertAxielToCube(coord)));
         return new Vector2(returnCoord.x, (int)returnCoord.y);
     }
 
 
-    Vector3 RoundCubeCoords(Vector3 coord)
+    private Vector3 RoundCubeCoords(Vector3 coord)
     {
         float rx = Mathf.Round(coord.x);
         float ry = Mathf.Round(coord.y);
@@ -316,14 +290,14 @@ public class HexagonGrid : MonoBehaviour
     }
 
 
-    Vector2 ConvertCubeToAxial(Vector3 coord)
+    private Vector2 ConvertCubeToAxial(Vector3 coord)
     {
         var q = coord.x;
         var r = coord.z;
         return new Vector2(q, r);
     }
 
-    Vector3 ConvertAxielToCube(Vector2 coord)
+    private Vector3 ConvertAxielToCube(Vector2 coord)
     {
         var x = coord.x;
         var z = coord.y;
@@ -373,7 +347,7 @@ public class HexagonGrid : MonoBehaviour
         Vector3 dir = point - pivot; // get point direction relative to pivot
         dir = Quaternion.Euler(angles) * dir; // rotate it
         point = dir + pivot; // calculate rotated point
-        return point; 
+        return point;
     }
 
 
@@ -384,44 +358,52 @@ public class HexagonGrid : MonoBehaviour
 
         if (!enabled) return;
 
-        #region Highlight Found Hex
-        Gizmos.color = Color.magenta;
+        //#region Highlight Found Hex
+        //Gizmos.color = Color.magenta;
 
-        Vector2Int foundPoint = PointToHex(pointToFind);
+        //Vector2Int foundPoint = PointToHex(pointToFind);
 
-        if (hexCells.ContainsKey(foundPoint) )
-        {
-            HexCell foundCell = hexCells[(new Vector2Int(foundPoint.x, foundPoint.y))];
-            Vector3[] corners;
-            bool useRotated = true;
-            if (useRotated)
-            {
+        //if (hexCells.ContainsKey(foundPoint))
+        //{
+        //    HexCell foundCell = hexCells[(new Vector2Int(foundPoint.x, foundPoint.y))];
+        //    Vector3[] corners;
+        //    //bool useRotated = true;
+        //    //if (useRotated)
+        //    //{
 
-                Vector3 rotatedPoint = RotatePointAroundPivot(
-                                                GetWorldPosFromHex(foundCell.cellIndex), 
-                                                this.gameObject.transform.position,
-                                                new Vector3(0, this.transform.rotation.eulerAngles.y, this.transform.rotation.eulerAngles.z)
-                                                );
+        //    Vector3? hexWorldPos= GetWorldPosFromHex(foundCell.cellIndex);
 
-                corners = GetHexCorners(new Vector2(rotatedPoint.x, rotatedPoint.z));
-            }
-            else
-            {
-                corners = GetHexCorners(new Vector2(foundCell.worldPosition.x, foundCell.worldPosition.y));
-            }
+        //    if (hexWorldPos != null)
+        //    {
+        //        Vector3 rotatedPoint = RotatePointAroundPivot(
+        //                                        hexWorldPos.Value,
+        //                                        this.gameObject.transform.position,
+        //                                        new Vector3(0, this.transform.rotation.eulerAngles.y, this.transform.rotation.eulerAngles.z)
+        //                                        );
 
-            for (int i = 0; i < 6; ++i)
-                corners[i] += new Vector3(0, 0.1f, 0);
+        //        corners = GetHexCorners(new Vector2(rotatedPoint.x, rotatedPoint.z));
 
-            for (int i = 0; i < 6; ++i)
-            {
-                Gizmos.DrawLine(
-                    corners[i],
-                    corners[i == 5 ? 0 : i + 1]
-                    );
-            }
-        }
-        #endregion
+
+        //        for (int i = 0; i < 6; ++i)
+        //            corners[i] += new Vector3(0, 0.1f, 0);
+
+        //        for (int i = 0; i < 6; ++i)
+        //        {
+        //            Gizmos.DrawLine(
+        //                corners[i],
+        //                corners[i == 5 ? 0 : i + 1]
+        //                );
+        //        }
+        //    }       
+        //    //}
+        //    //else
+        //    //{
+        //    //    corners = GetHexCorners(new Vector2(foundCell.worldPosition.x, foundCell.worldPosition.y));
+        //    //}
+
+
+        //}
+        //#endregion
 
         #region Draw Hex Board
 
@@ -430,9 +412,9 @@ public class HexagonGrid : MonoBehaviour
         if (hexCells.Count > 0)
         {
             foreach (KeyValuePair<Vector2Int, HexCell> cell in hexCells)
-            {           
+            {
                 Vector3 rotatedPoint = RotatePointAroundPivot(
-                     GetWorldPosFromHex(cell.Value.cellIndex),
+                    GetWorldPosFromHex(cell.Value.cellIndex).Value,
                     this.gameObject.transform.position,
                     new Vector3(0, this.transform.rotation.eulerAngles.y, this.transform.rotation.eulerAngles.z)
                     );

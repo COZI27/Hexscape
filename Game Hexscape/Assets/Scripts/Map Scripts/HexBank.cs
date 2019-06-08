@@ -3,11 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-[System.Serializable]
+[System.Serializable, ExecuteInEditMode]
 public class HexBank : MonoBehaviour
 {
+    private static HexBank instance;
+    public static HexBank Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = GameObject.FindObjectOfType<HexBank>();
+                if (instance == null) Debug.LogError("No instance of HexBank was found.");
+            }
+            return instance;
+        }
+    }
 
-    public static HexBank instance;
 
     [SerializeField]
     public GameObject[] hexPrefabs;

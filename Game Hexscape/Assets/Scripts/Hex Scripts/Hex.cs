@@ -177,7 +177,7 @@ public class Hex : MonoBehaviour
 
 
         gameObject.SetActive(false);
-        HexBank.instance.AddDisabledHex(gameObject); // puts the hex back into the bank (hex object pool)
+        HexBank.Instance.AddDisabledHex(gameObject); // puts the hex back into the bank (hex object pool)
 
 
     }

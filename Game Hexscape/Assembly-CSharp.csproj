@@ -88,10 +88,8 @@
     <Compile Include="Assets\Scripts\Managers\MouseManager.cs" />
     <Compile Include="Assets\Scripts\Managers\RippleManager.cs" />
     <Compile Include="Assets\Scripts\Map Scripts\GridFinder.cs" />
-    <Compile Include="Assets\Scripts\Map Scripts\HexagonalGrid.cs" />
     <Compile Include="Assets\Scripts\Map Scripts\HexagonGrid.cs" />
     <Compile Include="Assets\Scripts\Map Scripts\HexBank.cs" />
-    <Compile Include="Assets\Scripts\Map Scripts\HexGrid.cs" />
     <Compile Include="Assets\Scripts\Map Scripts\Level.cs" />
     <Compile Include="Assets\Scripts\Map Scripts\LevelEditor.cs" />
     <Compile Include="Assets\Scripts\Map Scripts\MapSpawner.cs" />

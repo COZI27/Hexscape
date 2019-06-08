@@ -140,7 +140,7 @@ public class MapElement
 
     public Hex GetHex ()
     {
-        return HexBank.instance.GetHexFromType(hexType); ;
+        return HexBank.Instance.GetHexFromType(hexType); ;
     }
 
     public MapElement(HexTypeEnum hexType, Vector2Int gridPos, ElementAttribute hexAttributes = null)

@@ -71,14 +71,14 @@ public class LevelEditor : MonoBehaviour
                         Hex oldHex = Physics.OverlapSphere(worldPos, 0.1f, hexMask)[0].GetComponent<Hex>();
                         Debug.Log(oldHex);
 
-                        HexBank.instance.AddDisabledHex(oldHex.gameObject);
+                        HexBank.Instance.AddDisabledHex(oldHex.gameObject);
                         oldHex.gameObject.SetActive(false);
                     }
 
                     if (i != 0) // if its not null, place a hex at that location
                     {
 
-                        Hex hexInstance = HexBank.instance.GetDisabledHex(HexBank.instance.GetTypeAtIndex(i - 1), (worldPos), grid.transform).GetComponent<Hex>();
+                        Hex hexInstance = HexBank.Instance.GetDisabledHex(HexBank.Instance.GetTypeAtIndex(i - 1), (worldPos), grid.transform).GetComponent<Hex>();
                         
                        
                     }
@@ -102,6 +102,7 @@ public class LevelEditor : MonoBehaviour
 
     private void OnDrawGizmos()
     {
+        if (!editLevel) return;
         Gizmos.color = Color.red;
         Gizmos.color = Color.blue;
 
