@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
+
 
 public class TransitionData<T> where T : GameStateBase //where T :  System.IConvertible
 {
@@ -96,12 +98,16 @@ public class GameStateBase
         public int levelScore; // The achieved on the current level
         public int levelIndex;
         public int passScore;
+
+        
     }
 
     protected GameSessionData currentSessionData; // TEMP?: Subject to change/relocation
     public GameSessionData GetSessionData() { return currentSessionData; }
 
     protected SoundEffectEnum[] hexClickSounds;
+
+    public HexTypeEnum currentEditHexType = HexTypeEnum.HexTile_ClickDestroy; // for the editor remembers the current edit thingo 
 
     #region State Initialisation
     public virtual void StartGameState()
@@ -239,5 +245,11 @@ public class GameStateBase
     //    }
     //    return true;
     //}
+
+
+    public bool MouseOverUI ()
+    {
+        return EventSystem.current.IsPointerOverGameObject();
+    }
 }
 

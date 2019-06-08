@@ -83,6 +83,7 @@ public class LevelEditor : MonoBehaviour
                        
                     }
 
+                    Debug.Log(i);
 
 
                 }
