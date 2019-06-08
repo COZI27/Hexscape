@@ -55,7 +55,7 @@ public class HexTypeUIElement : MonoBehaviour
 
     public void SetUp(HexTypeEnum hexType)
     {
-        Hex hex = HexBank.instance.GetHexFromType(hexType);
+        Hex hex = HexBank.Instance.GetHexFromType(hexType);
 
         MeshRenderer newMeshRend = hex.GetComponent<MeshRenderer>();
         MeshRenderer oldMeshRend = GetComponent<MeshRenderer>();

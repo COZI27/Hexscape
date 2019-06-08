@@ -22,7 +22,7 @@ public class MapSpawner : MonoBehaviour
         }
     }
 
-    [SerializeField] public Grid grid;
+    [SerializeField] public HexagonGrid grid;
 
     // Creates a dictionary for Hex to its position to be sent to the gridfinder
     Dictionary<Vector2Int, Hex> mapRefrence = new Dictionary<Vector2Int, Hex>();
@@ -78,7 +78,7 @@ public class MapSpawner : MonoBehaviour
         }
 
         CalculateLongLengthFromShort();
-        grid.cellSize = new Vector3(shortLength, longLength, 0);
+        //grid.cellSize = new Vector3(shortLength, longLength, 0);
 
 
 
@@ -215,7 +215,7 @@ public class MapSpawner : MonoBehaviour
     {
        
 
-        Hex hexInstance = HexBank.instance.GetDisabledHex(hexInfo.GetHex().typeOfHex, grid.CellToWorld(new Vector3Int(hexInfo.gridPos.x, hexInfo.gridPos.y, 0)), grid.transform).GetComponent<Hex>();
+        Hex hexInstance = HexBank.Instance.GetDisabledHex(hexInfo.GetHex().typeOfHex, grid.CellToWorld(new Vector2Int(hexInfo.gridPos.x, hexInfo.gridPos.y)).Value, grid.transform).GetComponent<Hex>();
         hexInstance.transform.rotation = grid.transform.rotation;
         if (hexInfo.hexAttribute != null) hexInfo.hexAttribute.AddAttributeToHex(hexInstance);
         SetGameobjectWidth(hexInstance.gameObject);
@@ -454,7 +454,7 @@ public class MapSpawner : MonoBehaviour
             }
 
             grid.transform.rotation = Quaternion.Euler(Vector3.zero);
-            Hex hexInstance = HexBank.instance.GetDisabledHex(typeToSpawn, grid.CellToWorld(new Vector3Int(hexLoc.x, hexLoc.y, 0)), grid.transform).GetComponent<Hex>();
+            Hex hexInstance = HexBank.Instance.GetDisabledHex(typeToSpawn, grid.CellToWorld(new Vector2Int(hexLoc.x, hexLoc.y) ).Value, grid.transform).GetComponent<Hex>();
 
             // Sets the local position of the Hex to match the level holder
             hexInstance.gameObject.transform.localPosition = new Vector3(hexInstance.gameObject.transform.position.x, 0, hexInstance.gameObject.transform.position.z);

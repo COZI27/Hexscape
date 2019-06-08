@@ -153,7 +153,7 @@ public class GameManager : MonoBehaviour {
     private void Awake()
     {
         MakeSingleton();
-        InitialiseTransitions();
+        //InitialiseTransitions();
 
        // editHexPicked(currentGameState.currentEditHexType);
 
@@ -219,33 +219,33 @@ public class GameManager : MonoBehaviour {
     // transitions contains the types of 
     Dictionary<StateTransition<System.Type, Command>, System.Type> transitions;
 
-    private void InitialiseTransitions()
-    {
+    //private void InitialiseTransitions()
+    //{
 
-        transitions = new Dictionary<StateTransition<System.Type, Command>, System.Type>
-        {
-            /* Initial Game State */
-            { new StateTransition<System.Type, Command>(typeof(GameStateInit), Command.End), typeof(GameStateMenuMain)  },
-            /*Main Menu*/
-            { new StateTransition<System.Type, Command>(typeof(GameStateMenuMain), Command.Begin), typeof(GameStateEndless)  },
-            /*Endless*/
-            { new StateTransition<System.Type, Command>(typeof(GameStateEndless), Command.QuitLevel), typeof(GameStateMenuMain)  },
-            { new StateTransition<System.Type, Command>(typeof(GameStateEndless), Command.End), typeof(GameStateEndlessScoreboard)  },
-           // { new StateTransition<System.Type, Command>(typeof(GameStateEndless), Command.End), typeof(GameStateMenuMain)  },
-            /*Endless Scoreboard*/
-            { new StateTransition<System.Type, Command>(typeof(GameStateEndlessScoreboard), Command.End), typeof(GameStateMenuMain)  },
-            { new StateTransition<System.Type, Command>(typeof(GameStateEndlessScoreboard), Command.Begin), typeof(GameStateMenuMain)  },
+    //    transitions = new Dictionary<StateTransition<System.Type, Command>, System.Type>
+    //    {
+    //        /* Initial Game State */
+    //        { new StateTransition<System.Type, Command>(typeof(GameStateInit), Command.End), typeof(GameStateMenuMain)  },
+    //        /*Main Menu*/
+    //        { new StateTransition<System.Type, Command>(typeof(GameStateMenuMain), Command.Begin), typeof(GameStateEndless)  },
+    //        /*Endless*/
+    //        { new StateTransition<System.Type, Command>(typeof(GameStateEndless), Command.QuitLevel), typeof(GameStateMenuMain)  },
+    //        { new StateTransition<System.Type, Command>(typeof(GameStateEndless), Command.End), typeof(GameStateEndlessScoreboard)  },
+    //       // { new StateTransition<System.Type, Command>(typeof(GameStateEndless), Command.End), typeof(GameStateMenuMain)  },
+    //        /*Endless Scoreboard*/
+    //        { new StateTransition<System.Type, Command>(typeof(GameStateEndlessScoreboard), Command.End), typeof(GameStateMenuMain)  },
+    //        { new StateTransition<System.Type, Command>(typeof(GameStateEndlessScoreboard), Command.Begin), typeof(GameStateMenuMain)  },
 
-            { new StateTransition<System.Type, Command>(typeof(GameStateMenuMain), Command.Edit), typeof(GameStateEdit)  }
-        };
+    //        { new StateTransition<System.Type, Command>(typeof(GameStateMenuMain), Command.Edit), typeof(GameStateEdit)  }
+    //    };
 
-        // NOTE: Could change the value of an entry at runtime, if necessary
-        // NOTE: It would also be possible to use a function/ delegate call or other type for the value
-        //      https://stackoverflow.com/questions/20983342/how-to-store-a-type-not-type-object-for-future-use
-        //      https://social.msdn.microsoft.com/Forums/en-US/0e4a2fc8-1db3-4093-8b83-83c598044917/syntax-help-calling-a-delegate-from-a-dictionary?forum=csharplanguage
-        // Note: May want to prevent/remove duplicate values (could use a custom "Add" method to check for conflicts)
+    //    // NOTE: Could change the value of an entry at runtime, if necessary
+    //    // NOTE: It would also be possible to use a function/ delegate call or other type for the value
+    //    //      https://stackoverflow.com/questions/20983342/how-to-store-a-type-not-type-object-for-future-use
+    //    //      https://social.msdn.microsoft.com/Forums/en-US/0e4a2fc8-1db3-4093-8b83-83c598044917/syntax-help-calling-a-delegate-from-a-dictionary?forum=csharplanguage
+    //    // Note: May want to prevent/remove duplicate values (could use a custom "Add" method to check for conflicts)
         
-    }
+    //}
 
 
 
