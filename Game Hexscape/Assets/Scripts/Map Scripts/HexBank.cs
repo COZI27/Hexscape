@@ -1,9 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 using System.Linq;
 
-[System.Serializable, ExecuteInEditMode]
+[System.Serializable, ExecuteInEditMode, InitializeOnLoad]
 public class HexBank : MonoBehaviour
 {
     private static HexBank instance;
@@ -39,7 +40,29 @@ public class HexBank : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        //Debug.Log("Awake");
+        //EditorApplication.quitting += CleanupSpawnedHexes;
     }
+
+    static HexBank()
+    {
+        EditorApplication.quitting += CleanupSpawnedHexes; // Delegated to destroy stored hexes as the application quits
+    }
+
+    // Destroys all hexes stored by the HexBank in the scene
+    static void CleanupSpawnedHexes()
+    {
+        //EditorApplication.Beep();
+
+        foreach (HexTypeHolder holder in HexBank.Instance.disableHexTypes)
+        {
+            foreach (GameObject hexObject in holder.disabledHexObjects)
+            {
+                Destroy(hexObject);
+            }
+        }
+    }
+
 
     public HexTypeEnum GetTypeAtIndex(int index)
     {
@@ -72,28 +95,36 @@ public class HexBank : MonoBehaviour
         }
     }
 
-    public GameObject GetDisabledHex(HexTypeEnum hexType, Vector3 position, Transform parent)
+    public GameObject GetDisabledHex(HexTypeEnum hexType, Vector3 position, Transform parent, int recursionAccumulator = 0)
     {
-        Quaternion rotation = Quaternion.Euler(-0, 0 ,0);
+        Quaternion rotation = Quaternion.Euler(-0, 0, 0);
 
         GameObject target;
         if (disableHexTypes.Exists(x => x.hexType == hexType) && disableHexTypes.Find(x => x.hexType == hexType).disabledHexObjects.Count != 0)
         {
-          target = disableHexTypes.Find(x => x.hexType == hexType).PullFirstHexObject();
-            
-        } else
+            target = disableHexTypes.Find(x => x.hexType == hexType).PullFirstHexObject();
+        }
+        else
         {
             GameObject newPrefab = hexPrefabs.ToList().Find(x => x.GetComponent<Hex>().typeOfHex == hexType);
             target = Instantiate(newPrefab);
             target.SetActive(false); // Set to false before the position is set in order to prevent OnEnable initiating visual effects prematurely
         }
 
-        target.transform.parent = parent;
-        target.transform.SetPositionAndRotation(position, rotation);
+        if (target != null)
+        {
+            target.transform.parent = parent;
+            target.transform.SetPositionAndRotation(position, rotation);
 
-        target.SetActive(true);
+            target.SetActive(true);
 
-        return target;
+            return target;
+        }
+
+        // In case a new hex fails to spawn; the method is called recursively until a target is found or recursion depth is too great.
+        // This was initially added as while using this method in the unity editor - the returned 'target' would sometimes be null. 
+        else if (recursionAccumulator < 4) return GetDisabledHex(hexType, position, parent, ++recursionAccumulator);
+        else return null;
     }
    
 
@@ -115,6 +146,17 @@ public class HexBank : MonoBehaviour
         public HexTypeHolder(HexTypeEnum newHexType)
         {
             this.hexType = newHexType;
+        }
+    }
+
+    private void DestroyHexBankElements()
+    {
+        foreach (HexTypeHolder holder in disableHexTypes)
+        {
+            foreach(GameObject hexObject in holder.disabledHexObjects)
+            {
+                Destroy(hexObject);
+            }
         }
     }
 }

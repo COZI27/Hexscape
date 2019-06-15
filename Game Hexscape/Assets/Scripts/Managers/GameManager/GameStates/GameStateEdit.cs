@@ -139,7 +139,7 @@ public class GameStateEdit : GameStateBase
 
         
 
-        if (Input.GetMouseButtonDown(0)) // MouseOverUI() == false
+        if (Input.GetMouseButtonDown(0) && MouseOverUI() == false)
         {
              
             Vector2Int mouseGridPos =  GridFinder.instance.MouseToGridPoint();
@@ -192,7 +192,7 @@ public class GameStateEdit : GameStateBase
         LevelLoader.Instance.SaveLevelFile(level); // will make it so folders to where you can save it are limited for player input
 
 
-    } // come back to 
+    } 
 
 
 

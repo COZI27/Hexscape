@@ -22,11 +22,22 @@ public class LevelEditorWindow : EditorWindow
 
 
 
+    HexTypeEnum hexType;
+    ElementAttribute attribute;
+    Vector2 location;
+
+    string[] attributeChoices = { "optionA", "optionB" };
+    int choiceIndex = 0;
+
+
+    Level levelBeingEdited;
 
     void OnEnable()
     {
         LastTool = Tools.current;
         Tools.current = Tool.None;
+
+        hexType = HexTypeEnum.HexTile_ClickDestroy; // Sets the initially chosen hex type
     }
 
     void OnDisable()
@@ -49,6 +60,7 @@ public class LevelEditorWindow : EditorWindow
     static void Init()
     {
         LevelEditorWindow window = (LevelEditorWindow)EditorWindow.GetWindow(typeof(LevelEditorWindow));
+
         window.Show();
     }
 
@@ -68,7 +80,9 @@ public class LevelEditorWindow : EditorWindow
         if (grid == null) grid = MapSpawner.Instance.grid;
         Debug.Log(MapSpawner.Instance.grid);
 
-        if (cursorHex ==  null) cursorHex = HexBank.Instance.GetDisabledHex(HexTypeEnum.HexTile_Digit0, Vector3.zero, grid.transform);
+        UpdateHexCursorObject();
+
+
 
         // Remove delegate listener if it has previously
         // been assigned.
@@ -154,14 +168,6 @@ public class LevelEditorWindow : EditorWindow
     }
 
 
-    HexTypeEnum hexType;
-    ElementAttribute attribute;
-    Vector2 location;
-
-    string[] attributeChoices = { "optionA", "optionB" };
-    int choiceIndex = 0;
-
-
     void DisplayHexAttributeOptions()
     {
         GUIStyle buttonStyle = new GUIStyle(GUI.skin.button);
@@ -219,11 +225,14 @@ public class LevelEditorWindow : EditorWindow
 
         GUILayout.FlexibleSpace();
         GUILayout.BeginHorizontal();
-        if (GUILayout.Button("CloseWindow", buttonStyle, buttonLayoutOptions))
-            this.Close();
+
+        if (GUILayout.Button("Load Level", buttonStyle, buttonLayoutOptions))
+            LoadLevel();
         GUILayout.Space(this.position.width - 310);
-        if (GUILayout.Button("Add Hex", buttonStyle, buttonLayoutOptions))
-            AddHexToLevel();
+        if (GUILayout.Button("New Level", buttonStyle, buttonLayoutOptions))
+            NewLevel();
+
+
         GUILayout.EndHorizontal();
 
         GUILayout.Space(40);
@@ -233,27 +242,29 @@ public class LevelEditorWindow : EditorWindow
 
 
         // Refreshes the popup window in order to update options
-        if (EditorApplication.isPlaying)
-        {
+        //if (EditorApplication.isPlaying)
+       // {
+
             if (prevHexType != hexType)
             {
                 UpdateAttributeChoices();
+                UpdateHexCursorObject();
                 Repaint();
             }
-        }
+        //}
     }
 
+    void LoadLevel()
+    {
+        //TODO: Display warning prompt
+        levelBeingEdited = LevelLoader.Instance.LoadLevelFile();
+    }
 
-
-    //void OnSceneGUI(SceneView sceneView)
-    //{
-    //    Vector3 mousePosition = Event.current.mousePosition;
-    //    mousePosition.y = sceneView.camera.pixelHeight - mousePosition.y;
-    //    mousePosition = sceneView.camera.ScreenToWorldPoint(mousePosition);
-    //    mousePosition.y = -mousePosition.y;
-
-    //    Debug.Log("Mouse Pos on Scene = " + mousePosition);
-    //}
+    void NewLevel()
+    {
+        //TODO: Display warning prompt
+        //TODO: Clear current level hexes
+    }
 
 
     private void ShowLayout_DigitAttribute()
@@ -284,14 +295,16 @@ public class LevelEditorWindow : EditorWindow
         //    // Display 'are you sure?'
         //}
 
-        if (EditorUtility.DisplayDialog("Add Hex to Level?",
-            "Are you sure you want to add " + hexType.ToString()
-            + " to " + LevelLoader.Instance.levelBeingEdited.levelName + "?", "Add", "Do Not Add"))
-        {
-            Debug.Log("HEX ADDED!");
-            LevelLoader.Instance.AddHexToLevel(hexType, location, attribute);
-            // levelBeingEdited.hexs[1] = new MapElement(HexTypeEnum.HexTile_MenuOptionEdit, new Vector2Int(1, 0), new MenuButtonElementAttribute(Command.Edit));
-        }
+    //    if (EditorUtility.DisplayDialog("Add Hex to Level?",
+    //        "Are you sure you want to add " + hexType.ToString()
+    //        + " to " + LevelLoader.Instance.levelBeingEdited.levelName + "?", "Add", "Do Not Add"))
+    //    {
+    //        Debug.Log("HEX ADDED!");
+    //        LevelLoader.Instance.AddHexToLevel(hexType, location, attribute);
+    //        // levelBeingEdited.hexs[1] = new MapElement(HexTypeEnum.HexTile_MenuOptionEdit, new Vector2Int(1, 0), new MenuButtonElementAttribute(Command.Edit));
+    //    }
+
+        //levelBeingEdited.hexs[int, int]
     }
 
     private void UpdateAttributeChoices()
@@ -319,11 +332,6 @@ public class LevelEditorWindow : EditorWindow
             return;
         }
 
-
-        
-
-      
-
         if (Event.current.type == EventType.MouseMove)
         {
             Ray mouseRay = HandleUtility.GUIPointToWorldRay(Event.current.mousePosition);
@@ -338,7 +346,7 @@ public class LevelEditorWindow : EditorWindow
 
                 Vector2Int targetGridPos = grid.WorldToCell(mousePos);
                 foundWorldPos = grid.CellToWorld(targetGridPos);
-                if (foundWorldPos == null) return; // no grid cell found
+                if (foundWorldPos == null) return; // No grid cell found
 
                 worldMousePos = foundWorldPos.Value;
                 worldMousePos.y = MapSpawner.Instance.grid.transform.position.y;
@@ -352,11 +360,23 @@ public class LevelEditorWindow : EditorWindow
 
     }
 
+    private void UpdateHexCursorObject()
+    {
+        Debug.Log("UpdateHexCursorObject");
+        if (cursorHex != null)
+        {
+            cursorHex.gameObject.SetActive(false);
+            HexBank.Instance.AddDisabledHex(cursorHex);
+        }
+
+        cursorHex = HexBank.Instance.GetDisabledHex(hexType, Vector3.zero, grid.transform);
+    } 
+
 
 
     private void DrawMousePosition()
     {
-        if (foundWorldPos != null)
+        if (cursorHex != null && foundWorldPos != null)
         {
             cursorHex.transform.position = foundWorldPos.Value;
             cursorHex.transform.rotation = grid.GetGridRotation();

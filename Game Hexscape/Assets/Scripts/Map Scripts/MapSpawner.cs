@@ -22,6 +22,7 @@ public class MapSpawner : MonoBehaviour
         }
     }
 
+
     [SerializeField] public HexagonGrid grid;
 
     // Creates a dictionary for Hex to its position to be sent to the gridfinder
