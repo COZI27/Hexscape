@@ -24,7 +24,8 @@ public class LevelEditorWindow : EditorWindow
 
     HexTypeEnum hexType;
     ElementAttribute attribute;
-    Vector2 location;
+    Vector2Int gridLoc;
+    Vector3 worldLoc;
 
     string[] attributeChoices = { "optionA", "optionB" };
     int choiceIndex = 0;
@@ -75,17 +76,11 @@ public class LevelEditorWindow : EditorWindow
     // Window has been selected
     void OnFocus()
     {
-        Debug.Log("OnFocus");
-
         if (grid == null) grid = MapSpawner.Instance.grid;
-        Debug.Log(MapSpawner.Instance.grid);
-
         UpdateHexCursorObject();
 
+        // Remove delegate listener if it has previously been assigned.
 
-
-        // Remove delegate listener if it has previously
-        // been assigned.
         SceneView.onSceneGUIDelegate -= this.OnSceneGUI;
         // Add (or re-add) the delegate.
         SceneView.onSceneGUIDelegate += this.OnSceneGUI;
@@ -191,7 +186,8 @@ public class LevelEditorWindow : EditorWindow
 
         hexType = (HexTypeEnum)EditorGUILayout.EnumPopup("Type of Hex", hexType);
 
-        location = EditorGUILayout.Vector2Field("Hex Location", location);
+        //location = EditorGUILayout.Vector2Field("Hex Location", location);
+        EditorGUILayout.Vector2Field("Hex Location", gridLoc);
 
         #region attribute
         GUILayout.BeginHorizontal();
@@ -225,12 +221,15 @@ public class LevelEditorWindow : EditorWindow
 
         GUILayout.FlexibleSpace();
         GUILayout.BeginHorizontal();
-
+        if (GUILayout.Button("Save Level", buttonStyle, buttonLayoutOptions))
+            SaveLevel();
         if (GUILayout.Button("Load Level", buttonStyle, buttonLayoutOptions))
             LoadLevel();
-        GUILayout.Space(this.position.width - 310);
+
         if (GUILayout.Button("New Level", buttonStyle, buttonLayoutOptions))
             NewLevel();
+
+        //GUILayout.Space(this.position.width - 310);
 
 
         GUILayout.EndHorizontal();
@@ -239,25 +238,40 @@ public class LevelEditorWindow : EditorWindow
 
 
         UpdateAttributeChoices();
+        if (prevHexType != hexType) UpdateHexCursorObject();
+        Repaint();
+    }
+
+    void SaveLevel()
+    {
+        List<MapElement> mapElements = new List<MapElement>();
+
+        HexagonGrid grid = MapSpawner.Instance.grid;
+
+        foreach (Hex hex in grid.GetComponentsInChildren<Hex>())
+        {
+
+            mapElements.Add(new MapElement(hex.typeOfHex, new Vector2Int(grid.WorldToCell(hex.transform.position).x, grid.WorldToCell(hex.transform.position).y)));
+
+        }
+
+        levelBeingEdited.hexs = mapElements.ToArray();
+
+        Debug.Log(levelBeingEdited.hexs.Length);
+
+        LevelLoader.Instance.SaveLevelFile(levelBeingEdited); // will make it so folders to where you can save it are limited for player input
 
 
-        // Refreshes the popup window in order to update options
-        //if (EditorApplication.isPlaying)
-       // {
-
-            if (prevHexType != hexType)
-            {
-                UpdateAttributeChoices();
-                UpdateHexCursorObject();
-                Repaint();
-            }
-        //}
     }
 
     void LoadLevel()
     {
         //TODO: Display warning prompt
-        levelBeingEdited = LevelLoader.Instance.LoadLevelFile();
+        Level loadedLevel = LevelLoader.Instance.LoadLevelFile();
+        if (loadedLevel != null)
+        {
+            levelBeingEdited = loadedLevel;
+        }
     }
 
     void NewLevel()
@@ -288,23 +302,39 @@ public class LevelEditorWindow : EditorWindow
         digitAttribute.commandToCall = (Command)EditorGUILayout.EnumPopup("Button Command", digitAttribute.commandToCall);
     }
 
-    private void AddHexToLevel()
+    private void AddHex()
     {
+        //GameObject hexInstance = HexBank.Instance.GetDisabledHex(hexType, location, MapSpawner.Instance.grid.transform);
+
+        //Vector2Int mouseGridPos = GridFinder.instance.MouseToGridPoint();
+
+
+
+        //foundWorldPos
+
+        MapElement element = new MapElement(hexType, gridLoc, attribute);
+        MapSpawner.Instance.SpawnAHex(element);
+
         //if (LevelLoader.Instance.GetHexAtPoint(Vector2(0,0))) // Check whetehr a hex exists already at location
         //{
         //    // Display 'are you sure?'
         //}
 
-    //    if (EditorUtility.DisplayDialog("Add Hex to Level?",
-    //        "Are you sure you want to add " + hexType.ToString()
-    //        + " to " + LevelLoader.Instance.levelBeingEdited.levelName + "?", "Add", "Do Not Add"))
-    //    {
-    //        Debug.Log("HEX ADDED!");
-    //        LevelLoader.Instance.AddHexToLevel(hexType, location, attribute);
-    //        // levelBeingEdited.hexs[1] = new MapElement(HexTypeEnum.HexTile_MenuOptionEdit, new Vector2Int(1, 0), new MenuButtonElementAttribute(Command.Edit));
-    //    }
+        //    if (EditorUtility.DisplayDialog("Add Hex to Level?",
+        //        "Are you sure you want to add " + hexType.ToString()
+        //        + " to " + LevelLoader.Instance.levelBeingEdited.levelName + "?", "Add", "Do Not Add"))
+        //    {
+        //        Debug.Log("HEX ADDED!");
+        //        LevelLoader.Instance.AddHexToLevel(hexType, location, attribute);
+        //        // levelBeingEdited.hexs[1] = new MapElement(HexTypeEnum.HexTile_MenuOptionEdit, new Vector2Int(1, 0), new MenuButtonElementAttribute(Command.Edit));
+        //    }
 
         //levelBeingEdited.hexs[int, int]
+    }
+
+    private void RemoveHex()
+    {
+        MapSpawner.Instance.RemoveHexAtPoint(gridLoc);
     }
 
     private void UpdateAttributeChoices()
@@ -332,7 +362,9 @@ public class LevelEditorWindow : EditorWindow
             return;
         }
 
-        if (Event.current.type == EventType.MouseMove)
+        Event e = Event.current;
+
+        if (e.type == EventType.MouseMove)
         {
             Ray mouseRay = HandleUtility.GUIPointToWorldRay(Event.current.mousePosition);
             Vector3 mousePos;
@@ -350,19 +382,45 @@ public class LevelEditorWindow : EditorWindow
 
                 worldMousePos = foundWorldPos.Value;
                 worldMousePos.y = MapSpawner.Instance.grid.transform.position.y;
-
+                gridLoc = new Vector2Int(targetGridPos.x, targetGridPos.y);
+                worldLoc = foundWorldPos.Value;
             }
 
-            SceneView.RepaintAll();
+            if (e.type == EventType.MouseUp)
+            {
+                Debug.Log("Mouse Up!");
+            }
+
+
+
+        }
+
+        if (e.type == EventType.MouseDrag || e.type == EventType.MouseDown) // e.button == 0) 
+        {
+            if (e.button == 0)
+            {
+                AddHex();
+            }
+            else if (e.button == 1)
+            {
+                RemoveHex();
+            }
+            e.Use();
+
+        }
+
+        if (e.isScrollWheel)
+        {
+            // TODO: Could use ScrollWheel for iterating through enum types perhaps?
+            e.Use();
         }
 
 
-
+        SceneView.RepaintAll();
     }
 
     private void UpdateHexCursorObject()
     {
-        Debug.Log("UpdateHexCursorObject");
         if (cursorHex != null)
         {
             cursorHex.gameObject.SetActive(false);

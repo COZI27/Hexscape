@@ -87,11 +87,13 @@ public class HexBank : MonoBehaviour
         if (disableHexTypes.Exists(x => x.hexType == hex.typeOfHex))
         {
             disableHexTypes.Find(x => x.hexType == hex.typeOfHex).disabledHexObjects.Add(hexObject);
+            hexObject.transform.parent = this.transform;
         }
         else
         {
             disableHexTypes.Add(new HexTypeHolder(hex.typeOfHex));
             disableHexTypes.Find(x => x.hexType == hex.typeOfHex).disabledHexObjects.Add(hexObject);
+            hexObject.transform.parent = this.transform;
         }
     }
 
@@ -149,14 +151,4 @@ public class HexBank : MonoBehaviour
         }
     }
 
-    private void DestroyHexBankElements()
-    {
-        foreach (HexTypeHolder holder in disableHexTypes)
-        {
-            foreach(GameObject hexObject in holder.disabledHexObjects)
-            {
-                Destroy(hexObject);
-            }
-        }
-    }
 }

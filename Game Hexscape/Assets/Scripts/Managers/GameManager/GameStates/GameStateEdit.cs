@@ -161,14 +161,14 @@ public class GameStateEdit : GameStateBase
 
     }
 
-    public void AddHexToGrid(HexTypeEnum type, Vector3 position)
-    {
-        GameObject hexInstance = HexBank.Instance.GetDisabledHex(currentEditHexType, position, MapSpawner.Instance.grid.transform);
+    //public void AddHexToGrid(HexTypeEnum type, Vector3 position)
+    //{
+    //    GameObject hexInstance = HexBank.Instance.GetDisabledHex(currentEditHexType, position, MapSpawner.Instance.grid.transform);
     
 
 
-        // to do... set up the map refrence for the grid finder 
-    }
+    //    // to do... set up the map refrence for the grid finder 
+    //}
 
     [ContextMenu("Save Level")]
     public void SaveLevel()
