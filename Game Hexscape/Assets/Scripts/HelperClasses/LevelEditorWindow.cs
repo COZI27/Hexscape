@@ -20,6 +20,7 @@ public class LevelEditorWindow : EditorWindow
 
     Tool LastTool = Tool.None;
 
+    
 
 
     HexTypeEnum hexType;
@@ -52,6 +53,27 @@ public class LevelEditorWindow : EditorWindow
     private static GUIStyle ToggleButtonStyleToggled = null;
 
 
+    static LevelEditorWindow()
+    {
+        EditorApplication.quitting += CleanupSpawnedHexes; // Delegated to destroy stored hexes as the application quits
+    }
+
+    static void CleanupSpawnedHexes()
+    {
+        List<MapElement> mapElements = new List<MapElement>();
+
+        HexagonGrid grid = MapSpawner.Instance.grid;
+
+        if (grid.GetComponentsInChildren<Hex>().Length > 0)
+        {
+            // TODO: Would you like to save prompt
+            foreach (Hex hex in grid.GetComponentsInChildren<Hex>())
+            {
+                hex.gameObject.SetActive(false);
+                HexBank.Instance.AddDisabledHex(hex.gameObject);
+            }
+        }
+    }
 
 
 
@@ -97,6 +119,11 @@ public class LevelEditorWindow : EditorWindow
 
     void OnDestroy()
     {
+
+
+        CleanupSpawnedHexes();
+
+
         // When the window is destroyed, remove the delegate
         // so that it will no longer do any drawing.
         SceneView.onSceneGUIDelegate -= this.OnSceneGUI;
@@ -105,6 +132,8 @@ public class LevelEditorWindow : EditorWindow
 
         DisableCursorHex();
     }
+
+
 
     void DisableCursorHex()
     {
@@ -197,6 +226,8 @@ public class LevelEditorWindow : EditorWindow
         GUILayout.Space(40);
         #endregion
 
+        Debug.Log("Choice Index - " + choiceIndex);
+
         switch (attributeChoices[choiceIndex])
         {
             case "None":
@@ -225,7 +256,6 @@ public class LevelEditorWindow : EditorWindow
             SaveLevel();
         if (GUILayout.Button("Load Level", buttonStyle, buttonLayoutOptions))
             LoadLevel();
-
         if (GUILayout.Button("New Level", buttonStyle, buttonLayoutOptions))
             NewLevel();
 
@@ -255,9 +285,8 @@ public class LevelEditorWindow : EditorWindow
 
         }
 
+        Debug.Log(levelBeingEdited);
         levelBeingEdited.hexs = mapElements.ToArray();
-
-        Debug.Log(levelBeingEdited.hexs.Length);
 
         LevelLoader.Instance.SaveLevelFile(levelBeingEdited); // will make it so folders to where you can save it are limited for player input
 
@@ -270,14 +299,39 @@ public class LevelEditorWindow : EditorWindow
         Level loadedLevel = LevelLoader.Instance.LoadLevelFile();
         if (loadedLevel != null)
         {
+
+            List<MapElement> mapElements = new List<MapElement>();
+
+            HexagonGrid grid = MapSpawner.Instance.grid;
+
+            foreach (Hex hex in grid.GetComponentsInChildren<Hex>())
+            {
+                hex.gameObject.SetActive(false);
+                HexBank.Instance.AddDisabledHex(hex.gameObject);
+            }
+
             levelBeingEdited = loadedLevel;
+
+            Debug.Log(levelBeingEdited);
+
+            MapSpawner.Instance.SpawnHexs(
+                levelBeingEdited,
+                grid.transform.position + new Vector3(0, 30, 0),
+                false
+                );
         }
     }
 
     void NewLevel()
     {
         //TODO: Display warning prompt
-        //TODO: Clear current level hexes
+        if (EditorUtility.DisplayDialog("Create new level?",
+            "Are you sure you want to clear " + levelBeingEdited.levelName
+            + "?", "Clear", "Cancel")) {
+
+            CleanupSpawnedHexes();
+            UpdateHexCursorObject();
+        }
     }
 
 
@@ -290,7 +344,7 @@ public class LevelEditorWindow : EditorWindow
         GUILayout.Label("Leading Zero Count");
         GUILayout.Space(40);
         GUILayout.Label(digitAttribute.leadingZeroCount.ToString(), EditorStyles.largeLabel);
-        digitAttribute.leadingZeroCount = (int)GUILayout.HorizontalSlider(digitAttribute.leadingZeroCount, 0, 10);
+        digitAttribute.leadingZeroCount = (int)GUILayout.HorizontalSlider(digitAttribute.leadingZeroCount, -10, 10);
 
         GUILayout.EndHorizontal();
     }
@@ -304,32 +358,9 @@ public class LevelEditorWindow : EditorWindow
 
     private void AddHex()
     {
-        //GameObject hexInstance = HexBank.Instance.GetDisabledHex(hexType, location, MapSpawner.Instance.grid.transform);
-
-        //Vector2Int mouseGridPos = GridFinder.instance.MouseToGridPoint();
-
-
-
-        //foundWorldPos
-
+        //RemoveHex();
         MapElement element = new MapElement(hexType, gridLoc, attribute);
         MapSpawner.Instance.SpawnAHex(element);
-
-        //if (LevelLoader.Instance.GetHexAtPoint(Vector2(0,0))) // Check whetehr a hex exists already at location
-        //{
-        //    // Display 'are you sure?'
-        //}
-
-        //    if (EditorUtility.DisplayDialog("Add Hex to Level?",
-        //        "Are you sure you want to add " + hexType.ToString()
-        //        + " to " + LevelLoader.Instance.levelBeingEdited.levelName + "?", "Add", "Do Not Add"))
-        //    {
-        //        Debug.Log("HEX ADDED!");
-        //        LevelLoader.Instance.AddHexToLevel(hexType, location, attribute);
-        //        // levelBeingEdited.hexs[1] = new MapElement(HexTypeEnum.HexTile_MenuOptionEdit, new Vector2Int(1, 0), new MenuButtonElementAttribute(Command.Edit));
-        //    }
-
-        //levelBeingEdited.hexs[int, int]
     }
 
     private void RemoveHex()
@@ -386,13 +417,6 @@ public class LevelEditorWindow : EditorWindow
                 worldLoc = foundWorldPos.Value;
             }
 
-            if (e.type == EventType.MouseUp)
-            {
-                Debug.Log("Mouse Up!");
-            }
-
-
-
         }
 
         if (e.type == EventType.MouseDrag || e.type == EventType.MouseDown) // e.button == 0) 
@@ -407,12 +431,6 @@ public class LevelEditorWindow : EditorWindow
             }
             e.Use();
 
-        }
-
-        if (e.isScrollWheel)
-        {
-            // TODO: Could use ScrollWheel for iterating through enum types perhaps?
-            e.Use();
         }
 
 

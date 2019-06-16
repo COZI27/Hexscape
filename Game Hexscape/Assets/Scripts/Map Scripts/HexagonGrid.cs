@@ -421,12 +421,17 @@ public class HexagonGrid : MonoBehaviour
 
                 Vector3[] corners = GetHexCorners(new Vector2(rotatedPoint.x, rotatedPoint.z));
 
-                Handles.Label(new Vector3(
-                    rotatedPoint.x - (hexWidth / 3),
-                    this.transform.position.y,
-                    rotatedPoint.z),
-                    cell.Value.cellIndex.x + " | " + cell.Value.cellIndex.y
-                    );
+
+                bool drawLabels = false;
+                if (drawLabels)
+                {
+                    Handles.Label(new Vector3(
+                        rotatedPoint.x - (hexWidth / 3),
+                        this.transform.position.y,
+                        rotatedPoint.z),
+                        cell.Value.cellIndex.x + " | " + cell.Value.cellIndex.y
+                        );
+                }
 
                 for (int i = 0; i < 6; ++i)
                 {

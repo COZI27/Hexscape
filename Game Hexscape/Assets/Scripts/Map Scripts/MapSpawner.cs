@@ -207,7 +207,7 @@ public class MapSpawner : MonoBehaviour
             oldHex.FinishDestroy();
             mapRefrence.Remove(gridPos);
 
-            GameManager.instance.ReplaceTilePassScores(oldHex.destroyPoints, 0);
+            if (GameManager.instance != null) GameManager.instance.ReplaceTilePassScores(oldHex.destroyPoints, 0);
 
         }
     }
@@ -227,13 +227,14 @@ public class MapSpawner : MonoBehaviour
             oldHex.FinishDestroy();
             mapRefrence[hexInfo.gridPos] = hexInstance;
 
-            GameManager.instance.ReplaceTilePassScores(oldHex.destroyPoints, hexInstance.destroyPoints);
+            if (GameManager.instance != null) GameManager.instance.ReplaceTilePassScores(oldHex.destroyPoints, hexInstance.destroyPoints);
 
-        } else
+        }
+        else
         {
             mapRefrence.Add(hexInfo.gridPos, hexInstance);
 
-            GameManager.instance.ReplaceTilePassScores(0, hexInstance.destroyPoints);
+            if (GameManager.instance != null) GameManager.instance.ReplaceTilePassScores(0, hexInstance.destroyPoints);
         }
 
 
@@ -245,7 +246,7 @@ public class MapSpawner : MonoBehaviour
     {
         
         
-        GridFinder.instance.SetMap(mapRefrence, grid.transform.position, grid.transform.rotation);
+        if (GridFinder.instance != null) GridFinder.instance.SetMap(mapRefrence, grid.transform.position, grid.transform.rotation);
     }
 
     public void SpawnHexs(Level level, Vector3 playerPos, bool randomRotate = true)
@@ -264,6 +265,82 @@ public class MapSpawner : MonoBehaviour
 
         killZone.transform.position = grid.transform.position - Vector3.up * 2 * distanceBetweenMaps;
     }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            SaveLevel();
+        }
+        else if (Input.GetKeyDown(KeyCode.L))
+        {
+            foreach (Transform child in grid.transform)
+            {
+                Destroy(child.gameObject);
+                // temp
+            }
+            LoadLevel();
+        }
+        else if (Input.GetKeyDown(KeyCode.Delete))
+        {
+            foreach (Transform child in grid.transform)
+            {
+                Destroy(child.gameObject);
+                // temp
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            int x = Random.Range(-3, 3);
+            int y = Random.Range(-3, 3);
+
+            SpawnAHex(new MapElement(HexTypeEnum.HexTile_ClickDestroy, new Vector2Int(x, y))).isSleeping = false;
+           // UpdateMapRefence();
+        }
+    }
+
+    public Hex SpawnHexAtLocation(Vector2Int hexLoc, HexTypeEnum typeToSpawn, bool replaceExisting)
+    {
+        bool positionOccupied = mapRefrence.ContainsKey(hexLoc);
+
+        // Position blocked
+        if (positionOccupied && !replaceExisting) return null;
+        else
+        {
+            if (positionOccupied) // Remove occupying tile
+            {
+                mapRefrence[hexLoc].DigHex();
+                mapRefrence.Remove(hexLoc);
+            }
+
+            grid.transform.rotation = Quaternion.Euler(Vector3.zero);
+            Hex hexInstance = HexBank.Instance.GetDisabledHex(typeToSpawn, grid.CellToWorld(new Vector2Int(hexLoc.x, hexLoc.y) ).Value, grid.transform).GetComponent<Hex>();
+
+            // Sets the local position of the Hex to match the level holder
+            hexInstance.gameObject.transform.localPosition = new Vector3(hexInstance.gameObject.transform.position.x, 0, hexInstance.gameObject.transform.position.z);
+
+            SetGameobjectWidth(hexInstance.gameObject);
+
+            // adds the hex to the dictonary for the grid finder
+            mapRefrence.Add(hexLoc, hexInstance);
+            return hexInstance;
+        }
+    }
+
+    public void CalculateLongLengthFromShort()
+    {
+        longLength = (shortLength / Mathf.Sqrt(3)) * 2;
+    }
+
+    public void CalculateShortLengthFromLong()
+    {
+        shortLength = (longLength / 2) * Mathf.Sqrt(3);
+    }
+
+
+}
+
 
     //public void SpawnHexs(Level level, Vector3 playerPos, bool randomRotate = true)
     //{
@@ -348,137 +425,60 @@ public class MapSpawner : MonoBehaviour
     //{
     //    Creates a dictionary for Hex to its position to be sent to the gridfinder
     //    /*Dictionary<Vector2Int, Hex>*/ //mapRefrence = new Dictionary<Vector2Int, Hex>();
-    //   mapRefrence.Clear();
+                                          //   mapRefrence.Clear();
 
-    //    GameObject holder = new GameObject(level + ": " + EndlessGameplayManager.instance.levels[level].levelName);
-    //    holder.transform.SetParent(grid.transform);
+ //    GameObject holder = new GameObject(level + ": " + EndlessGameplayManager.instance.levels[level].levelName);
+ //    holder.transform.SetParent(grid.transform);
 
-    //    foreach (MapElement element in EndlessGameplayManager.instance.levels[level].hexs)
-    //    {
+ //    foreach (MapElement element in EndlessGameplayManager.instance.levels[level].hexs)
+ //    {
 
-    //        //  HexBank.instance.PullHex(element.GetHex());
-    //        Hex hexInstance = HexBank.instance.GetDisabledHex(element.GetHex().typeOfHex, grid.CellToWorld(new Vector3Int(element.gridPos.x, element.gridPos.y, 0)), holder.transform).GetComponent<Hex>();
-
-
-    //        SetGameobjectWidth(hexInstance.gameObject);
-
-    //        // adds the hex to the dictonary for the grid finder
-    //        mapRefrence.Add(element.gridPos, hexInstance);
-    //    }
-
-    //    holder.transform.position = holder.transform.position -= Vector3.up * yPos;
-
-    //    sends the maprefrence to the gridfinder
-    //    GridFinder.instance.SetMap(mapRefrence, holder.transform.position, holder.transform.rotation);
-
-    //}
-
-    //public void spawnhexs(int level, float ypos, vector3 playerpos)
-    //{
-    //    creates a dictionary for hex to its position to be sent to the gridfinder
-    //    /*dictionary<vector2int, hex>*/ //maprefrence = new dictionary<vector2int, hex>();
-    //   maprefrence.clear();
-
-    //    gameobject holder = new gameobject(level + ": " + endlessgameplaymanager.instance.levels[level].levelname);
-    //    holder.transform.setparent(grid.transform);
+ //        //  HexBank.instance.PullHex(element.GetHex());
+ //        Hex hexInstance = HexBank.instance.GetDisabledHex(element.GetHex().typeOfHex, grid.CellToWorld(new Vector3Int(element.gridPos.x, element.gridPos.y, 0)), holder.transform).GetComponent<Hex>();
 
 
+ //        SetGameobjectWidth(hexInstance.gameObject);
+
+ //        // adds the hex to the dictonary for the grid finder
+ //        mapRefrence.Add(element.gridPos, hexInstance);
+ //    }
+
+ //    holder.transform.position = holder.transform.position -= Vector3.up * yPos;
+
+ //    sends the maprefrence to the gridfinder
+ //    GridFinder.instance.SetMap(mapRefrence, holder.transform.position, holder.transform.rotation);
+
+ //}
+
+ //public void spawnhexs(int level, float ypos, vector3 playerpos)
+ //{
+ //    creates a dictionary for hex to its position to be sent to the gridfinder
+ //    /*dictionary<vector2int, hex>*/ //maprefrence = new dictionary<vector2int, hex>();
+ //   maprefrence.clear();
+
+ //    gameobject holder = new gameobject(level + ": " + endlessgameplaymanager.instance.levels[level].levelname);
+ //    holder.transform.setparent(grid.transform);
 
 
-    //    foreach (mapelement element in endlessgameplaymanager.instance.levels[level].hexs)
-    //    {
-    //        hex hexinstance = hexbank.instance.getdisabledhex(element.gethex().typeofhex, grid.celltoworld(new vector3int(element.gridpos.x, element.gridpos.y, 0)), holder.transform).getcomponent<hex>();
 
 
-    //        setgameobjectwidth(hexinstance.gameobject);
-    //        // hexinstance.prefab = element.hexprefab;
-
-    //        debug.log(hexinstance);
-
-    //        // adds the hex to the dictonary for the grid finder
-    //        maprefrence.add(element.gridpos, hexinstance);
-    //    }
-
-    //    holder.transform.position = new vector3(playerpos.x, -ypos, playerpos.z);
-    //    //   holder.transform.position = holder.transform.position -= vector3.up * ypos;
-
-    //    // sends the maprefrence to the gridfinder
-    //    gridfinder.instance.setmap(maprefrence, holder.transform.position, holder.transform.rotation);
-    //}
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            SaveLevel();
-        }
-        else if (Input.GetKeyDown(KeyCode.L))
-        {
-            foreach (Transform child in grid.transform)
-            {
-                Destroy(child.gameObject);
-                // temp
-            }
-            LoadLevel();
-        }
-        else if (Input.GetKeyDown(KeyCode.Delete))
-        {
-            foreach (Transform child in grid.transform)
-            {
-                Destroy(child.gameObject);
-                // temp
-            }
-        }
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            int x = Random.Range(-3, 3);
-            int y = Random.Range(-3, 3);
-
-            SpawnAHex(new MapElement(HexTypeEnum.HexTile_ClickDestroy, new Vector2Int(x, y))).isSleeping = false;
-           // UpdateMapRefence();
-        }
-    }
-
-    public Hex SpawnHexAtLocation(Vector2Int hexLoc, HexTypeEnum typeToSpawn, bool replaceExisting)
-    {
-        bool positionOccupied = mapRefrence.ContainsKey(hexLoc);
-
-        // Position blocked
-        if (positionOccupied && !replaceExisting) return null;
-        else
-        {
-            if (positionOccupied) // Remove occupying tile
-            {
-                mapRefrence[hexLoc].DigHex();
-                mapRefrence.Remove(hexLoc);
-            }
-
-            grid.transform.rotation = Quaternion.Euler(Vector3.zero);
-            Hex hexInstance = HexBank.Instance.GetDisabledHex(typeToSpawn, grid.CellToWorld(new Vector2Int(hexLoc.x, hexLoc.y) ).Value, grid.transform).GetComponent<Hex>();
-
-            // Sets the local position of the Hex to match the level holder
-            hexInstance.gameObject.transform.localPosition = new Vector3(hexInstance.gameObject.transform.position.x, 0, hexInstance.gameObject.transform.position.z);
-
-            SetGameobjectWidth(hexInstance.gameObject);
-
-            // adds the hex to the dictonary for the grid finder
-            mapRefrence.Add(hexLoc, hexInstance);
-            return hexInstance;
-        }
-    }
-
-    public void CalculateLongLengthFromShort()
-    {
-        longLength = (shortLength / Mathf.Sqrt(3)) * 2;
-    }
-
-    public void CalculateShortLengthFromLong()
-    {
-        shortLength = (longLength / 2) * Mathf.Sqrt(3);
-    }
+ //    foreach (mapelement element in endlessgameplaymanager.instance.levels[level].hexs)
+ //    {
+ //        hex hexinstance = hexbank.instance.getdisabledhex(element.gethex().typeofhex, grid.celltoworld(new vector3int(element.gridpos.x, element.gridpos.y, 0)), holder.transform).getcomponent<hex>();
 
 
-}
+ //        setgameobjectwidth(hexinstance.gameobject);
+ //        // hexinstance.prefab = element.hexprefab;
 
+ //        debug.log(hexinstance);
 
+ //        // adds the hex to the dictonary for the grid finder
+ //        maprefrence.add(element.gridpos, hexinstance);
+ //    }
+
+ //    holder.transform.position = new vector3(playerpos.x, -ypos, playerpos.z);
+ //    //   holder.transform.position = holder.transform.position -= vector3.up * ypos;
+
+ //    // sends the maprefrence to the gridfinder
+ //    gridfinder.instance.setmap(maprefrence, holder.transform.position, holder.transform.rotation);
+ //}

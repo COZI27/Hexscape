@@ -154,13 +154,13 @@ public class Hex : MonoBehaviour
         
         if (isAlive)
         {
-
-            col.enabled = false;
+            if (col != null)
+                col.enabled = false;
             hasBeenTouched = false;
             isAlive = false;
 
             clickedEvent.RemoveAllListeners(); // TDOD: COnsider whether this would be better suited to being called when returned to the object pool
-            GameManager.instance.DigEvent(destroyPoints);
+            if (GameManager.instance !=  null) GameManager.instance.DigEvent(destroyPoints);
         }
 
         if (useFalling)

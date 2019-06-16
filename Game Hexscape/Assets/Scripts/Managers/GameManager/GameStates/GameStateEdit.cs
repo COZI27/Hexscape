@@ -81,7 +81,6 @@ public class GameStateEdit : GameStateBase
 
         levels = LevelLoader.Instance.GetLevelsFrom("Levels/Endless");
         Level currentLevel = levels[currentLevelIndex];
-
         MapSpawner.Instance.SpawnHexs(currentLevel, GameManager.instance.GetPlayerBall().transform.position - new Vector3(0, -30, 0), false/* offsetValue */);
 
         Vector3 mapPosition = MapSpawner.Instance.GetCurrentMapHolder().transform.position;
@@ -161,10 +160,10 @@ public class GameStateEdit : GameStateBase
 
     }
 
-    //public void AddHexToGrid(HexTypeEnum type, Vector3 position)
+    //public void AddHexToGrid(HexTypeEnum type, Vector3 position)LoadLevel
     //{
     //    GameObject hexInstance = HexBank.Instance.GetDisabledHex(currentEditHexType, position, MapSpawner.Instance.grid.transform);
-    
+
 
 
     //    // to do... set up the map refrence for the grid finder 
