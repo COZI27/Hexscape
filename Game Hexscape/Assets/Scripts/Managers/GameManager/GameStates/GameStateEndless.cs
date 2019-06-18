@@ -18,7 +18,7 @@ public sealed class GameStateEndless : GameStateBase
     [Header("   - Player Options:")]
     public float initialPlayerSpeed = 30f;
     public float playerSpeedIncreaseLogBase = 2f;
-    public float playerSpeedIncreaseLogMultiplyer = 10f;
+    public float playerSpeedIncreaseLogMultiplyer = 6f;
 
     PlayerController playerController;
 
@@ -111,7 +111,7 @@ public sealed class GameStateEndless : GameStateBase
 
         ColourManager.instance.ChangePalette();
         
-        Level newLevel = useRandomLevels ? levels[Random.Range(0, levels.Length)] : levels[currentSessionData.levelIndex %= levels.Length];
+        Level newLevel = useRandomLevels ? levels[Random.Range(0, levels.Length)] : levels[currentSessionData.levelIndex % levels.Length];
 
         ++currentSessionData.levelIndex;
 
@@ -122,7 +122,7 @@ public sealed class GameStateEndless : GameStateBase
         if (playerController != null)
         {
             playerController.SetDestination(playerController.transform.position);
-            playerController.moveSpeed = initialPlayerSpeed + (playerSpeedIncreaseLogMultiplyer * currentSessionData.levelIndex * ( 10 * Mathf.Log(playerSpeedIncreaseLogBase)));
+            playerController.moveSpeed = initialPlayerSpeed + ( currentSessionData.levelIndex * (playerSpeedIncreaseLogMultiplyer * Mathf.Log(playerSpeedIncreaseLogBase)));
         }
 
         MapSpawner.Instance.SpawnHexs(newLevel, playerController.transform.position);

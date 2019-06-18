@@ -81,8 +81,17 @@ public class Hex : MonoBehaviour
         fallRotations = new Vector2[] { new Vector2(40, 60), new Vector2(60, 40), new Vector2(-40, -60), new Vector2(-60, -40) }; // Predefinign fall rotations to ensure that the tiles are side on when they despawn. May be replaced at a future point.
     }
 
+    float touchTime;
+
     private void OnEnable()
     {
+
+        touchTime = 0;
+
+        if (typeOfHex == HexTypeEnum.HexTile_ExitDestroy)
+        {
+            mesh.materials[0].SetColor("_EmissionColor", Color.black);
+        }
 
         hasBeenTouched = false;
         isAlive = true;
@@ -110,13 +119,20 @@ public class Hex : MonoBehaviour
 
 
 
+    
+   
     public void EnableHex()
     {
         isSleeping = false;
+        incraseTouchTime = false;
         // mesh.materials[2] = enabledMaterial;
 
         //Debug.Log("AWAKEN");
 
+        if (typeOfHex == HexTypeEnum.HexTile_ExitDestroy)
+        {
+            mesh.materials[0].SetColor("_EmissionColor", Color.white);
+        }
     }
 
     public void DisableHex()
@@ -182,12 +198,28 @@ public class Hex : MonoBehaviour
 
     }
 
-    private void FixedUpdate()
+    private void Update() // was fixed update before for some reason
     {
         if (isAlive)
         {
 
             HandleSpawningEffect();
+
+            if (incraseTouchTime)
+            {
+                touchTime += Time.deltaTime;
+
+            }
+
+
+
+            if (typeOfHex == HexTypeEnum.HexTile_ClickIndestructible)
+            {
+                mesh.materials[1].SetColor("_EmissionColor", Color.Lerp(Color.magenta, Color.black, touchTime/destroyTime));
+
+                if (touchTime >= destroyTime) DigHex();
+
+            }
         }
         else
         {
@@ -195,6 +227,7 @@ public class Hex : MonoBehaviour
             HandleFallingEffect();
         }
 
+        
 
     }
 
@@ -266,8 +299,10 @@ public class Hex : MonoBehaviour
 
     public void OnPlayerExit()
     {
+        incraseTouchTime = false;
         if (isSleeping == false)
         {
+            
             if (typeOfHex == HexTypeEnum.HexTile_ExitDestroy)
             {
                 Debug.Log("OnPlayerExit HexTile_ExitDestroy");
@@ -276,9 +311,11 @@ public class Hex : MonoBehaviour
         }
     }
 
+    private bool incraseTouchTime;
+
     public void OnPlayerEnter()
     {
-        
+        incraseTouchTime = true;
 
         if (isSleeping)
         {
@@ -294,7 +331,7 @@ public class Hex : MonoBehaviour
 
             if (typeOfHex == HexTypeEnum.HexTile_ExitDestroy)
             {
-                mesh.materials[1].SetColor("_EmissionColor", Color.red);
+                mesh.materials[0].SetColor("_EmissionColor", Color.black);
             }
         }
     }
@@ -314,6 +351,11 @@ public class Hex : MonoBehaviour
             OnPlayerEnter();
 
         }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.tag == "Player") OnPlayerExit();
     }
 
     public void PlayerTouchedNewHex(Hex newHex)

@@ -111,7 +111,15 @@ public class MapSpawner : MonoBehaviour
         float targetColWidth = shortLength;
         float hexWidth = gameobjectInstance.GetComponent<Collider>().bounds.size.x;
 
+        if (hexWidth == 0)
+        {
+            hexWidth = 1.05f;
+        }
+
         float newHexWidth = gameobjectInstance.transform.localScale.x / hexWidth * targetColWidth;
+
+        
+        Debug.Log(gameobjectInstance.name + ": " + hexWidth);
 
         Vector3 tempScale = gameobjectInstance.transform.localScale;
         tempScale.x = tempScale.z = newHexWidth;

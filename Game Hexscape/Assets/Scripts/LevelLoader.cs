@@ -31,6 +31,7 @@ public class LevelLoader : MonoBehaviour
 
     private void Awake()
     {
+        lastResourceLocation = Application.dataPath + "/Resources/Levels/"; 
         instance = this;
     }
 
@@ -181,6 +182,8 @@ public class LevelLoader : MonoBehaviour
         lastResourceLocation = filePath;
 
         UpdateInspectorUI();
+
+        if (levelBeingEdited == null)  lastResourceLocation = Application.dataPath + "/Resources/Levels/"; 
 
         return levelBeingEdited;
         
