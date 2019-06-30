@@ -19,8 +19,9 @@ public class ScoreBoardEntry
 
 public class GameStateEndlessScoreboard : GameStateBase
 {
-    string pathScoreBoardLevel = "Assets/Resources/Levels/Menus/ScoreboardLevel.json";
+    //string pathScoreBoardLevel = "Assets/Resources/Levels/Menus/ScoreboardLevel.json";
 
+    string pathScoreBoardLevel = "Assets/Resources/Levels/Tests/Scoreboard.json";
     //ScoreboardLevelComponent levelComponent;
 
     //Note: Might be able to use one Scoreboard state class and have it behave differently depending on context, such as what type of game state was in use previosuly
@@ -120,24 +121,29 @@ public class GameStateEndlessScoreboard : GameStateBase
         int[] levelToDisplay = ConvertIntToArray(levelValue);
 
         int position = scoreToDisplay.Length - 1;
-      
-        foreach (Vector2Int pos in scoreDisplayTilePos)
+
+        bool spawnNumberTiles = false;
+
+        if (spawnNumberTiles)
         {
-            int hexDigitIndex = (position >= 0 ? scoreToDisplay[position] : 0);
 
-            MapSpawner.Instance.SpawnHexAtLocation(pos, hexDigits[hexDigitIndex], true);
-            position--;
+            foreach (Vector2Int pos in scoreDisplayTilePos)
+            {
+                int hexDigitIndex = (position >= 0 ? scoreToDisplay[position] : 0);
+
+                MapSpawner.Instance.SpawnHexAtLocation(pos, hexDigits[hexDigitIndex], true);
+                position--;
+            }
+
+            position = levelToDisplay.Length - 1;
+            foreach (Vector2Int pos in levelDisplayTilePos)
+            {
+                int hexDigitIndex = (position >= 0 ? levelToDisplay[position] : 0);
+                MapSpawner.Instance.SpawnHexAtLocation(pos, hexDigits[hexDigitIndex], true);
+                position--;
+            }
+
         }
-
-        position = levelToDisplay.Length - 1;
-        foreach (Vector2Int pos in levelDisplayTilePos)
-        {
-            int hexDigitIndex = (position >= 0 ? levelToDisplay[position] : 0);
-            MapSpawner.Instance.SpawnHexAtLocation(pos, hexDigits[hexDigitIndex], true);
-            position--;
-        }
-
-        
 
         //Hex registerUserHexButton = MapSpawner.Instance.SpawnHexAtLocation(new Vector2Int(1, -2), HexTypeEnum.HexTile_MenuOptionPlay, true);
         //registerUserHexButton.clickedEvent.AddListener(() =>
@@ -179,7 +185,6 @@ public class GameStateEndlessScoreboard : GameStateBase
 
     public void Callback(ScoreBoardEntry data)
     {
-        Debug.Log("Callback");
 
         // Level
         if (data.highLevel < levelValue)

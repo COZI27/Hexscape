@@ -215,13 +215,12 @@ public class MapSpawner : MonoBehaviour
     public Hex SpawnAHex(MapElement hexInfo)
     {
        
-
         Hex hexInstance = HexBank.Instance.GetDisabledHex(hexInfo.GetHex().typeOfHex, grid.CellToWorld(new Vector2Int(hexInfo.gridPos.x, hexInfo.gridPos.y)).Value, grid.transform).GetComponent<Hex>();
         hexInstance.transform.rotation = grid.transform.rotation;
         if (hexInfo.hexAttribute != null) hexInfo.hexAttribute.AddAttributeToHex(hexInstance);
         SetGameobjectWidth(hexInstance.gameObject);
 
-       if ( mapRefrence.ContainsKey(hexInfo.gridPos) ) // need to replace
+       if ( mapRefrence.ContainsKey(hexInfo.gridPos) )
         {
             Hex oldHex = mapRefrence[hexInfo.gridPos];
             oldHex.FinishDestroy();

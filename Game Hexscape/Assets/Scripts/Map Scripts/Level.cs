@@ -168,9 +168,21 @@ public class DigitElementAttribute : ElementAttribute
     [SerializeField]
     public int leadingZeroCount;
 
+    [SerializeField]
+    public int numberToDisplay;
+
+    //TODO: Work out best way to indicate to the component what number it should display
+
     public override void AddAttributeToHex(Hex hexInstance)
     {
+        // Add component?
+        DigitComponent component = hexInstance.gameObject.AddComponent<DigitComponent>();
+        component.leadingZeroCount = this.leadingZeroCount;
+        component.numberToDisplay = this.numberToDisplay;
 
+        // NOTE: We may want some kind of delegate/ listener system for the number to automatically update its display upon vakue change
+        // https://answers.unity.com/questions/1206632/trigger-event-on-variable-change.html
+        //https://answers.unity.com/questions/1021048/unity-editor-inspector-delegate-function-pointer.html
     }
 }
 
