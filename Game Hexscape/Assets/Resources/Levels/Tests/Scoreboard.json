@@ -9,12 +9,12 @@
         "displayName": null,
         "gridPos": {
           "$type": "UnityEngine.Vector2Int, UnityEngine.CoreModule",
-          "x": 3,
-          "y": 2,
-          "magnitude": 3.60555124,
-          "sqrMagnitude": 13
+          "x": 1,
+          "y": -2,
+          "magnitude": 2.236068,
+          "sqrMagnitude": 5
         },
-        "hexType": -296144415,
+        "hexType": 1282535278,
         "HexAttribute": {
           "$type": "MenuButtonElementAttribute, Assembly-CSharp",
           "commandToCall": 1
@@ -33,25 +33,9 @@
         },
         "hexType": -296144415,
         "HexAttribute": {
-          "$type": "MenuButtonElementAttribute, Assembly-CSharp",
-          "commandToCall": 1
-        },
-        "hexAttributeInfo": null
-      },
-      {
-        "$type": "MapElement, Assembly-CSharp",
-        "displayName": null,
-        "gridPos": {
-          "$type": "UnityEngine.Vector2Int, UnityEngine.CoreModule",
-          "x": 1,
-          "y": -2,
-          "magnitude": 2.236068,
-          "sqrMagnitude": 5
-        },
-        "hexType": 1282535278,
-        "HexAttribute": {
-          "$type": "MenuButtonElementAttribute, Assembly-CSharp",
-          "commandToCall": 1
+          "$type": "DigitElementAttribute, Assembly-CSharp",
+          "leadingZeroCount": 3,
+          "numberToDisplay": 0
         },
         "hexAttributeInfo": null
       }

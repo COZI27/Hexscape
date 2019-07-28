@@ -116,7 +116,6 @@ public class HexBank : MonoBehaviour
         if (disableHexTypes.Exists(x => x.hexType == hexType) && disableHexTypes.Find(x => x.hexType == hexType).disabledHexObjects.Count != 0)
         {
             target = disableHexTypes.Find(x => x.hexType == hexType).PullFirstHexObject();
-            Debug.Log(disableHexTypes.Find(x => x.hexType == hexType).disabledHexObjects.Count);
         }
         else
         {

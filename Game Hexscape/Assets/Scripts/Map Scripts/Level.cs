@@ -175,10 +175,15 @@ public class DigitElementAttribute : ElementAttribute
 
     public override void AddAttributeToHex(Hex hexInstance)
     {
+        Debug.Log("DigitElementAttribute::AddAttributeToHex");
+
+        hexInstance.hexAttribute = this;
+
         // Add component?
         DigitComponent component = hexInstance.gameObject.AddComponent<DigitComponent>();
         component.leadingZeroCount = this.leadingZeroCount;
         component.numberToDisplay = this.numberToDisplay;
+
 
         // NOTE: We may want some kind of delegate/ listener system for the number to automatically update its display upon vakue change
         // https://answers.unity.com/questions/1206632/trigger-event-on-variable-change.html
@@ -200,6 +205,10 @@ public class MenuButtonElementAttribute : ElementAttribute
 
     public override void AddAttributeToHex(Hex hexInstance)
     {
+        hexInstance.hexAttribute = this;
+
+
+        Debug.Log("MenuButtonElementAttribute::AddAttributeToHex");
         hexInstance.clickedEvent.AddListener(() =>
         {
             //HandleRegisterClick();

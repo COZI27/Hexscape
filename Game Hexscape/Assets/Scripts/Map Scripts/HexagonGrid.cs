@@ -28,6 +28,11 @@ public class HexagonGrid : MonoBehaviour
     [SerializeField]
     private float hexHeight; // used to calculate positions on the vertical axis of the grid
 
+    public float GetHexWidth()
+    {
+        return hexWidth;
+    }
+
     private Vector2 pointToFind = new Vector2(0, 0);
 
     private Vector2 foundHexPoint;
@@ -86,11 +91,29 @@ public class HexagonGrid : MonoBehaviour
 
             Vector3 cellPos = new Vector3(cell.worldPosition.x, 0, cell.worldPosition.y);
 
-            return cellPos + this.transform.position;
+            return cellPos; // + this.transform.position;
+
 
         }
         else return null;
     }
+
+    public Vector3? GetWorldPosFromHexOffset(Vector2Int hexIndex)
+    {
+        if (hexCells.ContainsKey(hexIndex))
+        {
+            HexCell cell = hexCells[hexIndex];
+
+            Vector3 cellPos = new Vector3(cell.worldPosition.x, 0, cell.worldPosition.y);
+
+            return cellPos + this.transform.position;
+
+
+        }
+        else return null;
+    }
+
+
 
     public Quaternion GetGridRotation()
     {
@@ -207,6 +230,7 @@ public class HexagonGrid : MonoBehaviour
     {
         return GetWorldPosFromHex(cellIndex);
     }
+
 
 
     private Vector2Int PointToHex(Vector2 point)
@@ -358,52 +382,52 @@ public class HexagonGrid : MonoBehaviour
 
         if (!enabled) return;
 
-        //#region Highlight Found Hex
-        //Gizmos.color = Color.magenta;
+        #region Highlight Found Hex
+        Gizmos.color = Color.magenta;
 
-        //Vector2Int foundPoint = PointToHex(pointToFind);
+        Vector2Int foundPoint = PointToHex(pointToFind);
 
-        //if (hexCells.ContainsKey(foundPoint))
-        //{
-        //    HexCell foundCell = hexCells[(new Vector2Int(foundPoint.x, foundPoint.y))];
-        //    Vector3[] corners;
-        //    //bool useRotated = true;
-        //    //if (useRotated)
-        //    //{
+        if (hexCells.ContainsKey(foundPoint))
+        {
+            HexCell foundCell = hexCells[(new Vector2Int(foundPoint.x, foundPoint.y))];
+            Vector3[] corners;
+            //bool useRotated = true;
+            //if (useRotated)
+            //{
 
-        //    Vector3? hexWorldPos= GetWorldPosFromHex(foundCell.cellIndex);
+            Vector3? hexWorldPos = GetWorldPosFromHexOffset(foundCell.cellIndex);
 
-        //    if (hexWorldPos != null)
-        //    {
-        //        Vector3 rotatedPoint = RotatePointAroundPivot(
-        //                                        hexWorldPos.Value,
-        //                                        this.gameObject.transform.position,
-        //                                        new Vector3(0, this.transform.rotation.eulerAngles.y, this.transform.rotation.eulerAngles.z)
-        //                                        );
+            if (hexWorldPos != null)
+            {
+                Vector3 rotatedPoint = RotatePointAroundPivot(
+                                                hexWorldPos.Value,
+                                                this.gameObject.transform.position,
+                                                new Vector3(0, this.transform.rotation.eulerAngles.y, this.transform.rotation.eulerAngles.z)
+                                                );
 
-        //        corners = GetHexCorners(new Vector2(rotatedPoint.x, rotatedPoint.z));
-
-
-        //        for (int i = 0; i < 6; ++i)
-        //            corners[i] += new Vector3(0, 0.1f, 0);
-
-        //        for (int i = 0; i < 6; ++i)
-        //        {
-        //            Gizmos.DrawLine(
-        //                corners[i],
-        //                corners[i == 5 ? 0 : i + 1]
-        //                );
-        //        }
-        //    }       
-        //    //}
-        //    //else
-        //    //{
-        //    //    corners = GetHexCorners(new Vector2(foundCell.worldPosition.x, foundCell.worldPosition.y));
-        //    //}
+                corners = GetHexCorners(new Vector2(rotatedPoint.x, rotatedPoint.z));
 
 
-        //}
-        //#endregion
+                for (int i = 0; i < 6; ++i)
+                    corners[i] += new Vector3(0, 0.1f, 0);
+
+                for (int i = 0; i < 6; ++i)
+                {
+                    Gizmos.DrawLine(
+                        corners[i],
+                        corners[i == 5 ? 0 : i + 1]
+                        );
+                }
+            }
+            //}
+            //else
+            //{
+            //    corners = GetHexCorners(new Vector2(foundCell.worldPosition.x, foundCell.worldPosition.y));
+            //}
+
+
+        }
+        #endregion
 
         #region Draw Hex Board
 
@@ -414,7 +438,7 @@ public class HexagonGrid : MonoBehaviour
             foreach (KeyValuePair<Vector2Int, HexCell> cell in hexCells)
             {
                 Vector3 rotatedPoint = RotatePointAroundPivot(
-                    GetWorldPosFromHex(cell.Value.cellIndex).Value,
+                    GetWorldPosFromHexOffset(cell.Value.cellIndex).Value,
                     this.gameObject.transform.position,
                     new Vector3(0, this.transform.rotation.eulerAngles.y, this.transform.rotation.eulerAngles.z)
                     );

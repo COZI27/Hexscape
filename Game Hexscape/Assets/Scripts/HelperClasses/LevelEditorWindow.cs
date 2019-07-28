@@ -280,10 +280,11 @@ public class LevelEditorWindow : EditorWindow
         foreach (Hex hex in grid.GetComponentsInChildren<Hex>())
         {
             if (hex.gameObject == cursorHex) continue; // Don't add the cursor hex to the save file
+
             mapElements.Add(new MapElement(
                 hex.typeOfHex,
                 new Vector2Int(grid.WorldToCell(hex.transform.position).x, grid.WorldToCell(hex.transform.position).y),
-                attribute)
+                hex.hexAttribute)
                 );
 
         }

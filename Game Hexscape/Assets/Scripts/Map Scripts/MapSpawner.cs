@@ -304,7 +304,11 @@ public class MapSpawner : MonoBehaviour
         bool positionOccupied = mapRefrence.ContainsKey(hexLoc);
 
         // Position blocked
-        if (positionOccupied && !replaceExisting) return null;
+        if (positionOccupied && !replaceExisting)
+        {
+            Debug.LogWarning("Failed To Spawn Hex at " + hexLoc + ". Position Occupied.");
+            return null;
+        }
         else
         {
             if (positionOccupied) // Remove occupying tile
@@ -314,16 +318,28 @@ public class MapSpawner : MonoBehaviour
             }
 
             grid.transform.rotation = Quaternion.Euler(Vector3.zero);
-            Hex hexInstance = HexBank.Instance.GetDisabledHex(typeToSpawn, grid.CellToWorld(new Vector2Int(hexLoc.x, hexLoc.y) ).Value, grid.transform).GetComponent<Hex>();
 
-            // Sets the local position of the Hex to match the level holder
-            hexInstance.gameObject.transform.localPosition = new Vector3(hexInstance.gameObject.transform.position.x, 0, hexInstance.gameObject.transform.position.z);
+            Vector3? gridPos = grid.CellToWorld(new Vector2Int(hexLoc.x, hexLoc.y));
 
-            SetGameobjectWidth(hexInstance.gameObject);
+            if (gridPos == null)
+            {
+                Debug.LogWarning("Failed To Spawn Hex at " + hexLoc + ". Out of Grid Bounds");
+                return null;
+            }
+            else
+            {
+                //gridPos -= grid.gameObject.transform.position;
+                Hex hexInstance = HexBank.Instance.GetDisabledHex(typeToSpawn, gridPos.Value, grid.transform).GetComponent<Hex>();
 
-            // adds the hex to the dictonary for the grid finder
-            mapRefrence.Add(hexLoc, hexInstance);
-            return hexInstance;
+                // Sets the local position of the Hex to match the level holder
+                hexInstance.gameObject.transform.localPosition = new Vector3(hexInstance.gameObject.transform.position.x, 0, hexInstance.gameObject.transform.position.z);
+
+                SetGameobjectWidth(hexInstance.gameObject);
+
+                // adds the hex to the dictonary for the grid finder
+                mapRefrence.Add(hexLoc, hexInstance);
+                return hexInstance;
+            }
         }
     }
 
