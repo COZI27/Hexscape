@@ -7,6 +7,11 @@ using UnityEngine;
 public class MapSpawner : MonoBehaviour
 {
 
+    public const int MAP_LAYER_0 = 0;
+    public const int MAP_LAYER_DIGIT = 101;
+    public const int MAP_LAYER_UI = 111;
+
+
     // Giver her a level and she will spawn a map... Its a bit messy at the moment but she will do for now :)
     private static MapSpawner instance;
     public static MapSpawner Instance
@@ -23,10 +28,21 @@ public class MapSpawner : MonoBehaviour
     }
 
 
+
     [SerializeField] public HexagonGrid grid;
 
     // Creates a dictionary for Hex to its position to be sent to the gridfinder
-    Dictionary<Vector2Int, Hex> mapRefrence = new Dictionary<Vector2Int, Hex>();
+    //Dictionary<Vector2Int, Hex> mapRefrence = new Dictionary<Vector2Int, Hex>();
+
+    //Dictionary<Vector2Int, Hex> mapUILayer = new Dictionary<Vector2Int, Hex>();
+
+    Dictionary<int, Dictionary<Vector2Int, Hex>> mapLayers = new Dictionary<int, Dictionary<Vector2Int, Hex>>()
+    {
+        { MAP_LAYER_0, new Dictionary<Vector2Int, Hex>()  },
+        { MAP_LAYER_DIGIT, new Dictionary<Vector2Int, Hex>()  }
+    };
+
+
 
     [SerializeField] private GameObject playerKillZonePrefab;
 
@@ -163,7 +179,7 @@ public class MapSpawner : MonoBehaviour
 
     public void ClearMapGrid()
     {
-        mapRefrence.Clear();
+        mapLayers[MAP_LAYER_0].Clear();
        
 
         foreach (Hex hex in grid.GetComponentsInChildren<Hex>())
@@ -201,11 +217,11 @@ public class MapSpawner : MonoBehaviour
 
     public void RemoveHexAtPoint(Vector2Int gridPos)
     {
-        if (mapRefrence.ContainsKey(gridPos)) // need to replace
+        if (mapLayers[MAP_LAYER_0].ContainsKey(gridPos)) // need to replace
         {
-            Hex oldHex = mapRefrence[gridPos];
+            Hex oldHex = mapLayers[MAP_LAYER_0][gridPos];
             oldHex.FinishDestroy();
-            mapRefrence.Remove(gridPos);
+            mapLayers[MAP_LAYER_0].Remove(gridPos);
 
             if (GameManager.instance != null) GameManager.instance.ReplaceTilePassScores(oldHex.destroyPoints, 0);
 
@@ -220,18 +236,18 @@ public class MapSpawner : MonoBehaviour
         if (hexInfo.hexAttribute != null) hexInfo.hexAttribute.AddAttributeToHex(hexInstance);
         SetGameobjectWidth(hexInstance.gameObject);
 
-       if ( mapRefrence.ContainsKey(hexInfo.gridPos) )
+       if (mapLayers[MAP_LAYER_0].ContainsKey(hexInfo.gridPos) )
         {
-            Hex oldHex = mapRefrence[hexInfo.gridPos];
+            Hex oldHex = mapLayers[MAP_LAYER_0][hexInfo.gridPos];
             oldHex.FinishDestroy();
-            mapRefrence[hexInfo.gridPos] = hexInstance;
+            mapLayers[MAP_LAYER_0][hexInfo.gridPos] = hexInstance;
 
             if (GameManager.instance != null) GameManager.instance.ReplaceTilePassScores(oldHex.destroyPoints, hexInstance.destroyPoints);
 
         }
         else
         {
-            mapRefrence.Add(hexInfo.gridPos, hexInstance);
+            mapLayers[MAP_LAYER_0].Add(hexInfo.gridPos, hexInstance);
 
             if (GameManager.instance != null) GameManager.instance.ReplaceTilePassScores(0, hexInstance.destroyPoints);
         }
@@ -245,7 +261,7 @@ public class MapSpawner : MonoBehaviour
     {
         
         
-        if (GridFinder.instance != null) GridFinder.instance.SetMap(mapRefrence, grid.transform.position, grid.transform.rotation);
+        if (GridFinder.instance != null) GridFinder.instance.SetMap(mapLayers[MAP_LAYER_0], grid.transform.position, grid.transform.rotation);
     }
 
     public void SpawnHexs(Level level, Vector3 playerPos, bool randomRotate = true)
@@ -288,20 +304,11 @@ public class MapSpawner : MonoBehaviour
                 // temp
             }
         }
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            int x = Random.Range(-3, 3);
-            int y = Random.Range(-3, 3);
-
-            SpawnAHex(new MapElement(HexTypeEnum.HexTile_ClickDestroy, new Vector2Int(x, y))).isSleeping = false;
-           // UpdateMapRefence();
-        }
     }
 
-    public Hex SpawnHexAtLocation(Vector2Int hexLoc, HexTypeEnum typeToSpawn, bool replaceExisting)
+    public Hex SpawnHexAtLocation(Vector2Int hexLoc, HexTypeEnum typeToSpawn, bool replaceExisting, int layer = MAP_LAYER_0)
     {
-        bool positionOccupied = mapRefrence.ContainsKey(hexLoc);
+        bool positionOccupied = mapLayers[layer].ContainsKey(hexLoc);
 
         // Position blocked
         if (positionOccupied && !replaceExisting)
@@ -313,8 +320,8 @@ public class MapSpawner : MonoBehaviour
         {
             if (positionOccupied) // Remove occupying tile
             {
-                mapRefrence[hexLoc].DigHex();
-                mapRefrence.Remove(hexLoc);
+                mapLayers[layer][hexLoc].DigHex();
+                mapLayers[layer].Remove(hexLoc);
             }
 
             grid.transform.rotation = Quaternion.Euler(Vector3.zero);
@@ -337,7 +344,7 @@ public class MapSpawner : MonoBehaviour
                 SetGameobjectWidth(hexInstance.gameObject);
 
                 // adds the hex to the dictonary for the grid finder
-                mapRefrence.Add(hexLoc, hexInstance);
+                mapLayers[layer].Add(hexLoc, hexInstance);
                 return hexInstance;
             }
         }

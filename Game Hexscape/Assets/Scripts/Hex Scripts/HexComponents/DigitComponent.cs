@@ -9,10 +9,15 @@ using UnityEngine;
 public class DigitComponent : MonoBehaviour
 {
 
-    List<Hex> digitHexes;
 
-    public int leadingZeroCount;
-    public int numberToDisplay = 555;
+    List<Hex> digitHexes;
+    List<int> digitValues;
+
+
+    public int leadingZeroCount = 6;
+
+    // the initial numberToDisplay
+    public int numberToDisplay;
 
     DigitComponent() 
     {
@@ -34,27 +39,40 @@ public class DigitComponent : MonoBehaviour
     };
 
 
+    float timer = 10;
+
+    private void Update()
+    {
+        timer -= Time.deltaTime;
+        if (timer <=0)
+        {
+            int randVal = Random.Range(0, 99999);
+            UpdateDisplayValue(randVal);
+            Debug.Log("randVal = " + randVal);
+            timer = 10;
+        }
+    }
+
+
+ 
 
     // Start is called before the first frame update
     void Start()
     {
+        // Desable the renderer and hex functionality of this components hex tile
+        this.gameObject.GetComponent<MeshRenderer>().enabled = false;
+        this.gameObject.GetComponent<Hex>().enabled = false; // TEMP - TODO: Figure out a better wy to prevent hex from being enabled/ visible
 
         digitHexes = new List<Hex>();
-        //digitHexes[0] = this.gameObject.GetComponent<Hex>();
-        digitHexes.Add(this.gameObject.GetComponent<Hex>());
+        digitValues = new List<int>();
+
         InitialiseLeadingHexes();
 
         Hex owniingHex = this.gameObject.GetComponent<Hex>();
-        owniingHex.onHexDig += DestroyDigitComponent; // Destroy(this);
+        owniingHex.onHexDig += DestroyDigitComponent;
 
 
-        UpdateDisplayValue();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        //UpdateDisplayValue(0);
     }
 
     public void DestroyDigitComponent()
@@ -63,17 +81,68 @@ public class DigitComponent : MonoBehaviour
         Destroy(this);
     }
 
-
-    private void UpdateDisplayValueNEW()
+    public void UpdateDisplayValue(int valueToDisplay)
     {
 
+
+
+        // Replace current display value with new value
+        int[] digitsToDisplay = ParseScore(valueToDisplay);
+        digitValues.Clear();
+        foreach (int i in digitsToDisplay)
+            digitValues.Add(i);
+
+        // Add the leading zeros if applicable
+        if (digitValues.Count < leadingZeroCount)
+        {
+            int leadingZeroCounter = leadingZeroCount - digitValues.Count;
+            for (int i = 0; i < leadingZeroCounter; i++)
+            {
+                digitValues.Add(0);
+            }
+        }
+
+        int tempCOunt = 0;
+
+        // Add hexes to accomodate for integer length
+        while (digitValues.Count > digitHexes.Count)
+        {
+            Debug.Log("digitValues.Count > digitHexes.Count. " + ++tempCOunt);
+            Debug.Log(digitValues.Count + " > " + digitHexes.Count);
+            if (!SpawnNewDigit()) break;
+        }
+
+       
+        for (int i = 0; i < digitHexes.Count; i++)
+        {
+            ReplaceDigit(i, hexDigits[digitValues[i]]);
+
+            if (i > digitValues.Count)
+            {
+                digitHexes[i].DigHex();
+            }
+
+            //if (i < digitValues.Count)
+            //    ReplaceDigit(i, hexDigits[digitValues[i]]);
+            //else if (leadingZeroCounter > 0)
+            //{
+            //    ReplaceDigit(i, HexTypeEnum.HexTile_Digit0);
+            //    --leadingZeroCounter;
+            //}
+            //else // Remove the hex
+            //{
+            //    digitHexes[i].DigHex();
+            //}
+        }
+
+        this.gameObject.GetComponent<MeshRenderer>().enabled = false;
     }
 
-    private void UpdateDisplayValue()
+    public void UpdateDisplayValue_DEPRECATED(int scoreToDisplay)
     {
         Debug.Log("UpdateDisplayValue");
 
-        int[] digitsToDisplay = ParseScore(1234);
+        int[] digitsToDisplay = ParseScore(scoreToDisplay);
         int index = 0; // index is used to itterate through the array of hex objects
 
         Queue<GameObject> digitObjectQueue = new Queue<GameObject>();
@@ -83,11 +152,8 @@ public class DigitComponent : MonoBehaviour
         foreach (Hex hex in digitHexes)
         {
 
-            if (hex == null) Debug.Log("Hex IS NUll");
-            else
+            if (hex != null)
             {
-                Debug.Log("Hex NOT NUll");
-                Debug.Log(hex.gameObject.transform.position);
                 hex.SetFlag(true);
                 digitObjectQueue.Enqueue(hex.gameObject);
             }
@@ -108,15 +174,7 @@ public class DigitComponent : MonoBehaviour
             else {
                 // Set next hex to value in array index 
                 typeToDisplay = hexDigits[digitsToDisplay[index]];
-
-                Debug.Log("digitsToDisplay value at index "+ index  +" = " + digitsToDisplay[index]);
             }
-
-
-            //NOTE! ADDING HEXES TO DIGITHEX LIST WILL ADD THEM IN THE WRONG ORDER WHEN THEY ARE REPLACED!
-            //TODO: Custom 'insert' method for replacing hexes. May need to switch from list to array if possible.
-            //TODO: Fix exception error when digitsToDisplay has a length of 1.
-            //TODO: ...
 
 
             if (index > digitObjectQueue.Count - 1 && index < digitsToDisplay.Length - 1 )
@@ -156,38 +214,40 @@ public class DigitComponent : MonoBehaviour
         return digits.ToArray();
     }
 
-    void InitialiseLeadingHexes()
+    private void InitialiseLeadingHexes()
     {
-        Debug.Log("InitialiseLeadingHexes");
-        for (int i = 0; i < leadingZeroCount; i++)
-        //for (int i = 0; i < Mathf.Abs(leadingZeroCount); i++)
-        {
-            Debug.Log("leadingZeroCount current = " + i);
+        for (int i = 0; i < leadingZeroCount + 1; i++)
             if (!SpawnNewDigit()) break;
-        }
     }
 
     private bool ReplaceDigit(int index, HexTypeEnum typeToDisplay)
     {
-        Hex newHex = MapSpawner.Instance.SpawnHexAtLocation(MapSpawner.Instance.grid.WorldToCell(digitHexes[index].transform.position), typeToDisplay, true);
+        Hex newHex = MapSpawner.Instance.SpawnHexAtLocation(MapSpawner.Instance.grid.WorldToCell(digitHexes[index].transform.position), typeToDisplay, true, MapSpawner.MAP_LAYER_DIGIT);
+
+        //TODO: Move Component to new hex
+        DigitComponent component = this;
         digitHexes[index].DigHex();
         digitHexes[index] = newHex;
         return true;
     }
 
     //Spawns a new leading digit
-    bool SpawnNewDigit(HexTypeEnum digitToAdd = HexTypeEnum.HexTile_Digit0)
+    private bool SpawnNewDigit(HexTypeEnum digitToAdd = HexTypeEnum.HexTile_Digit0)
     {
         Vector2Int nextHexCoord = MapSpawner.Instance.grid.WorldToCell(this.gameObject.transform.position) - new Vector2Int(digitHexes.Count, 0);
 
         Hex spawnedHex = MapSpawner.Instance.SpawnHexAtLocation(
             nextHexCoord,
             digitToAdd,
-            false);
+            true,
+            MapSpawner.MAP_LAYER_DIGIT
+            );
 
         if (spawnedHex)
         {
             digitHexes.Add(spawnedHex);
+            //digitValues.Add(0);
+
 
             //Hex[] extendedDigitArray = new Hex[digitHexes.Count + 1];
 
@@ -218,17 +278,4 @@ public class DigitComponent : MonoBehaviour
         }
     }
 
-
-
-    int[] SplitDigits(int num)
-    {
-        List<int> listOfInts = new List<int>();
-        while (num > 0)
-        {
-            listOfInts.Add(num % 10);
-            num = num / 10;
-        }
-        listOfInts.Reverse();
-        return listOfInts.ToArray();
-    }
 }

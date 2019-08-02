@@ -112,10 +112,11 @@ public class GameStateEndlessScoreboard : GameStateBase
 
     void DisplayScores()
     {
-        
 
         GetCurrentSessionScore(out levelValue, out scoreValue);
         MakeScoreDownloadRequest();
+
+        //TODO: Pass Score to DigitComponent
 
         int[] scoreToDisplay = ConvertIntToArray(scoreValue);
         int[] levelToDisplay = ConvertIntToArray(levelValue);
