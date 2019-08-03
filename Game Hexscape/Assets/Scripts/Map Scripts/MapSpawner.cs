@@ -216,6 +216,10 @@ public class MapSpawner : MonoBehaviour
     {
        
         Hex hexInstance = HexBank.Instance.GetDisabledHex(hexInfo.GetHex().typeOfHex, grid.CellToWorld(new Vector2Int(hexInfo.gridPos.x, hexInfo.gridPos.y)).Value, grid.transform).GetComponent<Hex>();
+
+        Vector3 localPos = ((Vector3) grid.CellToWorld(new Vector2Int(hexInfo.gridPos.x, hexInfo.gridPos.y)));
+        hexInstance.transform.localPosition = localPos;
+
         hexInstance.transform.rotation = grid.transform.rotation;
         if (hexInfo.hexAttribute != null) hexInfo.hexAttribute.AddAttributeToHex(hexInstance);
         SetGameobjectWidth(hexInstance.gameObject);

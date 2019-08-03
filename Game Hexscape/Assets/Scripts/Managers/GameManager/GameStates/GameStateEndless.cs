@@ -16,9 +16,9 @@ public sealed class GameStateEndless : GameStateBase
 
     [Space(3f)]
     [Header("   - Player Options:")]
-    public float initialPlayerSpeed = 30f;
+    public float initialPlayerSpeed = 10f;
     public float playerSpeedIncreaseLogBase = 2f;
-    public float playerSpeedIncreaseLogMultiplyer = 10f;
+    public float playerSpeedIncreaseLogMultiplyer = 5f;
 
     PlayerController playerController;
 
