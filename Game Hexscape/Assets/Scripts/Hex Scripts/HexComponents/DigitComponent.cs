@@ -41,6 +41,14 @@ public class DigitComponent : MonoBehaviour
 
     float timer = 10;
 
+    
+    private void OnDestroy()
+    {
+        // Reset the hex to default for future spawning. Note: It may be possible to simply remove this object from play/ destroy it if required.
+        this.GetComponent<Hex>().enabled = true;
+        this.gameObject.SetActive(false);
+    }
+
     private void Update()
     {
         timer -= Time.deltaTime;
@@ -83,7 +91,7 @@ public class DigitComponent : MonoBehaviour
 
     public void UpdateDisplayValue(int valueToDisplay)
     {
-
+        Debug.Log("UpdateDisplayValue = " + valueToDisplay);
 
 
         // Replace current display value with new value
@@ -102,6 +110,8 @@ public class DigitComponent : MonoBehaviour
             }
         }
 
+
+   
         int tempCOunt = 0;
 
         // Add hexes to accomodate for integer length
@@ -112,8 +122,8 @@ public class DigitComponent : MonoBehaviour
             if (!SpawnNewDigit()) break;
         }
 
-       
-        for (int i = 0; i < digitHexes.Count; i++)
+ 
+        for (int i = 0; i < digitHexes.Count - 1; i++)
         {
             ReplaceDigit(i, hexDigits[digitValues[i]]);
 
@@ -135,12 +145,15 @@ public class DigitComponent : MonoBehaviour
             //}
         }
 
+
+
+
         this.gameObject.GetComponent<MeshRenderer>().enabled = false;
     }
 
     public void UpdateDisplayValue_DEPRECATED(int scoreToDisplay)
     {
-        Debug.Log("UpdateDisplayValue");
+        Debug.Log("UpdateDisplayValue DEPRECATED");
 
         int[] digitsToDisplay = ParseScore(scoreToDisplay);
         int index = 0; // index is used to itterate through the array of hex objects

@@ -67,7 +67,7 @@ Material:
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _RippleDistance: 100.0356
+    - _RippleDistance: 100.03205
     - _RippleWidth: 1
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
@@ -77,4 +77,4 @@ Material:
     m_Colors:
     - _Color: {r: 0.26091117, g: 0.25485048, b: 0.6509434, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _RippleOrigin: {r: -0.14940402, g: -56.654, b: 0.25877535, a: 0}
+    - _RippleOrigin: {r: 1.3661577, g: -357.87024, b: 0.3660495, a: 0}
