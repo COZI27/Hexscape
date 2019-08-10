@@ -34,9 +34,9 @@ public class GameStateEdit : GameStateBase
 
         MapSpawner.Instance.SpawnHexs(currentLevel, GameManager.instance.GetPlayerBall().transform.position - new Vector3(0, -30, 0), false/* offsetValue */);
 
-        Vector3 mapPosition = MapSpawner.Instance.GetCurrentMapHolder().transform.position;
-        mapPosition += new Vector3(0, -5, 0);
-        GameManager.instance.GetPlayerBall().transform.position = mapPosition; // ballPosition;
+       // Vector3 mapPosition = MapSpawner.Instance.GetCurrentMapHolder().transform.position;
+       // mapPosition += new Vector3(0, -5, 0);
+       // GameManager.instance.GetPlayerBall().transform.position = mapPosition; // ballPosition;
         GameManager.instance.GetPlayerBall().SetActive(false);
     }
 
@@ -154,8 +154,11 @@ public class GameStateEdit : GameStateBase
             MapSpawner.Instance.RemoveHexAtPoint(mouseGridPos);
 
         }
-        
-
+       
+        else if (Input.GetKeyDown(KeyCode.Delete))
+        {
+            MapSpawner.Instance.ClearMapGrid();
+        }
 
 
     }
