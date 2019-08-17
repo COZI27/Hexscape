@@ -17,7 +17,6 @@ public class PlayerProfile {
     private string playerID;
     public string GetPlayerID() { return playerID; }
     public int GetPlayerIDasInt() {
-        Debug.Log(playerID);
         int returnID;
         int.TryParse(playerID, out returnID);
         return returnID;

@@ -226,7 +226,6 @@ public class LevelEditorWindow : EditorWindow
         GUILayout.Space(40);
         #endregion
 
-        Debug.Log("Choice Index - " + choiceIndex);
 
         switch (attributeChoices[choiceIndex])
         {
@@ -280,12 +279,18 @@ public class LevelEditorWindow : EditorWindow
 
         foreach (Hex hex in grid.GetComponentsInChildren<Hex>())
         {
+            if (hex.gameObject == cursorHex) continue; // Don't add the cursor hex to the save file
 
-            mapElements.Add(new MapElement(hex.typeOfHex, new Vector2Int(grid.WorldToCell(hex.transform.position).x, grid.WorldToCell(hex.transform.position).y)));
+            mapElements.Add(new MapElement(
+                hex.typeOfHex,
+                new Vector2Int(grid.WorldToCell(hex.transform.position).x, grid.WorldToCell(hex.transform.position).y),
+                hex.hexAttribute)
+                );
 
         }
 
         Debug.Log(levelBeingEdited);
+        if (levelBeingEdited == null) levelBeingEdited = new Level();
         levelBeingEdited.hexs = mapElements.ToArray();
 
         LevelLoader.Instance.SaveLevelFile(levelBeingEdited); // will make it so folders to where you can save it are limited for player input

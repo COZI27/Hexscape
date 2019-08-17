@@ -16,7 +16,7 @@ public class DownloadScore {
     public void GetScoreForUser(int userId, System.Action<ScoreBoardEntry> callBack)
     {
         GameManager.instance.StartCoroutine(GetUserScore(userId, callBack ));
-        Debug.Log("starting cooroutine, user id = " + userId);
+        //Debug.Log("starting cooroutine, user id = " + userId);
     }
 
     //public void GetScoreForUser()
@@ -26,7 +26,7 @@ public class DownloadScore {
 
     private IEnumerator GetUserScore(int userId, System.Action<ScoreBoardEntry> callBack)
     {
-        Debug.Log("GetUserScore user id = " + userId);
+        //Debug.Log("GetUserScore user id = " + userId);
         WWWForm form = new WWWForm();
         form.AddField("userIDPost", userId);
         //form.AddField("usernamePost", name);
@@ -45,7 +45,7 @@ public class DownloadScore {
         }
         else
         {
-            Debug.Log("Score Download Complete!");
+            //Debug.Log("Score Download Complete!");
             string entry = webRequest.downloadHandler.text;
 
             if (!entry.Contains("\t"))
@@ -58,7 +58,7 @@ public class DownloadScore {
             int.TryParse(temp[1], out returnLevel);
             int.TryParse(temp[2], out returnScore);
 
-            Debug.Log(returnID +" | "+ returnLevel + " | " + returnScore);
+            //Debug.Log(returnID +" | "+ returnLevel + " | " + returnScore);
 
             ScoreBoardEntry returnEntry = new ScoreBoardEntry(returnID, returnLevel, returnScore);
           

@@ -72,6 +72,10 @@ public class GridFinder : MonoBehaviour
         
     }
 
+    //private void Update()
+    //{
+    //    Debug.DrawRay(currentMapOffset, Vector3.right, Color.blue);
+    //}
 
 
     // Sets up the current spawned map dictionary... Function is called in the Map Spawner when it spawns a new map.
@@ -263,7 +267,7 @@ public class GridFinder : MonoBehaviour
     {
         Vector3 position = Input.mousePosition;
 
-        Plane plane = new Plane(Vector3.up, currentMapOffset);
+        Plane plane = new Plane(Vector3.up, Vector3.zero + Vector3.up * currentMapOffset.y);
         Ray mouseRay = Camera.main.ScreenPointToRay(position);
 
 

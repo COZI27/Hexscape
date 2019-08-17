@@ -19,7 +19,9 @@ public class ScoreBoardEntry
 
 public class GameStateEndlessScoreboard : GameStateBase
 {
-    string pathScoreBoardLevel = "Assets/Resources/Levels/Menus/ScoreboardLevel.json";
+    //string pathScoreBoardLevel = "Assets/Resources/Levels/Menus/ScoreboardLevel.json";
+
+    string pathScoreBoardLevel = "Assets/Resources/Levels/Menus/Scoreboard.json";
 
     //ScoreboardLevelComponent levelComponent;
 
@@ -111,33 +113,50 @@ public class GameStateEndlessScoreboard : GameStateBase
 
     void DisplayScores()
     {
-        
 
+
+        Debug.Log("DisplayScores");
         GetCurrentSessionScore(out levelValue, out scoreValue);
         MakeScoreDownloadRequest();
 
-        int[] scoreToDisplay = ConvertIntToArray(scoreValue);
-        int[] levelToDisplay = ConvertIntToArray(levelValue);
 
-        int position = scoreToDisplay.Length - 1;
-      
-        foreach (Vector2Int pos in scoreDisplayTilePos)
-        {
-            int hexDigitIndex = (position >= 0 ? scoreToDisplay[position] : 0);
+        //TODO: Pass Score to DigitComponent
 
-            MapSpawner.Instance.SpawnHexAtLocation(pos, hexDigits[hexDigitIndex], true);
-            position--;
-        }
 
-        position = levelToDisplay.Length - 1;
-        foreach (Vector2Int pos in levelDisplayTilePos)
-        {
-            int hexDigitIndex = (position >= 0 ? levelToDisplay[position] : 0);
-            MapSpawner.Instance.SpawnHexAtLocation(pos, hexDigits[hexDigitIndex], true);
-            position--;
-        }
+        // NOTE: Temporary solution. TODO: Consider best approach to handle this. A tag system for locating specific hexes could work
+        //DigitComponent[] digitComps = MapSpawner.Instance.GetCurrentMapHolder().GetComponentsInChildren<DigitComponent>(); // NOTE: Moved to Callback
+        //foreach (DigitComponent d in digitComps)
+        //{
+        //    d.UpdateDisplayValue(scoreValue);
+        //}
 
-        
+        //int[] scoreToDisplay = ConvertIntToArray(scoreValue);
+        //int[] levelToDisplay = ConvertIntToArray(levelValue);
+
+        //int position = scoreToDisplay.Length - 1;
+
+        //bool spawnNumberTiles = false;
+
+        //if (spawnNumberTiles) DEPRECATED
+        //{
+
+        //    foreach (Vector2Int pos in scoreDisplayTilePos)
+        //    {
+        //        int hexDigitIndex = (position >= 0 ? scoreToDisplay[position] : 0);
+
+        //        MapSpawner.Instance.SpawnHexAtLocation(pos, hexDigits[hexDigitIndex], true);
+        //        position--;
+        //    }
+
+        //    position = levelToDisplay.Length - 1;
+        //    foreach (Vector2Int pos in levelDisplayTilePos)
+        //    {
+        //        int hexDigitIndex = (position >= 0 ? levelToDisplay[position] : 0);
+        //        MapSpawner.Instance.SpawnHexAtLocation(pos, hexDigits[hexDigitIndex], true);
+        //        position--;
+        //    }
+
+        //}
 
         //Hex registerUserHexButton = MapSpawner.Instance.SpawnHexAtLocation(new Vector2Int(1, -2), HexTypeEnum.HexTile_MenuOptionPlay, true);
         //registerUserHexButton.clickedEvent.AddListener(() =>
@@ -174,12 +193,32 @@ public class GameStateEndlessScoreboard : GameStateBase
         if (scoreDownloader != null)
         {
             scoreDownloader.GetScoreForUser(GameManager.instance.loadedProfile.GetPlayerIDasInt(), Callback);
+
+
         }
     }
 
     public void Callback(ScoreBoardEntry data)
     {
-        Debug.Log("Callback");
+
+
+
+        // NOTE: Temporary solution. TODO: Consider best approach to handle this. A tag system for locating specific hexes could work
+        DigitComponent[] digitComps = MapSpawner.Instance.GetCurrentMapHolder().GetComponentsInChildren<DigitComponent>();
+
+        Debug.Log("digitComps.Length = " +digitComps.Length);
+
+        for (int i = 0; i < digitComps.Length; i++) 
+        {
+            if (i == 0) {
+                digitComps[i].UpdateDisplayValue(levelValue);
+            }
+            if (i == 1)
+            {
+                digitComps[i].UpdateDisplayValue(scoreValue);
+            }
+        }
+
 
         // Level
         if (data.highLevel < levelValue)
@@ -212,6 +251,8 @@ public class GameStateEndlessScoreboard : GameStateBase
             int playerID;
             int.TryParse(GameManager.instance.loadedProfile.GetPlayerID(), out playerID);
             scoreUploader.UploadScore(new ScoreBoardEntry(playerID, levelValue, scoreValue));
+
+
         }
     }
 

@@ -40,32 +40,41 @@ public class HexBank : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        //Debug.Log("Awake");
-        //EditorApplication.quitting += CleanupSpawnedHexes;
+        Cleanup();
+        disableHexTypes = new List<HexTypeHolder>();
     }
 
     static HexBank()
     {
+
         EditorApplication.quitting += CleanupSpawnedHexes; // Delegated to destroy stored hexes as the application quits
     }
 
+    [ContextMenu("CleanupSpawnedHexes")]
+    public void Cleanup()
+    {
+        CleanupSpawnedHexes();
+
+    }
+
     // Destroys all hexes stored by the HexBank in the scene
-    static void CleanupSpawnedHexes()
+
+    public static void CleanupSpawnedHexes()
     {
         //EditorApplication.Beep();
 
         foreach (HexTypeHolder holder in HexBank.Instance.disableHexTypes)
         {
-            foreach (GameObject hexObject in holder.disabledHexObjects)
-            {
-                Destroy(hexObject);
-            }
+            holder.ClearDisabledObjects();
+
         }
     }
 
 
-    public HexTypeEnum GetTypeAtIndex(int index)
+
+        public HexTypeEnum GetTypeAtIndex(int index)
     {
+
         if (index > hexPrefabs.Length)
         {
             return hexPrefabs[0].GetComponent<Hex>().typeOfHex;
@@ -123,9 +132,14 @@ public class HexBank : MonoBehaviour
             return target;
         }
 
+
         // In case a new hex fails to spawn; the method is called recursively until a target is found or recursion depth is too great.
         // This was initially added as while using this method in the unity editor - the returned 'target' would sometimes be null. 
-        else if (recursionAccumulator < 4) return GetDisabledHex(hexType, position, parent, ++recursionAccumulator);
+        else if (recursionAccumulator < 4)
+        {
+            Debug.Log("RecursionAcc = " + recursionAccumulator);
+            return GetDisabledHex(hexType, position, parent, ++recursionAccumulator);
+        }
         else return null;
     }
    
@@ -141,6 +155,7 @@ public class HexBank : MonoBehaviour
         {
             GameObject targetObject = disabledHexObjects.First();
             disabledHexObjects.Remove(targetObject);
+
             return targetObject;
         }
 
@@ -148,6 +163,14 @@ public class HexBank : MonoBehaviour
         public HexTypeHolder(HexTypeEnum newHexType)
         {
             this.hexType = newHexType;
+        }
+
+        public void ClearDisabledObjects()
+        {
+            foreach (GameObject hex in disabledHexObjects)
+            {
+                DestroyImmediate(hex);
+            }
         }
     }
 

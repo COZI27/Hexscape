@@ -108,7 +108,7 @@ public class PhylloTunnelPiece : ObserverPattern.Observer {
 
     private void InitiateLerpToGradient(Gradient newGradient)
     {
-        Debug.Log("newGradient = " + newGradient.colorKeys[0].color + ", " + newGradient.colorKeys[0].color  +", "+ newGradient.colorKeys[2].color );
+        //Debug.Log("newGradient = " + newGradient.colorKeys[0].color + ", " + newGradient.colorKeys[0].color  +", "+ newGradient.colorKeys[2].color );
 
 
         targetGradient = newGradient;

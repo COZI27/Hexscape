@@ -9,6 +9,12 @@ public class Hex : MonoBehaviour
     // what you see is what you get, basically the script that sits on all hexes... 
     // Hexes spawn asleep (so they cannot be broken) and awaken once the player collides with one of the hexes for that particular level.
 
+    public bool Flag = false;
+
+    public void SetFlag(bool value)
+    {
+        Flag = value;
+    }
 
 
     //  [SerializeField] public GameObject prefab;
@@ -24,6 +30,7 @@ public class Hex : MonoBehaviour
 
     public float destroyTime = 1f;
 
+    public ElementAttribute hexAttribute;
 
 
     public bool isSleeping = true; // Dictates whether the tile is clickable
@@ -52,6 +59,9 @@ public class Hex : MonoBehaviour
     //      (it would be possible to add other events here, such as when the player enters the tile)
     public delegate void OnHexDeath();
     public event OnHexDeath onHexDeath;
+
+    public delegate void OnHexDig();
+    public event OnHexDig onHexDig;
 
     private int fallRotIndex = 0;
     private Vector2[] fallRotations;
@@ -167,7 +177,10 @@ public class Hex : MonoBehaviour
     
     public void DigHex(bool isANeighbourDeath = false) // make a dig hex function that gives points before calling this one
     {
-        
+        //onHexDig.Invoke();
+        if (onHexDig != null)
+            onHexDig();
+
         if (isAlive)
         {
             if (col != null)
