@@ -171,7 +171,6 @@ public class DigitElementAttribute : ElementAttribute
     [SerializeField]
     public int numberToDisplay;
 
-    //TODO: Work out best way to indicate to the component what number it should display
 
     public override void AddAttributeToHex(Hex hexInstance)
     {

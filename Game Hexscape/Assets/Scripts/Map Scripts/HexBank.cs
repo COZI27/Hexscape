@@ -47,8 +47,6 @@ public class HexBank : MonoBehaviour
     static HexBank()
     {
 
-        Debug.Log("HexBank Constructor");
-
         EditorApplication.quitting += CleanupSpawnedHexes; // Delegated to destroy stored hexes as the application quits
     }
 

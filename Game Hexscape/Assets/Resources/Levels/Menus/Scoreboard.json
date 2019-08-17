@@ -34,6 +34,24 @@
         "hexType": -296144415,
         "HexAttribute": {
           "$type": "DigitElementAttribute, Assembly-CSharp",
+          "leadingZeroCount": 5,
+          "numberToDisplay": 0
+        },
+        "hexAttributeInfo": null
+      },
+	        {
+        "$type": "MapElement, Assembly-CSharp",
+        "displayName": null,
+        "gridPos": {
+          "$type": "UnityEngine.Vector2Int, UnityEngine.CoreModule",
+          "x": 2,
+          "y": 2,
+          "magnitude": 3.0,
+          "sqrMagnitude": 9
+        },
+        "hexType": -296144415,
+        "HexAttribute": {
+          "$type": "DigitElementAttribute, Assembly-CSharp",
           "leadingZeroCount": 3,
           "numberToDisplay": 0
         },

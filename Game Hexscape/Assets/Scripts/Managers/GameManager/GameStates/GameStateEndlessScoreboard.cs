@@ -21,7 +21,8 @@ public class GameStateEndlessScoreboard : GameStateBase
 {
     //string pathScoreBoardLevel = "Assets/Resources/Levels/Menus/ScoreboardLevel.json";
 
-    string pathScoreBoardLevel = "Assets/Resources/Levels/Tests/Scoreboard.json";
+    string pathScoreBoardLevel = "Assets/Resources/Levels/Menus/Scoreboard.json";
+
     //ScoreboardLevelComponent levelComponent;
 
     //Note: Might be able to use one Scoreboard state class and have it behave differently depending on context, such as what type of game state was in use previosuly
@@ -200,16 +201,23 @@ public class GameStateEndlessScoreboard : GameStateBase
     public void Callback(ScoreBoardEntry data)
     {
 
+
+
         // NOTE: Temporary solution. TODO: Consider best approach to handle this. A tag system for locating specific hexes could work
         DigitComponent[] digitComps = MapSpawner.Instance.GetCurrentMapHolder().GetComponentsInChildren<DigitComponent>();
 
         Debug.Log("digitComps.Length = " +digitComps.Length);
 
-        if (digitComps.Length > 0)
+        for (int i = 0; i < digitComps.Length; i++) 
         {
-            digitComps[0].UpdateDisplayValue(scoreValue);
+            if (i == 0) {
+                digitComps[i].UpdateDisplayValue(levelValue);
+            }
+            if (i == 1)
+            {
+                digitComps[i].UpdateDisplayValue(scoreValue);
+            }
         }
-
 
 
         // Level
