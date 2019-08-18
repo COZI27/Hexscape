@@ -120,8 +120,6 @@ public class MapSpawner : MonoBehaviour
 
 
     }
-
-
     public void SetGameobjectWidth(GameObject gameobjectInstance)
     {
         float targetColWidth = shortLength;
@@ -280,14 +278,15 @@ public class MapSpawner : MonoBehaviour
     {
         ClearMapGrid();
        
-
-        foreach (MapElement element in level.hexs)
+        if (level.hexs.Length > 0)
         {
-            SpawnAHex(element);
+            foreach (MapElement element in level.hexs)
+            {
+                SpawnAHex(element);
+            }
         }
-
+        
         PositionMapGrid(playerPos, randomRotate);
-
         UpdateMapRefence();
 
         killZone.transform.position = grid.transform.position - Vector3.up * 2 * distanceBetweenMaps;
