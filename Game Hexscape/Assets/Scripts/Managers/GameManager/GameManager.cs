@@ -15,9 +15,13 @@ public enum Command // NOTE: Values are still subject to change
     QuitLevel,  // Transition
 
     Edit,
+    Highscore,
 
     NextMenu,
     BackMenu
+
+
+    
 
 }
 
@@ -34,6 +38,7 @@ public static class Commands
             case Command.Pause:
             case Command.Resume:
             case Command.Edit:
+            case Command.Highscore:
 
                 return true;
             default:
@@ -178,6 +183,7 @@ public class GameManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        
         currentGameState.StateUpdate();
 	}
 

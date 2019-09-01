@@ -51,14 +51,15 @@ public class DigitComponent : MonoBehaviour
 
     private void Update()
     {
-        timer -= Time.deltaTime;
-        if (timer <=0)
-        {
-            int randVal = Random.Range(0, 99999);
-            UpdateDisplayValue(randVal);
-            Debug.Log("randVal = " + randVal);
-            timer = 10;
-        }
+        //Generates a random value - used for testing only
+        //timer -= Time.deltaTime;
+        //if (timer <=0)
+        //{
+        //    int randVal = Random.Range(0, 99999);
+        //    UpdateDisplayValue(randVal);
+        //    Debug.Log("randVal = " + randVal);
+        //    timer = 10;
+        //}
     }
 
 

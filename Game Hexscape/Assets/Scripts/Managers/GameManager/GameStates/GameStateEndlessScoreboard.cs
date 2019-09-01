@@ -2,18 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+// ScoreBoardEntry is used for consolidating values for uploading to the database
 public class ScoreBoardEntry
 {
-    public ScoreBoardEntry(int id, int level, int score)
+    public ScoreBoardEntry(int id, int level, int score, string name = "")
     {
         playerId = id;
         highLevel = level;
         highScore = score;
+        playerName = name;
     }
 
     public int playerId;
     public int highLevel;
     public int highScore;
+    public string playerName;
 
 }
 
@@ -113,58 +117,8 @@ public class GameStateEndlessScoreboard : GameStateBase
 
     void DisplayScores()
     {
-
-
-        Debug.Log("DisplayScores");
         GetCurrentSessionScore(out levelValue, out scoreValue);
         MakeScoreDownloadRequest();
-
-
-        //TODO: Pass Score to DigitComponent
-
-
-        // NOTE: Temporary solution. TODO: Consider best approach to handle this. A tag system for locating specific hexes could work
-        //DigitComponent[] digitComps = MapSpawner.Instance.GetCurrentMapHolder().GetComponentsInChildren<DigitComponent>(); // NOTE: Moved to Callback
-        //foreach (DigitComponent d in digitComps)
-        //{
-        //    d.UpdateDisplayValue(scoreValue);
-        //}
-
-        //int[] scoreToDisplay = ConvertIntToArray(scoreValue);
-        //int[] levelToDisplay = ConvertIntToArray(levelValue);
-
-        //int position = scoreToDisplay.Length - 1;
-
-        //bool spawnNumberTiles = false;
-
-        //if (spawnNumberTiles) DEPRECATED
-        //{
-
-        //    foreach (Vector2Int pos in scoreDisplayTilePos)
-        //    {
-        //        int hexDigitIndex = (position >= 0 ? scoreToDisplay[position] : 0);
-
-        //        MapSpawner.Instance.SpawnHexAtLocation(pos, hexDigits[hexDigitIndex], true);
-        //        position--;
-        //    }
-
-        //    position = levelToDisplay.Length - 1;
-        //    foreach (Vector2Int pos in levelDisplayTilePos)
-        //    {
-        //        int hexDigitIndex = (position >= 0 ? levelToDisplay[position] : 0);
-        //        MapSpawner.Instance.SpawnHexAtLocation(pos, hexDigits[hexDigitIndex], true);
-        //        position--;
-        //    }
-
-        //}
-
-        //Hex registerUserHexButton = MapSpawner.Instance.SpawnHexAtLocation(new Vector2Int(1, -2), HexTypeEnum.HexTile_MenuOptionPlay, true);
-        //registerUserHexButton.clickedEvent.AddListener(() =>
-        //{
-        //    //HandleRegisterClick();
-        //    GameManager.instance.ProcessCommand(Command.End);
-        //    registerUserHexButton.DestroyHex();
-        //});
     }
 
     void GetCurrentSessionScore(out int returnLevel, out int returnScore)
@@ -202,11 +156,7 @@ public class GameStateEndlessScoreboard : GameStateBase
     {
 
 
-
-        // NOTE: Temporary solution. TODO: Consider best approach to handle this. A tag system for locating specific hexes could work
         DigitComponent[] digitComps = MapSpawner.Instance.GetCurrentMapHolder().GetComponentsInChildren<DigitComponent>();
-
-        Debug.Log("digitComps.Length = " +digitComps.Length);
 
         for (int i = 0; i < digitComps.Length; i++) 
         {

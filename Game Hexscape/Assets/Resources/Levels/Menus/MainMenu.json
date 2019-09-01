@@ -40,6 +40,23 @@
       },
       {
         "$type": "MapElement, Assembly-CSharp",
+        "displayName": "☰ MenuOptionEdit: (1, 0)",
+        "gridPos": {
+          "$type": "UnityEngine.Vector2Int, UnityEngine.CoreModule",
+          "x": 1,
+          "y": -1,
+          "magnitude": 1.0,
+          "sqrMagnitude": 1
+        },
+        "hexType": -1947130190,
+        "HexAttribute": {
+          "$type": "MenuButtonElementAttribute, Assembly-CSharp",
+          "commandToCall": 6
+        },
+        "hexAttributeInfo": "MenuButtonElementAttribute: Highscore"
+      },
+      {
+        "$type": "MapElement, Assembly-CSharp",
         "displayName": "♥ Null: (0, 0)",
         "gridPos": {
           "$type": "UnityEngine.Vector2Int, UnityEngine.CoreModule",
