@@ -72,37 +72,121 @@ public class GameStateHighScoreTable : GameStateBase
     {
         DownloadScore scoreDownloader = new DownloadScore();
 
+
+
         if (scoreDownloader != null)
         {
-            scoreDownloader.GetScoresForScoreboard(GameManager.instance.loadedProfile.GetPlayerIDasInt(), Callback);
+
+            scoreBoardEntries = new ScoreBoardEntry[0];
+            currentPlayerEntry = null;
 
 
+            scoreDownloader.GetScoreForUser(GameManager.instance.loadedProfile.GetPlayerIDasInt(), CallbackUserScore);
+
+            scoreDownloader.GetScoresForScoreboard(GameManager.instance.loadedProfile.GetPlayerIDasInt(), CallbackHighScores);
+
+
+            // Store the coroutine so it can be retrieved in the event of a timeout
+            waitRoutine = WaitForDownloadComplete();
+            GameManager.instance.StartCoroutine(waitRoutine);
         }
     }
 
-    public void Callback(ScoreBoardEntry[] data)
+
+    ScoreBoardEntry[] scoreBoardEntries;
+    ScoreBoardEntry currentPlayerEntry;
+
+    IEnumerator waitRoutine;
+
+    IEnumerator WaitForDownloadComplete()
     {
 
+        bool dataReturned = false;
+        while (!dataReturned)
+        {
+            if (scoreBoardEntries.Length > 0)
+                if (currentPlayerEntry != null)
+                    dataReturned = true;
+                else yield return null;
+            else yield return null;
+        }
 
+        
+
+        Debug.Log("Data Retrieved:");
+        Debug.Log(currentPlayerEntry);
+        Debug.Log(scoreBoardEntries.Length);
+
+        bool playerIndexFound = false;
+        for (int i = 0; i < scoreBoardEntries.Length; i++)
+        {
+            if (scoreBoardEntries[i].playerId == currentPlayerEntry.playerId)
+            {
+                playerScoreEntryIndex = i;
+                playerIndexFound = true;
+                break;
+            }
+        }
+        if (!playerIndexFound) // replace the lowest scored entry in the array with the current player's entry
+        {
+            scoreBoardEntries[scoreBoardEntries.Length - 1] = currentPlayerEntry;
+            playerScoreEntryIndex = scoreBoardEntries.Length - 1;
+        }
+
+        Debug.Log("playerScoreboardIndex : " + playerScoreEntryIndex);
+        Debug.Log("playerKeyID : " + currentPlayerEntry.playerId);
+        Debug.Log("playerScore : " + currentPlayerEntry.highScore);
+        Debug.Log("playerLevel : " + currentPlayerEntry.highLevel);
+        Debug.Log("playername : " + currentPlayerEntry.playerName);
+
+
+
+
+        GenerateHighScoreDisplay();
+    }
+
+    private void DisplayErrorMessage()
+    {
+        // Error retrieving score data.
+        Debug.LogWarning("Error retrieving score data.");
+    }
+
+
+
+    public void CallbackUserScore(ScoreBoardEntry data)
+    {
+        currentPlayerEntry = data;
+    }
+
+    public void CallbackHighScores(ScoreBoardEntry[] data)
+    {
+        scoreBoardEntries = data;
+    }
+
+    private void GenerateHighScoreDisplay()
+    {
         GameObject entryPrefab = scoreBoardCanvas.transform.Find("ScoreEntry").gameObject;
         //entryPrefab.SetActive(false);
-        GameObject[] entries = new GameObject[data.Length];
+        GameObject[] entries = new GameObject[scoreBoardEntries.Length];
 
         // if current user score not in top ten, then replace entry 10 with user score  (could handle this in php?)
 
         float currOffset = 0;
 
-        for(int i = 0; i < entries.Length; i++)
+        for (int i = 0; i < entries.Length; i++)
         {
             entries[i] = GameObject.Instantiate(entryPrefab, scoreBoardCanvas.transform);
             //entries[i].transform.parent = scoreBoardCanvas.transform;
             entries[i].transform.position -= new Vector3(0, 0, currOffset);
             Text[] textComponents = entries[i].GetComponentsInChildren<Text>();
-            textComponents[0].text = data[i].playerId.ToString();
-            textComponents[1].text = data[i].highScore.ToString();
-            textComponents[2].text = data[i].highLevel.ToString();
-            textComponents[3].text = data[i].playerName.ToString();
+            textComponents[0].text = scoreBoardEntries[i].playerId.ToString();
+            textComponents[1].text = scoreBoardEntries[i].highScore.ToString();
+            textComponents[2].text = scoreBoardEntries[i].highLevel.ToString();
+            textComponents[3].text = scoreBoardEntries[i].playerName.ToString();
 
+            if (i == playerScoreEntryIndex)
+                foreach (Text t in textComponents)
+                    t.color = Color.green;
 
             entries[i].name = entries[i].name + i.ToString();
             entries[i].SetActive(true);

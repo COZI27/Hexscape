@@ -19,6 +19,8 @@ public class ScoreBoardEntry
     public int highScore;
     public string playerName;
 
+
+
 }
 
 public class GameStateEndlessScoreboard : GameStateBase
