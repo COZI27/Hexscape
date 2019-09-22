@@ -8,7 +8,11 @@ public class GameStateHighScoreTable : GameStateBase
 
 
     GameObject scoreBoardCanvas;
+    GameObject titleParticle;
+
     private string pathScoreBoard = "Prefabs/GUI/ScoreboardCanvas";
+
+    private string pathTitleParticle = "Prefabs/Particles/TextParticle";
 
     private string pathHiScoreTableLevel = "Assets/Resources/Levels/Menus/HiScoreTable.json";
 
@@ -54,12 +58,18 @@ public class GameStateHighScoreTable : GameStateBase
     public override void CleanupGameState()
     {
         GameObject.Destroy(scoreBoardCanvas);
+        GameObject.Destroy(titleParticle);
     }
 
     private void GenerateBoard()
     {
+
         scoreBoardCanvas = GameObject.Instantiate(Resources.Load(pathScoreBoard) as GameObject);
         scoreBoardCanvas.transform.Translate(MapSpawner.Instance.GetCurrentMapHolder().transform.position - new Vector3(0, 4, 0), Space.World);
+
+        titleParticle = GameObject.Instantiate(Resources.Load(pathTitleParticle) as GameObject);
+        titleParticle.transform.Translate(MapSpawner.Instance.GetCurrentMapHolder().transform.position - new Vector3(0, 4, -1.5f), Space.World);
+
         DownloadScoreData();
     }
 
