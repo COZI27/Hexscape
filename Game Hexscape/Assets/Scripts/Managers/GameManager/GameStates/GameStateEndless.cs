@@ -3,6 +3,51 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+
+public class EnergyMetre
+{
+
+    public EnergyMetre(float initialEnergy = 50)
+    {
+        currentEnergyLevel = initialEnergy;
+    }
+
+
+    private float currentEnergyLevel;
+    public float GetCurrentEnergy() { return currentEnergyLevel; }
+
+    private float deteriorationRate = 0.05f;
+
+    private float energyPeak = 100;
+
+    private float energyMax = 130;
+
+    public void AddEnergy(float amountToAdd)
+    {
+        currentEnergyLevel += amountToAdd;
+        if (currentEnergyLevel > energyMax) currentEnergyLevel = energyMax;
+    }
+
+    public void DrainEmergy()
+    {
+        if (currentEnergyLevel > energyPeak)
+            currentEnergyLevel -= GetPow(deteriorationRate, currentEnergyLevel);
+        else currentEnergyLevel -= deteriorationRate;
+    }
+
+    private static float GetPow(float baseNum, float powNum)
+    {
+        float result = 1;
+
+        for (int i=0; i < powNum; i++)
+            result = result * baseNum;
+       
+        return result;
+    }
+
+
+}
+
 public sealed class GameStateEndless : GameStateBase
 {
     [SerializeField] public Level[] levels;
@@ -20,11 +65,30 @@ public sealed class GameStateEndless : GameStateBase
     public float playerSpeedIncreaseLogBase = 2f;
     public float playerSpeedIncreaseLogMultiplyer = 6f;
 
+
+
     PlayerController playerController;
+
+    EnergyMetre energyMetre;
 
     public GameStateEndless()
     {
         InitialiseStateTransitions();
+
+        energyMetre = new EnergyMetre();
+
+        
+    }
+
+    public override void StateUpdate()
+    {
+        energyMetre.DrainEmergy();
+
+        Debug.Log(energyMetre.GetCurrentEnergy());
+
+        playerController.moveSpeed = initialPlayerSpeed + (energyMetre.GetCurrentEnergy() * (playerSpeedIncreaseLogMultiplyer * Mathf.Log(playerSpeedIncreaseLogBase)));
+
+        //playerController.moveSpeed = initialPlayerSpeed + (currentSessionData.levelIndex * (playerSpeedIncreaseLogMultiplyer * Mathf.Log(playerSpeedIncreaseLogBase)));
     }
 
     protected override void InitialiseStateTransitions()
@@ -122,7 +186,7 @@ public sealed class GameStateEndless : GameStateBase
         if (playerController != null)
         {
             playerController.SetDestination(playerController.transform.position);
-            playerController.moveSpeed = initialPlayerSpeed + ( currentSessionData.levelIndex * (playerSpeedIncreaseLogMultiplyer * Mathf.Log(playerSpeedIncreaseLogBase)));
+            //playerController.moveSpeed = initialPlayerSpeed + ( currentSessionData.levelIndex * (playerSpeedIncreaseLogMultiplyer * Mathf.Log(playerSpeedIncreaseLogBase)));
         }
 
         MapSpawner.Instance.SpawnHexs(newLevel, playerController.transform.position);
@@ -135,6 +199,8 @@ public sealed class GameStateEndless : GameStateBase
     {
         currentSessionData.levelScore += 1;
         currentSessionData.totalScore += 1;
+
+        energyMetre.AddEnergy(3);
 
         if (currentSessionData.levelScore >= currentSessionData.passScore)
         {
