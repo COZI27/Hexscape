@@ -172,6 +172,7 @@ public class GameStateEdit : GameStateBase
     //    // to do... set up the map refrence for the grid finder 
     //}
 
+
     [ContextMenu("Save Level")]
     public void SaveLevel()
     {
@@ -194,9 +195,7 @@ public class GameStateEdit : GameStateBase
         LevelLoader.Instance.SaveLevelFile(level); // will make it so folders to where you can save it are limited for player input
 
 
-    } 
-
-
+    }
 
 
 

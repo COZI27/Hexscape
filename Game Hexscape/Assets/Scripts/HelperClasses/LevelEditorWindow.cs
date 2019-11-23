@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
+#if (UNITY_EDITOR) 
+
 public class LevelEditorWindow : EditorWindow
 {
     [SerializeField]
@@ -465,3 +467,5 @@ public class LevelEditorWindow : EditorWindow
     }
 
 }
+
+#endif

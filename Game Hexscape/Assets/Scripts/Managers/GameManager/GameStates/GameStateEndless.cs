@@ -7,7 +7,7 @@ using UnityEngine;
 public class EnergyMetre
 {
 
-    public EnergyMetre(float initialEnergy = 50)
+    public EnergyMetre(float initialEnergy = 90)
     {
         currentEnergyLevel = initialEnergy;
     }
@@ -18,20 +18,30 @@ public class EnergyMetre
 
     private float deteriorationRate = 0.05f;
 
+    private float peakDeteriorationExponent = 1.02f;
+
     private float energyPeak = 100;
 
     private float energyMax = 130;
+
+
 
     public void AddEnergy(float amountToAdd)
     {
         currentEnergyLevel += amountToAdd;
         if (currentEnergyLevel > energyMax) currentEnergyLevel = energyMax;
+
+
     }
 
     public void DrainEmergy()
     {
         if (currentEnergyLevel > energyPeak)
-            currentEnergyLevel -= GetPow(deteriorationRate, currentEnergyLevel);
+        {
+            //currentEnergyLevel -= GetPow(deteriorationRate, currentEnergyLevel);
+            currentEnergyLevel -= deteriorationRate + (Mathf.Pow(peakDeteriorationExponent, currentEnergyLevel - energyPeak) - peakDeteriorationExponent);
+
+        }
         else currentEnergyLevel -= deteriorationRate;
     }
 
@@ -61,9 +71,11 @@ public sealed class GameStateEndless : GameStateBase
 
     [Space(3f)]
     [Header("   - Player Options:")]
-    public float initialPlayerSpeed = 30f;
+    //public float initialPlayerSpeed = 30f; // Replaced with initial Energy value
     public float playerSpeedIncreaseLogBase = 2f;
-    public float playerSpeedIncreaseLogMultiplyer = 6f;
+    public float playerSpeedIncreaseLogMultiplyer = 2.5f;
+
+    public float playerKillzoneOffset = 40f;
 
 
 
@@ -84,9 +96,16 @@ public sealed class GameStateEndless : GameStateBase
     {
         energyMetre.DrainEmergy();
 
-        Debug.Log(energyMetre.GetCurrentEnergy());
+        if (playerController.gameObject.transform.position.y < MapSpawner.Instance.GetCurrentMapHolder().transform.position.y - playerKillzoneOffset)
+        {
+            //throw new System.Exception("BALL HAS FALLEN");
 
-        playerController.moveSpeed = initialPlayerSpeed + (energyMetre.GetCurrentEnergy() * (playerSpeedIncreaseLogMultiplyer * Mathf.Log(playerSpeedIncreaseLogBase)));
+            GameManager.instance.ProcessCommand(Command.End);
+        }
+
+        //Debug.Log(energyMetre.GetCurrentEnergy());
+
+            playerController.moveSpeed = /*initialPlayerSpeed +*/ (energyMetre.GetCurrentEnergy() * (playerSpeedIncreaseLogMultiplyer * Mathf.Log(playerSpeedIncreaseLogBase)));
 
         //playerController.moveSpeed = initialPlayerSpeed + (currentSessionData.levelIndex * (playerSpeedIncreaseLogMultiplyer * Mathf.Log(playerSpeedIncreaseLogBase)));
     }
@@ -127,16 +146,10 @@ public sealed class GameStateEndless : GameStateBase
         else
         {
 
-            Debug.Log("Finding Player...");
-
             playerController = GameManager.instance.GetPlayerBall().GetComponent<PlayerController>();
-
- 
-            if (playerController != null) playerController.moveSpeed = initialPlayerSpeed;
         }
 
         LoadNextLevel();
-
 
     }
 

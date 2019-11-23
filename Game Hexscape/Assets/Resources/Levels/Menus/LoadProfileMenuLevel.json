@@ -8,7 +8,7 @@
         "$type": "MapElement, Assembly-CSharp",
         "gridPos": {
           "$type": "UnityEngine.Vector2Int, UnityEngine.CoreModule",
-          "x": 2,
+          "x": -1,
           "y": -2,
           "magnitude": 2.828427,
           "sqrMagnitude": 8
@@ -16,7 +16,7 @@
         "hexType": 1282535278,
         "HexAttribute": {
           "$type": "MenuButtonElementAttribute, Assembly-CSharp",
-          "commandToCall": 6
+          "commandToCall": 7
         }
       }
     ]

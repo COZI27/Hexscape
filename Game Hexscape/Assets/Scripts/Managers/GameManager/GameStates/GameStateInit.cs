@@ -8,7 +8,8 @@ using UnityEngine.UI;
 public class GameStateInit : GameStateBase
 {
 
-    string pathNewProfileLevel = "Assets/Resources/Levels/Menus/LoadProfileMenuLevel.json";
+    string pathNewProfileLevel = "Levels/Menus/LoadProfileMenuLevel";
+    //string pathNewProfileLevel = "Assets/Resources/Levels/Menus/LoadProfileMenuLevel.json";
 
     private GameObject titleParticleObject;
     private string pathTitleParticlePrefab = "Prefabs/Particles/TitleParticle";
@@ -24,10 +25,19 @@ public class GameStateInit : GameStateBase
         InitialiseStateTransitions();
     }
 
+    public override void CleanupGameState()
+    {
+        GameObject.Destroy(registerUserCanvas);
+        GameObject.Destroy(titleParticleObject);
+    }
+
     protected override void InitialiseStateTransitions()
     {
         stateTransitions = new Dictionary<Command, TransitionData<GameStateBase>>
         {
+
+            //TODO: Accomodate for button click on generate profile. Must lead to checking conditions before loading net scene
+            // Consider whether IsTransitionCommand is used here
             { Command.Begin, new TransitionData<GameStateBase>(typeof(GameStateMenuMain))  },
             { Command.End, new TransitionData<GameStateBase>(typeof(GameStateMenuMain))  },
         };
@@ -79,15 +89,16 @@ public class GameStateInit : GameStateBase
         if (loadedLevel != null)
         {
             CreateLevel(
-                loadedLevel, //LoadLevelsFromPath(pathNewProfileLevel)[0],
+                loadedLevel,
                 - 30.0f,
                 false,
                 false
-                //new LoadProfileLevelComponent()
                 );
-
         }
-        else throw new System.Exception("GameStateInit error - Level not loaded");
+        else throw new System.Exception("GameStateInit Level Lad Failed"); 
+
+
+
         DisplayNewProfileMenu();
     }
 
@@ -114,7 +125,7 @@ public class GameStateInit : GameStateBase
 
     private void OnDestroy()
     {
-        //if (registerUserCanvas != null) Destroy(registerUserCanvas);
+        //if (registerUserCanvas != null) GameObject.Destroy(registerUserCanvas);
     }
 
     [ContextMenu("Delete Local Profile Data")]
@@ -132,7 +143,6 @@ public class GameStateInit : GameStateBase
     bool FindUserProfile()
     {
 
-        Debug.Log("FindUserProfile called");
         string filePath = Path.Combine(Application.persistentDataPath, gameDataFileName);
 
         if (File.Exists(filePath))
@@ -154,7 +164,7 @@ public class GameStateInit : GameStateBase
         {
             Debug.Log("No User Profile data found. Creating a new user...");
 
-            DisplayNewProfileMenu();
+            CreateNewProfileMenu();
             return false;
         }
     }
@@ -176,8 +186,9 @@ public class GameStateInit : GameStateBase
     // The menu screen for creating a new user profile
     void DisplayNewProfileMenu()
     {
-        registerUserCanvas = GameObject.Instantiate(Resources.Load(pathRegisterUserCanvas) as GameObject);
-
+        Debug.Log("DisplayNewProfileMenu");
+        if (registerUserCanvas == null)
+            registerUserCanvas = GameObject.Instantiate(Resources.Load(pathRegisterUserCanvas) as GameObject);
         if (registerUserCanvas == null) throw new System.Exception("Failed to instantiate the RegisterIserCanvas from path " + pathRegisterUserCanvas);
 
         //Hex registerUserHexButton = MapSpawner.Instance.SpawnHexAtLocation(new Vector2Int(0, -2), HexTypeEnum.HexTile_MenuOptionPlay, true);
@@ -229,6 +240,8 @@ public class GameStateInit : GameStateBase
         Debug.Log("RegisterUserCallback called!");
 
         string response = data.response.Remove(data.response.Length - 1); // Remove /t char from the end of the string
+
+        //TODO: Print messages to display to user
 
         switch (response)
         {

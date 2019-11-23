@@ -10,14 +10,15 @@ public class PlayerKillZone : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-         if (other.GetComponent<PlayerController>() != null)
+        if (other.GetComponent<PlayerController>() != null)
         {
             //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 
 
-            
-            
+            throw new System.Exception("Exception: PlayerKillZone PlayerController GetComponent Success");
+
             GameManager.instance.ProcessCommand(Command.End);
         }
+        else throw new System.Exception("Exception: PlayerKillZone PlayerController GetComponent Failed");
     }
 }

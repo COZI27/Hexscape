@@ -11,6 +11,9 @@ public class MapSpawner : MonoBehaviour
     public const int MAP_LAYER_DIGIT = 101;
     public const int MAP_LAYER_UI = 111;
 
+    string pathKillzonePrefab = "Assets/Resources/Prefabs/PlayerKillZone";
+    private GameObject playerKillZonePrefab;
+
 
     // Giver her a level and she will spawn a map... Its a bit messy at the moment but she will do for now :)
     private static MapSpawner instance;
@@ -44,7 +47,7 @@ public class MapSpawner : MonoBehaviour
 
 
 
-    [SerializeField] private GameObject playerKillZonePrefab;
+
 
     private GameObject currentMapHolder;
     public GameObject GetCurrentMapHolder()
@@ -135,7 +138,7 @@ public class MapSpawner : MonoBehaviour
         float newHexWidth = gameobjectInstance.transform.localScale.x / hexWidth * targetColWidth;
 
         
-        Debug.Log(gameobjectInstance.name + ": " + hexWidth);
+        //Debug.Log(gameobjectInstance.name + ": " + hexWidth);
 
         Vector3 tempScale = gameobjectInstance.transform.localScale;
         tempScale.x = tempScale.z = newHexWidth;
@@ -182,7 +185,9 @@ public class MapSpawner : MonoBehaviour
 
     private void Start()
     {
-       killZone = Instantiate(playerKillZonePrefab, grid.transform.position - Vector3.up * 2 * distanceBetweenMaps, Quaternion.identity, transform);
+        playerKillZonePrefab = Resources.Load(pathKillzonePrefab) as GameObject;
+        if (playerKillZonePrefab != null)
+            killZone = Instantiate(playerKillZonePrefab, grid.transform.position - Vector3.up * 2 * distanceBetweenMaps, Quaternion.identity, transform);
     }
 
     public void ClearMapGrid()
@@ -238,9 +243,11 @@ public class MapSpawner : MonoBehaviour
 
     public Hex SpawnAHex(MapElement hexInfo)
     {
-       
-        Hex hexInstance = HexBank.Instance.GetDisabledHex(hexInfo.GetHex().typeOfHex, grid.CellToWorld(new Vector2Int(hexInfo.gridPos.x, hexInfo.gridPos.y)).Value, grid.transform).GetComponent<Hex>();
+        Hex hexInstance = HexBank.Instance.GetDisabledHex(
+            hexInfo.GetHex().typeOfHex, 
+            grid.CellToWorld(new Vector2Int(hexInfo.gridPos.x, hexInfo.gridPos.y)).Value, grid.transform).GetComponent<Hex>();
 
+        
         Vector3 localPos = ((Vector3) grid.CellToWorld(new Vector2Int(hexInfo.gridPos.x, hexInfo.gridPos.y)));
         hexInstance.transform.localPosition = localPos;
 
@@ -278,8 +285,11 @@ public class MapSpawner : MonoBehaviour
 
     public void SpawnHexs(Level level, Vector3 playerPos, bool randomRotate = true)
     {
+
+        // ... null ref here...?
         ClearMapGrid();
-       
+
+
 
         foreach (MapElement element in level.hexs)
         {
@@ -290,7 +300,10 @@ public class MapSpawner : MonoBehaviour
 
         UpdateMapRefence();
 
-        killZone.transform.position = grid.transform.position - Vector3.up * 2 * distanceBetweenMaps;
+
+        if (killZone != null)
+            killZone.transform.position = grid.transform.position - Vector3.up * 2 * distanceBetweenMaps;
+
     }
 
     private void Update()

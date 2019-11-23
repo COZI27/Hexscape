@@ -222,11 +222,20 @@ public class GameStateBase
     {
         //Level newProfileLevel = LoadLevelFromPath(pathNewProfileLevel);
 
-        MapSpawner.Instance.SpawnHexs(
-            levelToCreate,
-            GameManager.instance.GetPlayerBall().transform.position - new Vector3(0, -30, 0),
-            allowRandomMapRotation
-            );
+
+
+        if (MapSpawner.Instance != null)
+        {
+            MapSpawner.Instance.SpawnHexs(
+                levelToCreate,
+                GameManager.instance.GetPlayerBall().transform.position - new Vector3(0, -30, 0),
+                allowRandomMapRotation
+                );
+        }
+        else throw new System.Exception(" EXCEPTION: MapSpawner NULL");
+
+
+
 
         Vector3 mapPosition = MapSpawner.Instance.GetCurrentMapHolder().transform.position;
         //GameManager.instance.GetPlayerBall().transform.position = mapPosition;

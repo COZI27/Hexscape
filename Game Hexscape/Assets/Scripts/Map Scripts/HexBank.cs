@@ -4,7 +4,11 @@ using UnityEngine;
 using UnityEditor;
 using System.Linq;
 
+
+
+#if (UNITY_EDITOR) 
 [System.Serializable, ExecuteInEditMode, InitializeOnLoad]
+#endif
 public class HexBank : MonoBehaviour
 {
     private static HexBank instance;
@@ -40,13 +44,15 @@ public class HexBank : MonoBehaviour
         {
             Destroy(gameObject);
         }
+#if (UNITY_EDITOR)
         Cleanup();
+#endif
         disableHexTypes = new List<HexTypeHolder>();
     }
 
+#if (UNITY_EDITOR)
     static HexBank()
     {
-
         EditorApplication.quitting += CleanupSpawnedHexes; // Delegated to destroy stored hexes as the application quits
     }
 
@@ -56,6 +62,7 @@ public class HexBank : MonoBehaviour
         CleanupSpawnedHexes();
 
     }
+#endif
 
     // Destroys all hexes stored by the HexBank in the scene
 
@@ -109,6 +116,7 @@ public class HexBank : MonoBehaviour
     public GameObject GetDisabledHex(HexTypeEnum hexType, Vector3 position, Transform parent, int recursionAccumulator = 0)
     {
         Quaternion rotation = Quaternion.Euler(-0, 0, 0);
+
 
         GameObject target;
         if (disableHexTypes.Exists(x => x.hexType == hexType) && disableHexTypes.Find(x => x.hexType == hexType).disabledHexObjects.Count != 0)

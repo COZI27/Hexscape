@@ -50,7 +50,9 @@ public static class HexTypes
 [System.Serializable]
 public class Level
 {
-   [ReadOnly] public string levelName;
+
+    public string levelName;
+
     public MapElement[] hexs;
 
     //public int passAmount;
@@ -93,9 +95,13 @@ public class Level
 [System.Serializable]
 public class MapElement
 {
-    [ReadOnly] [HideInInspector] public string displayName = null;
-   
 
+#if (UNITY_EDITOR) 
+    [ReadOnly] [HideInInspector] public string displayName = null;
+#endif
+
+
+#if (UNITY_EDITOR)
     public void UpdateDisplayName ()
     {
         string dName = hexType.ToString() + ": " + gridPos.ToString();
@@ -128,9 +134,10 @@ public class MapElement
         displayName = dName;
        
     }
+#endif
 
 
-    
+
 
     public Vector2Int gridPos;
     public HexTypeEnum hexType;
@@ -151,7 +158,9 @@ public class MapElement
     }
 
 
+#if (UNITY_EDITOR)
     [ReadOnly] public string hexAttributeInfo = null;
+#endif
 
 }
 

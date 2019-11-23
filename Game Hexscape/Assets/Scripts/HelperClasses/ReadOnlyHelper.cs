@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-// Just stole this from the interne
+#if (UNITY_EDITOR) 
 
 [System.Serializable]
 public class ReadOnlyAttribute : PropertyAttribute
@@ -55,3 +55,4 @@ public class ReadOnlyDrawer : PropertyDrawer
 
     }
 }
+#endif

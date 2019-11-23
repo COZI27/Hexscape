@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using Newtonsoft.Json;
+using UnityEngine.UI;
 using UnityEditor;
 
 
-
-
+#if (UNITY_EDITOR) 
 [ExecuteInEditMode]
+#endif
 public class LevelLoader : MonoBehaviour
 {
 
@@ -35,12 +36,13 @@ public class LevelLoader : MonoBehaviour
         instance = this;
     }
 
-
+#if (UNITY_EDITOR)
     [ContextMenu("Add Hex with attribute")]
     public void AddAttributeHexToLevel()
     {
         NewHexAttributeEditorWindow.ShowhexAttributeWindow();
     }
+#endif
 
     public void AddHexToLevel(HexTypeEnum hexType, Vector2 location)
     {
@@ -110,7 +112,7 @@ public class LevelLoader : MonoBehaviour
 
     }
 
-   // [ContextMenu("Create")]
+    // [ContextMenu("Create")]
     //public void CreateLevel()
     //{
     //    Level level = levelBeingEdited;
@@ -122,7 +124,7 @@ public class LevelLoader : MonoBehaviour
     //    File.WriteAllText(GetLevelPath() + level.levelName + ".json", json);
     //}
 
-    
+
 
     // [ContextMenu("Create Newtonsoft Json")]
     //public void CreateLevel_Newtonsoft()
@@ -136,9 +138,12 @@ public class LevelLoader : MonoBehaviour
 
 
 
-    
     public void SaveLevelFile (Level level)  // Prompts you to save the level as Serialised json
     {
+        // TODO: Find way to save in builds
+
+#if (UNITY_EDITOR)
+
         string saveName = "My New Level"; 
 
         if (level == null || level.levelName == "")
@@ -162,15 +167,20 @@ public class LevelLoader : MonoBehaviour
        
         lastResourceLocation = fileLocation;
 
-        File.WriteAllText(fileLocation, json); 
-    } 
+        File.WriteAllText(fileLocation, json);
+#endif
+    }
+
+#if (UNITY_EDITOR)
     [ContextMenu("Save Level File")] public void SaveLevelFile() //Inspecter overload
     {
         SaveLevelFile(levelBeingEdited);
 
         UpdateInspectorUI();
-    } 
+    }
+#endif
 
+#if (UNITY_EDITOR)
 
     [ContextMenu("Load Level File")] //  loads a level from a Serialised json file (prompt overload for file location)
     public Level LoadLevelFile()
@@ -189,32 +199,130 @@ public class LevelLoader : MonoBehaviour
         
     }
 
-    
+#endif
+
+
     public Level LoadLevelFile(string path, bool fromResources = false) 
     {
+        string appendedPath = path;
+//#if UNITY_EDITOR
+//        Debug.Log("UNITY_EDITOR");
+//        appendedPath = Path.Combine("Assets/Resources/", path);
+//#endif
+//#if UNITY_ANDROID
+//        Debug.Log("UNITY_ANDROID");
+//        //appendedPath = Path.Combine(Application.dataPath, path);
+//#endif
+        if (Application.platform == RuntimePlatform.WindowsEditor)
+            appendedPath = Path.Combine("Assets/Resources/", path);
+
+        if (Application.platform == RuntimePlatform.Android)
+            appendedPath = Path.Combine("file://", Application.dataPath, "!/assets/", path);
+        //"jar:file://" + Application.dataPath + "!/assets/alphabet.txt";
+
+
+            // TODO: store datapath globally for ready access. Can be assigned on init
+
         if (fromResources) // goes from the Resources folder if true... might make an enum with an automatic mode too
         {
-            path = Application.dataPath + "/Resources/" + path;
+            //appendedPath = "file://" + Application.dataPath + path;
+            //Debug.Log("Application.DataPath =  " + Application.dataPath);
+        }
+        
+
+        GameObject TEMPOBJ = GameObject.Find("DebugText");
+        if (TEMPOBJ != null) TEMPOBJ.GetComponent<Text>().text = "Found Debug Text";
+
+
+        TextAsset levelText = Resources.Load<TextAsset>(path);
+        if (levelText != null)
+        {
+            if (TEMPOBJ != null) TEMPOBJ.GetComponent<Text>().text = "levelText found!";
+
         }
 
-        if (File.Exists(path))
+
+
+        levelText = Resources.Load<TextAsset>(path);
+        levelText = (TextAsset)Resources.Load(path, typeof(TextAsset));
+
+        if (levelText != null)
         {
+            if (TEMPOBJ != null) TEMPOBJ.GetComponent<Text>().text = "levelText found!";
+            string dataAsJson = levelText.ToString();//File.ReadAllText(path);
 
-            string dataAsJson = File.ReadAllText(path);
 
-            ///TextAsset loadedJson = (TextAsset)Resources.Load(path, typeof(TextAsset));
+
             if (dataAsJson != null)
             {
+                Debug.Log("dataAsJson != null");
+
+
 
                 Level returnLevel = DeserialisLevelFromJsonFile(dataAsJson);
                 if (returnLevel != null)
-                    return returnLevel;
+                {
 
-                else Debug.LogWarning("Failed to convert Json to Level at path: " + path);
+                    if (TEMPOBJ != null) TEMPOBJ.GetComponentInChildren<Text>().text = "Found Level";
+                    return returnLevel;
+                }
+
+                else
+                {
+                    Debug.Log("Failed to convert Json to Level at path: " + path);
+                    if (TEMPOBJ != null) TEMPOBJ.GetComponentInChildren<Text>().text = "Failed to convert Json to Level at path: " + path;
+                }
             }
-            else Debug.LogWarning("Failed to load Json from path: " + path);
+            else
+            {
+                Debug.Log("Failed to load Json from path: " + path);
+                if (TEMPOBJ != null) TEMPOBJ.GetComponentInChildren<Text>().text = "Failed to load Json from path: " + path;
+            }
+
         }
-        else Debug.LogWarning("No file found at path: " + path);
+        else
+        {
+            Debug.Log("No valid file found at path: " + path);
+            if (TEMPOBJ != null) TEMPOBJ.GetComponentInChildren<Text>().text = "No file found at path: " + path;
+        }
+
+
+        //if (System.IO.File.Exists(appendedPath))
+        //{
+        //    Debug.Log("System.IO.File.Exists(path)");
+        //    string dataAsJson = File.ReadAllText(appendedPath);
+
+        //    ///TextAsset loadedJson = (TextAsset)Resources.Load(path, typeof(TextAsset));
+        //    if (dataAsJson != null)
+        //    {
+        //        Debug.Log("dataAsJson != null");
+
+        //        Level returnLevel = DeserialisLevelFromJsonFile(dataAsJson);
+        //        if (returnLevel != null)
+        //        {
+        //            if (TEMPOBJ != null) TEMPOBJ.GetComponentInChildren<Text>().text = "Found Level";
+        //            return returnLevel;
+        //        }
+
+        //        else
+        //        {
+        //            Debug.Log("Failed to convert Json to Level at path: " + appendedPath);
+        //            if (TEMPOBJ != null) TEMPOBJ.GetComponentInChildren<Text>().text = "Failed to convert Json to Level at path: " + path;
+        //        }
+        //    }
+        //    else
+        //    {
+        //        Debug.Log("Failed to load Json from path: " + appendedPath);
+        //        if (TEMPOBJ != null) TEMPOBJ.GetComponentInChildren<Text>().text = "Failed to load Json from path: " + appendedPath;
+        //    }
+        //}
+        //else
+        //{
+        //    Debug.Log("No file found at path: " + appendedPath);
+        //    if (TEMPOBJ != null) TEMPOBJ.GetComponentInChildren<Text>().text = "No file found at path: " + appendedPath;
+        //}
+
+
 
        
         return null;
@@ -230,18 +338,20 @@ public class LevelLoader : MonoBehaviour
     //{
     //    string path = GetLevelPath();
     //    path = EditorUtility.OpenFolderPanel("Select Level Location", lastResourceLocation, "");
-   
+
     //    lastResourceLocation = path;
 
     //    Debug.Log("resouce location set to " + path);
     //}
 
-
+#if (UNITY_EDITOR)
     private void OnValidate()
     {
         UpdateInspectorUI();
 
     }
+
+
 
     private void UpdateInspectorUI ()
     {
@@ -250,6 +360,7 @@ public class LevelLoader : MonoBehaviour
             mapElements.UpdateDisplayName();
         }
     }
+#endif
 
 
 

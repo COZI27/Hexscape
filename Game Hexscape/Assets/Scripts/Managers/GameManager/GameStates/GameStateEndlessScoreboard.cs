@@ -27,7 +27,7 @@ public class GameStateEndlessScoreboard : GameStateBase
 {
     //string pathScoreBoardLevel = "Assets/Resources/Levels/Menus/ScoreboardLevel.json";
 
-    string pathScoreBoardLevel = "Assets/Resources/Levels/Menus/Scoreboard.json";
+    string pathScoreBoardLevel = "Levels/Menus/Scoreboard";
 
     //ScoreboardLevelComponent levelComponent;
 

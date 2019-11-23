@@ -6,7 +6,7 @@ public class GameStateMenuMain : GameStateBase {
 
     //string pathMainMenu = "Levels/Menus";
 
-    string pathMainMenu = "Assets/Resources/Levels/Menus/MainMenu.json";
+    string pathMainMenu = "Levels/Menus/MainMenu";
 
     // Could assemble array of menus here and then load them by index value in the LoadNextLevel method?
     //string[] menuLevelPaths =
@@ -90,7 +90,9 @@ public class GameStateMenuMain : GameStateBase {
             ////HandleRegisterClick();
             //registerUserHexButton.DestroyHex();
             //});
+
         }
+        else throw new System.Exception("Exception: GameStateMainMenu LevelLoad Failed");
 
         //MapSpawner.Instance.SpawnHexs(mainMenuLevel, GameManager.instance.GetPlayerBall().transform.position - new Vector3(0, -30, 0), false/* offsetValue */);
         //Vector3 mapPosition = MapSpawner.Instance.GetCurrentMapHolder().transform.position;

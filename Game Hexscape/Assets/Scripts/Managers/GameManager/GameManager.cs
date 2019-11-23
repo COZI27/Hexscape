@@ -151,7 +151,13 @@ public class GameManager : MonoBehaviour {
     private GameObject playerBallObject;
 
     public GameObject GetPlayerBall() {
-        return playerBallObject;
+        if (playerBallObject != null)
+            return playerBallObject;
+        else
+        {
+            throw new System.Exception(" EXCEPTION: GetPlayerBall NULL");
+            return null;
+        }
     }
 
 

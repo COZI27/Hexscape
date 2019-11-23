@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
+#if (UNITY_EDITOR) 
+
+
+
 public class NewHexAttributeEditorWindow : EditorWindow // PopupWindow
 {
     HexTypeEnum hexType;
@@ -153,3 +157,4 @@ public class NewHexAttributeEditorWindow : EditorWindow // PopupWindow
 
 }
 
+#endif

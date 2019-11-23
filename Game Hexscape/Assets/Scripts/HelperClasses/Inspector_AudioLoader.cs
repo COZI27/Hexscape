@@ -1,18 +1,21 @@
-﻿#if UNITY_EDITOR
+﻿
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using System.IO;
 
+#if UNITY_EDITOR
 [CustomEditor(typeof(AudioManager))]
-public class Inspector_AudioLoader : Editor
+
+public class Inspector_AudioLoader : Editor 
 {
 
     public string directoryToLoad = "Sounds";
 
     AudioManager audioManager;
 
+#if UNITY_EDITOR
     public override void OnInspectorGUI()
     {
         base.OnInspectorGUI();
@@ -22,6 +25,7 @@ public class Inspector_AudioLoader : Editor
             LoadSoundEffects();
         }
     }
+#endif
 
 
     void LoadSoundEffects()
@@ -60,4 +64,5 @@ public class Inspector_AudioLoader : Editor
 
 
 }
+
 #endif

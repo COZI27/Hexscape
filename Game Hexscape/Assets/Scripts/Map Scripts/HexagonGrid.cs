@@ -85,8 +85,12 @@ public class HexagonGrid : MonoBehaviour
 
     public Vector3? GetWorldPosFromHex(Vector2Int hexIndex)
     {
-        if (hexCells.ContainsKey(hexIndex))
+
+        if (hexCells == null) throw new System.Exception(" EXCEPTION: hexcells null!");
+
+        if (hexCells != null && hexCells.ContainsKey(hexIndex))
         {
+
             HexCell cell = hexCells[hexIndex];
 
             Vector3 cellPos = new Vector3(cell.worldPosition.x, 0, cell.worldPosition.y);
@@ -120,19 +124,22 @@ public class HexagonGrid : MonoBehaviour
         return this.transform.rotation;
     }
 
-
+#if (UNITY_EDITOR) 
     [ExecuteInEditMode]
+#endif
     void OnEnable()
     {
         CreateGrid();
-
+#if (UNITY_EDITOR)
         SceneView.onSceneGUIDelegate -= GridUpdate;
         SceneView.onSceneGUIDelegate += GridUpdate;
+#endif
 
         hexWidth = Mathf.Sqrt(3) * hexSize;
         hexHeight = 2 * hexSize;
 
     }
+
 
     private void Update()
     {
@@ -143,11 +150,15 @@ public class HexagonGrid : MonoBehaviour
         //}
     }
 
-
-    [ExecuteInEditMode]
+#if (UNITY_EDITOR)
+ [ExecuteInEditMode]
+#endif
     void CreateGrid()
     {
         hexCells = new Dictionary<Vector2Int, HexCell>();
+
+
+        //throw new System.Exception("EXCEPTION: CREATE GRID");
 
         int rowStartIndex = -gridRadius;
         int currentRowLength = gridRadius + 1;
@@ -185,9 +196,11 @@ public class HexagonGrid : MonoBehaviour
         }
     }
 
-    int tempDebugCounter = 0;
 
+
+#if (UNITY_EDITOR)
     [ExecuteInEditMode]
+#endif
     private HexCell CreateCell(Vector2Int index)
     {
         Vector2 worldPos;
@@ -334,6 +347,7 @@ public class HexagonGrid : MonoBehaviour
 
 
 
+#if (UNITY_EDITOR)
 
     [ExecuteInEditMode]
     void GridUpdate(SceneView sceneView)
@@ -363,7 +377,7 @@ public class HexagonGrid : MonoBehaviour
     }
 
 
-
+#endif
 
 
     Vector3 RotatePointAroundPivot(Vector3 point, Vector3 pivot, Vector3 angles)
