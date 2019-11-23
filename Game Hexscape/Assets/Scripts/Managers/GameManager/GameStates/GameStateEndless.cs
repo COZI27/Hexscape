@@ -25,7 +25,6 @@ public class EnergyMetre
     private float energyMax = 130;
 
 
-
     public void AddEnergy(float amountToAdd)
     {
         currentEnergyLevel += amountToAdd;
@@ -78,6 +77,16 @@ public sealed class GameStateEndless : GameStateBase
     public float playerKillzoneOffset = 40f;
 
 
+    #region PostProcessingAttributes
+    // NOTE: could be moved to a struct - could permit the manager to update levels on behalf of state?
+    float minSaturation = -70;
+    float maxSaturation = 20;
+
+    float minBrightness = -50;
+    float maxBrightness = 50;
+
+    #endregion
+
 
     PlayerController playerController;
 
@@ -89,12 +98,14 @@ public sealed class GameStateEndless : GameStateBase
 
         energyMetre = new EnergyMetre();
 
-        
+
     }
 
     public override void StateUpdate()
     {
         energyMetre.DrainEmergy();
+
+        UpdatePostProcesser();
 
         if (playerController.gameObject.transform.position.y < MapSpawner.Instance.GetCurrentMapHolder().transform.position.y - playerKillzoneOffset)
         {
@@ -105,12 +116,28 @@ public sealed class GameStateEndless : GameStateBase
 
         //Debug.Log(energyMetre.GetCurrentEnergy());
 
-            playerController.moveSpeed = /*initialPlayerSpeed +*/ (energyMetre.GetCurrentEnergy() * (playerSpeedIncreaseLogMultiplyer * Mathf.Log(playerSpeedIncreaseLogBase)));
+        playerController.moveSpeed = /*initialPlayerSpeed +*/ (energyMetre.GetCurrentEnergy() * (playerSpeedIncreaseLogMultiplyer * Mathf.Log(playerSpeedIncreaseLogBase)));
 
         //playerController.moveSpeed = initialPlayerSpeed + (currentSessionData.levelIndex * (playerSpeedIncreaseLogMultiplyer * Mathf.Log(playerSpeedIncreaseLogBase)));
     }
 
-    protected override void InitialiseStateTransitions()
+    float currentColourBoost = 0;
+    float colourBoostToAddOnDig = 40;
+    float colourBoostDeclineRate = 3.0f;
+
+    private void UpdatePostProcesser()
+    {
+        if (currentColourBoost > 0)
+        {
+            currentColourBoost -= colourBoostDeclineRate;
+            //TODO: Replace with curve
+        }
+
+        PostProcessingManager.instance.ModifyColourGrading(energyMetre.GetCurrentEnergy() - 50 + currentColourBoost, energyMetre.GetCurrentEnergy() - 50 + currentColourBoost);
+    }
+
+
+protected override void InitialiseStateTransitions()
     {
         stateTransitions = new Dictionary<Command, TransitionData<GameStateBase>>
         {
@@ -214,6 +241,8 @@ public sealed class GameStateEndless : GameStateBase
         currentSessionData.totalScore += 1;
 
         energyMetre.AddEnergy(3);
+
+        currentColourBoost += colourBoostToAddOnDig;
 
         if (currentSessionData.levelScore >= currentSessionData.passScore)
         {

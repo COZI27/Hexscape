@@ -69,6 +69,7 @@
     <Compile Include="Assets\HexTypeUIElement.cs" />
     <Compile Include="Assets\MenuLine.cs" />
     <Compile Include="Assets\Scripts\CameraScripts\CameraFollow.cs" />
+    <Compile Include="Assets\Scripts\CameraScripts\PostProcessingManager.cs" />
     <Compile Include="Assets\Scripts\Enums\HexTypeEnum.cs" />
     <Compile Include="Assets\Scripts\Enums\SoundEffectEnum.cs" />
     <Compile Include="Assets\Scripts\HelperClasses\Gradient.cs" />
@@ -110,7 +111,6 @@
     <Compile Include="Assets\Scripts\PhylloTunnel\PhylloTunnelPiece.cs" />
     <Compile Include="Assets\Scripts\Player Scripts\PlayerController.cs" />
     <Compile Include="Assets\Scripts\Player Scripts\PlayerProfile.cs" />
-    <Compile Include="Assets\Scripts\PlayerKillZone.cs" />
     <Compile Include="Assets\Scripts\UI Scripts\HexButton.cs" />
     <Compile Include="Assets\Scripts\UI Scripts\ScoreUI.cs" />
     <None Include="Assets\Shaders\WorldSpaceRippleShader.shader" />
