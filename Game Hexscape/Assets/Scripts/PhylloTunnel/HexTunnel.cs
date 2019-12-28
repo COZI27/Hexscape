@@ -83,10 +83,19 @@ public class HexTunnel : MonoBehaviour
 
 
 
+    public int edgeValue = 20; // the value assigned to each edge length
+    [Range(0, 120)]
+    public float valueToDisplay = 60; // the sum value for edges to display
+    private float lastEdgeRemainder;
+    private int currentItteration;
+    public int lastWholeItteration = 6; // temp - for debugging and testing
+    private bool reverseDirection = false;
 
 
 
-    public int numberOfObjects = 1;
+
+
+    public int numberOfObjects = 4;
     public float distanceBetweenObjects = 30; // The Y distance between each object. 
 
     //public GameObject objectToSpawn;
@@ -95,11 +104,7 @@ public class HexTunnel : MonoBehaviour
     private float currentTopObjectYpos;
     private float currentBottomObjectYpos;
 
-    private int currentItteration = 0;
 
-    [Range(1, 6)]
-    public int lastItteration = 4; // temp - for debugging and testing
-    private bool reverseDirection = false;
 
 
 
@@ -114,7 +119,13 @@ public class HexTunnel : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        CalculateIndex();
         DrawHexes();
+    }
+
+    public void SetEnergyValue(float value)
+    {
+        valueToDisplay = value;
     }
 
     void SpawnTunnelPieces()
@@ -146,25 +157,44 @@ public class HexTunnel : MonoBehaviour
         }
     }
 
+    private void CalculateIndex()
+    {
+        lastWholeItteration = Mathf.FloorToInt(valueToDisplay / edgeValue);
+        lastEdgeRemainder = valueToDisplay % edgeValue;
+    }
+
     private void DrawHexes()
     {
-        // TODO: Draw here or in individual objects?
-        // 
 
         foreach (HexRing cell in tunnelPieces)
         {
-            cell.SetTrailObjectPos(GetHexCornerVertical(cell.worldPosition, cell.hexSize, currentItteration));
-            if (currentItteration >= lastItteration || currentItteration == 0)
+            //if == last itt, then calculate last pos? then reverse?
+
+            if (currentItteration > lastWholeItteration)
             {
+
+                Vector2 cornerA = GetHexCornerVertical(cell.worldPosition, cell.hexSize, currentItteration -1);
+                Vector2 cornerB = GetHexCornerVertical(cell.worldPosition, cell.hexSize, currentItteration);
+                Vector2 cornerAB = (cornerA - cornerB);
+                float normalisedRemainder = (lastEdgeRemainder - 0) / (edgeValue - 0);
+                cell.SetTrailObjectPos(cornerA - (normalisedRemainder * cornerAB));                
+
                 StartCoroutine(cell.ResetTrailRenderer());
             }
+            else
+            {
+                cell.SetTrailObjectPos(GetHexCornerVertical(cell.worldPosition, cell.hexSize, currentItteration));
+            }
+
+            
+            if (currentItteration == 0) StartCoroutine(cell.ResetTrailRenderer());
         }
-        //if (currentItteration == lastItteration) currentItteration = 0;
+        //if (currentItteration == lastWholeItteration) currentItteration = 0;
         //currentItteration++;
 
         if (!reverseDirection)
         {
-            if (currentItteration == lastItteration)
+            if (currentItteration > lastWholeItteration)
             {
                 reverseDirection = !reverseDirection;
                 currentItteration--;

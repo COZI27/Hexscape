@@ -27,8 +27,8 @@ public class EnergyMetre
 
     private float energyPeak = 100;
 
-    private float energyMax = 130;
-
+    private int energyMax = 120;
+    public int GetEnergyMax() { return energyMax; }
 
 
     public void AddEnergy(float amountToAdd)
@@ -93,7 +93,7 @@ public sealed class GameStateEndless : GameStateBase
     #endregion
 
 
-    HexTunnel healthTunnel;
+    HexTunnel energyMetreTunnel;
 
     PlayerController playerController;
 
@@ -112,7 +112,8 @@ public sealed class GameStateEndless : GameStateBase
     {
         energyMetre.DrainEmergy();
 
-        GameManager.instance.scoreUI.SetFillValue(  energyMetre.GetCurrentEnergyNormalised());
+        //GameManager.instance.scoreUI.SetFillValue(  energyMetre.GetCurrentEnergyNormalised());
+        energyMetreTunnel.SetEnergyValue(energyMetre.GetCurrentEnergy());
 
 
         UpdatePostProcesser();
@@ -183,7 +184,8 @@ protected override void InitialiseStateTransitions()
         GameManager.instance.GetPlayerBall().SetActive(true);
 
 
-        healthTunnel = GameManager.instance.gameObject.AddComponent<HexTunnel>();
+        energyMetreTunnel = GameManager.instance.gameObject.AddComponent<HexTunnel>();
+        energyMetreTunnel.edgeValue = energyMetre.GetEnergyMax() / 6;
 
         editMode = PlayerPrefs.GetInt("Edit Mode") == 1;
         if (editMode == true) // level edit on start... if the ball does not spawn we go into edit mode because of a helpfull bug thingo :)
@@ -304,7 +306,7 @@ protected override void InitialiseStateTransitions()
 
     private void UpdateScore ()
     {
-        GameManager.instance.scoreUI.SetScore(currentSessionData.totalScore, currentSessionData.levelScore, currentSessionData.passScore);
+        //GameManager.instance.scoreUI.SetScore(currentSessionData.totalScore, currentSessionData.levelScore, currentSessionData.passScore);
     }
 }
 
