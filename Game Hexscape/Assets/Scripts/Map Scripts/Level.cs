@@ -221,7 +221,7 @@ public class MenuButtonElementAttribute : ElementAttribute
         {
             //HandleRegisterClick();
             GameManager.instance.ProcessCommand(commandToCall);
-            hexInstance.DigHex(); // Temp
+            hexInstance.DigHex(false); // Temp
             
         });
     }

@@ -130,7 +130,7 @@ public class DigitComponent : MonoBehaviour
 
             if (i > digitValues.Count)
             {
-                digitHexes[i].DigHex();
+                digitHexes[i].DigHex(false);
             }
 
             //if (i < digitValues.Count)
@@ -240,7 +240,7 @@ public class DigitComponent : MonoBehaviour
 
         //TODO: Move Component to new hex
         DigitComponent component = this;
-        digitHexes[index].DigHex();
+        digitHexes[index].DigHex(false);
         digitHexes[index] = newHex;
         return true;
     }

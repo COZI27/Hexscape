@@ -173,9 +173,8 @@ public class Hex : MonoBehaviour
     }
 
 
-
     
-    public void DigHex(bool isANeighbourDeath = false) // make a dig hex function that gives points before calling this one
+    public void DigHex(bool awardPoints, bool isANeighbourDeath = false) // make a dig hex function that gives points before calling this one
     {
         //onHexDig.Invoke();
         if (onHexDig != null)
@@ -189,7 +188,7 @@ public class Hex : MonoBehaviour
             isAlive = false;
 
             clickedEvent.RemoveAllListeners(); // TDOD: COnsider whether this would be better suited to being called when returned to the object pool
-            if (GameManager.instance !=  null) GameManager.instance.DigEvent(destroyPoints);
+            if (awardPoints && GameManager.instance !=  null) GameManager.instance.DigEvent(destroyPoints);
         }
 
         if (useFalling)
@@ -225,12 +224,11 @@ public class Hex : MonoBehaviour
             }
 
 
-
             if (typeOfHex == HexTypeEnum.HexTile_ClickIndestructible)
             {
                 mesh.materials[1].SetColor("_EmissionColor", Color.Lerp(Color.magenta, Color.black, touchTime/destroyTime));
 
-                if (touchTime >= destroyTime) DigHex();
+                if (touchTime >= destroyTime) DigHex(true); 
 
             }
         }
@@ -304,7 +302,7 @@ public class Hex : MonoBehaviour
         {
             if (typeOfHex == HexTypeEnum.HexTile_ClickDestroy)
             {
-                DigHex();
+                DigHex(true);
             }
         }
 
@@ -319,7 +317,7 @@ public class Hex : MonoBehaviour
             if (typeOfHex == HexTypeEnum.HexTile_ExitDestroy)
             {
                 Debug.Log("OnPlayerExit HexTile_ExitDestroy");
-                DigHex();
+                DigHex(true);
             }
         }
     }

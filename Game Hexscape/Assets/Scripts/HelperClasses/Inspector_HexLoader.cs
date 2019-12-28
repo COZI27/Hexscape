@@ -5,6 +5,8 @@ using UnityEngine;
 using UnityEditor;
 using System.IO;
 
+
+// Loads hex prefabs from the defined directory and appends the hexTypeEnum with any new prefabs
 [CustomEditor(typeof(MapSpawner))]
 public class Inspector_HexLoader : Editor
 {

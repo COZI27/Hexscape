@@ -172,6 +172,9 @@ public class GameManager : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+
+        scoreUI = GameObject.FindObjectOfType<ScoreUI>();
+
         if (currentGameState == null)
         {
             ChangeGameState(new GameStateInit());

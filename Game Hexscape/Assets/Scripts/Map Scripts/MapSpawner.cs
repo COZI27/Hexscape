@@ -141,7 +141,7 @@ public class MapSpawner : MonoBehaviour
             if (hex.gameObject.activeInHierarchy)
             {
                 hex.transform.parent = this.transform;
-                hex.DigHex();                 
+                hex.DigHex(false);                 
             }
         }
 
@@ -256,7 +256,7 @@ public class MapSpawner : MonoBehaviour
         {
             if (positionOccupied) // Remove occupying tile
             {
-                mapLayers[layer][hexLoc].DigHex();
+                mapLayers[layer][hexLoc].DigHex(false);
                 mapLayers[layer].Remove(hexLoc);
             }
 

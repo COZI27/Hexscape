@@ -16,6 +16,11 @@ public class EnergyMetre
     private float currentEnergyLevel;
     public float GetCurrentEnergy() { return currentEnergyLevel; }
 
+    public float GetCurrentEnergyNormalised()
+    {
+        return (currentEnergyLevel - 0) / (energyMax - 0);      
+    }
+
     private float deteriorationRate = 0.05f;
 
     private float peakDeteriorationExponent = 1.02f;
@@ -23,6 +28,7 @@ public class EnergyMetre
     private float energyPeak = 100;
 
     private float energyMax = 130;
+
 
 
     public void AddEnergy(float amountToAdd)
@@ -84,9 +90,10 @@ public sealed class GameStateEndless : GameStateBase
 
     float minBrightness = -50;
     float maxBrightness = 50;
-
     #endregion
 
+
+    HexTunnel healthTunnel;
 
     PlayerController playerController;
 
@@ -105,13 +112,18 @@ public sealed class GameStateEndless : GameStateBase
     {
         energyMetre.DrainEmergy();
 
+        GameManager.instance.scoreUI.SetFillValue(  energyMetre.GetCurrentEnergyNormalised());
+
+
         UpdatePostProcesser();
 
         if (playerController.gameObject.transform.position.y < MapSpawner.Instance.GetCurrentMapHolder().transform.position.y - playerKillzoneOffset)
         {
             //throw new System.Exception("BALL HAS FALLEN");
 
-            GameManager.instance.ProcessCommand(Command.End);
+            LoadNextLevel();
+
+            //GameManager.instance.ProcessCommand(Command.End);
         }
 
         //Debug.Log(energyMetre.GetCurrentEnergy());
@@ -123,17 +135,26 @@ public sealed class GameStateEndless : GameStateBase
 
     float currentColourBoost = 0;
     float colourBoostToAddOnDig = 40;
-    float colourBoostDeclineRate = 3.0f;
+    float colourBoostDeclineExponent = 0.4f;
+
+    float colourBoostMin = -70;
+    float colourBoostMax = 30;
 
     private void UpdatePostProcesser()
     {
         if (currentColourBoost > 0)
-        {
-            currentColourBoost -= colourBoostDeclineRate;
-            //TODO: Replace with curve
-        }
+            currentColourBoost -= Mathf.Pow(currentColourBoost, colourBoostDeclineExponent);
+        else currentColourBoost = 0;
 
-        PostProcessingManager.instance.ModifyColourGrading(energyMetre.GetCurrentEnergy() - 50 + currentColourBoost, energyMetre.GetCurrentEnergy() - 50 + currentColourBoost);
+        float currentEnergy = energyMetre.GetCurrentEnergy() - 50 + currentColourBoost;
+        
+
+        PostProcessingManager.instance.ModifyColourGrading(currentEnergy, currentEnergy);
+    }
+
+    private void AddToColourBoost(float amountToAdd)
+    {
+        currentColourBoost += amountToAdd;
     }
 
 
@@ -161,6 +182,8 @@ protected override void InitialiseStateTransitions()
         //GameManager.instance.GetPlayerBall().transform.position = mapPosition; // ballPosition;
         GameManager.instance.GetPlayerBall().SetActive(true);
 
+
+        healthTunnel = GameManager.instance.gameObject.AddComponent<HexTunnel>();
 
         editMode = PlayerPrefs.GetInt("Edit Mode") == 1;
         if (editMode == true) // level edit on start... if the ball does not spawn we go into edit mode because of a helpfull bug thingo :)
@@ -242,7 +265,7 @@ protected override void InitialiseStateTransitions()
 
         energyMetre.AddEnergy(3);
 
-        currentColourBoost += colourBoostToAddOnDig;
+        AddToColourBoost(colourBoostToAddOnDig);
 
         if (currentSessionData.levelScore >= currentSessionData.passScore)
         {
