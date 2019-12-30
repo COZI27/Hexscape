@@ -4028,7 +4028,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   edgeValue: 20
-  valueToDisplay: 60.9
+  valueToDisplay: 85.4
   lastWholeItteration: 6
   numberOfObjects: 4
   distanceBetweenObjects: 30
