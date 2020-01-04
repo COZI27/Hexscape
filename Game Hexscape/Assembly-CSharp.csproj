@@ -68,7 +68,6 @@
     <Compile Include="Assets\HexColourLerp.cs" />
     <Compile Include="Assets\HexTypeUIElement.cs" />
     <Compile Include="Assets\MenuLine.cs" />
-    <Compile Include="Assets\Resources\HexTunnelPiece.cs" />
     <Compile Include="Assets\Scripts\CameraScripts\CameraFollow.cs" />
     <Compile Include="Assets\Scripts\CameraScripts\PostProcessingManager.cs" />
     <Compile Include="Assets\Scripts\Enums\HexTypeEnum.cs" />
@@ -110,6 +109,7 @@
     <Compile Include="Assets\Scripts\ParticleSelfDestroy.cs" />
     <Compile Include="Assets\Scripts\PhylloTunnel\CameraTunnel.cs" />
     <Compile Include="Assets\Scripts\PhylloTunnel\HexTunnel.cs" />
+    <Compile Include="Assets\Scripts\PhylloTunnel\HexTunnelEnergy.cs" />
     <Compile Include="Assets\Scripts\PhylloTunnel\PhylloTunnelPiece.cs" />
     <Compile Include="Assets\Scripts\Player Scripts\PlayerController.cs" />
     <Compile Include="Assets\Scripts\Player Scripts\PlayerProfile.cs" />
@@ -117,6 +117,7 @@
     <Compile Include="Assets\Scripts\UI Scripts\ScoreUI.cs" />
     <None Include="Assets\Shaders\WorldSpaceRippleShader.shader" />
     <None Include="Assets\Shaders\WorldSpaceExpandShader.shader" />
+    <None Include="Assets\Shaders\HexShader.shader" />
     <None Include="Assets\JsonDotNet\link.xml" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>S:/GitHub/Hexscape/Game Hexscape/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>

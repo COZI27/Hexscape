@@ -69,11 +69,14 @@ public class CameraTunnel : MonoBehaviour {
         if (currentTopObjectYpos > this.transform.position.y) {
             // if (!isGoingDown) ReverseQueue();
 
+           
+
             PhylloTunnelPiece pieceToMove = tunnelPieces.Dequeue();
             pieceToMove.targetYPos = currentTopObjectYpos - (distanceBetweenObjects * (numberOfObjects - 1));
             currentBottomObjectYpos = pieceToMove.targetYPos;
             currentTopObjectYpos -= distanceBetweenObjects;
             tunnelPieces.Enqueue(pieceToMove);
+
         }
 
     }

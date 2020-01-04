@@ -148,14 +148,7 @@ public class PhylloTunnelPiece : ObserverPattern.Observer {
         if (bIsGradientLerping) {
             trailRenderer.colorGradient = Util.Gradient.Lerp(trailRenderer.colorGradient, targetGradient/*TODO: Use array index*/, Time.deltaTime / gradientLerpDivider);        
             gradientLerpTimer += (Time.deltaTime / gradientLerpDivider);
-          //  Debug.Log("bIsGradientLerping...");
-            if (Gradient.Equals(trailRenderer.colorGradient, targetGradient)) {
-                bIsGradientLerping = false;
-                    Debug.Log("Timer Up!");
-            }
-            //if (gradientLerpTimer >= 1) { bIsGradientLerping = false;
-            //    Debug.Log("Timer Up!");
-            //}
+            if (Gradient.Equals(trailRenderer.colorGradient, targetGradient)) bIsGradientLerping = false;      
         }
 
 
@@ -202,9 +195,10 @@ public class PhylloTunnelPiece : ObserverPattern.Observer {
             }
         }
         if (!useLerp) {
-   
+            
             phyllotaxisPos = CalculatePhyllotaxis(degree, scale, currentNumber);
             transform.localPosition = new Vector3(phyllotaxisPos.x, Mathf.Lerp(this.transform.position.y, Mathf.Lerp(transform.position.y, targetYPos + targetWobblePos, Time.deltaTime), Time.deltaTime * 5), phyllotaxisPos.y);
+            //Debug.Log("targetYPos + targetWobblePos = " + targetYPos + targetWobblePos);
             currentNumber += stepSize;
             currentIt++;
         }

@@ -93,7 +93,8 @@ public sealed class GameStateEndless : GameStateBase
     #endregion
 
 
-    HexTunnel energyMetreTunnel;
+    HexTunnelEnergy energyMetreTunnel;
+   
 
     PlayerController playerController;
 
@@ -184,8 +185,11 @@ protected override void InitialiseStateTransitions()
         GameManager.instance.GetPlayerBall().SetActive(true);
 
 
-        energyMetreTunnel = GameManager.instance.gameObject.AddComponent<HexTunnel>();
-        energyMetreTunnel.edgeValue = energyMetre.GetEnergyMax() / 6;
+        energyMetreTunnel = GameManager.instance.gameObject.AddComponent<HexTunnelEnergy>();
+        energyMetreTunnel.Initialise(8, 30, 7);
+        //energyMetreTunnel.edgeValue = energyMetre.GetEnergyMax() / 6;
+
+
 
         editMode = PlayerPrefs.GetInt("Edit Mode") == 1;
         if (editMode == true) // level edit on start... if the ball does not spawn we go into edit mode because of a helpfull bug thingo :)

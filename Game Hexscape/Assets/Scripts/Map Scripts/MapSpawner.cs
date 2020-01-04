@@ -46,8 +46,6 @@ public class MapSpawner : MonoBehaviour
 
 
 
-
-
     private GameObject currentMapHolder;
     public GameObject GetCurrentMapHolder()
     {

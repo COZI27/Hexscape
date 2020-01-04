@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+/*DEPRECATED*/
 public class HexTunnel : MonoBehaviour
 {
 
