@@ -12,6 +12,8 @@ public class PostProcessingManager : MonoBehaviour
 
     ColorGrading colourGradingLayer;
 
+    float defaultSaturation, defaultBrightness;
+
 
 
     public static PostProcessingManager instance;
@@ -37,6 +39,8 @@ public class PostProcessingManager : MonoBehaviour
 
         volume.profile.TryGetSettings<ColorGrading>(out colourGradingLayer);
 
+        defaultSaturation = colourGradingLayer.saturation.value;
+        defaultBrightness = colourGradingLayer.brightness.value;
     }
 
     // Update is called once per frame
@@ -57,6 +61,15 @@ public class PostProcessingManager : MonoBehaviour
         {
             colourGradingLayer.saturation.value = newSaturation;
             colourGradingLayer.brightness.value = newbrightness;
+        }
+    }
+
+    public void ResetPostProcessor()
+    {
+        if (colourGradingLayer)
+        {
+            colourGradingLayer.saturation.value = defaultSaturation;
+            colourGradingLayer.brightness.value = defaultBrightness;
         }
     }
 }

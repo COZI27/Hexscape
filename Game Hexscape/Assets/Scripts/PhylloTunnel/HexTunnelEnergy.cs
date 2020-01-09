@@ -19,7 +19,6 @@ public class HexTunnelEnergy : MonoBehaviour
     public float planeMeshSize;
 
 
-
     public void Initialise(int noOfRings = 4, float ringDist = 30, float ringSize = 7, float maxVal = 120)
     {
         numberOfObjects = noOfRings;
@@ -31,7 +30,6 @@ public class HexTunnelEnergy : MonoBehaviour
     }
 
 
-    // Update is called once per frame
     void Update()
     {
         HandleTunnelMove();
@@ -42,15 +40,8 @@ public class HexTunnelEnergy : MonoBehaviour
     float CalcFillValue()
     {
         float returnVal;
-
         float inValAsPercentage = (valueToDisplay * 100) / maxValue;
-        //Debug.Log(valueToDisplay);
-        //Debug.Log(maxValue);
-        //Debug.Log("inValAsPercentage = " +inValAsPercentage);
-
-
         returnVal = 360 - ((360 / 100) * inValAsPercentage);
-
         return returnVal;
     }
 
@@ -66,18 +57,23 @@ public class HexTunnelEnergy : MonoBehaviour
     {
         tunnelPieces = new Queue<GameObject>();
 
-        float initialYPos = MapSpawner.Instance.GetCurrentMapHolder().transform.position.y + distanceBetweenObjects;
-
-        currentTopObjectYpos = initialYPos - distanceBetweenObjects;
+        Vector3 mapPosition = MapSpawner.Instance.GetCurrentMapHolder().transform.position;
 
         for (int i = 0; i < numberOfObjects; ++i)
         {
             GameObject newHex = SpawnHex();
             if (newHex != null)
             {
-                newHex.transform.position = MapSpawner.Instance.GetCurrentMapHolder().transform.position 
-                                            + new Vector3(0, initialYPos -= distanceBetweenObjects, 0);
-                tunnelPieces.Enqueue(newHex);
+                if (i == 0)
+                {
+                    newHex.transform.position = mapPosition - new Vector3(0, distanceBetweenObjects / 2, 0);
+                    currentTopObjectYpos = newHex.transform.position.y;
+                }
+                else
+                {
+                    newHex.transform.position = new Vector3(mapPosition.x, currentTopObjectYpos - (distanceBetweenObjects * i), mapPosition.z);  
+                }
+                tunnelPieces.Enqueue(newHex);             
             }
         }
     }
@@ -117,7 +113,6 @@ public class HexTunnelEnergy : MonoBehaviour
             new Vector2 (1, 0)
         };
 
-        //m.triangles = new int[] { 0, 2, 3, 0, 1, 2 };
         m.triangles = new int[] { 0, 1, 2, 0, 2, 3 };
 
         m.RecalculateNormals();
@@ -138,17 +133,12 @@ public class HexTunnelEnergy : MonoBehaviour
         {
             // if (!isGoingDown) ReverseQueue();
 
-
-            //NOTE: Multiply Lerp speed by y distance from ap holder to make a curveWhat 
-
             GameObject pieceToMove = tunnelPieces.Dequeue();
-            //pieceToMove.targetYPos = currentTopObjectYpos - (distanceBetweenObjects * (numberOfObjects - 1));
 
             Vector3 targetPos = new Vector3(mapPos.x, currentTopObjectYpos - (distanceBetweenObjects * (numberOfObjects - 1)), mapPos.z);
             IEnumerator coroutine = MoveTo(pieceToMove, targetPos, 2f);
             StartCoroutine(coroutine);
 
-            //pieceToMove.transform.position = new Vector3(mapPos.x, currentTopObjectYpos - (distanceBetweenObjects * (numberOfObjects - 1)), mapPos.z);
             currentBottomObjectYpos = pieceToMove.transform.position.y;
             currentTopObjectYpos -= distanceBetweenObjects;
             tunnelPieces.Enqueue(pieceToMove);
@@ -169,6 +159,16 @@ public class HexTunnelEnergy : MonoBehaviour
         }
         obj.transform.position = end;
 
+    }
+
+    public void FallDestroy()
+    {
+        while (tunnelPieces.Count > 0)
+        {
+            GameObject piece = tunnelPieces.Dequeue();
+            GameObject.Destroy(piece);
+        }
+        GameObject.Destroy(this);
     }
 
 }

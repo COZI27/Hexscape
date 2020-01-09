@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 
 
 public class EnergyMetre
@@ -11,6 +12,11 @@ public class EnergyMetre
     {
         currentEnergyLevel = initialEnergy;
     }
+
+    public delegate void OnMaxEnergyReached();
+    public event OnMaxEnergyReached onMaxEnergyReached;
+
+    public UnityEvent maxEnergyReached = new UnityEvent();
 
 
     private float currentEnergyLevel;
@@ -34,8 +40,11 @@ public class EnergyMetre
     public void AddEnergy(float amountToAdd)
     {
         currentEnergyLevel += amountToAdd;
-        if (currentEnergyLevel > energyMax) currentEnergyLevel = energyMax;
-
+        if (currentEnergyLevel >= energyMax)
+        {
+            currentEnergyLevel = energyMax;
+            maxEnergyReached.Invoke();
+        }
 
     }
 
@@ -82,6 +91,7 @@ public sealed class GameStateEndless : GameStateBase
 
     public float playerKillzoneOffset = 40f;
 
+    float initialEnergy = 70.0f;
 
     #region PostProcessingAttributes
     // NOTE: could be moved to a struct - could permit the manager to update levels on behalf of state?
@@ -95,7 +105,6 @@ public sealed class GameStateEndless : GameStateBase
 
     HexTunnelEnergy energyMetreTunnel;
    
-
     PlayerController playerController;
 
     EnergyMetre energyMetre;
@@ -104,9 +113,14 @@ public sealed class GameStateEndless : GameStateBase
     {
         InitialiseStateTransitions();
 
-        energyMetre = new EnergyMetre();
+        energyMetre = new EnergyMetre(initialEnergy);
 
-
+        energyMetre.maxEnergyReached.AddListener(() =>
+        {
+            MaxEnergyReachedListener();
+            //HandleRegisterClick();
+            //GameManager.instance.ProcessCommand(commandToCall);
+        });
     }
 
     public override void StateUpdate()
@@ -133,6 +147,8 @@ public sealed class GameStateEndless : GameStateBase
         playerController.moveSpeed = /*initialPlayerSpeed +*/ (energyMetre.GetCurrentEnergy() * (playerSpeedIncreaseLogMultiplyer * Mathf.Log(playerSpeedIncreaseLogBase)));
 
         //playerController.moveSpeed = initialPlayerSpeed + (currentSessionData.levelIndex * (playerSpeedIncreaseLogMultiplyer * Mathf.Log(playerSpeedIncreaseLogBase)));
+
+        if (energyMetre.GetCurrentEnergy() <= 0) GameManager.instance.StartCoroutine(EndGame());
     }
 
     float currentColourBoost = 0;
@@ -148,8 +164,7 @@ public sealed class GameStateEndless : GameStateBase
             currentColourBoost -= Mathf.Pow(currentColourBoost, colourBoostDeclineExponent);
         else currentColourBoost = 0;
 
-        float currentEnergy = energyMetre.GetCurrentEnergy() - 50 + currentColourBoost;
-        
+        float currentEnergy = energyMetre.GetCurrentEnergy() - 50 + currentColourBoost;    
 
         PostProcessingManager.instance.ModifyColourGrading(currentEnergy, currentEnergy);
     }
@@ -159,8 +174,15 @@ public sealed class GameStateEndless : GameStateBase
         currentColourBoost += amountToAdd;
     }
 
+    private void MaxEnergyReachedListener()
+    {
+        Debug.Log("MAX ENERGY");
+        //Multiplier
+        //Reset Energy (lerp drain?)
+    }
 
-protected override void InitialiseStateTransitions()
+
+    protected override void InitialiseStateTransitions()
     {
         stateTransitions = new Dictionary<Command, TransitionData<GameStateBase>>
         {
@@ -212,8 +234,23 @@ protected override void InitialiseStateTransitions()
     public override void CleanupGameState()
     {
         // ...
-  
+        
     }
+
+    IEnumerator EndGame()
+    {
+        //DROP RINGS
+        //RESET POST PROC (could be handled by state change on manager?)
+        //END STATE
+
+        PostProcessingManager.instance.ResetPostProcessor();
+        GameManager.instance.ProcessCommand(Command.End);
+
+        energyMetreTunnel.FallDestroy();
+        yield return null;
+    }
+
+
 
     protected override void InitialiseClickSounds()
     {
@@ -269,7 +306,7 @@ protected override void InitialiseStateTransitions()
         currentSessionData.levelScore += 1;
         currentSessionData.totalScore += 1;
 
-        energyMetre.AddEnergy(3);
+        energyMetre.AddEnergy(4);
 
         AddToColourBoost(colourBoostToAddOnDig);
 
