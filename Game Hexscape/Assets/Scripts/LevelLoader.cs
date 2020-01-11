@@ -151,7 +151,7 @@ public class LevelLoader : MonoBehaviour
             saveName = "My New Level";
         }  else
         {
-            saveName = level.levelName.Replace(".json", "");
+            if (level != null && level.levelName != null) saveName = level.levelName.Replace(".json", "");
         }
 
         string fileLocation = EditorUtility.SaveFilePanel("Select Level Location", lastResourceLocation, saveName,  "json");

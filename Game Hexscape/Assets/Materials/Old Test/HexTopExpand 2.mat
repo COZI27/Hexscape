@@ -93,9 +93,13 @@ Material:
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
+<<<<<<< HEAD
     - _QueueOffset: 0
     - _ReceiveShadows: 1
     - _RippleDistance: 100.046585
+=======
+    - _RippleDistance: 34.30538
+>>>>>>> fc0bbb2b24b94020226b3cf123ff0650b69e7622
     - _RippleWidth: 1
     - _Shininess: 0
     - _Smoothness: 0
@@ -111,5 +115,9 @@ Material:
     - _BaseColor: {r: 0.26091117, g: 0.25485048, b: 0.6509434, a: 0}
     - _Color: {r: 0.26091117, g: 0.25485048, b: 0.6509434, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+<<<<<<< HEAD
     - _RippleOrigin: {r: 0.20701313, g: -621.0478, b: 1.9197651, a: 0}
     - _SpecColor: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+=======
+    - _RippleOrigin: {r: 1.2860649, g: -384.3683, b: 0.9728066, a: 0}
+>>>>>>> fc0bbb2b24b94020226b3cf123ff0650b69e7622
