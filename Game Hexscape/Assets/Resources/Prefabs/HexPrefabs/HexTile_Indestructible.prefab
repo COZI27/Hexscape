@@ -66,7 +66,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 1f100ad10c92cae44b7895ee2f5a8ac5, type: 2}
-  - {fileID: 2100000, guid: c115a39e0b5f3f041a708694db9f3f15, type: 2}
+  - {fileID: 2100000, guid: 1f100ad10c92cae44b7895ee2f5a8ac5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -74,6 +74,7 @@ MeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -106,12 +107,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10454be4d274f974d95cd5cfb2e018cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Flag: 0
   destroyPoints: 0
   clickedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
   isClickable: 0
   typeOfHex: 840749193
   destroyTime: 3.5

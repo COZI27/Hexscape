@@ -8,9 +8,17 @@ using UnityEngine.Events;
 public class EnergyMetre
 {
 
-    public EnergyMetre(float initialEnergy = 90)
+
+
+    public EnergyMetre(float initialEnergy = 90, float initalAcceleration = 0.5f, int initalEnergyTier = 1, float deteriorationRate = 0.05f)
     {
+        initialEnergyLevel = initialEnergy;
         currentEnergyLevel = initialEnergy;
+        currentAccelerationLevel = initalAcceleration;
+        this.deteriorationRate = deteriorationRate;
+        currentEnergyTier = initalEnergyTier;
+
+        tierGraceValue = 0;
     }
 
     public delegate void OnMaxEnergyReached();
@@ -18,23 +26,55 @@ public class EnergyMetre
 
     public UnityEvent maxEnergyReached = new UnityEvent();
 
-
+    public int currentEnergyTier { get; private set; }
     private float currentEnergyLevel;
+    private float currentAccelerationLevel; 
+
+    private float tierGraceValue;
+    private const float tierUpGaceBufferAmount = 25f;
+    private float initialEnergyLevel;
+
+    private float deteriorationRate;
+
+    private float peakDeteriorationExponent = 0.0f;
+
+    private float energyPeak = 70;
+
+    private int energyMax = 100;
+    public int GetEnergyMax() { return energyMax; }
+
+
     public float GetCurrentEnergy() { return currentEnergyLevel; }
+
 
     public float GetCurrentEnergyNormalised()
     {
-        return (currentEnergyLevel - 0) / (energyMax - 0);      
+        return (currentEnergyLevel - 0) / (energyMax - 0);
     }
 
-    private float deteriorationRate = 0.05f;
+    public float GetBarFill()
+    {
+        float val = ((float)currentEnergyLevel) / ((float)energyMax);
+        // Debug.Log("currentEnergyLevel: " + currentEnergyLevel + " / energyMax: " + energyMax + " = " + val );
+        return (val);
+    }
 
-    private float peakDeteriorationExponent = 1.02f;
 
-    private float energyPeak = 100;
 
-    private int energyMax = 120;
-    public int GetEnergyMax() { return energyMax; }
+
+    // for accel value:  value needs to be more inert then energy value... increate the energy gained when heigh. 
+    // rewards player for good continuous play... might add an "On Fire" state when at max greatly increasing the speed of progression.
+
+
+    public void NextTier()
+    {
+        currentEnergyTier++;
+        //tierGraceValue = tierUpGaceBufferAmount;
+        //currentEnergyLevel %= energyMax;
+        currentEnergyLevel = initialEnergyLevel;
+        maxEnergyReached.Invoke();
+        GameManager.instance.scoreUI.FlickerMultiplierArrow(true);
+    }
 
 
     public void AddEnergy(float amountToAdd)
@@ -42,38 +82,68 @@ public class EnergyMetre
         currentEnergyLevel += amountToAdd;
         if (currentEnergyLevel >= energyMax)
         {
-            currentEnergyLevel = energyMax;
-            maxEnergyReached.Invoke();
+            NextTier();
         }
-
     }
 
     public void DrainEmergy()
     {
+        if (tierGraceValue >=0)
+        {
+            tierGraceValue -= deteriorationRate;
+            return;
+        }
+
+
         if (currentEnergyLevel > energyPeak)
         {
-            //currentEnergyLevel -= GetPow(deteriorationRate, currentEnergyLevel);
             currentEnergyLevel -= deteriorationRate + (Mathf.Pow(peakDeteriorationExponent, currentEnergyLevel - energyPeak) - peakDeteriorationExponent);
-
         }
         else currentEnergyLevel -= deteriorationRate;
     }
+
+    //public void DrainEmergy()
+    //{
+
+    //    if (tierGraceValue >= 0)
+    //    {
+    //        tierGraceValue -= deteriorationRate;
+    //    }
+    //    else
+    //    {
+    //        currentEnergyLevel -= deteriorationRate;
+    //    }
+
+    //    if (tierGraceValue < 0)
+    //    {
+    //        currentEnergyLevel += tierGraceValue;
+    //        tierGraceValue = 0;
+    //    }
+    //}
 
     private static float GetPow(float baseNum, float powNum)
     {
         float result = 1;
 
-        for (int i=0; i < powNum; i++)
+        for (int i = 0; i < powNum; i++)
             result = result * baseNum;
-       
+
         return result;
     }
+
 
 
 }
 
 public sealed class GameStateEndless : GameStateBase
 {
+    private const int energyIncreaseHexDig = 2;
+    private const int energyIncreaseLevelDigBelow = 15;
+    private const int energyIncreaseLevelDigAbove = 40;
+    private float tier = 0;
+
+    private TierSpeedLogCurve speedCurve = new TierSpeedLogCurve();
+
     [SerializeField] public Level[] levels;
 
     [Space(5f)]
@@ -86,12 +156,13 @@ public sealed class GameStateEndless : GameStateBase
     [Space(3f)]
     [Header("   - Player Options:")]
     //public float initialPlayerSpeed = 30f; // Replaced with initial Energy value
-    public float playerSpeedIncreaseLogBase = 2f;
-    public float playerSpeedIncreaseLogMultiplyer = 2.5f;
+    public float playerSpeedIncreaseLogBase = 20f;
+    public float playerSpeedIncreaseLogMultiplyer = 45f;
 
     public float playerKillzoneOffset = 40f;
 
-    float initialEnergy = 70.0f;
+    float initialEnergy = 30.0f;
+    float initalEnergyAcceleration = 0.5f;
 
     #region PostProcessingAttributes
     // NOTE: could be moved to a struct - could permit the manager to update levels on behalf of state?
@@ -104,7 +175,7 @@ public sealed class GameStateEndless : GameStateBase
 
 
     HexTunnelEnergy energyMetreTunnel;
-   
+
     PlayerController playerController;
 
     EnergyMetre energyMetre;
@@ -112,7 +183,7 @@ public sealed class GameStateEndless : GameStateBase
     public GameStateEndless()
     {
         InitialiseStateTransitions();
-
+        GameManager.instance.SetIngameHudActive(true);
         energyMetre = new EnergyMetre(initialEnergy);
 
         energyMetre.maxEnergyReached.AddListener(() =>
@@ -128,26 +199,31 @@ public sealed class GameStateEndless : GameStateBase
         energyMetre.DrainEmergy();
 
         //GameManager.instance.scoreUI.SetFillValue(  energyMetre.GetCurrentEnergyNormalised());
-        energyMetreTunnel.SetEnergyValue(energyMetre.GetCurrentEnergy());
+        energyMetreTunnel.SetEnergyFill(energyMetre.GetBarFill(), energyMetre.GetBarFill());
 
 
         UpdatePostProcesser();
 
+        if (((currentSessionData.levelScore < currentSessionData.passScore)) && playerController.gameObject.transform.position.y < MapSpawner.Instance.GetCurrentMapHolder().transform.position.y)
+        {
+            ColourManager.instance.SetGrayPallet();
+        } else
+        {
+            ColourManager.instance.SetGrayPallet(false);
+        }
         if (playerController.gameObject.transform.position.y < MapSpawner.Instance.GetCurrentMapHolder().transform.position.y - playerKillzoneOffset)
         {
-            //throw new System.Exception("BALL HAS FALLEN");
-
             LoadNextLevel();
-
             //GameManager.instance.ProcessCommand(Command.End);
         }
 
-        //Debug.Log(energyMetre.GetCurrentEnergy());
 
-        playerController.moveSpeed = /*initialPlayerSpeed +*/ (energyMetre.GetCurrentEnergy() * (playerSpeedIncreaseLogMultiplyer * Mathf.Log(playerSpeedIncreaseLogBase)));
-
-        //playerController.moveSpeed = initialPlayerSpeed + (currentSessionData.levelIndex * (playerSpeedIncreaseLogMultiplyer * Mathf.Log(playerSpeedIncreaseLogBase)));
-
+        //   playerController.moveSpeed = /*initialPlayerSpeed +*/ (energyMetre.GetCurrentEnergy() * (playerSpeedIncreaseLogMultiplyer * Mathf.Log(playerSpeedIncreaseLogBase)));
+        float nplayerSpeed = /*playerSpeedIncreaseLogBase + */speedCurve.GetY(energyMetre.currentEnergyTier) * playerSpeedIncreaseLogMultiplyer;
+        if (playerController.moveSpeed != nplayerSpeed)
+        {
+            playerController.moveSpeed = nplayerSpeed;
+        }
         if (energyMetre.GetCurrentEnergy() <= 0) GameManager.instance.StartCoroutine(EndGame());
     }
 
@@ -164,7 +240,7 @@ public sealed class GameStateEndless : GameStateBase
             currentColourBoost -= Mathf.Pow(currentColourBoost, colourBoostDeclineExponent);
         else currentColourBoost = 0;
 
-        float currentEnergy = energyMetre.GetCurrentEnergy() - 50 + currentColourBoost;    
+        float currentEnergy = energyMetre.GetCurrentEnergy() - 50 + currentColourBoost;
 
         PostProcessingManager.instance.ModifyColourGrading(currentEnergy, currentEnergy);
     }
@@ -176,10 +252,10 @@ public sealed class GameStateEndless : GameStateBase
 
     private void MaxEnergyReachedListener()
     {
-        Debug.Log("MAX ENERGY");
-        //Multiplier
-        //Reset Energy (lerp drain?)
+
+        energyMetreTunnel.PlayTierUpEffect();
     }
+
 
 
     protected override void InitialiseStateTransitions()
@@ -217,13 +293,9 @@ public sealed class GameStateEndless : GameStateBase
         if (editMode == true) // level edit on start... if the ball does not spawn we go into edit mode because of a helpfull bug thingo :)
         {
             Object.Destroy(Object.FindObjectOfType<PlayerController>().gameObject);
-            //scoreUI.totalScoreText.text = "EDIT MODE";
-            //scoreUI.totalScoreText.color = Color.red;
-
         }
         else
         {
-
             playerController = GameManager.instance.GetPlayerBall().GetComponent<PlayerController>();
         }
 
@@ -234,7 +306,7 @@ public sealed class GameStateEndless : GameStateBase
     public override void CleanupGameState()
     {
         // ...
-        
+        GameManager.instance.SetIngameHudActive(false);
     }
 
     IEnumerator EndGame()
@@ -278,9 +350,9 @@ public sealed class GameStateEndless : GameStateBase
 
     public override void LoadNextLevel()
     {
-
+    
         ColourManager.instance.ChangePalette();
-        
+
         Level newLevel = useRandomLevels ? levels[Random.Range(0, levels.Length)] : levels[currentSessionData.levelIndex % levels.Length];
 
         ++currentSessionData.levelIndex;
@@ -298,24 +370,38 @@ public sealed class GameStateEndless : GameStateBase
         MapSpawner.Instance.SpawnHexs(newLevel, playerController.transform.position);
 
         UpdateScore();
-   
+
     }
 
     public override void HexDigEvent()
     {
         currentSessionData.levelScore += 1;
-        currentSessionData.totalScore += 1;
-
-        energyMetre.AddEnergy(4);
+        int scoreToAdd = 10 * energyMetre.currentEnergyTier;
+        currentSessionData.totalScore += scoreToAdd;
+        GameManager.instance.scoreUI.ShowScoreIncreaseText(scoreToAdd);
+        energyMetre.AddEnergy(energyIncreaseHexDig);
 
         AddToColourBoost(colourBoostToAddOnDig);
 
-        if (currentSessionData.levelScore >= currentSessionData.passScore)
+        if (currentSessionData.levelScore >= currentSessionData.passScore) // Level Cleared
         {
+            if (playerController.transform.position.y >= MapSpawner.Instance.grid.transform.position.y)
+            {
+                energyMetre.AddEnergy(energyIncreaseLevelDigAbove);
+
+
+            } else
+            {
+                energyMetre.AddEnergy(energyIncreaseLevelDigBelow);
+            }
+           
             LoadNextLevel();
+
         }
         UpdateScore();
+
     }
+
 
     public override void PlayGroundThud()
     {
@@ -345,9 +431,28 @@ public sealed class GameStateEndless : GameStateBase
 
 
 
-    private void UpdateScore ()
+    private void UpdateScore()
     {
-        //GameManager.instance.scoreUI.SetScore(currentSessionData.totalScore, currentSessionData.levelScore, currentSessionData.passScore);
+        GameManager.instance.scoreUI.SetScore(currentSessionData.totalScore, energyMetre.currentEnergyTier);
+    }
+
+    internal class TierSpeedLogCurve
+    {
+
+        public TierSpeedLogCurve(float a = 2.7f, float b = 4.5f, float c = -3.1f)
+        {
+            this.a = a;
+            this.b = b;
+            this.c = c;
+        }
+        private float a, b, c;
+
+        public float GetY(float x)
+        {
+            float y = (a * (Mathf.Log(x + b))) + c;
+
+            return (y);
+        }
     }
 }
 

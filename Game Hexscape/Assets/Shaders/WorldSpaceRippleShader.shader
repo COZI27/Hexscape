@@ -15,6 +15,7 @@
 		Tags { "RenderType"="Opaque" }
 		LOD 200
 
+
 		CGPROGRAM
 		// Physically based Standard lighting model, and enable shadows on all light types
 		#pragma surface surf Standard fullforwardshadows
@@ -22,7 +23,9 @@
 		// Use shader model 3.0 target, to get nicer looking lighting
 		#pragma target 3.0
 
-		sampler2D _MainTex;
+		//#include "UnityCG.cginc"
+		//#include "Packages/com.unity.render-pipelines.universal/Shaders/SimpleLitInput.hlsl"
+
 
 		struct Input {
 			float2 uv_MainTex;
@@ -30,6 +33,7 @@
 		};
 
 		// true values... if not specified it wont add them from unity stuff
+		sampler2D _MainTex;
 		half _Glossiness;
 		half _Metallic;
 		fixed4 _Color;
@@ -44,20 +48,20 @@
 			// put more per-instance properties here
 		UNITY_INSTANCING_BUFFER_END(Props)
 
-		void surf (Input IN, inout SurfaceOutputStandard o) {
+		void surf(Input IN, inout SurfaceOutputStandard o) {
 			// Albedo comes from a texture tinted by color
-			float distance = length( IN.worldPos.xz - _RippleOrigin.xz) - _RippleDistance;
+			float distance = length(IN.worldPos.xz - _RippleOrigin.xz) - _RippleDistance;
 			float halthWidth = _RippleWidth * 0.5;
 			float lowerDistance = distance - halthWidth;
 			float uppderDistance = distance + halthWidth;
 
 			// for projection: 	float distance = length( IN.worldPos.xz - _RippleOrigin.xz) - _RippleDistance;
 
-			fixed4 c = tex2D (_MainTex, IN.uv_MainTex) * _Color;
-			float ringStrength =   (1 - (abs(distance) / halthWidth)) * (lowerDistance < 0 && uppderDistance > 0);
-		   
-		  
-	
+			fixed4 c = tex2D(_MainTex, IN.uv_MainTex) * _Color;
+			float ringStrength = (1 - (abs(distance) / halthWidth)) * (lowerDistance < 0 && uppderDistance > 0);
+
+
+
 
 			o.Albedo = ringStrength * c.rgb;
 			// Metallic and smoothness come from slider variables
@@ -66,6 +70,7 @@
 			o.Alpha = c.a;
 		}
 		ENDCG
+		
 	}
 	FallBack "Diffuse"
 }

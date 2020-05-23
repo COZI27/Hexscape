@@ -80,11 +80,6 @@ public class GameStateEdit : GameStateBase
         Debug.Log("GAME STATE EDIT STARTED !!!");
 
         levels = LevelLoader.Instance.GetLevelsFrom("Levels/Endless");
-        if (levels.Length == 0)
-        {
-            levels = new Level[1];
-            levels[0] = new Level();
-        }
         Level currentLevel = levels[currentLevelIndex];
         MapSpawner.Instance.SpawnHexs(currentLevel, GameManager.instance.GetPlayerBall().transform.position - new Vector3(0, -30, 0), false/* offsetValue */);
 
@@ -120,8 +115,6 @@ public class GameStateEdit : GameStateBase
             {
                 currentLevelIndex++;
                 LoadNextLevel();
-
-                GameManager.instance.scoreUI.SetLevel(currentLevelIndex);
             }
 
         }
@@ -131,8 +124,6 @@ public class GameStateEdit : GameStateBase
             {
                 currentLevelIndex--;
                 LoadNextLevel();
-
-                GameManager.instance.scoreUI.SetLevel(currentLevelIndex);
             }
         }
 

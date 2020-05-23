@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 
 
@@ -28,10 +29,13 @@ public class GameStateEndlessScoreboard : GameStateBase
     //string pathScoreBoardLevel = "Assets/Resources/Levels/Menus/ScoreboardLevel.json";
 
     string pathScoreBoardLevel = "Levels/Menus/Scoreboard";
+    string pathWorldTextPrefab = "Prefabs/GUI/WorldTextCanvas";
 
-    //ScoreboardLevelComponent levelComponent;
 
-    //Note: Might be able to use one Scoreboard state class and have it behave differently depending on context, such as what type of game state was in use previosuly
+    private GameObject levelTextObj;
+    private GameObject scoreTextObj;
+
+    private Vector3 scoreboardWorldPos;
 
     public GameStateEndlessScoreboard()
     {
@@ -40,6 +44,8 @@ public class GameStateEndlessScoreboard : GameStateBase
 
     public override void StartGameState()
     {
+        //TODO: Add two new buttons to level - replay and scoreboard
+
         MapSpawner.Instance.ClearMapGrid();
         
         Level loadedLevel = LevelLoader.Instance.LoadLevelFile(pathScoreBoardLevel);
@@ -56,6 +62,25 @@ public class GameStateEndlessScoreboard : GameStateBase
         }
         MapSpawner.Instance.PositionMapGrid(PlayerController.instance.transform.position + Vector3.up * MapSpawner.Instance.distanceBetweenMaps, false);
         MapSpawner.Instance.UpdateMapRefence();
+
+
+        levelTextObj = GameObject.Instantiate(Resources.Load(pathWorldTextPrefab) as GameObject);
+        if (levelTextObj != null)
+        {
+            levelTextObj.GetComponentInChildren<Text>().text = "Levels Cleared";
+            levelTextObj.transform.position = MapSpawner.Instance.GetCurrentMapHolder().transform.position + new Vector3(0, 0, 2.6f);
+        }
+
+        scoreTextObj = GameObject.Instantiate(Resources.Load(pathWorldTextPrefab) as GameObject);
+        if (scoreTextObj != null)
+        {
+            scoreTextObj.GetComponentInChildren<Text>().text = "Score Total";
+            scoreTextObj.transform.position = MapSpawner.Instance.GetCurrentMapHolder().transform.position + new Vector3(0, 0, 0.77f);
+            Debug.Log("scoreTextObj.transform.position" + scoreTextObj.transform.position);
+            Debug.Log("MapSpawner.Instance.GetCurrentMapHolder().transform.position" + MapSpawner.Instance.GetCurrentMapHolder().transform.position);
+        }
+
+        scoreboardWorldPos = MapSpawner.Instance.GetCurrentMapHolder().transform.position;
     }
 
     protected override void InitialiseStateTransitions()
@@ -84,7 +109,14 @@ public class GameStateEndlessScoreboard : GameStateBase
 
     public override void CleanupGameState()
     {
-       
+        GameObject.Destroy(scoreTextObj);
+        GameObject.Destroy(levelTextObj);
+
+
+        GameObject textParticleObj = CameraCanvas.instance.GetParticleObject();
+        textParticleObj.transform.position = scoreboardWorldPos + new Vector3(0, 0, 200);
+
+        GameManager.instance.StartCoroutine(MoveTo(textParticleObj, (scoreboardWorldPos + new Vector3(0, 200, 0)), 1f));
     }
 
     public override void NextMenu()
@@ -163,11 +195,11 @@ public class GameStateEndlessScoreboard : GameStateBase
         for (int i = 0; i < digitComps.Length; i++) 
         {
             if (i == 0) {
-                digitComps[i].UpdateDisplayValue(levelValue);
+                digitComps[i].UpdateDisplayValue(scoreValue);
             }
             if (i == 1)
             {
-                digitComps[i].UpdateDisplayValue(scoreValue);
+                digitComps[i].UpdateDisplayValue(levelValue);
             }
         }
 
@@ -182,6 +214,8 @@ public class GameStateEndlessScoreboard : GameStateBase
 
         }
 
+
+        DisplayHighscoreEffect(); // TEMP
         // Score
         if (data.highScore < scoreValue)
         {
@@ -189,15 +223,11 @@ public class GameStateEndlessScoreboard : GameStateBase
 
             // Display "New Best Score"
             Debug.Log("New Best Score. Old = " + data.highScore + "  | New = " + scoreValue);
+            DisplayHighscoreEffect();
         }
 
         if (doUploadScore)
         {
-
-            // GameObject tempObject = new GameObject();
-
-            //scoreUploader = tempObject.AddComponent<UploadUserScore>();
-
             UploadUserScore scoreUploader = new UploadUserScore();
 
             int playerID;
@@ -207,6 +237,37 @@ public class GameStateEndlessScoreboard : GameStateBase
 
         }
     }
+
+    void DisplayHighscoreEffect()
+    {
+        GameObject textParticleObj = CameraCanvas.instance.GetParticleObject();
+        //textParticleObj.SetActive(false);
+        textParticleObj.transform.position = scoreboardWorldPos + new Vector3(-5, 50, 5);
+        //textParticleObj.SetActive(true);
+
+        CameraCanvas.instance.ChangeDisplayType(DisplayObjectMap.EDisplayType.HiScoreGlobal);
+
+        //textParticleObj.transform.position = scoreboardWorldPos + new Vector3(2, 0, -0.8f);
+
+        GameManager.instance.StartCoroutine( MoveTo(textParticleObj, (scoreboardWorldPos + new Vector3(2, 0, -0.8f)), 0.5f));
+    }
+
+    IEnumerator MoveTo(GameObject obj, Vector3 position, float time)
+    {
+        Vector3 start = obj.transform.position;
+        Vector3 end = position;
+        float t = 0;
+
+        while (t < 1)
+        {
+            yield return null;
+            t += Time.deltaTime / time;
+            obj.transform.position = Vector3.Lerp(start, end, t);
+        }
+        obj.transform.position = end;
+
+    }
+
 
     int[] ConvertIntToArray(int inValue) // TODO: Move to helper class
     {

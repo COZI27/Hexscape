@@ -274,7 +274,7 @@ public class Hex : MonoBehaviour
     {
         if (useFalling)
         {
-            this.transform.position += (Physics.gravity / 25);
+            this.transform.position += (Physics.gravity / 15);
             this.transform.Rotate(Vector3.right * Time.deltaTime * fallRotations[fallRotIndex].x);
             this.transform.Rotate(Vector3.forward * Time.deltaTime * fallRotations[fallRotIndex].y);
         }

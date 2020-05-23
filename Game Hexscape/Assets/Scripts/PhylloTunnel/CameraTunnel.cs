@@ -16,7 +16,7 @@ public class CameraTunnel : MonoBehaviour {
     float targetX = 0;
     float targetz = 0;
     int minmaxX = 4;
-    bool isReversing;
+    public bool isGoingDown;
 
     void Start () {
         SpawnTunnelPieces();
@@ -48,36 +48,102 @@ public class CameraTunnel : MonoBehaviour {
     }
 	
 	void Update () {
-        HandleMoveTunnelDown();
+        HandleTunnelMove();
     }
 
-    // Automatically handles the movement of tunnel pieces in the Y axis. Intended to be called in the Update method.
-    void HandleMoveTunnelDown() {
 
-        // Note: isReversing is currently NOT in use, but the intention is to automatically handle tunnel movement upwards too
-        if (!isReversing) {
-            targetX += Time.deltaTime;
-            targetz += Time.deltaTime;
+    //void HandleMoveTunnelDown() {
+
+    //    // Note: isReversing is currently NOT in use, but the intention is to automatically handle tunnel movement upwards too
+    //    if (!isGoingDown) {
+    //        targetX += Time.deltaTime;
+    //        targetz += Time.deltaTime;
+    //    }
+    //    else {
+    //        targetX -= Time.deltaTime;
+    //        targetz -= Time.deltaTime;
+    //    }
+    //    if (targetX > minmaxX || targetX < -minmaxX) isGoingDown = !isGoingDown;
+
+
+    //    if (currentTopObjectYpos > this.transform.position.y) {
+    //        // if (!isGoingDown) ReverseQueue();
+
+
+
+    //        PhylloTunnelPiece pieceToMove = tunnelPieces.Dequeue();
+    //        pieceToMove.targetYPos = currentTopObjectYpos - (distanceBetweenObjects * (numberOfObjects - 1));
+    //        currentBottomObjectYpos = pieceToMove.targetYPos;
+    //        currentTopObjectYpos -= distanceBetweenObjects;
+    //        tunnelPieces.Enqueue(pieceToMove);
+
+    //    }
+
+    //}
+
+    // Automatically handles the movement of tunnel pieces in the Y axis. Intended to be called in the Update metho
+    void HandleTunnelMove()
+    {
+        //Vector3 mapPos = MapSpawner.Instance.GetCurrentMapHolder().transform.position;
+        Vector3 ownerPos = this.transform.position;
+
+
+        Vector3 targetPos;
+
+
+        if (isGoingDown) // Going Down
+        {
+            if (currentTopObjectYpos < ownerPos.y /*- distanceBetweenObjects*/)
+            {
+                /*tunnelPieces = */
+                ReverseQueueUtil<PhylloTunnelPiece>.ReverseQueue(ref tunnelPieces);
+                isGoingDown = !isGoingDown;
+                return;
+            }
+
+            if (currentTopObjectYpos > ownerPos.y)
+            {
+                //PhylloTunnelPiece pieceToMove = tunnelPieces.Dequeue();
+                //pieceToMove.targetYPos = currentTopObjectYpos - (distanceBetweenObjects * (numberOfObjects - 1));
+                //currentBottomObjectYpos = pieceToMove.targetYPos;
+                //currentTopObjectYpos -= distanceBetweenObjects;
+                //tunnelPieces.Enqueue(pieceToMove);
+
+                targetPos = new Vector3(ownerPos.x, currentTopObjectYpos - (distanceBetweenObjects * (numberOfObjects - 1)), ownerPos.z);
+                PhylloTunnelPiece pieceToMove = tunnelPieces.Dequeue();
+                pieceToMove.targetYPos = targetPos.y;
+                currentBottomObjectYpos = targetPos.y;
+                currentTopObjectYpos -= distanceBetweenObjects;
+                tunnelPieces.Enqueue(pieceToMove);
+
+            }
         }
-        else {
-            targetX -= Time.deltaTime;
-            targetz -= Time.deltaTime;
+        else // Going Up
+        {
+            if (currentTopObjectYpos > ownerPos.y + distanceBetweenObjects)
+            {
+                /*tunnelPieces = */
+                ReverseQueueUtil<PhylloTunnelPiece>.ReverseQueue(ref tunnelPieces);
+                isGoingDown = !isGoingDown;
+                return;
+            }
+
+            if (currentTopObjectYpos < ownerPos.y - distanceBetweenObjects)
+            {
+                //PhylloTunnelPiece pieceToMove = tunnelPieces.Dequeue();
+                //pieceToMove.targetYPos = currentTopObjectYpos - (distanceBetweenObjects * (numberOfObjects - 1));
+                //currentBottomObjectYpos = pieceToMove.targetYPos;
+                //currentTopObjectYpos -= distanceBetweenObjects;
+                //tunnelPieces.Enqueue(pieceToMove);
+
+                targetPos = new Vector3(ownerPos.x, currentTopObjectYpos + distanceBetweenObjects, ownerPos.z);
+                PhylloTunnelPiece pieceToMove = tunnelPieces.Dequeue();
+                pieceToMove.targetYPos = targetPos.y;
+                currentBottomObjectYpos = pieceToMove.transform.position.y + distanceBetweenObjects;
+                currentTopObjectYpos = targetPos.y;
+                tunnelPieces.Enqueue(pieceToMove);
+
+            }
         }
-        if (targetX > minmaxX || targetX < -minmaxX) isReversing = !isReversing;
-
-
-        if (currentTopObjectYpos > this.transform.position.y) {
-            // if (!isGoingDown) ReverseQueue();
-
-           
-
-            PhylloTunnelPiece pieceToMove = tunnelPieces.Dequeue();
-            pieceToMove.targetYPos = currentTopObjectYpos - (distanceBetweenObjects * (numberOfObjects - 1));
-            currentBottomObjectYpos = pieceToMove.targetYPos;
-            currentTopObjectYpos -= distanceBetweenObjects;
-            tunnelPieces.Enqueue(pieceToMove);
-
-        }
-
     }
 }

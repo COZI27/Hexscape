@@ -1,0 +1,79 @@
+{
+  "$type": "Level, Assembly-CSharp",
+  "levelName": "Lv 11",
+  "hexs": {
+    "$type": "MapElement[], Assembly-CSharp",
+    "$values": [
+      {
+        "$type": "MapElement, Assembly-CSharp",
+        "displayName": null,
+        "gridPos": {
+          "$type": "UnityEngine.Vector2Int, UnityEngine.CoreModule",
+          "x": 0,
+          "y": 0,
+          "magnitude": 0.0,
+          "sqrMagnitude": 0
+        },
+        "hexType": 840749193,
+        "HexAttribute": null,
+        "hexAttributeInfo": null
+      },
+      {
+        "$type": "MapElement, Assembly-CSharp",
+        "displayName": null,
+        "gridPos": {
+          "$type": "UnityEngine.Vector2Int, UnityEngine.CoreModule",
+          "x": -1,
+          "y": 0,
+          "magnitude": 1.0,
+          "sqrMagnitude": 1
+        },
+        "hexType": 1790021714,
+        "HexAttribute": null,
+        "hexAttributeInfo": null
+      },
+      {
+        "$type": "MapElement, Assembly-CSharp",
+        "displayName": null,
+        "gridPos": {
+          "$type": "UnityEngine.Vector2Int, UnityEngine.CoreModule",
+          "x": 2,
+          "y": 0,
+          "magnitude": 2.0,
+          "sqrMagnitude": 4
+        },
+        "hexType": 1344549066,
+        "HexAttribute": null,
+        "hexAttributeInfo": null
+      },
+      {
+        "$type": "MapElement, Assembly-CSharp",
+        "displayName": null,
+        "gridPos": {
+          "$type": "UnityEngine.Vector2Int, UnityEngine.CoreModule",
+          "x": -2,
+          "y": 0,
+          "magnitude": 2.0,
+          "sqrMagnitude": 4
+        },
+        "hexType": 1344549066,
+        "HexAttribute": null,
+        "hexAttributeInfo": null
+      },
+      {
+        "$type": "MapElement, Assembly-CSharp",
+        "displayName": null,
+        "gridPos": {
+          "$type": "UnityEngine.Vector2Int, UnityEngine.CoreModule",
+          "x": 1,
+          "y": 0,
+          "magnitude": 1.0,
+          "sqrMagnitude": 1
+        },
+        "hexType": 2014142187,
+        "HexAttribute": null,
+        "hexAttributeInfo": null
+      }
+    ]
+  }
+}

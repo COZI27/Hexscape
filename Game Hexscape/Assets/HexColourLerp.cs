@@ -68,7 +68,7 @@ public class HexColourLerp : ObserverPattern.Observer {
         {
             StartCoroutine(CycleMaterial(
                 mat.GetColor("_EmissionColor"),
-                ColourManager.instance.GetColour(),
+                ColourManager.instance.GetColour(true),
                 2.0f,
                 mat
             ));

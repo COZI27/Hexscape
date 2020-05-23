@@ -70,9 +70,9 @@ public class LevelLoader : MonoBehaviour
 
     public Level[] GetLevelsFrom(string path)
     {
-        Debug.Log("Looking for level files...");
+        //Debug.Log("Looking for level files...");
         Object[] loadedJsonFiles = Resources.LoadAll(path, typeof(TextAsset));
-        Debug.Log("Files Found: " + loadedJsonFiles.Length);
+        //Debug.Log("Files Found: " + loadedJsonFiles.Length);
 
         Level[] levels = new Level[loadedJsonFiles.Length];
 
@@ -151,7 +151,7 @@ public class LevelLoader : MonoBehaviour
             saveName = "My New Level";
         }  else
         {
-            if (level != null && level.levelName != null) saveName = level.levelName.Replace(".json", "");
+            saveName = level.levelName.Replace(".json", "");
         }
 
         string fileLocation = EditorUtility.SaveFilePanel("Select Level Location", lastResourceLocation, saveName,  "json");
@@ -255,9 +255,6 @@ public class LevelLoader : MonoBehaviour
 
             if (dataAsJson != null)
             {
-                Debug.Log("dataAsJson != null");
-
-
 
                 Level returnLevel = DeserialisLevelFromJsonFile(dataAsJson);
                 if (returnLevel != null)

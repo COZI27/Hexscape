@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-/*DEPRECATED*/
+/*DEPRECATED*/ /* TODO: Make Tunnel base class from which other tunnels can be derived*/ 
 public class HexTunnel : MonoBehaviour
 {
 
@@ -223,7 +223,7 @@ public class HexTunnel : MonoBehaviour
     float targetX = 0;
     float targetz = 0;
     int minmaxX = 4;
-    bool isReversing;
+    bool isGoingDown;
 
 
     public int numberOfObjects = 4;
@@ -333,7 +333,7 @@ public class HexTunnel : MonoBehaviour
     void HandleMoveTunnelDown()
     {
         // Note: isReversing is currently NOT in use, but the intention is to automatically handle tunnel movement upwards too
-        if (!isReversing)
+        if (!isGoingDown)
         {
             targetX += Time.deltaTime;
             targetz += Time.deltaTime;
@@ -343,7 +343,7 @@ public class HexTunnel : MonoBehaviour
             targetX -= Time.deltaTime;
             targetz -= Time.deltaTime;
         }
-        if (targetX > minmaxX || targetX < -minmaxX) isReversing = !isReversing;
+        if (targetX > minmaxX || targetX < -minmaxX) isGoingDown = !isGoingDown;
 
 
         if (currentTopObjectYpos > MapSpawner.Instance.GetCurrentMapHolder().transform.position.y)
@@ -359,4 +359,64 @@ public class HexTunnel : MonoBehaviour
             tunnelPieces.Enqueue(pieceToMove);
         }
     }
+
+    //void HandleTunnelMove()
+    //{
+    //    Vector3 mapPos = MapSpawner.Instance.GetCurrentMapHolder().transform.position;
+
+    //    Vector3 targetPos;
+
+
+    //    if (isGoingDown) // Going Down
+    //    {
+    //        if (currentTopObjectYpos < mapPos.y /*- distanceBetweenObjects*/)
+    //        {
+    //            ReverseQueueUtil<HexRing>.ReverseQueue(ref tunnelPieces);
+    //            isGoingDown = !isGoingDown;
+    //            return;
+    //        }
+
+    //        if (currentTopObjectYpos > mapPos.y)
+    //        {
+
+    //            HexRing pieceToMove = tunnelPieces.Dequeue();
+    //            //StartCoroutine(pieceToMove.ResetTrailRenderer());
+    //            pieceToMove.SetVerticalWorldPos(currentTopObjectYpos - (distanceBetweenObjects * (numberOfObjects - 1)));
+    //            //StartCoroutine(pieceToMove.ResetTrailRenderer()); // TODO: start new trail
+    //            currentBottomObjectYpos = pieceToMove.HexCentreWorldPos().y;
+    //            currentTopObjectYpos -= distanceBetweenObjects;
+    //            tunnelPieces.Enqueue(pieceToMove);
+
+    //            //GameObject pieceToMove = tunnelPieces.Dequeue();
+    //            //targetPos = new Vector3(mapPos.x, currentTopObjectYpos - (distanceBetweenObjects * (numberOfObjects - 1)), mapPos.z);
+    //            //IEnumerator coroutine = MoveTo(pieceToMove, targetPos, 2f);
+    //            //StartCoroutine(coroutine);
+    //            //currentBottomObjectYpos = targetPos.y;
+    //            //currentTopObjectYpos -= distanceBetweenObjects;
+    //            //tunnelPieces.Enqueue(pieceToMove);
+
+    //        }
+    //    }
+    //    else // Going Up
+    //    {
+    //        if (currentTopObjectYpos > mapPos.y + distanceBetweenObjects)
+    //        {
+    //            ReverseQueueUtil<HexRing>.ReverseQueue(ref tunnelPieces);
+    //            isGoingDown = !isGoingDown;
+    //            return;
+    //        }
+
+    //        if (currentTopObjectYpos < mapPos.y - distanceBetweenObjects)
+    //        {
+    //            //GameObject pieceToMove = tunnelPieces.Dequeue();
+    //            //targetPos = new Vector3(mapPos.x, currentTopObjectYpos + distanceBetweenObjects, mapPos.z);
+    //            //IEnumerator coroutine = MoveTo(pieceToMove, targetPos, 2f);
+    //            //StartCoroutine(coroutine);
+    //            //currentBottomObjectYpos = pieceToMove.transform.position.y + distanceBetweenObjects;
+    //            //currentTopObjectYpos = targetPos.y;
+    //            //tunnelPieces.Enqueue(pieceToMove);
+
+    //        }
+    //    }
+    //}
 }

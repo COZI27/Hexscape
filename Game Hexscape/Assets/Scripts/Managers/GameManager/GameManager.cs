@@ -108,6 +108,7 @@ public class GameManager : MonoBehaviour {
 
     public static GameManager instance;
 
+    public GameObject HudCanvasObject;
     public ScoreUI scoreUI;
 
     public PlayerProfile loadedProfile { get; set; }
@@ -192,11 +193,18 @@ public class GameManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        
-        currentGameState.StateUpdate();
+
+        if (currentGameState != null) currentGameState.StateUpdate();
+        else Debug.LogWarning("currentGameState is null");
 	}
 
-
+    public void SetIngameHudActive(bool isActive)
+    {
+        HudCanvasObject.gameObject.SetActive(isActive);
+        scoreUI = HudCanvasObject.GetComponent<ScoreUI>(); // TODO: Fix encapsulation on hud canvas 
+    }
+    
+    
 
 
     class StateTransition<TOne,TTwo> 

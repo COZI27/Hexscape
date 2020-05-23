@@ -33,8 +33,8 @@ public class RippleManager : MonoBehaviour
     public float currentThudRippleDistance;
 
 
-    public Vector3 clickOrigin;
-    public Vector3 thudOrigin;
+    private Vector3 clickOrigin;
+    private Vector3 thudOrigin;
 
     // Update is called once per frame
 
@@ -47,18 +47,16 @@ public class RippleManager : MonoBehaviour
     {
 
 
-       
-
        if (currentClickRippleDistance < maxDistance)
         {
             currentClickRippleDistance += rippleSpeed * Time.deltaTime;
         }
 
 
-
         foreach (Material mat in rippleMatsClick)
         {
             mat.SetFloat("_RippleDistance", currentClickRippleDistance);
+            mat.SetFloat("_RippleRadius", currentThudRippleDistance);
             mat.SetVector("_RippleOrigin", (Vector4)clickOrigin);
         }
 
@@ -72,22 +70,27 @@ public class RippleManager : MonoBehaviour
         foreach (Material mat in rippleMatsBallThud)
         {
             mat.SetFloat("_RippleDistance", currentThudRippleDistance);
+            mat.SetFloat("_RippleRadius", currentThudRippleDistance);
             mat.SetVector("_RippleOrigin", (Vector4)thudOrigin);
         }
 
     }
 
+
     public void CreateRippleClick (Vector3 origin, float speed, float maxDistance)
     {
+        //Debug.Log("CreateRippleClick: " + origin + ", " + maxDistance);
         this.maxDistance = maxDistance;
         this.rippleSpeed = speed;
         this.clickOrigin = origin;
+
 
         currentClickRippleDistance = 0;
     }
 
     public void CreateRippleThud(Vector3 origin, float speed, float maxDistance)
     {
+        //Debug.Log("CreateRippleThud");
         this.maxDistance = maxDistance;
         this.rippleSpeed = speed;
         this.thudOrigin = origin;

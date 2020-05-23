@@ -81,8 +81,12 @@ public class ColourManager : ObserverPattern.Subject
         MakeSingleton();
     }
 
-    public Color32 GetColour()
+    public Color32 GetColour(bool getGreyWhenGrey = false)
     {
+        if (getGreyWhenGrey && isGreyPallet)
+        {
+            return Color.Lerp(colourPalettes[currentPaletteIndex].GetColour(Palette.PaletteColour.ForegroundA), Color.black, 0.9f);
+        }
         return colourPalettes[currentPaletteIndex].GetColour(Palette.PaletteColour.ForegroundA);
     }
 
@@ -109,15 +113,29 @@ public class ColourManager : ObserverPattern.Subject
         return returnGradient;
     }
 
+    bool isGreyPallet = false; 
+
     public void ChangePalette()
     {
+        isGreyPallet = false;
+
         currentPaletteIndex = Random.Range(0, colourPalettes.Count);
         GeneratedGradient = GenerateGradientFromPalette(colourPalettes[currentPaletteIndex]);
         Notify(); // Notifies observers of colour change
     }
+    public void SetGrayPallet(bool set = true)
+    {
+        if (set != isGreyPallet)
+        {
+            isGreyPallet = set;
+            Notify();
+        }
+    }
 
     public void ChangePalette(int index)
     {
+        isGreyPallet = false;
+
         if (colourPalettes.Count > index && index > -1)
         {
             currentPaletteIndex = index;

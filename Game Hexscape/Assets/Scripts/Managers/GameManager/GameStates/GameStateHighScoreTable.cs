@@ -40,6 +40,12 @@ public class GameStateHighScoreTable : GameStateBase
                 false
             );
         }
+
+
+        GameObject fillRing = new GameObject("HighScoreBoard");
+        fillRing.AddComponent<MeshFilter>().mesh = CreateMesh(5, 5);
+        fillRing.AddComponent<MeshRenderer>(); //.material = energyFillMat;
+        //fillRing.transform.SetParent(GameManager.instance.gameObject);
     }
 
     public override void StateUpdate()
@@ -59,6 +65,60 @@ public class GameStateHighScoreTable : GameStateBase
     {
         GameObject.Destroy(scoreBoardCanvas);
         GameObject.Destroy(titleParticle);
+    }
+
+    Mesh CreateMesh(float width, float height)
+    {
+        //https://catlikecoding.com/unity/tutorials/procedural-grid/
+
+        Mesh m = new Mesh();
+        m.name = "ScriptedMesh";
+
+        int xSize = 1;
+        int ySize = 4;
+
+        int z = 0;
+
+        Vector3[] vertices = new Vector3[(xSize + 1) * (ySize + 1)];
+        Vector2[] uv = new Vector2[vertices.Length];
+        for (int i = 0, y = 0; y <= ySize; y++, z++)
+        {
+            for (int x = 0; x <= xSize; x++, i++)
+            {
+                vertices[i] = new Vector3(x, y * -z, y);
+                uv[i] = new Vector2((float)x / xSize, (float)y / ySize);
+            }
+        }
+        m.vertices = vertices;
+        m.uv = uv;
+
+        //m.uv = new Vector2[] {
+        //    new Vector2 (0, 0),
+        //    new Vector2 (0, 1),
+        //    new Vector2(1, 1),
+        //    new Vector2 (1, 0)
+        //};
+
+
+
+        int[] triangles = new int[xSize * ySize * 6];
+        for (int ti = 0, vi = 0, y = 0; y < ySize; y++, vi++)
+        {
+            for (int x = 0; x < xSize; x++, ti += 6, vi++)
+            {
+                triangles[ti] = vi;
+                triangles[ti + 3] = triangles[ti + 2] = vi + 1;
+                triangles[ti + 4] = triangles[ti + 1] = vi + xSize + 1;
+                triangles[ti + 5] = vi + xSize + 2;
+            }
+        }
+
+        m.triangles = triangles;
+        //m.triangles = new int[] { 0, 1, 2, 0, 2, 3 };
+
+        m.RecalculateNormals();
+
+        return m;
     }
 
     private void GenerateBoard()

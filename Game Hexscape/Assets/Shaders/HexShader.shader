@@ -1,4 +1,4 @@
-﻿Shader "Tutorials/HexShader"
+﻿Shader "Custom/HexShader"
 {
 	Properties
 	{
@@ -15,6 +15,8 @@
 	}
 		SubShader
 		{
+
+		//Tags{"RenderType" = "Opaque" "RenderPipeline" = "LightweightPipeline" /*"IgnoreProjector" = "True"*/}
 		Tags { "Queue" = "Transparent" "RenderType" = "Transparent" "PreviewType" = "Plane"}
 			Blend SrcAlpha OneMinusSrcAlpha
 			LOD 100
