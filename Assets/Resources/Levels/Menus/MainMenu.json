@@ -1,0 +1,381 @@
+{
+  "$type": "Level, Assembly-CSharp",
+  "levelName": "MainMenu",
+  "hexs": {
+    "$type": "MapElement[][], Assembly-CSharp",
+    "$values": [
+      {
+        "$type": "MapElement[], Assembly-CSharp",
+        "$values": [
+          {
+            "$type": "MapElement, Assembly-CSharp",
+            "displayName": "Menu/Play",
+            "gridPos": {
+              "$type": "UnityEngine.Vector2Int, UnityEngine.CoreModule",
+              "x": 0,
+              "y": 0,
+              "magnitude": 0.0,
+              "sqrMagnitude": 0
+            },
+            "mapLayer": 0,
+            "iconAtlasName": "Menu_Icons_01",
+            "iconIndex": 0,
+            "baseColour": {
+              "$type": "SerializableColor, Assembly-CSharp",
+              "colorStore": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  0.863616049,
+                  2.508036,
+                  1.08022189,
+                  1.0
+                ]
+              }
+            },
+            "iconColour": {
+              "$type": "SerializableColor, Assembly-CSharp",
+              "colorStore": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  1.43476963,
+                  2.64496684,
+                  1.48317468,
+                  1.0
+                ]
+              }
+            },
+            "iconRotation": 0.0,
+            "HexAttributes": {
+              "$type": "System.Collections.Generic.List`1[[ElementAttribute, Assembly-CSharp]], mscorlib",
+              "$values": [
+                {
+                  "$type": "MenuButtonElementAttribute, Assembly-CSharp",
+                  "commandToCall": 0
+                }
+              ]
+            }
+          },
+          {
+            "$type": "MapElement, Assembly-CSharp",
+            "displayName": "Menu/Blank",
+            "gridPos": {
+              "$type": "UnityEngine.Vector2Int, UnityEngine.CoreModule",
+              "x": 1,
+              "y": 1,
+              "magnitude": 1.41421354,
+              "sqrMagnitude": 2
+            },
+            "mapLayer": 0,
+            "iconAtlasName": "Menu_Icons_01",
+            "iconIndex": 10,
+            "baseColour": {
+              "$type": "SerializableColor, Assembly-CSharp",
+              "colorStore": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  2.0,
+                  2.0,
+                  2.0,
+                  0.0
+                ]
+              }
+            },
+            "iconColour": {
+              "$type": "SerializableColor, Assembly-CSharp",
+              "colorStore": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  1.43476963,
+                  2.64496684,
+                  1.48317468,
+                  1.0
+                ]
+              }
+            },
+            "iconRotation": 0.0,
+            "HexAttributes": {
+              "$type": "System.Collections.Generic.List`1[[ElementAttribute, Assembly-CSharp]], mscorlib",
+              "$values": []
+            }
+          },
+          {
+            "$type": "MapElement, Assembly-CSharp",
+            "displayName": "Menu/Blank",
+            "gridPos": {
+              "$type": "UnityEngine.Vector2Int, UnityEngine.CoreModule",
+              "x": 0,
+              "y": 1,
+              "magnitude": 1.0,
+              "sqrMagnitude": 1
+            },
+            "mapLayer": 0,
+            "iconAtlasName": "Menu_Icons_01",
+            "iconIndex": 10,
+            "baseColour": {
+              "$type": "SerializableColor, Assembly-CSharp",
+              "colorStore": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  2.0,
+                  2.0,
+                  2.0,
+                  0.0
+                ]
+              }
+            },
+            "iconColour": {
+              "$type": "SerializableColor, Assembly-CSharp",
+              "colorStore": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  1.43476963,
+                  2.64496684,
+                  1.48317468,
+                  1.0
+                ]
+              }
+            },
+            "iconRotation": 0.0,
+            "HexAttributes": {
+              "$type": "System.Collections.Generic.List`1[[ElementAttribute, Assembly-CSharp]], mscorlib",
+              "$values": []
+            }
+          },
+          {
+            "$type": "MapElement, Assembly-CSharp",
+            "displayName": "Menu/Blank",
+            "gridPos": {
+              "$type": "UnityEngine.Vector2Int, UnityEngine.CoreModule",
+              "x": -1,
+              "y": 0,
+              "magnitude": 1.0,
+              "sqrMagnitude": 1
+            },
+            "mapLayer": 0,
+            "iconAtlasName": "Menu_Icons_01",
+            "iconIndex": 10,
+            "baseColour": {
+              "$type": "SerializableColor, Assembly-CSharp",
+              "colorStore": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  2.0,
+                  2.0,
+                  2.0,
+                  0.0
+                ]
+              }
+            },
+            "iconColour": {
+              "$type": "SerializableColor, Assembly-CSharp",
+              "colorStore": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  1.43476963,
+                  2.64496684,
+                  1.48317468,
+                  1.0
+                ]
+              }
+            },
+            "iconRotation": 0.0,
+            "HexAttributes": {
+              "$type": "System.Collections.Generic.List`1[[ElementAttribute, Assembly-CSharp]], mscorlib",
+              "$values": []
+            }
+          },
+          {
+            "$type": "MapElement, Assembly-CSharp",
+            "displayName": "Menu/Blank",
+            "gridPos": {
+              "$type": "UnityEngine.Vector2Int, UnityEngine.CoreModule",
+              "x": -1,
+              "y": -1,
+              "magnitude": 1.41421354,
+              "sqrMagnitude": 2
+            },
+            "mapLayer": 0,
+            "iconAtlasName": "Menu_Icons_01",
+            "iconIndex": 10,
+            "baseColour": {
+              "$type": "SerializableColor, Assembly-CSharp",
+              "colorStore": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  2.0,
+                  2.0,
+                  2.0,
+                  0.0
+                ]
+              }
+            },
+            "iconColour": {
+              "$type": "SerializableColor, Assembly-CSharp",
+              "colorStore": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  1.43476963,
+                  2.64496684,
+                  1.48317468,
+                  1.0
+                ]
+              }
+            },
+            "iconRotation": 0.0,
+            "HexAttributes": {
+              "$type": "System.Collections.Generic.List`1[[ElementAttribute, Assembly-CSharp]], mscorlib",
+              "$values": []
+            }
+          },
+          {
+            "$type": "MapElement, Assembly-CSharp",
+            "displayName": "Menu/Blank",
+            "gridPos": {
+              "$type": "UnityEngine.Vector2Int, UnityEngine.CoreModule",
+              "x": 0,
+              "y": -1,
+              "magnitude": 1.0,
+              "sqrMagnitude": 1
+            },
+            "mapLayer": 0,
+            "iconAtlasName": "Menu_Icons_01",
+            "iconIndex": 10,
+            "baseColour": {
+              "$type": "SerializableColor, Assembly-CSharp",
+              "colorStore": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  2.0,
+                  2.0,
+                  2.0,
+                  0.0
+                ]
+              }
+            },
+            "iconColour": {
+              "$type": "SerializableColor, Assembly-CSharp",
+              "colorStore": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  1.43476963,
+                  2.64496684,
+                  1.48317468,
+                  1.0
+                ]
+              }
+            },
+            "iconRotation": 0.0,
+            "HexAttributes": {
+              "$type": "System.Collections.Generic.List`1[[ElementAttribute, Assembly-CSharp]], mscorlib",
+              "$values": []
+            }
+          },
+          {
+            "$type": "MapElement, Assembly-CSharp",
+            "displayName": "Menu/Blank",
+            "gridPos": {
+              "$type": "UnityEngine.Vector2Int, UnityEngine.CoreModule",
+              "x": 1,
+              "y": 0,
+              "magnitude": 1.0,
+              "sqrMagnitude": 1
+            },
+            "mapLayer": 0,
+            "iconAtlasName": "Menu_Icons_01",
+            "iconIndex": 10,
+            "baseColour": {
+              "$type": "SerializableColor, Assembly-CSharp",
+              "colorStore": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  2.0,
+                  2.0,
+                  2.0,
+                  0.0
+                ]
+              }
+            },
+            "iconColour": {
+              "$type": "SerializableColor, Assembly-CSharp",
+              "colorStore": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  1.43476963,
+                  2.64496684,
+                  1.48317468,
+                  1.0
+                ]
+              }
+            },
+            "iconRotation": 0.0,
+            "HexAttributes": {
+              "$type": "System.Collections.Generic.List`1[[ElementAttribute, Assembly-CSharp]], mscorlib",
+              "$values": []
+            }
+          },
+          {
+            "$type": "MapElement, Assembly-CSharp",
+            "displayName": "Menu/Blank",
+            "gridPos": {
+              "$type": "UnityEngine.Vector2Int, UnityEngine.CoreModule",
+              "x": 1,
+              "y": 0,
+              "magnitude": 1.0,
+              "sqrMagnitude": 1
+            },
+            "mapLayer": 0,
+            "iconAtlasName": "Menu_Icons_01",
+            "iconIndex": 10,
+            "baseColour": {
+              "$type": "SerializableColor, Assembly-CSharp",
+              "colorStore": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  2.0,
+                  2.0,
+                  2.0,
+                  0.0
+                ]
+              }
+            },
+            "iconColour": {
+              "$type": "SerializableColor, Assembly-CSharp",
+              "colorStore": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  1.43476963,
+                  2.64496684,
+                  1.48317468,
+                  1.0
+                ]
+              }
+            },
+            "iconRotation": 0.0,
+            "HexAttributes": {
+              "$type": "System.Collections.Generic.List`1[[ElementAttribute, Assembly-CSharp]], mscorlib",
+              "$values": []
+            }
+          }
+        ]
+      },
+      {
+        "$type": "MapElement[], Assembly-CSharp",
+        "$values": []
+      },
+      {
+        "$type": "MapElement[], Assembly-CSharp",
+        "$values": []
+      },
+      {
+        "$type": "MapElement[], Assembly-CSharp",
+        "$values": []
+      },
+      {
+        "$type": "MapElement[], Assembly-CSharp",
+        "$values": []
+      }
+    ]
+  },
+  "gridRadius": 8,
+  "startLayer": 0
+}

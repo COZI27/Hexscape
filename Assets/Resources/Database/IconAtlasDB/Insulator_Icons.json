@@ -1,0 +1,27 @@
+{
+  "$type": "AtlasData, Assembly-CSharp",
+  "atlasName": "Puzzle_Icons_01",
+  "iconNames": {
+    "$type": "System.String[], mscorlib",
+    "$values": [
+      "Power Source",
+      "Power Sink",
+      "_",
+      "_",
+      "Detonator",
+      "_",
+      "_",
+      "_",
+      "Straight Insulator",
+      "Cross Insulator",
+      "Right Bend Insulator",
+      "Left Bend Insulator",
+      "Y Split Insulator",
+      "_",
+      "_",
+      "_"
+    ]
+  },
+  "emissAtlasPath": "Textures/Sheets/IconSheet_Puzzle_01",
+  "normalAtlasNormPath": "Textures/Sheets/IconSheet_Puzzle_01_Normal"
+}

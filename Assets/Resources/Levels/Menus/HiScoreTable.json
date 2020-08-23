@@ -1,0 +1,26 @@
+{
+  "$type": "Level, Assembly-CSharp",
+  "levelName": "Scoreboard",
+  "hexs": {
+    "$type": "MapElement[], Assembly-CSharp",
+    "$values": [
+      {
+        "$type": "MapElement, Assembly-CSharp",
+        "displayName": null,
+        "gridPos": {
+          "$type": "UnityEngine.Vector2Int, UnityEngine.CoreModule",
+          "x": 0,
+          "y": -1,
+          "magnitude": 2.236068,
+          "sqrMagnitude": 5
+        },
+        "hexType": 1282535278,
+        "HexAttribute": {
+          "$type": "MenuButtonElementAttribute, Assembly-CSharp",
+          "commandToCall": 1
+        },
+        "hexAttributeInfo": null
+      }
+    ]
+  }
+}

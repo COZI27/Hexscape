@@ -1,0 +1,54 @@
+{
+  "$type": "Level, Assembly-CSharp",
+  "levelName": "LoadProfileMenuLevel",
+  "hexs": {
+    "$type": "MapElement[], Assembly-CSharp",
+    "$values": [
+      {
+        "$type": "MapElement, Assembly-CSharp",
+        "gridPos": {
+          "$type": "UnityEngine.Vector2Int, UnityEngine.CoreModule",
+          "x": -3,
+          "y": -2,
+          "magnitude": 2.828427,
+          "sqrMagnitude": 8
+        },
+        "hexType": 982431513,
+        "HexAttribute": {
+          "$type": "MenuButtonElementAttribute, Assembly-CSharp",
+          "commandToCall": 8
+        }
+      },
+      {
+        "$type": "MapElement, Assembly-CSharp",
+        "gridPos": {
+          "$type": "UnityEngine.Vector2Int, UnityEngine.CoreModule",
+          "x": -1,
+          "y": -2,
+          "magnitude": 2.828427,
+          "sqrMagnitude": 8
+        },
+        "hexType": 75105492,
+        "HexAttribute": {
+          "$type": "MenuButtonElementAttribute, Assembly-CSharp",
+          "commandToCall": 12
+        }
+      },
+      {
+        "$type": "MapElement, Assembly-CSharp",
+        "gridPos": {
+          "$type": "UnityEngine.Vector2Int, UnityEngine.CoreModule",
+          "x": 1,
+          "y": -2,
+          "magnitude": 2.828427,
+          "sqrMagnitude": 8
+        },
+        "hexType": 1282535278,
+        "HexAttribute": {
+          "$type": "MenuButtonElementAttribute, Assembly-CSharp",
+          "commandToCall": 7
+        }
+      }
+    ]
+  }
+}

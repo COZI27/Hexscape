@@ -1,0 +1,26 @@
+{
+  "$type": "AtlasData, Assembly-CSharp",
+  "atlasName": "Menu_Icons_01",
+  "iconNames": {
+    "$type": "System.String[], mscorlib",
+    "$values": [
+      "Play",
+      "Pause",
+      "Power",
+      "Skip",
+      "Settings",
+      "Options",
+      "Information",
+      "Unlocks",
+      "Login",
+      "New User",
+      "_",
+      "_",
+      "_",
+      "_",
+      "_"
+    ]
+  },
+  "emissAtlasPath": "Textures/Sheets/IconSheet_Menu",
+  "normalAtlasNormPath": "Textures/Sheets/IconSheet_Menu_Normal"
+}

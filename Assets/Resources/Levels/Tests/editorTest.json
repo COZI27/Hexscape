@@ -1,0 +1,30 @@
+{
+  "$type": "Level, Assembly-CSharp",
+  "levelName": "editorTest",
+  "hexs": {
+    "$type": "MapElement[], Assembly-CSharp",
+    "$values": [
+      {
+        "$type": "MapElement, Assembly-CSharp",
+        "displayName": null,
+        "gridPos": {
+          "$type": "UnityEngine.Vector2Int, UnityEngine.CoreModule",
+          "x": -3,
+          "y": -3,
+          "magnitude": 4.2426405,
+          "sqrMagnitude": 18
+        },
+        "hexType": 1344549066,
+        "HexAttributes": {
+          "$type": "System.Collections.Generic.List`1[[ElementAttribute, Assembly-CSharp]], mscorlib",
+          "$values": [
+            {
+              "$type": "CollectableHolderElementAttribute, Assembly-CSharp",
+              "objectToSpawnSerialisedName": "HexeractKey"
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

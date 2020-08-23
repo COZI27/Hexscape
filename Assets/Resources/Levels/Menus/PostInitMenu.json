@@ -1,0 +1,74 @@
+{
+  "$type": "Level, Assembly-CSharp",
+  "levelName": "MainMenu",
+  "hexs": {
+    "$type": "MapElement[], Assembly-CSharp",
+    "$values": [
+      {
+        "$type": "MapElement, Assembly-CSharp",
+        "displayName": "☰ Logon: (-1, 0)",
+        "gridPos": {
+          "$type": "UnityEngine.Vector2Int, UnityEngine.CoreModule",
+          "x": 2,
+          "y": 2,
+          "magnitude": 1.0,
+          "sqrMagnitude": 1
+        },
+        "hexType": 1890444097,
+        "HexAttribute": {
+          "$type": "MenuButtonElementAttribute, Assembly-CSharp",
+          "commandToCall": 9
+        },
+        "hexAttributeInfo": "MenuButtonElementAttribute: Begin"
+      },
+      {
+        "$type": "MapElement, Assembly-CSharp",
+        "displayName": "☰ New User: (1, 0)",
+        "gridPos": {
+          "$type": "UnityEngine.Vector2Int, UnityEngine.CoreModule",
+          "x": 1,
+          "y": 0,
+          "magnitude": 1.0,
+          "sqrMagnitude": 1
+        },
+        "hexType": -1267131909,
+        "HexAttribute": {
+          "$type": "MenuButtonElementAttribute, Assembly-CSharp",
+          "commandToCall": 10
+        },
+        "hexAttributeInfo": "MenuButtonElementAttribute: Edit"
+      },
+      {
+        "$type": "MapElement, Assembly-CSharp",
+        "displayName": "☰ Skip : (1, 0)",
+        "gridPos": {
+          "$type": "UnityEngine.Vector2Int, UnityEngine.CoreModule",
+          "x": 0,
+          "y": -2,
+          "magnitude": 1.0,
+          "sqrMagnitude": 1
+        },
+        "hexType": 149010767,
+        "HexAttribute": {
+          "$type": "MenuButtonElementAttribute, Assembly-CSharp",
+          "commandToCall": 11
+        },
+        "hexAttributeInfo": "MenuButtonElementAttribute: Highscore"
+      },
+      {
+        "$type": "MapElement, Assembly-CSharp",
+        "displayName": "♥ Null: (0, 0)",
+        "gridPos": {
+          "$type": "UnityEngine.Vector2Int, UnityEngine.CoreModule",
+          "x": 1,
+          "y": 1,
+          "magnitude": 0.0,
+          "sqrMagnitude": 0
+        },
+        "hexType": 1916866513,
+        "HexAttribute": null,
+        "hexAttributeInfo": null
+      }
+    ]
+  }
+}

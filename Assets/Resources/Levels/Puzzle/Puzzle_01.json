@@ -1,0 +1,1135 @@
+{
+  "$type": "Level, Assembly-CSharp",
+  "levelName": "Puzzle_01",
+  "hexs": {
+    "$type": "MapElement[][], Assembly-CSharp",
+    "$values": [
+      {
+        "$type": "MapElement[], Assembly-CSharp",
+        "$values": [
+          {
+            "$type": "MapElement, Assembly-CSharp",
+            "displayName": "Puzzle/Power Source",
+            "gridPos": {
+              "$type": "UnityEngine.Vector2Int, UnityEngine.CoreModule",
+              "x": 1,
+              "y": 2,
+              "magnitude": 2.236068,
+              "sqrMagnitude": 5
+            },
+            "mapLayer": 0,
+            "iconAtlasName": "Puzzle_Icons_01",
+            "iconIndex": 0,
+            "baseColour": {
+              "$type": "SerializableColor, Assembly-CSharp",
+              "colorStore": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  2.0,
+                  2.0,
+                  2.0,
+                  1.0
+                ]
+              }
+            },
+            "iconColour": {
+              "$type": "SerializableColor, Assembly-CSharp",
+              "colorStore": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  2.0,
+                  2.0,
+                  2.0,
+                  1.0
+                ]
+              }
+            },
+            "iconRotation": 0.0,
+            "HexAttributes": {
+              "$type": "System.Collections.Generic.List`1[[ElementAttribute, Assembly-CSharp]], mscorlib",
+              "$values": [
+                {
+                  "$type": "PowerSourceAttribute, Assembly-CSharp"
+                }
+              ]
+            }
+          },
+          {
+            "$type": "MapElement, Assembly-CSharp",
+            "displayName": "Puzzle/PowerConductor",
+            "gridPos": {
+              "$type": "UnityEngine.Vector2Int, UnityEngine.CoreModule",
+              "x": 1,
+              "y": 0,
+              "magnitude": 1.0,
+              "sqrMagnitude": 1
+            },
+            "mapLayer": 0,
+            "iconAtlasName": "Puzzle_Icons_01",
+            "iconIndex": 2,
+            "baseColour": {
+              "$type": "SerializableColor, Assembly-CSharp",
+              "colorStore": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  2.0,
+                  2.0,
+                  2.0,
+                  0.156862751
+                ]
+              }
+            },
+            "iconColour": {
+              "$type": "SerializableColor, Assembly-CSharp",
+              "colorStore": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  2.0,
+                  2.0,
+                  2.0,
+                  0.156862751
+                ]
+              }
+            },
+            "iconRotation": 0.0,
+            "HexAttributes": {
+              "$type": "System.Collections.Generic.List`1[[ElementAttribute, Assembly-CSharp]], mscorlib",
+              "$values": []
+            }
+          },
+          {
+            "$type": "MapElement, Assembly-CSharp",
+            "displayName": "Puzzle/PowerConductor",
+            "gridPos": {
+              "$type": "UnityEngine.Vector2Int, UnityEngine.CoreModule",
+              "x": 2,
+              "y": 0,
+              "magnitude": 2.0,
+              "sqrMagnitude": 4
+            },
+            "mapLayer": 0,
+            "iconAtlasName": "Puzzle_Icons_01",
+            "iconIndex": 2,
+            "baseColour": {
+              "$type": "SerializableColor, Assembly-CSharp",
+              "colorStore": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  2.0,
+                  2.0,
+                  2.0,
+                  0.156862751
+                ]
+              }
+            },
+            "iconColour": {
+              "$type": "SerializableColor, Assembly-CSharp",
+              "colorStore": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  2.0,
+                  2.0,
+                  2.0,
+                  0.156862751
+                ]
+              }
+            },
+            "iconRotation": 0.0,
+            "HexAttributes": {
+              "$type": "System.Collections.Generic.List`1[[ElementAttribute, Assembly-CSharp]], mscorlib",
+              "$values": []
+            }
+          },
+          {
+            "$type": "MapElement, Assembly-CSharp",
+            "displayName": "Puzzle/PowerConductor",
+            "gridPos": {
+              "$type": "UnityEngine.Vector2Int, UnityEngine.CoreModule",
+              "x": 3,
+              "y": 2,
+              "magnitude": 3.60555124,
+              "sqrMagnitude": 13
+            },
+            "mapLayer": 0,
+            "iconAtlasName": "Puzzle_Icons_01",
+            "iconIndex": 2,
+            "baseColour": {
+              "$type": "SerializableColor, Assembly-CSharp",
+              "colorStore": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  2.0,
+                  2.0,
+                  2.0,
+                  0.156862751
+                ]
+              }
+            },
+            "iconColour": {
+              "$type": "SerializableColor, Assembly-CSharp",
+              "colorStore": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  2.0,
+                  2.0,
+                  2.0,
+                  0.156862751
+                ]
+              }
+            },
+            "iconRotation": 0.0,
+            "HexAttributes": {
+              "$type": "System.Collections.Generic.List`1[[ElementAttribute, Assembly-CSharp]], mscorlib",
+              "$values": []
+            }
+          },
+          {
+            "$type": "MapElement, Assembly-CSharp",
+            "displayName": "Puzzle/PowerConductor",
+            "gridPos": {
+              "$type": "UnityEngine.Vector2Int, UnityEngine.CoreModule",
+              "x": -1,
+              "y": 2,
+              "magnitude": 2.236068,
+              "sqrMagnitude": 5
+            },
+            "mapLayer": 0,
+            "iconAtlasName": "Puzzle_Icons_01",
+            "iconIndex": 2,
+            "baseColour": {
+              "$type": "SerializableColor, Assembly-CSharp",
+              "colorStore": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  2.0,
+                  2.0,
+                  2.0,
+                  0.156862751
+                ]
+              }
+            },
+            "iconColour": {
+              "$type": "SerializableColor, Assembly-CSharp",
+              "colorStore": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  2.0,
+                  2.0,
+                  2.0,
+                  0.156862751
+                ]
+              }
+            },
+            "iconRotation": 0.0,
+            "HexAttributes": {
+              "$type": "System.Collections.Generic.List`1[[ElementAttribute, Assembly-CSharp]], mscorlib",
+              "$values": []
+            }
+          },
+          {
+            "$type": "MapElement, Assembly-CSharp",
+            "displayName": "Puzzle/PowerConductor",
+            "gridPos": {
+              "$type": "UnityEngine.Vector2Int, UnityEngine.CoreModule",
+              "x": 1,
+              "y": 4,
+              "magnitude": 4.12310553,
+              "sqrMagnitude": 17
+            },
+            "mapLayer": 0,
+            "iconAtlasName": "Puzzle_Icons_01",
+            "iconIndex": 2,
+            "baseColour": {
+              "$type": "SerializableColor, Assembly-CSharp",
+              "colorStore": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  2.0,
+                  2.0,
+                  2.0,
+                  0.156862751
+                ]
+              }
+            },
+            "iconColour": {
+              "$type": "SerializableColor, Assembly-CSharp",
+              "colorStore": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  2.0,
+                  2.0,
+                  2.0,
+                  0.156862751
+                ]
+              }
+            },
+            "iconRotation": 0.0,
+            "HexAttributes": {
+              "$type": "System.Collections.Generic.List`1[[ElementAttribute, Assembly-CSharp]], mscorlib",
+              "$values": []
+            }
+          },
+          {
+            "$type": "MapElement, Assembly-CSharp",
+            "displayName": "Puzzle/PowerConductor",
+            "gridPos": {
+              "$type": "UnityEngine.Vector2Int, UnityEngine.CoreModule",
+              "x": 2,
+              "y": 4,
+              "magnitude": 4.472136,
+              "sqrMagnitude": 20
+            },
+            "mapLayer": 0,
+            "iconAtlasName": "Puzzle_Icons_01",
+            "iconIndex": 2,
+            "baseColour": {
+              "$type": "SerializableColor, Assembly-CSharp",
+              "colorStore": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  2.0,
+                  2.0,
+                  2.0,
+                  0.156862751
+                ]
+              }
+            },
+            "iconColour": {
+              "$type": "SerializableColor, Assembly-CSharp",
+              "colorStore": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  2.0,
+                  2.0,
+                  2.0,
+                  0.156862751
+                ]
+              }
+            },
+            "iconRotation": 0.0,
+            "HexAttributes": {
+              "$type": "System.Collections.Generic.List`1[[ElementAttribute, Assembly-CSharp]], mscorlib",
+              "$values": []
+            }
+          },
+          {
+            "$type": "MapElement, Assembly-CSharp",
+            "displayName": "Puzzle/PowerConductor",
+            "gridPos": {
+              "$type": "UnityEngine.Vector2Int, UnityEngine.CoreModule",
+              "x": 3,
+              "y": 4,
+              "magnitude": 5.0,
+              "sqrMagnitude": 25
+            },
+            "mapLayer": 0,
+            "iconAtlasName": "Puzzle_Icons_01",
+            "iconIndex": 2,
+            "baseColour": {
+              "$type": "SerializableColor, Assembly-CSharp",
+              "colorStore": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  2.0,
+                  2.0,
+                  2.0,
+                  0.156862751
+                ]
+              }
+            },
+            "iconColour": {
+              "$type": "SerializableColor, Assembly-CSharp",
+              "colorStore": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  2.0,
+                  2.0,
+                  2.0,
+                  0.156862751
+                ]
+              }
+            },
+            "iconRotation": 0.0,
+            "HexAttributes": {
+              "$type": "System.Collections.Generic.List`1[[ElementAttribute, Assembly-CSharp]], mscorlib",
+              "$values": []
+            }
+          },
+          {
+            "$type": "MapElement, Assembly-CSharp",
+            "displayName": "Puzzle/PowerConductor",
+            "gridPos": {
+              "$type": "UnityEngine.Vector2Int, UnityEngine.CoreModule",
+              "x": 2,
+              "y": 2,
+              "magnitude": 2.828427,
+              "sqrMagnitude": 8
+            },
+            "mapLayer": 0,
+            "iconAtlasName": "Puzzle_Icons_01",
+            "iconIndex": 2,
+            "baseColour": {
+              "$type": "SerializableColor, Assembly-CSharp",
+              "colorStore": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  2.0,
+                  2.0,
+                  2.0,
+                  0.156862751
+                ]
+              }
+            },
+            "iconColour": {
+              "$type": "SerializableColor, Assembly-CSharp",
+              "colorStore": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  2.0,
+                  2.0,
+                  2.0,
+                  0.156862751
+                ]
+              }
+            },
+            "iconRotation": 0.0,
+            "HexAttributes": {
+              "$type": "System.Collections.Generic.List`1[[ElementAttribute, Assembly-CSharp]], mscorlib",
+              "$values": [
+                {
+                  "$type": "PowerConductorAttribute, Assembly-CSharp"
+                }
+              ]
+            }
+          },
+          {
+            "$type": "MapElement, Assembly-CSharp",
+            "displayName": "Puzzle/PowerConductor",
+            "gridPos": {
+              "$type": "UnityEngine.Vector2Int, UnityEngine.CoreModule",
+              "x": 2,
+              "y": 3,
+              "magnitude": 3.60555124,
+              "sqrMagnitude": 13
+            },
+            "mapLayer": 0,
+            "iconAtlasName": "Puzzle_Icons_01",
+            "iconIndex": 2,
+            "baseColour": {
+              "$type": "SerializableColor, Assembly-CSharp",
+              "colorStore": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  2.0,
+                  2.0,
+                  2.0,
+                  0.156862751
+                ]
+              }
+            },
+            "iconColour": {
+              "$type": "SerializableColor, Assembly-CSharp",
+              "colorStore": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  2.0,
+                  2.0,
+                  2.0,
+                  0.156862751
+                ]
+              }
+            },
+            "iconRotation": 0.0,
+            "HexAttributes": {
+              "$type": "System.Collections.Generic.List`1[[ElementAttribute, Assembly-CSharp]], mscorlib",
+              "$values": [
+                {
+                  "$type": "PowerConductorAttribute, Assembly-CSharp"
+                }
+              ]
+            }
+          },
+          {
+            "$type": "MapElement, Assembly-CSharp",
+            "displayName": "Puzzle/PowerConductor",
+            "gridPos": {
+              "$type": "UnityEngine.Vector2Int, UnityEngine.CoreModule",
+              "x": 1,
+              "y": 3,
+              "magnitude": 3.1622777,
+              "sqrMagnitude": 10
+            },
+            "mapLayer": 0,
+            "iconAtlasName": "Puzzle_Icons_01",
+            "iconIndex": 2,
+            "baseColour": {
+              "$type": "SerializableColor, Assembly-CSharp",
+              "colorStore": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  2.0,
+                  2.0,
+                  2.0,
+                  0.156862751
+                ]
+              }
+            },
+            "iconColour": {
+              "$type": "SerializableColor, Assembly-CSharp",
+              "colorStore": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  2.0,
+                  2.0,
+                  2.0,
+                  0.156862751
+                ]
+              }
+            },
+            "iconRotation": 0.0,
+            "HexAttributes": {
+              "$type": "System.Collections.Generic.List`1[[ElementAttribute, Assembly-CSharp]], mscorlib",
+              "$values": [
+                {
+                  "$type": "PowerConductorAttribute, Assembly-CSharp"
+                }
+              ]
+            }
+          },
+          {
+            "$type": "MapElement, Assembly-CSharp",
+            "displayName": "Puzzle/PowerConductor",
+            "gridPos": {
+              "$type": "UnityEngine.Vector2Int, UnityEngine.CoreModule",
+              "x": 0,
+              "y": 2,
+              "magnitude": 2.0,
+              "sqrMagnitude": 4
+            },
+            "mapLayer": 0,
+            "iconAtlasName": "Puzzle_Icons_01",
+            "iconIndex": 2,
+            "baseColour": {
+              "$type": "SerializableColor, Assembly-CSharp",
+              "colorStore": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  2.0,
+                  2.0,
+                  2.0,
+                  0.156862751
+                ]
+              }
+            },
+            "iconColour": {
+              "$type": "SerializableColor, Assembly-CSharp",
+              "colorStore": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  2.0,
+                  2.0,
+                  2.0,
+                  0.156862751
+                ]
+              }
+            },
+            "iconRotation": 0.0,
+            "HexAttributes": {
+              "$type": "System.Collections.Generic.List`1[[ElementAttribute, Assembly-CSharp]], mscorlib",
+              "$values": [
+                {
+                  "$type": "PowerConductorAttribute, Assembly-CSharp"
+                }
+              ]
+            }
+          },
+          {
+            "$type": "MapElement, Assembly-CSharp",
+            "displayName": "Puzzle/PowerConductor",
+            "gridPos": {
+              "$type": "UnityEngine.Vector2Int, UnityEngine.CoreModule",
+              "x": 0,
+              "y": 1,
+              "magnitude": 1.0,
+              "sqrMagnitude": 1
+            },
+            "mapLayer": 0,
+            "iconAtlasName": "Puzzle_Icons_01",
+            "iconIndex": 2,
+            "baseColour": {
+              "$type": "SerializableColor, Assembly-CSharp",
+              "colorStore": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  2.0,
+                  2.0,
+                  2.0,
+                  0.156862751
+                ]
+              }
+            },
+            "iconColour": {
+              "$type": "SerializableColor, Assembly-CSharp",
+              "colorStore": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  2.0,
+                  2.0,
+                  2.0,
+                  0.156862751
+                ]
+              }
+            },
+            "iconRotation": 0.0,
+            "HexAttributes": {
+              "$type": "System.Collections.Generic.List`1[[ElementAttribute, Assembly-CSharp]], mscorlib",
+              "$values": [
+                {
+                  "$type": "PowerConductorAttribute, Assembly-CSharp"
+                }
+              ]
+            }
+          },
+          {
+            "$type": "MapElement, Assembly-CSharp",
+            "displayName": "Puzzle/PowerConductor",
+            "gridPos": {
+              "$type": "UnityEngine.Vector2Int, UnityEngine.CoreModule",
+              "x": 1,
+              "y": 1,
+              "magnitude": 1.41421354,
+              "sqrMagnitude": 2
+            },
+            "mapLayer": 0,
+            "iconAtlasName": "Puzzle_Icons_01",
+            "iconIndex": 2,
+            "baseColour": {
+              "$type": "SerializableColor, Assembly-CSharp",
+              "colorStore": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  2.0,
+                  2.0,
+                  2.0,
+                  0.156862751
+                ]
+              }
+            },
+            "iconColour": {
+              "$type": "SerializableColor, Assembly-CSharp",
+              "colorStore": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  2.0,
+                  2.0,
+                  2.0,
+                  0.156862751
+                ]
+              }
+            },
+            "iconRotation": 0.0,
+            "HexAttributes": {
+              "$type": "System.Collections.Generic.List`1[[ElementAttribute, Assembly-CSharp]], mscorlib",
+              "$values": [
+                {
+                  "$type": "PowerConductorAttribute, Assembly-CSharp"
+                }
+              ]
+            }
+          },
+          {
+            "$type": "MapElement, Assembly-CSharp",
+            "displayName": "Puzzle/PowerConductor",
+            "gridPos": {
+              "$type": "UnityEngine.Vector2Int, UnityEngine.CoreModule",
+              "x": 0,
+              "y": 0,
+              "magnitude": 0.0,
+              "sqrMagnitude": 0
+            },
+            "mapLayer": 0,
+            "iconAtlasName": "Puzzle_Icons_01",
+            "iconIndex": 2,
+            "baseColour": {
+              "$type": "SerializableColor, Assembly-CSharp",
+              "colorStore": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  2.0,
+                  2.0,
+                  2.0,
+                  0.156862751
+                ]
+              }
+            },
+            "iconColour": {
+              "$type": "SerializableColor, Assembly-CSharp",
+              "colorStore": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  2.0,
+                  2.0,
+                  2.0,
+                  0.156862751
+                ]
+              }
+            },
+            "iconRotation": 0.0,
+            "HexAttributes": {
+              "$type": "System.Collections.Generic.List`1[[ElementAttribute, Assembly-CSharp]], mscorlib",
+              "$values": []
+            }
+          },
+          {
+            "$type": "MapElement, Assembly-CSharp",
+            "displayName": "Puzzle/PowerConductor",
+            "gridPos": {
+              "$type": "UnityEngine.Vector2Int, UnityEngine.CoreModule",
+              "x": -1,
+              "y": -1,
+              "magnitude": 1.41421354,
+              "sqrMagnitude": 2
+            },
+            "mapLayer": 0,
+            "iconAtlasName": "Puzzle_Icons_01",
+            "iconIndex": 2,
+            "baseColour": {
+              "$type": "SerializableColor, Assembly-CSharp",
+              "colorStore": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  2.0,
+                  2.0,
+                  2.0,
+                  0.156862751
+                ]
+              }
+            },
+            "iconColour": {
+              "$type": "SerializableColor, Assembly-CSharp",
+              "colorStore": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  2.0,
+                  2.0,
+                  2.0,
+                  0.156862751
+                ]
+              }
+            },
+            "iconRotation": 0.0,
+            "HexAttributes": {
+              "$type": "System.Collections.Generic.List`1[[ElementAttribute, Assembly-CSharp]], mscorlib",
+              "$values": []
+            }
+          },
+          {
+            "$type": "MapElement, Assembly-CSharp",
+            "displayName": "Puzzle/PowerConductor",
+            "gridPos": {
+              "$type": "UnityEngine.Vector2Int, UnityEngine.CoreModule",
+              "x": 0,
+              "y": -1,
+              "magnitude": 1.0,
+              "sqrMagnitude": 1
+            },
+            "mapLayer": 0,
+            "iconAtlasName": "Puzzle_Icons_01",
+            "iconIndex": 2,
+            "baseColour": {
+              "$type": "SerializableColor, Assembly-CSharp",
+              "colorStore": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  2.0,
+                  2.0,
+                  2.0,
+                  0.156862751
+                ]
+              }
+            },
+            "iconColour": {
+              "$type": "SerializableColor, Assembly-CSharp",
+              "colorStore": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  2.0,
+                  2.0,
+                  2.0,
+                  0.156862751
+                ]
+              }
+            },
+            "iconRotation": 0.0,
+            "HexAttributes": {
+              "$type": "System.Collections.Generic.List`1[[ElementAttribute, Assembly-CSharp]], mscorlib",
+              "$values": []
+            }
+          },
+          {
+            "$type": "MapElement, Assembly-CSharp",
+            "displayName": "Puzzle/PowerConductor",
+            "gridPos": {
+              "$type": "UnityEngine.Vector2Int, UnityEngine.CoreModule",
+              "x": -1,
+              "y": 0,
+              "magnitude": 1.0,
+              "sqrMagnitude": 1
+            },
+            "mapLayer": 0,
+            "iconAtlasName": "Puzzle_Icons_01",
+            "iconIndex": 2,
+            "baseColour": {
+              "$type": "SerializableColor, Assembly-CSharp",
+              "colorStore": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  2.0,
+                  2.0,
+                  2.0,
+                  0.156862751
+                ]
+              }
+            },
+            "iconColour": {
+              "$type": "SerializableColor, Assembly-CSharp",
+              "colorStore": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  2.0,
+                  2.0,
+                  2.0,
+                  0.156862751
+                ]
+              }
+            },
+            "iconRotation": 0.0,
+            "HexAttributes": {
+              "$type": "System.Collections.Generic.List`1[[ElementAttribute, Assembly-CSharp]], mscorlib",
+              "$values": []
+            }
+          },
+          {
+            "$type": "MapElement, Assembly-CSharp",
+            "displayName": "Puzzle/PowerConductor",
+            "gridPos": {
+              "$type": "UnityEngine.Vector2Int, UnityEngine.CoreModule",
+              "x": -1,
+              "y": 1,
+              "magnitude": 1.41421354,
+              "sqrMagnitude": 2
+            },
+            "mapLayer": 0,
+            "iconAtlasName": "Puzzle_Icons_01",
+            "iconIndex": 2,
+            "baseColour": {
+              "$type": "SerializableColor, Assembly-CSharp",
+              "colorStore": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  2.0,
+                  2.0,
+                  2.0,
+                  0.156862751
+                ]
+              }
+            },
+            "iconColour": {
+              "$type": "SerializableColor, Assembly-CSharp",
+              "colorStore": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  2.0,
+                  2.0,
+                  2.0,
+                  0.156862751
+                ]
+              }
+            },
+            "iconRotation": 0.0,
+            "HexAttributes": {
+              "$type": "System.Collections.Generic.List`1[[ElementAttribute, Assembly-CSharp]], mscorlib",
+              "$values": []
+            }
+          },
+          {
+            "$type": "MapElement, Assembly-CSharp",
+            "displayName": "Puzzle/PowerConductor",
+            "gridPos": {
+              "$type": "UnityEngine.Vector2Int, UnityEngine.CoreModule",
+              "x": 2,
+              "y": 1,
+              "magnitude": 2.236068,
+              "sqrMagnitude": 5
+            },
+            "mapLayer": 0,
+            "iconAtlasName": "Puzzle_Icons_01",
+            "iconIndex": 2,
+            "baseColour": {
+              "$type": "SerializableColor, Assembly-CSharp",
+              "colorStore": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  2.0,
+                  2.0,
+                  2.0,
+                  0.156862751
+                ]
+              }
+            },
+            "iconColour": {
+              "$type": "SerializableColor, Assembly-CSharp",
+              "colorStore": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  2.0,
+                  2.0,
+                  2.0,
+                  0.156862751
+                ]
+              }
+            },
+            "iconRotation": 0.0,
+            "HexAttributes": {
+              "$type": "System.Collections.Generic.List`1[[ElementAttribute, Assembly-CSharp]], mscorlib",
+              "$values": []
+            }
+          },
+          {
+            "$type": "MapElement, Assembly-CSharp",
+            "displayName": "Puzzle/PowerConductor",
+            "gridPos": {
+              "$type": "UnityEngine.Vector2Int, UnityEngine.CoreModule",
+              "x": 3,
+              "y": 3,
+              "magnitude": 4.2426405,
+              "sqrMagnitude": 18
+            },
+            "mapLayer": 0,
+            "iconAtlasName": "Puzzle_Icons_01",
+            "iconIndex": 2,
+            "baseColour": {
+              "$type": "SerializableColor, Assembly-CSharp",
+              "colorStore": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  2.0,
+                  2.0,
+                  2.0,
+                  0.156862751
+                ]
+              }
+            },
+            "iconColour": {
+              "$type": "SerializableColor, Assembly-CSharp",
+              "colorStore": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  2.0,
+                  2.0,
+                  2.0,
+                  0.156862751
+                ]
+              }
+            },
+            "iconRotation": 0.0,
+            "HexAttributes": {
+              "$type": "System.Collections.Generic.List`1[[ElementAttribute, Assembly-CSharp]], mscorlib",
+              "$values": []
+            }
+          },
+          {
+            "$type": "MapElement, Assembly-CSharp",
+            "displayName": "Puzzle/PowerConductor",
+            "gridPos": {
+              "$type": "UnityEngine.Vector2Int, UnityEngine.CoreModule",
+              "x": 3,
+              "y": 3,
+              "magnitude": 4.2426405,
+              "sqrMagnitude": 18
+            },
+            "mapLayer": 0,
+            "iconAtlasName": "Puzzle_Icons_01",
+            "iconIndex": 2,
+            "baseColour": {
+              "$type": "SerializableColor, Assembly-CSharp",
+              "colorStore": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  2.0,
+                  2.0,
+                  2.0,
+                  0.156862751
+                ]
+              }
+            },
+            "iconColour": {
+              "$type": "SerializableColor, Assembly-CSharp",
+              "colorStore": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  2.0,
+                  2.0,
+                  2.0,
+                  0.156862751
+                ]
+              }
+            },
+            "iconRotation": 0.0,
+            "HexAttributes": {
+              "$type": "System.Collections.Generic.List`1[[ElementAttribute, Assembly-CSharp]], mscorlib",
+              "$values": []
+            }
+          },
+          {
+            "$type": "MapElement, Assembly-CSharp",
+            "displayName": "Puzzle/PowerConductor",
+            "gridPos": {
+              "$type": "UnityEngine.Vector2Int, UnityEngine.CoreModule",
+              "x": 0,
+              "y": 3,
+              "magnitude": 3.0,
+              "sqrMagnitude": 9
+            },
+            "mapLayer": 0,
+            "iconAtlasName": "Puzzle_Icons_01",
+            "iconIndex": 2,
+            "baseColour": {
+              "$type": "SerializableColor, Assembly-CSharp",
+              "colorStore": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  2.0,
+                  2.0,
+                  2.0,
+                  0.156862751
+                ]
+              }
+            },
+            "iconColour": {
+              "$type": "SerializableColor, Assembly-CSharp",
+              "colorStore": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  2.0,
+                  2.0,
+                  2.0,
+                  0.156862751
+                ]
+              }
+            },
+            "iconRotation": 0.0,
+            "HexAttributes": {
+              "$type": "System.Collections.Generic.List`1[[ElementAttribute, Assembly-CSharp]], mscorlib",
+              "$values": []
+            }
+          },
+          {
+            "$type": "MapElement, Assembly-CSharp",
+            "displayName": "Puzzle/PowerConductor",
+            "gridPos": {
+              "$type": "UnityEngine.Vector2Int, UnityEngine.CoreModule",
+              "x": 2,
+              "y": -1,
+              "magnitude": 2.236068,
+              "sqrMagnitude": 5
+            },
+            "mapLayer": 0,
+            "iconAtlasName": "Puzzle_Icons_01",
+            "iconIndex": 2,
+            "baseColour": {
+              "$type": "SerializableColor, Assembly-CSharp",
+              "colorStore": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  2.0,
+                  2.0,
+                  2.0,
+                  0.156862751
+                ]
+              }
+            },
+            "iconColour": {
+              "$type": "SerializableColor, Assembly-CSharp",
+              "colorStore": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  2.0,
+                  2.0,
+                  2.0,
+                  0.156862751
+                ]
+              }
+            },
+            "iconRotation": 0.0,
+            "HexAttributes": {
+              "$type": "System.Collections.Generic.List`1[[ElementAttribute, Assembly-CSharp]], mscorlib",
+              "$values": []
+            }
+          },
+          {
+            "$type": "MapElement, Assembly-CSharp",
+            "displayName": "Puzzle/PowerConductor",
+            "gridPos": {
+              "$type": "UnityEngine.Vector2Int, UnityEngine.CoreModule",
+              "x": 1,
+              "y": -1,
+              "magnitude": 1.41421354,
+              "sqrMagnitude": 2
+            },
+            "mapLayer": 0,
+            "iconAtlasName": "Puzzle_Icons_01",
+            "iconIndex": 2,
+            "baseColour": {
+              "$type": "SerializableColor, Assembly-CSharp",
+              "colorStore": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  2.0,
+                  2.0,
+                  2.0,
+                  0.156862751
+                ]
+              }
+            },
+            "iconColour": {
+              "$type": "SerializableColor, Assembly-CSharp",
+              "colorStore": {
+                "$type": "System.Single[], mscorlib",
+                "$values": [
+                  2.0,
+                  2.0,
+                  2.0,
+                  0.156862751
+                ]
+              }
+            },
+            "iconRotation": 0.0,
+            "HexAttributes": {
+              "$type": "System.Collections.Generic.List`1[[ElementAttribute, Assembly-CSharp]], mscorlib",
+              "$values": []
+            }
+          }
+        ]
+      },
+      {
+        "$type": "MapElement[], Assembly-CSharp",
+        "$values": []
+      },
+      {
+        "$type": "MapElement[], Assembly-CSharp",
+        "$values": []
+      },
+      {
+        "$type": "MapElement[], Assembly-CSharp",
+        "$values": []
+      },
+      {
+        "$type": "MapElement[], Assembly-CSharp",
+        "$values": []
+      }
+    ]
+  },
+  "gridRadius": 8,
+  "startLayer": 0
+}

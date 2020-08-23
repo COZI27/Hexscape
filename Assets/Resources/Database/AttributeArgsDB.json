@@ -1,0 +1,104 @@
+[
+  {
+    "$type": "AttributeArgsLoader+AttributeArgs, Assembly-CSharp",
+    "objectType": "DigitElementAttribute",
+    "conditionType": "HexTile_Digit0",
+    "args": [
+      0,
+      0
+    ]
+  },
+  {
+    "$type": "AttributeArgsLoader+AttributeArgs, Assembly-CSharp",
+    "objectType": "DigitElementAttribute",
+    "conditionType": "HexTile_Digit1",
+    "args": [
+      0,
+      1
+    ]
+  },
+  {
+    "$type": "AttributeArgsLoader+AttributeArgs, Assembly-CSharp",
+    "objectType": "DigitElementAttribute",
+    "conditionType": "HexTile_Digit2",
+    "args": [
+      0,
+      2
+    ]
+  },
+  {
+    "$type": "AttributeArgsLoader+AttributeArgs, Assembly-CSharp",
+    "objectType": "DigitElementAttribute",
+    "conditionType": "HexTile_Digit5",
+    "args": [
+      0,
+      5
+    ]
+  },
+  {
+    "$type": "AttributeArgsLoader+AttributeArgs, Assembly-CSharp",
+    "objectType": "DigitElementAttribute",
+    "conditionType": "HexTile_Digit6",
+    "args": [
+      0,
+      6
+    ]
+  },
+  {
+    "$type": "AttributeArgsLoader+AttributeArgs, Assembly-CSharp",
+    "objectType": "DigitElementAttribute",
+    "conditionType": "HexTile_Digit7",
+    "args": [
+      0,
+      7
+    ]
+  },
+  {
+    "$type": "AttributeArgsLoader+AttributeArgs, Assembly-CSharp",
+    "objectType": "MenuButtonElementAttribute",
+    "conditionType": "HexTile_Back",
+    "args": [
+      8
+    ]
+  },
+  {
+    "$type": "AttributeArgsLoader+AttributeArgs, Assembly-CSharp",
+    "objectType": "MenuButtonElementAttribute",
+    "conditionType": "HexTile_Info",
+    "args": [
+      12
+    ]
+  },
+  {
+    "$type": "AttributeArgsLoader+AttributeArgs, Assembly-CSharp",
+    "objectType": "MenuButtonElementAttribute",
+    "conditionType": "HexTile_Login",
+    "args": [
+      9
+    ]
+  },
+  {
+    "$type": "AttributeArgsLoader+AttributeArgs, Assembly-CSharp",
+    "objectType": "MenuButtonElementAttribute",
+    "conditionType": "HexTile_MenuOption",
+    "args": [
+      7
+    ]
+  },
+  {
+    "$type": "AttributeArgsLoader+AttributeArgs, Assembly-CSharp",
+    "objectType": "MenuButtonElementAttribute",
+    "conditionType": "HexTile_NewUser",
+    "args": [
+      10
+    ]
+  },
+  {
+    "$type": "AttributeArgsLoader+AttributeArgs, Assembly-CSharp",
+    "objectType": "MenuButtonElementAttribute",
+    "conditionType": "HexTile_Settings",
+    "args": [
+      13
+    ]
+  }
+]
